@@ -103,21 +103,13 @@ CarCache* _carCache = nil;
 
 + (void) setTarget: (CGPoint&) target
 {
-    _carCache.target    = target;
-    
     float deltaX    = target.x - _carCache.position.x;
     float deltaY    = target.y - _carCache.position.y;
-    
-    printf ("deltaX:%f deltaY:%f", deltaX, deltaY);
-    printf ("\n");
-    
-    if ( deltaX == 0.0f )
-        deltaX  = 0.00000001f;
-    float radian    = atanf( deltaY / deltaX );
+    _carCache.target    = target;
+
+    float radian    = atan2f(deltaY, deltaX);
+    radian  = M_PI_2 - radian;
     float rotation  = (radian * 180.0f / M_PI );
-    
-    printf ("rotation: %f", rotation);
-    printf ("\n");
     
     _carCache.rotation  = rotation;
     [_carCache.carSprite setRotation:rotation];
