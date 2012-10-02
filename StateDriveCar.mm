@@ -66,6 +66,7 @@ enum STATE_DRIVE_CAR
 @synthesize _cSubPointId;
 @synthesize _cDistanceToMoveNextFrame;
 
+vector<TrVertex>    _allVertices;
 vector<TrVertex>    _vertexRoute;
 vector<TrEdge>      _edgeRoute;
 
@@ -73,6 +74,7 @@ vector<TrEdge>      _edgeRoute;
 {
     // load route data
     RouteGraph& routeGraph  = [World GetRouteGraph];
+    _allVertices    = routeGraph.GetAllVertices();
     _vertexRoute    = routeGraph.GetVertexRoute();
     _edgeRoute      = routeGraph.GetEdgeRoute();
 
@@ -120,24 +122,37 @@ vector<TrEdge>      _edgeRoute;
             
             // set car
             CGPoint& firstVertexPoint   = _vertexRoute[0].point;
-            
-            CCLOG(@"vertex poitn x: %f y: %f", firstVertexPoint.x, firstVertexPoint.y);
+            CCLOG(@"vertex point x: %f y: %f", firstVertexPoint.x, firstVertexPoint.y);
             
             [Car setPosition:firstVertexPoint];
             [Car setTarget:_edgeRoute[0].subPoints[0]];
             [Car setSpeed:50.0f];
             
+//            printf ("point:(%f,%f) target:(%f,%f)", firstVertexPoint.x, firstVertexPoint.x,
+//                    _edgeRoute[0].subPoints[0].x, _edgeRoute[0].subPoints[0].y);
+//            printf ("\n");
+            
             // set first Edge
             _cEdge  = _edgeRoute[0];
             _cSubPoints.clear();
-            _cSubPoints.push_back(_vertexRoute[_cEdge.vertexStart].point);
+            _cSubPoints.push_back(_allVertices[_cEdge.vertexStart].point);
             for ( int i=0; i<_cEdge.subPoints.size(); ++i )
             {
                 _cSubPoints.push_back(_cEdge.subPoints[i]);
             }
-            _cSubPoints.push_back(_vertexRoute[_cEdge.vertexEnd].point);
+            _cSubPoints.push_back(_allVertices[_cEdge.vertexEnd].point);
             _cSubPointId    = 0;
             _cDistanceToMoveNextFrame    = 0.0f;
+            
+            printf ("vertexStart: %d", _cEdge.vertexStart);
+            printf ("----");
+            printf ("vertexEnd: %d", _cEdge.vertexEnd);
+            printf ("\n");
+            for ( int i=0; i< _cSubPoints.size(); ++i)
+            {
+                printf ("_cSubPoints[%d]: (%f,%f)", i, _cSubPoints[i].x, _cSubPoints[i].y);
+                printf ("\n");
+            }
             
             _currentState   = STATE_DRIVE_CAR_DRIVE_CAR_LERP;
         }
@@ -158,39 +173,23 @@ vector<TrEdge>      _edgeRoute;
             
             float deltaX    = nextSubPoint.x - cSubPoint.x;
             float deltaY    = nextSubPoint.y - cSubPoint.y;
+            
             if ( deltaX == 0.0f )
                 deltaX  = 0.000001f;
-            float radian    = tanf( deltaY / deltaX );
-            
+            float radian    = atanf( deltaY / deltaX );
             while ( radian > M_2_PI )
             {
                 radian -= M_2_PI;
             }
+       
+            float angle     = radian * 180.0f / M_PI;
             
-            float directionGuideX   = 1.0f;
-            float directionGuideY   = 1.0f;
-            if ( 0.00f <= radian < M_PI_2)
-            {
-                directionGuideX = 1.0f;
-                directionGuideY = 1.0f;
-            }
-            else if ( M_PI_2 <= radian < M_PI )
-            {
-                directionGuideX = -1.0f;
-                directionGuideY = 1.0f;
-            }
-            else if ( M_PI <= radian < M_PI + M_PI_2 )
-            {
-                directionGuideX = -1.0f;
-                directionGuideY = -1.0f;
-            }
-            else
-            {
-                directionGuideX = 1.0f;
-                directionGuideY = -1.0f;
-            }
+            printf ("delta x:%f y:%f", deltaX, deltaY);
+            printf ("angle: %f", angle);
+            printf ("\n");
             
-            //float angle     = radian * 180.0f / M_PI + 90.0f;
+            break;
+            
             //float netDistance  = deltaX*deltaX + deltaY*deltaY;
             
             CGPoint carPos  = [Car getPosition];
