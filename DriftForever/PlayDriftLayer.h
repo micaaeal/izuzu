@@ -1,0 +1,18 @@
+//
+//  PlayDriftLayer.h
+//  DriftForever
+//
+//  Created by Adawat Chanchua on 9/26/55 BE.
+//  Copyright 2555 __MyCompanyName__. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "cocos2d.h"
+
+@interface PlayDriftLayer : CCLayer
+{
+}
+
++(CCScene *) scene;
+
+@end
