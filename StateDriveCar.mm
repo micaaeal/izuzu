@@ -44,8 +44,7 @@ enum STATE_DRIVE_CAR
 @property (assign) float _camInitEyeZ;
 @property (assign) STATE_DRIVE_CAR  _currentState;
 
-@property (assign) TrEdge           _cEdge;
-@property (assign) vector<CGPoint>  _cSubPoints;
+@property (assign) vector<CGPoint>  _cMovingPoints;
 @property (assign) int              _cSubPointId;
 @property (assign) float            _cDistanceToMoveNextFrame;
 
@@ -61,8 +60,7 @@ enum STATE_DRIVE_CAR
 @synthesize _camInitEyeZ;
 @synthesize _currentState;
 
-@synthesize _cEdge;
-@synthesize _cSubPoints;
+@synthesize _cMovingPoints;
 @synthesize _cSubPointId;
 @synthesize _cDistanceToMoveNextFrame;
 
@@ -126,33 +124,26 @@ vector<TrEdge>      _edgeRoute;
             
             [Car setPosition:firstVertexPoint];
             [Car setTarget:_edgeRoute[0].subPoints[0]];
-            [Car setSpeed:50.0f];
+            [Car setSpeed:300.0f];
             
-//            printf ("point:(%f,%f) target:(%f,%f)", firstVertexPoint.x, firstVertexPoint.x,
-//                    _edgeRoute[0].subPoints[0].x, _edgeRoute[0].subPoints[0].y);
-//            printf ("\n");
+            // set moving point as route
+            _cMovingPoints.clear();
             
-            // set first Edge
-            _cEdge  = _edgeRoute[0];
-            _cSubPoints.clear();
-            _cSubPoints.push_back(_allVertices[_cEdge.vertexStart].point);
-            for ( int i=0; i<_cEdge.subPoints.size(); ++i )
+            TrEdge cEdge;
+            for ( int i=0; i<_edgeRoute.size(); ++i )
             {
-                _cSubPoints.push_back(_cEdge.subPoints[i]);
+                cEdge    = _edgeRoute[i];
+                _cMovingPoints.push_back(_allVertices[cEdge.vertexStart].point);
+                for ( int j=0; j<cEdge.subPoints.size(); ++j )
+                {
+                    _cMovingPoints.push_back(cEdge.subPoints[j]);
+                }
             }
-            _cSubPoints.push_back(_allVertices[_cEdge.vertexEnd].point);
+            _cMovingPoints.push_back(_allVertices[cEdge.vertexEnd].point);
+            
+            // reset ref
             _cSubPointId    = 0;
             _cDistanceToMoveNextFrame    = 0.0f;
-            
-            printf ("vertexStart: %d", _cEdge.vertexStart);
-            printf ("----");
-            printf ("vertexEnd: %d", _cEdge.vertexEnd);
-            printf ("\n");
-            for ( int i=0; i< _cSubPoints.size(); ++i)
-            {
-                printf ("_cSubPoints[%d]: (%f,%f)", i, _cSubPoints[i].x, _cSubPoints[i].y);
-                printf ("\n");
-            }
             
             _currentState   = STATE_DRIVE_CAR_DRIVE_CAR_LERP;
         }
@@ -164,85 +155,83 @@ vector<TrEdge>      _edgeRoute;
             break;
         case STATE_DRIVE_CAR_DRIVE_CAR_LERP:
         {
-            break;
+            // flags
+            BOOL isEndThisSubPoint = NO;
             
-            int subPointsSize   = _cSubPoints.size();
-
-            CGPoint cSubPoint       = _cSubPoints[_cSubPointId];
-            CGPoint nextSubPoint    = _cSubPoints[_cSubPointId+1];
+            //---------------------------------------------------------
+            int subPointsSize   = _cMovingPoints.size();
+            CGPoint cSubPoint       = _cMovingPoints[_cSubPointId];
+            CGPoint nextSubPoint    = _cMovingPoints[_cSubPointId+1];
+            CGPoint cCarPoint       = [Car getPosition];
+            CGFloat cCarSpeed       = [Car getSpeed];
             
-            float deltaX    = nextSubPoint.x - cSubPoint.x;
-            float deltaY    = nextSubPoint.y - cSubPoint.y;
+            // get new position
+            CGPoint p2pVec      = CGPointMake(nextSubPoint.x - cSubPoint.x,
+                                              nextSubPoint.y - cSubPoint.y);
             
-            if ( deltaX == 0.0f )
-                deltaX  = 0.000001f;
-            float radian    = atanf( deltaY / deltaX );
-            while ( radian > M_2_PI )
-            {
-                radian -= M_2_PI;
-            }
-       
-            float angle     = radian * 180.0f / M_PI;
+            CGFloat p2pVecLength    = sqrtf( ( p2pVec.x * p2pVec.x ) + ( p2pVec.y * p2pVec.y ) );
+            CGPoint p2pVecNorm      = CGPointMake(p2pVec.x / p2pVecLength,
+                                                  p2pVec.y / p2pVecLength);
             
-            printf ("delta x:%f y:%f", deltaX, deltaY);
-            printf ("angle: %f", angle);
-            printf ("\n");
-            
-            break;
-            
-            //float netDistance  = deltaX*deltaX + deltaY*deltaY;
-            
-            CGPoint carPos  = [Car getPosition];
-            float remainX   = nextSubPoint.x - carPos.x;
-            float remainY   = nextSubPoint.y - carPos.y;
-
-//            printf ("remain x: %f remain y: %f", remainX*directionGuideX, remainY*directionGuideY);
-//            printf ("\n");
-
-            float remainDistance    = sqrtf( remainX*remainX + remainY*remainY );
-            
-//            printf ("remain distance: %f", remainDistance);
-//            printf ("\n");
-            
-            float carSpeed      = [Car getSpeed];
-            float distanceToMove    = (carSpeed * deltaTime) + _cDistanceToMoveNextFrame;
+            // car distance this frame
+            CGFloat carDistance     = cCarSpeed * deltaTime;
+            carDistance += _cDistanceToMoveNextFrame;
             _cDistanceToMoveNextFrame   = 0.0f;
             
-            float distanceCanMove   = (distanceToMove <= remainDistance)? distanceToMove : remainDistance;
+            CGPoint carMoveVec      = CGPointMake(carDistance * p2pVecNorm.x,
+                                                  carDistance * p2pVecNorm.y);
             
-            float distanceToMoveNextFrame = distanceToMove - distanceCanMove;
+            CGPoint carNewVec       = CGPointMake(cCarPoint.x + carMoveVec.x,
+                                                  cCarPoint.y + carMoveVec.y);
             
-            if ( distanceToMoveNextFrame > 0.0f )
+            // test is beyond the target
+            CGPoint car2pVec    = CGPointMake(nextSubPoint.x - carNewVec.x,
+                                              nextSubPoint.y - carNewVec.y);
+            CGFloat dotVec      = (p2pVec.x * car2pVec.x) + (p2pVec.y * car2pVec.y);
+            
+            BOOL isCarGoBeyond  = dotVec <= 0.0f ? YES : NO;
+            
+            CGPoint carNextPosition    = carNewVec;
+            if ( isCarGoBeyond )
             {
-                _cDistanceToMoveNextFrame   = distanceToMoveNextFrame;
+                isEndThisSubPoint   = YES;
+                carNextPosition     = nextSubPoint;
+                
+                CGPoint p2CarVec    = CGPointMake(carNewVec.x-cSubPoint.x,
+                                                  carNewVec.y-cSubPoint.y);
+                CGFloat p2CarLength = sqrtf( p2CarVec.x*p2CarVec.x + p2CarVec.y*p2CarVec.y );
+                _cDistanceToMoveNextFrame   = p2CarLength - p2pVecLength;
             }
-        
-            float directionX  = 1.0f;
-            float directionY  = 1.0f;
-            if ( deltaX < 0.0f )
-                directionX    = -1.0f;
-            if ( deltaY < 0.0f )
-                directionY    = -1.0f;
             
-            float nextX = carPos.x + ( cos(radian) * distanceCanMove * directionX );
-            float nextY = carPos.y + ( sin(radian) * distanceCanMove * directionY );
-         
-            CGPoint carNextPos  = CGPointMake(nextX, nextY);
-            [Car setPosition:carNextPos];
+            // set car rotation and position
+            [Car setTarget:carNextPosition];
+            [Car setPosition:carNextPosition];
             
-            BOOL isLastPeriod   = (_cSubPointId+1 >= subPointsSize) ? YES : NO;
-            if ( isLastPeriod )
+            // camera to the car
+            [[Camera getObject] setCameraToPoint:[Car getPosition]];
+            //---------------------------------------------------------
+            
+            // if last period
+            BOOL isLastSubPointPeriod   = NO;
+            if ( _cSubPointId >= subPointsSize-2 )
             {
-                if ( distanceCanMove >= remainDistance - 0.00001 )
-                {
-                    _currentState   = STATE_DRIVE_CAR_DRIVE_CAR_SET_CHECKPOINT;
-                }
+                isLastSubPointPeriod    = YES;
+            }
+            
+            // check is end
+            if ( isLastSubPointPeriod && isEndThisSubPoint )
+            {
+                _currentState   = STATE_DRIVE_CAR_REACH_TARGET;
+            }
+            else if ( isEndThisSubPoint )
+            {
+                ++_cSubPointId;
             }
         }
             break;
         case STATE_DRIVE_CAR_REACH_TARGET:
         {
-            
+            printf ( "car is reaching the target!!!\n" );
         }
             break;
         case STATE_DRIVE_CAR_FINISH:
