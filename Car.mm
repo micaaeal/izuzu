@@ -7,6 +7,7 @@
 //
 
 #import "Car.h"
+#import "Utils.h"
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 @interface CarCache: NSObject
@@ -57,6 +58,10 @@ CarCache* _carCache = nil;
     // init car sprite
     _carCache.carSprite   = [CCSprite spriteWithFile:@"car_01_01_Run001.png"];
     [_carCache.carSprite setRotation:0.0f];
+    
+    CGFloat carScale    = _carCache.carSprite.scale;
+    carScale    = [UtilVec convertScaleIfRetina:carScale];
+    [_carCache.carSprite setScale:carScale];
     
     return YES;
 }

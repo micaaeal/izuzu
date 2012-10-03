@@ -10,7 +10,6 @@
 		BD49BD3B1613539200C401BF /* PlayDriftLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD49BD3A1613539200C401BF /* PlayDriftLayer.mm */; };
 		BD49BD441613576E00C401BF /* World.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD49BD431613576E00C401BF /* World.mm */; };
 		BD49BD4716135A7900C401BF /* Mission.m in Sources */ = {isa = PBXBuildFile; fileRef = BD49BD4616135A7900C401BF /* Mission.m */; };
-		BD6922A61617561A0045538D /* MenuSelectRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = BD6922A51617561A0045538D /* MenuSelectRoute.m */; };
 		BDAF16131614B63700C50EC4 /* road_config.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDAF16121614B63700C50EC4 /* road_config.plist */; };
 		BDAF161F1614BF9200C50EC4 /* adjacency_matrix_config.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDAF161E1614BF9200C50EC4 /* adjacency_matrix_config.plist */; };
 		BDAF16221614BFD600C50EC4 /* vertices_config.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDAF16211614BFD600C50EC4 /* vertices_config.plist */; };
@@ -141,6 +140,8 @@
 		BDBA34F3160E253100593FFC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BDBA34F2160E253100593FFC /* AppDelegate.m */; };
 		BDBA34F6160E253100593FFC /* HelloWorldLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = BDBA34F5160E253100593FFC /* HelloWorldLayer.m */; };
 		BDBA34F9160E253100593FFC /* IntroLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDBA34F8160E253100593FFC /* IntroLayer.mm */; };
+		BDBD3F57161BB48B00488689 /* UtilVec.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDBD3F56161BB48B00488689 /* UtilVec.mm */; };
+		BDBD3F5A161BC4AE00488689 /* MenuSelectRoute.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDBD3F59161BC4AE00488689 /* MenuSelectRoute.mm */; };
 		BDE549F21616FDA0005B6BD5 /* StateSelectRoute.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDE549F11616FDA0005B6BD5 /* StateSelectRoute.mm */; };
 		BDE549F51616FDB3005B6BD5 /* StateDriveCar.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDE549F41616FDB3005B6BD5 /* StateDriveCar.mm */; };
 		BDE54A15161750A6005B6BD5 /* 3traffic.png in Resources */ = {isa = PBXBuildFile; fileRef = BDE54A02161750A6005B6BD5 /* 3traffic.png */; };
@@ -179,7 +180,6 @@
 		BD49BD4516135A7900C401BF /* Mission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mission.h; sourceTree = "<group>"; };
 		BD49BD4616135A7900C401BF /* Mission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mission.m; sourceTree = "<group>"; };
 		BD6922A41617561A0045538D /* MenuSelectRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuSelectRoute.h; sourceTree = "<group>"; };
-		BD6922A51617561A0045538D /* MenuSelectRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuSelectRoute.m; sourceTree = "<group>"; };
 		BDAF16121614B63700C50EC4 /* road_config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = road_config.plist; sourceTree = "<group>"; };
 		BDAF161E1614BF9200C50EC4 /* adjacency_matrix_config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = adjacency_matrix_config.plist; sourceTree = "<group>"; };
 		BDAF16211614BFD600C50EC4 /* vertices_config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = vertices_config.plist; sourceTree = "<group>"; };
@@ -446,6 +446,10 @@
 		BDBA34F5160E253100593FFC /* HelloWorldLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloWorldLayer.m; sourceTree = "<group>"; };
 		BDBA34F7160E253100593FFC /* IntroLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntroLayer.h; sourceTree = "<group>"; };
 		BDBA34F8160E253100593FFC /* IntroLayer.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = IntroLayer.mm; sourceTree = "<group>"; };
+		BDBD3F55161BB48B00488689 /* UtilVec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilVec.h; sourceTree = "<group>"; };
+		BDBD3F56161BB48B00488689 /* UtilVec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = UtilVec.mm; sourceTree = "<group>"; };
+		BDBD3F58161BB58E00488689 /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		BDBD3F59161BC4AE00488689 /* MenuSelectRoute.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MenuSelectRoute.mm; sourceTree = "<group>"; };
 		BDE549EF1616FD8C005B6BD5 /* StateProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StateProtocol.h; sourceTree = "<group>"; };
 		BDE549F01616FDA0005B6BD5 /* StateSelectRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateSelectRoute.h; sourceTree = "<group>"; };
 		BDE549F11616FDA0005B6BD5 /* StateSelectRoute.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = StateSelectRoute.mm; sourceTree = "<group>"; };
@@ -571,7 +575,7 @@
 			isa = PBXGroup;
 			children = (
 				BD6922A41617561A0045538D /* MenuSelectRoute.h */,
-				BD6922A51617561A0045538D /* MenuSelectRoute.m */,
+				BDBD3F59161BC4AE00488689 /* MenuSelectRoute.mm */,
 			);
 			name = Menu;
 			sourceTree = "<group>";
@@ -598,6 +602,7 @@
 		BDBA3358160E252C00593FFC = {
 			isa = PBXGroup;
 			children = (
+				BDBD3F53161BB47400488689 /* Utils */,
 				BDBA337A160E252D00593FFC /* Resources */,
 				BDF75DD2161933A700BEAFD1 /* Camera */,
 				BD6922A3161755FB0045538D /* Menu */,
@@ -1009,6 +1014,16 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		BDBD3F53161BB47400488689 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				BDBD3F55161BB48B00488689 /* UtilVec.h */,
+				BDBD3F56161BB48B00488689 /* UtilVec.mm */,
+				BDBD3F58161BB58E00488689 /* Utils.h */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
 		BDE549ED1616FD72005B6BD5 /* State */ = {
 			isa = PBXGroup;
 			children = (
@@ -1277,9 +1292,10 @@
 				BDFE1EFB1615273C00EF134B /* TrGraph.mm in Sources */,
 				BDE549F21616FDA0005B6BD5 /* StateSelectRoute.mm in Sources */,
 				BDE549F51616FDB3005B6BD5 /* StateDriveCar.mm in Sources */,
-				BD6922A61617561A0045538D /* MenuSelectRoute.m in Sources */,
 				BDF75DD1161903DE00BEAFD1 /* Car.mm in Sources */,
 				BDF75DD5161933C000BEAFD1 /* Camera.mm in Sources */,
+				BDBD3F57161BB48B00488689 /* UtilVec.mm in Sources */,
+				BDBD3F5A161BC4AE00488689 /* MenuSelectRoute.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -18,6 +18,8 @@ using namespace std;
 
 #import "Camera.h"
 
+#import "Utils.h"
+
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 enum STATE_DRIVE_CAR
 {
@@ -116,14 +118,17 @@ vector<TrEdge>      _edgeRoute;
         {
             // set currentVertexPtr from the @Mission
             Camera* cam = [Camera getObject];
-            [cam setCameraToPoint:_vertexRoute[0].point];
+            CGPoint camPoint    = [UtilVec convertVecIfRetina:_vertexRoute[0].point];
+            [cam setCameraToPoint:camPoint];
             
             // set car
             CGPoint& firstVertexPoint   = _vertexRoute[0].point;
             CCLOG(@"vertex point x: %f y: %f", firstVertexPoint.x, firstVertexPoint.y);
             
-            [Car setPosition:firstVertexPoint];
-            [Car setTarget:_edgeRoute[0].subPoints[0]];
+            CGPoint carPosition = [UtilVec convertVecIfRetina:firstVertexPoint];
+            [Car setPosition:carPosition];
+            CGPoint carTarget   = [UtilVec convertVecIfRetina:_edgeRoute[0].subPoints[0]];
+            [Car setTarget:carTarget];
             [Car setSpeed:300.0f];
             
             // set moving point as route
@@ -133,13 +138,16 @@ vector<TrEdge>      _edgeRoute;
             for ( int i=0; i<_edgeRoute.size(); ++i )
             {
                 cEdge    = _edgeRoute[i];
-                _cMovingPoints.push_back(_allVertices[cEdge.vertexStart].point);
+                CGPoint cMovingPoint    = [UtilVec convertVecIfRetina:_allVertices[cEdge.vertexStart].point];
+                _cMovingPoints.push_back(cMovingPoint);
                 for ( int j=0; j<cEdge.subPoints.size(); ++j )
                 {
-                    _cMovingPoints.push_back(cEdge.subPoints[j]);
+                    CGPoint cMovingPoint    = [UtilVec convertVecIfRetina:cEdge.subPoints[j]];
+                    _cMovingPoints.push_back(cMovingPoint);
                 }
             }
-            _cMovingPoints.push_back(_allVertices[cEdge.vertexEnd].point);
+            CGPoint cEndPoint   = [UtilVec convertVecIfRetina:_allVertices[cEdge.vertexEnd].point];
+            _cMovingPoints.push_back(cEndPoint);
             
             // reset ref
             _cSubPointId    = 0;
