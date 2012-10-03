@@ -8,19 +8,18 @@
 
 #import "World.h"
 #import "RouteGraph/RouteGraph.h"
+#import "Utils.h"
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 @interface WorldCache: NSObject
 @property (retain) NSMutableArray*  roadArray;
 @property (assign) RouteGraph*      routeGraph;
 @property (assign) CGRect           screenBounds;
-@property (assign) CGFloat          screenScale;
 @end
 @implementation WorldCache
 @synthesize roadArray;
 @synthesize routeGraph;
 @synthesize screenBounds;
-@synthesize screenScale;
 
 - (id) init
 {
@@ -32,14 +31,12 @@
         routeGraph    = new RouteGraph();
         routeGraph->Start();
         screenBounds  = [[UIScreen mainScreen] bounds];
-        screenScale = [[UIScreen mainScreen] scale];
     }
     return self;
 }
 - (void) dealloc
 {
     screenBounds  = CGRectMake(0.0f, 0.0f, 0.0f, 0.0f);
-    screenScale = 0.0f;
     routeGraph->Shutdown();
     delete routeGraph;
     routeGraph  = NULL;
@@ -85,10 +82,16 @@ WorldCache* _worldCache = nil;
     // adjustment
     for (CCSprite* cSprite in _worldCache.roadArray)
     {
-        float actualX   = cSprite.position.x / _worldCache.screenScale;
-        float actualY   = cSprite.position.y / _worldCache.screenScale;
-        [cSprite setPosition:CGPointMake(actualX,
-                                         -actualY)];
+        // position
+        float actualX   = cSprite.position.x;
+        float actualY   = cSprite.position.y;
+        CGPoint spritePoint = CGPointMake(actualX, -actualY);
+        spritePoint = [UtilVec convertVecIfRetina:spritePoint];
+        [cSprite setPosition:spritePoint];
+        
+        // scale
+        CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:cSprite.scale];
+        [cSprite setScale:cSpriteScale];
     }
     
     return YES;
