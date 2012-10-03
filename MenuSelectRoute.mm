@@ -7,6 +7,7 @@
 //
 
 #import "MenuSelectRoute.h"
+#import "Utils.h"
 
 static float _s_routeButtonRadius   = 100;
 
@@ -52,9 +53,13 @@ static float _s_routeButtonRadius   = 100;
     
     for (int i=0; i<_routeCount; ++i)
     {
+        // @TODO critical optimize is needed here ... revision
         CCSprite* button = [CCSprite spriteWithFile: @"route_select_img.png"];
         button.position = point;
         [rootLayer addChild:button];
+        
+        CGFloat buttonScale = [UtilVec convertScaleIfRetina:button.scale];
+        [button setScale:buttonScale];
         
         [_routeButtonArray addObject:button];
     }

@@ -13,6 +13,7 @@
 #import <vector>
 #import "Camera.h"
 using namespace std;
+#import "Utils.h"
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 enum STATE_SELECT_ROUTE
@@ -94,11 +95,12 @@ enum STATE_SELECT_ROUTE
             vector<TrVertex> allVertices    = routeGraph.GetAllVertices();
             _startVertex    = allVertices[1];
             _finishVertex   = allVertices[3];
-            _currentVertex      = _startVertex;
+            _currentVertex  = _startVertex;
             
             Camera* cam = [Camera getObject];
-            [cam setCameraToPoint:_currentVertex.point];
-
+            CGPoint camPoint = [UtilVec convertVecIfRetina:_currentVertex.point];
+            [cam setCameraToPoint:camPoint];
+            
             routeGraph.PushVertex(_currentVertex);
             
             // set state
@@ -116,7 +118,8 @@ enum STATE_SELECT_ROUTE
             // @WARNING risk dynamic allocation here
             MenuSelectRoute* selectRoute    = [[MenuSelectRoute alloc] init];
             // @TODO more resource loading checking here
-            [selectRoute loadButtonAtPoint:_currentVertex.point
+            CGPoint buttonRefPoint  = [UtilVec convertVecIfRetina:_currentVertex.point];
+            [selectRoute loadButtonAtPoint:buttonRefPoint
                                 routeCount:_currentConnectedVertices.size()
                                  rootLayer:layer];
             [selectRoute setActionObject:self];
@@ -129,13 +132,13 @@ enum STATE_SELECT_ROUTE
                 
                 if ( cEdge.subPoints.size() > 0)
                 {
-                    CGPoint cPoint  = cEdge.subPoints[0];
+                    CGPoint cPoint = [UtilVec convertVecIfRetina:cEdge.subPoints[0]];
                     [selectRoute setRouteButtonDirectTo:cPoint buttonIndex:i];
                 }
                 else
                 {
                     // currentConnectedVertices and selectRoute are paired by id
-                    CGPoint cPoint  = _currentConnectedVertices[i].point;
+                    CGPoint cPoint = [UtilVec convertVecIfRetina:_currentConnectedVertices[i].point];
                     [selectRoute setRouteButtonDirectTo:cPoint buttonIndex:i];
                 }
             }
@@ -174,7 +177,8 @@ enum STATE_SELECT_ROUTE
             cRouteGraph.PushVertex(_currentVertex);
             
             Camera* cam = [Camera getObject];
-            [cam setCameraToPoint:_currentVertex.point];
+            CGPoint camPoint    = [UtilVec convertVecIfRetina:_currentVertex.point];
+            [cam setCameraToPoint:camPoint];
             
             // set state
             _currentState   = STATE_SELECT_ROUTE_CAMERA_STOP;
@@ -258,7 +262,7 @@ enum STATE_SELECT_ROUTE
 
 - (void) onTouchButtonAtId:(int)buttonId
 {
-    _nextVertex = _currentConnectedVertices[buttonId];
+    _nextVertex         = _currentConnectedVertices[buttonId];
     _hasSelectedRouteThisPoint  = YES;
 }
 
