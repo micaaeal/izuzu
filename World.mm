@@ -89,7 +89,7 @@ WorldCache* _worldCache = nil;
         spritePoint = [UtilVec convertVecIfRetina:spritePoint];
         [cSprite setPosition:spritePoint];
         
-        // scale
+        // scale ...
         CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:cSprite.scale];
         [cSprite setScale:cSpriteScale];
     }
