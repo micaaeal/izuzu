@@ -26,6 +26,8 @@ public:
     std::vector<TrVertex>   GetVertexRoute();
     std::vector<TrEdge>     GetEdgeRoute();
     
+    void    ClearRoute();
+    
     std::vector<TrVertex> GetAllVertices();
     void PrintVertices(std::vector<TrVertex>& vertices);
         

@@ -24,6 +24,9 @@ using namespace std;
 // camera
 #import "Camera.h"
 
+static CCMenu*          _s_debugMenu    = NULL;
+static CCMenuItemFont*  _s_restartBtn   = NULL;
+
 @interface PlayDriftLayer()
 
 @property (retain) id<StateProtocol>    _currentState;
@@ -31,6 +34,8 @@ using namespace std;
 @property (retain) StateDriveCar*       _stateDriveCar;
 
 @property (assign) BOOL     _isDebug;
+
+- (void) _restart: (id) sender;
 
 @end
 
@@ -83,14 +88,54 @@ using namespace std;
         // set touch enable
         self.isTouchEnabled = YES;
         
+        /* // create restart button
+//        CCMenuItemImage * restartBtn = [CCMenuItemImage itemWithNormalImage:@"button_blue_restart.png"
+//                                                              selectedImage:@"button_blue_restart_pressed.png"
+//                                                                     target:self
+//                                                                   selector:@selector(_restart:)];
+        
+        _s_restartBtn   = [CCMenuItemFont itemWithString:@"Restart"
+                                                   block:^(id sender)
+        {
+            printf ("restart!!\n");
+		}];
+        
+        _s_debugMenu  = [CCMenu menuWithItems:_s_restartBtn, nil];
+        _s_restartBtn.position  = CGPointZero;
+        [self addChild:_s_debugMenu];
+        */
+        
         // create update schedule
         [self schedule:@selector(onUpdate:)];
         
         // start state
         [_currentState setLayer:self];
         [_currentState onStart];
+        
+        // add restart button
+        UIButton* restartBtn    = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIImage* restartImage   = [UIImage imageNamed:@"button_blue_restart"];
+        [restartBtn setImage:restartImage forState:UIControlStateNormal];
+        restartBtn.frame    = CGRectMake(0.0f, 0.0f,
+                                         restartImage.size.width,
+                                         restartImage.size.height);
+        UIWindow* mWindow = [[UIApplication sharedApplication] keyWindow];
+        [mWindow addSubview:restartBtn];
+        [mWindow bringSubviewToFront:restartBtn];
+        [restartBtn addTarget:self
+                       action:@selector(_onRestart:)
+             forControlEvents:UIControlEventTouchDown];
+
     }
 	return self;
+}
+
+- (void) _onRestart: (id) sender
+{
+    [_currentState onFinish];
+    
+    _currentState   = _stateSelectRoute;
+    [_currentState onStart];
 }
 
 // on "dealloc" you need to release all your retained objects
@@ -126,14 +171,19 @@ using namespace std;
     if ( _currentState == _stateSelectRoute )
     {
         _currentState   = _stateDriveCar;
+        [_stateDriveCar setLayer:self];
+        [_stateDriveCar onStart];
     }
     else
     {
         CCLOG(@"State Not Found!!!!");
     }
+
+    float centerX, centerY, centerZ;
+    float eyeX, eyeY, eyeZ;
+    [self.camera centerX:&centerX centerY:&centerY centerZ:&centerZ];
+    [self.camera eyeX:&eyeX eyeY:&eyeY eyeZ:&eyeZ];
     
-    [_currentState setLayer:self];
-    [_currentState onStart];
 }
 
 - (void) draw
@@ -225,6 +275,14 @@ CGPoint _lastTouchMovedLocation;
     {
         
     }
+}
+
+#pragma mark - PIMPL
+
+- (void) _restart:(id)sender
+{
+    printf ("restarted");
+    printf ("\n");
 }
 
 @end

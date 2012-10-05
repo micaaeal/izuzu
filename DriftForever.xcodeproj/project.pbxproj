@@ -168,6 +168,7 @@
 		BDF75DCD1618FE7700BEAFD1 /* car_01_01_Run001.png in Resources */ = {isa = PBXBuildFile; fileRef = BDF75DCC1618FE7700BEAFD1 /* car_01_01_Run001.png */; };
 		BDF75DD1161903DE00BEAFD1 /* Car.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDF75DD0161903DE00BEAFD1 /* Car.mm */; };
 		BDF75DD5161933C000BEAFD1 /* Camera.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDF75DD4161933C000BEAFD1 /* Camera.mm */; };
+		BDF99AFE161E6E370086D536 /* button_blue_restart.png in Resources */ = {isa = PBXBuildFile; fileRef = BDF99AFD161E6E370086D536 /* button_blue_restart.png */; };
 		BDFE1EFA1615273C00EF134B /* RouteGraph.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDFE1EF71615273C00EF134B /* RouteGraph.mm */; };
 		BDFE1EFB1615273C00EF134B /* TrGraph.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDFE1EF91615273C00EF134B /* TrGraph.mm */; };
 /* End PBXBuildFile section */
@@ -481,6 +482,7 @@
 		BDF75DD0161903DE00BEAFD1 /* Car.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Car.mm; sourceTree = "<group>"; };
 		BDF75DD3161933C000BEAFD1 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		BDF75DD4161933C000BEAFD1 /* Camera.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Camera.mm; sourceTree = "<group>"; };
+		BDF99AFD161E6E370086D536 /* button_blue_restart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_blue_restart.png; sourceTree = "<group>"; };
 		BDFE1EF61615273C00EF134B /* RouteGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteGraph.h; sourceTree = "<group>"; };
 		BDFE1EF71615273C00EF134B /* RouteGraph.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RouteGraph.mm; sourceTree = "<group>"; };
 		BDFE1EF81615273C00EF134B /* TrGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrGraph.h; sourceTree = "<group>"; };
@@ -569,6 +571,14 @@
 				BDE54A14161750A6005B6BD5 /* road05Alpha.png */,
 			);
 			name = Road;
+			sourceTree = "<group>";
+		};
+		BD5AA2F0161E04E200E367E7 /* mockup */ = {
+			isa = PBXGroup;
+			children = (
+				BDF99AFD161E6E370086D536 /* button_blue_restart.png */,
+			);
+			name = mockup;
 			sourceTree = "<group>";
 		};
 		BD6922A3161755FB0045538D /* Menu */ = {
@@ -662,6 +672,7 @@
 		BDBA337A160E252D00593FFC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BD5AA2F0161E04E200E367E7 /* mockup */,
 				BDF75DCA1618FE6D00BEAFD1 /* car */,
 				BDE54A28161750C9005B6BD5 /* menu */,
 				BD49BD5016135E0700C401BF /* Cocos2d_Boilerplate */,
@@ -1171,6 +1182,7 @@
 				BDE54A2B161750D6005B6BD5 /* route_select_img.png in Resources */,
 				BDE54A2C161750D6005B6BD5 /* route_disselect_img.png in Resources */,
 				BDF75DCD1618FE7700BEAFD1 /* car_01_01_Run001.png in Resources */,
+				BDF99AFE161E6E370086D536 /* button_blue_restart.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

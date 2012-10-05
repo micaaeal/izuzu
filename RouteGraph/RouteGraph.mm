@@ -69,6 +69,13 @@ std::vector<TrVertex> RouteGraph::GetVertexRoute()
 }
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+void    RouteGraph::ClearRoute()
+{
+    _verticesRoute.clear();
+    _edgeRoute.clear();
+}
+
+// ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 std::vector<TrEdge> RouteGraph::GetEdgeRoute()
 {
     int count   = _verticesRoute.size();

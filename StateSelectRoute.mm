@@ -71,6 +71,10 @@ enum STATE_SELECT_ROUTE
     
     // create select route array
     _menuSelectRouteArray   = [[NSMutableArray alloc] init];
+    
+    // clear routeGraph
+    RouteGraph& routeGraph  = [World GetRouteGraph];
+    routeGraph.ClearRoute();
 }
 
 - (void) onFinish
