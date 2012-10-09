@@ -171,6 +171,7 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
     [_currentState onFinish];
     
     _currentState   = _stateSelectRoute;
+    [_currentState onFinish];
     [_currentState onStart];
 }
 

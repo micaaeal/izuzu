@@ -79,6 +79,17 @@ enum STATE_SELECT_ROUTE
 
 - (void) onFinish
 {
+    // clear menu route
+    for (int i=0; i<_menuSelectRouteArray.count; ++i)
+    {
+        MenuSelectRoute* cMenu  = [_menuSelectRouteArray objectAtIndex:i];
+        
+        for (int j=0; j<cMenu.routeCount; ++j)
+        {
+            [cMenu hideButtonAtIndex:j];
+        }
+    }
+    
     [_menuSelectRouteArray release];
     _menuSelectRouteArray   = nil;
 }
@@ -93,7 +104,7 @@ enum STATE_SELECT_ROUTE
         }
             break;
         case STATE_SELECT_ROUTE_START:
-        {
+        {            
             // set currentVertexPtr from the @Mission
             RouteGraph& routeGraph  = [World GetRouteGraph];
             vector<TrVertex> allVertices    = routeGraph.GetAllVertices();
