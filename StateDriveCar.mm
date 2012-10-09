@@ -119,6 +119,9 @@ vector<TrEdge>      _edgeRoute;
             // set currentVertexPtr from the @Mission
             Camera* cam = [Camera getObject];
             CGPoint camPoint    = [UtilVec convertVecIfRetina:_vertexRoute[0].point];
+            CGSize winSize  = [[CCDirector sharedDirector] winSize];
+            camPoint.x -= (winSize.width * 0.5f);
+            camPoint.y -= (winSize.height * 0.5f);
             [cam setCameraToPoint:camPoint];
             
             // set car
@@ -216,7 +219,11 @@ vector<TrEdge>      _edgeRoute;
             [Car setPosition:carNextPosition];
             
             // camera to the car
-            [[Camera getObject] setCameraToPoint:[Car getPosition]];
+            CGPoint camPoint    = [Car getPosition];
+            CGSize winSize  = [[CCDirector sharedDirector] winSize];
+            camPoint.x -= (winSize.width * 0.5f);
+            camPoint.y -= (winSize.height * 0.5f);
+            [[Camera getObject] setCameraToPoint:camPoint];
             //---------------------------------------------------------
             
             // if last period
@@ -271,6 +278,11 @@ vector<TrEdge>      _edgeRoute;
 }
 
 - (void) onTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
+{
+    
+}
+
+- (void) onGetStringMessage: (NSString*) message
 {
     
 }

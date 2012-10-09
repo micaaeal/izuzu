@@ -11,17 +11,16 @@
 
 @interface Camera : NSObject
 
-@property (assign) float  initX;
-@property (assign) float  initY;
-@property (assign) float  initZ;
-@property (assign) float  initEyeX;
-@property (assign) float  initEyeY;
-@property (assign) float  initEyeZ;
-
 + (Camera*) getObject;
-+ (void) initCameraWithLayer: (CCLayer*) layer;
+- (void) initCameraWithLayer: (CCLayer*) layer;
 
 - (void) moveCameraByPoint: (CGPoint) point;
 - (void) setCameraToPoint: (CGPoint) point;
+
+- (CGPoint) getPoint;
+- (CGFloat) getZoomX;
+
+- (void) zoomTo: (CGFloat) zoomX;
+- (void) onUpdate: (float) deltaTime;
 
 @end

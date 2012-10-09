@@ -27,6 +27,7 @@ public:
     std::vector<TrEdge>     GetEdgeRoute();
     
     void    ClearRoute();
+    void    RemoveBackRoute();
     
     std::vector<TrVertex> GetAllVertices();
     void PrintVertices(std::vector<TrVertex>& vertices);

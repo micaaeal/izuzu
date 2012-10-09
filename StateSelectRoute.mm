@@ -103,6 +103,9 @@ enum STATE_SELECT_ROUTE
             
             Camera* cam = [Camera getObject];
             CGPoint camPoint = [UtilVec convertVecIfRetina:_currentVertex.point];
+            CGSize winSize  = [[CCDirector sharedDirector] winSize];
+            camPoint.x -= (winSize.width * 0.5f);
+            camPoint.y -= (winSize.height * 0.5f);
             [cam setCameraToPoint:camPoint];
             
             routeGraph.PushVertex(_currentVertex);
@@ -119,7 +122,7 @@ enum STATE_SELECT_ROUTE
 
             // set select route
             
-            // @WARNING risk dynamic allocation here
+            // @WARNING risk of dynamic allocation here
             MenuSelectRoute* selectRoute    = [[MenuSelectRoute alloc] init];
             // @TODO more resource loading checking here
             CGPoint buttonRefPoint  = [UtilVec convertVecIfRetina:_currentVertex.point];
@@ -131,8 +134,9 @@ enum STATE_SELECT_ROUTE
             for ( int i=0; i<_currentConnectedVertices.size(); ++i)
             {
                 RouteGraph& cRouteGraph = [World GetRouteGraph];
+                int cConnectedVertexId  = _currentConnectedVertices[i].vertexId;
                 TrEdge cEdge    = cRouteGraph.GetEdgeFromVertexId(_currentVertex.vertexId,
-                                                                  _currentConnectedVertices[i].vertexId);
+                                                                  cConnectedVertexId);
                 
                 if ( cEdge.subPoints.size() > 0)
                 {
@@ -144,6 +148,28 @@ enum STATE_SELECT_ROUTE
                     // currentConnectedVertices and selectRoute are paired by id
                     CGPoint cPoint = [UtilVec convertVecIfRetina:_currentConnectedVertices[i].point];
                     [selectRoute setRouteButtonDirectTo:cPoint buttonIndex:i];
+                }
+                
+                // search in vertex
+                BOOL alreadyHasRoute    = NO;
+                vector<TrVertex> vertexRoute    = cRouteGraph.GetVertexRoute();
+                for (int cv=0; cv<vertexRoute.size(); ++cv)
+                {
+                    TrVertex cVertex    = vertexRoute[cv];
+                    if ( cVertex.vertexId == cConnectedVertexId )
+                    {
+                        alreadyHasRoute = YES;
+                        break;
+                    }
+                }
+                
+                // set button state
+                if ( alreadyHasRoute )
+                {
+                    [selectRoute setButtonStateToRed:i];
+                }
+                else{
+                    [selectRoute setButtonStateToGreen:i];
                 }
             }
             
@@ -180,9 +206,14 @@ enum STATE_SELECT_ROUTE
             _currentVertex  = _nextVertex;
             cRouteGraph.PushVertex(_currentVertex);
             
+            /*
             Camera* cam = [Camera getObject];
             CGPoint camPoint    = [UtilVec convertVecIfRetina:_currentVertex.point];
+            CGSize winSize  = [[CCDirector sharedDirector] winSize];
+            camPoint.x -= (winSize.width * 0.5f);
+            camPoint.y -= (winSize.height * 0.5f);
             [cam setCameraToPoint:camPoint];
+            */
             
             // set state
             _currentState   = STATE_SELECT_ROUTE_CAMERA_STOP;
@@ -233,22 +264,27 @@ enum STATE_SELECT_ROUTE
 
 - (BOOL) onTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
 {
-    CGPoint location = [touch locationInView:[touch view]];
-    location = [[CCDirector sharedDirector] convertToGL:location];
-    CGFloat touchX      = location.x;
-    CGFloat touchY      = location.y;
-    
-    float centerX, centerY, centerZ;
-    float eyeX, eyeY, eyeZ;
-    [layer.camera centerX:&centerX centerY:&centerY centerZ:&centerZ];
-    [layer.camera eyeX:&eyeX eyeY:&eyeY eyeZ:&eyeZ];
-    
-    CGFloat touchCameraX    = touchX + centerX;
-    CGFloat touchCameraY    = touchY + centerY;
+    CGPoint location    = [touch locationInView:[touch view]];
+    CGPoint touchPoint  = [[CCDirector sharedDirector] convertToGL:location];
 
-    CGPoint touchingPoint  = CGPointMake(touchCameraX, touchCameraY);
+    Camera* camera      = [Camera getObject];
+    CGPoint camPoint    = [camera getPoint];
+    CGFloat camZoomX    = [camera getZoomX];
+
+    CGSize camSize  = [[CCDirector sharedDirector] winSize];
     
-    [_currentMenuSelectRoute checkActionByPoint:touchingPoint];
+    CGPoint camCenter       = CGPointMake(camPoint.x - camSize.width*0.5f,
+                                          camPoint.y - camSize.height*0.5f);
+    
+    CGPoint viewPortPoint   = CGPointMake(camCenter.x + camSize.width*0.5f/camZoomX,
+                                          camCenter.y + camSize.height*0.5f/camZoomX );
+    
+    CGPoint absPoint        = CGPointMake( viewPortPoint.x - touchPoint.x / camZoomX,
+                                           viewPortPoint.y - touchPoint.y / camZoomX );
+    
+    CGPoint buttonCoordPoint    = CGPointMake(-absPoint.x, -absPoint.y);
+    [_currentMenuSelectRoute checkActionByPoint:buttonCoordPoint];
+    
     return YES;
 }
 
@@ -262,10 +298,46 @@ enum STATE_SELECT_ROUTE
     
 }
 
+- (void) onGetStringMessage: (NSString*) message
+{
+    // cancel route message
+    if ( [message isEqualToString:@"cancel"] )
+    {
+        /*
+        // hide menu
+        for (int i=0; i<_currentMenuSelectRoute.routeCount; ++i)
+        {
+            [_currentMenuSelectRoute hideButtonAtIndex:i];
+        }
+        
+        // remove node
+        RouteGraph& cRouteGraph = [World GetRouteGraph];
+        cRouteGraph.RemoveBackRoute();
+        */
+    }
+}
+
 #pragma mark - MenuSelectRoute action
 
-- (void) onTouchButtonAtId:(int)buttonId
+- (void) onTouchButtonAtId: (int) buttonId isGreen: (BOOL) isGreen
 {
+    if ( ! isGreen )
+        return;
+
+    // hide all buttons
+    for (int i=0; i<_currentMenuSelectRoute.routeCount; ++i)
+    {
+        if ( [_currentMenuSelectRoute isThisButtonGreen:i] )
+        {
+            [_currentMenuSelectRoute hideButtonAtIndex:i];   
+        }
+    }
+    
+    // turn button to red
+    [_currentMenuSelectRoute showButtonAtIndex:buttonId];
+    [_currentMenuSelectRoute setButtonStateToRed:buttonId];
+    
+    // next vertex
     _nextVertex         = _currentConnectedVertices[buttonId];
     _hasSelectedRouteThisPoint  = YES;
 }

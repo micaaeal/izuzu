@@ -13,84 +13,100 @@ Camera* _object = nil;
 @interface Camera()
 
 @property (assign) CCLayer*     _layer;
+@property (assign) BOOL         _isZooming;
+@property (assign) CGPoint      _layerRefPoint;
+@property (assign) CGFloat      _zoomX;
+@property (assign) CGPoint      _layerZoomPoint;
 
 @end
 
 @implementation Camera
-@synthesize initX;
-@synthesize initY;
-@synthesize initZ;
-@synthesize initEyeX;
-@synthesize initEyeY;
-@synthesize initEyeZ;
 @synthesize _layer;
+@synthesize _isZooming;
+@synthesize _layerRefPoint;
+@synthesize _zoomX;
+@synthesize _layerZoomPoint;
 
 + (Camera*) getObject
 {
     if ( ! _object )
     {
-        _object = [[Camera alloc] init];
+        _object                 = [[Camera alloc] init];
+        _object._isZooming      = NO;
+        _object._layerRefPoint  = _object._layer.position;
+        _object._zoomX          = 1.0f;
     }
     
     return _object;
 }
 
-+ (void) initCameraWithLayer: (CCLayer*) layer
+- (void) initCameraWithLayer: (CCLayer*) layer
 {
-    Camera* object  = [Camera getObject];
-    object._layer  = layer;
-    
-    // set init camera
-    float x, y, z;
-    float ex, ey, ez;
-    [layer.camera centerX:&x centerY:&y centerZ:&z];
-    [layer.camera eyeX:&ex eyeY:&ey eyeZ:&ez];
-    
-    object.initX    = x;
-    object.initY    = y;
-    object.initZ    = z;
-    object.initEyeX    = ex;
-    object.initEyeY    = ey;
-    object.initEyeZ    = ez;
+    _object._layer  = layer;
 }
-
-#pragma mark - PIMPL
 
 - (void) moveCameraByPoint: (CGPoint) point
 {
-    Camera* object  = [Camera getObject];
-    CCLayer* layer  = object._layer;
+    CGPoint layerAbsPoint;
     
-    float centerX, centerY, centerZ;
-    float eyeX, eyeY, eyeZ;
-    [layer.camera centerX:&centerX centerY:&centerY centerZ:&centerZ];
-    [layer.camera eyeX:&eyeX eyeY:&eyeY eyeZ:&eyeZ];
-    float moveX = point.x;
-    float moveY = point.y;
-    float moveZ = 0.0f;
-    float newX  = centerX + moveX;
-    float newY  = centerY + moveY;
-    float newZ  = centerZ + moveZ;
-    float newEyeX  = eyeX + moveX;
-    float newEyeY  = eyeY + moveY;
-    float newEyeZ  = eyeZ + 0.0f;
-    [layer.camera setCenterX:newX centerY:newY centerZ:newZ];
-    [layer.camera setEyeX:newEyeX eyeY:newEyeY eyeZ:newEyeZ];
+    // move camera
+    _layerRefPoint  = CGPointMake(_layerRefPoint.x + point.x,
+                                  _layerRefPoint.y + point.y);
+    layerAbsPoint   = _layerRefPoint;
+    
+    // set zoom
+    [_object zoomTo:_object._zoomX];
+    
+    // set to layer
+    //CCLayer* layer  = _object._layer;
+    //[layer setPosition:layerAbsPoint];
 }
 
 - (void) setCameraToPoint: (CGPoint) point
 {
+    CCLayer* layer  = _object._layer;
+    CGPoint layerAbsPoint;
+    
+    // move camera
+    _layerRefPoint  = CGPointMake(-point.x, -point.y);
+    layerAbsPoint   = _layerRefPoint;
+    
+    // set zoom
+    [_object zoomTo:_object._zoomX];
+    
+    // set to layer
+    //[layer setPosition:layerAbsPoint];
+}
+
+- (CGPoint) getPoint
+{
+    return _object._layerRefPoint;
+}
+
+- (CGFloat) getZoomX
+{
+    return _object._zoomX;
+}
+
+- (void) zoomTo: (CGFloat) zoomX
+{
+    // set vars
+    _object._zoomX  = zoomX;
+
+    // set zoom
     Camera* object  = [Camera getObject];
     CCLayer* layer  = object._layer;
+    [layer setScale:zoomX];
     
-    CGSize winSize = [[CCDirector sharedDirector] winSize];
-    float newX  = object.initX + point.x - (winSize.width * 0.5);
-    float newY  = object.initY + point.y - (winSize.height * 0.5);
-    float newZ  = object.initZ;
-    float newEyeX  = object.initEyeX + point.x - (winSize.width * 0.5);
-    float newEyeY  = object.initEyeY + point.y - (winSize.height * 0.5);
-    float newEyeZ  = object.initEyeZ;
-    [layer.camera setCenterX:newX centerY:newY centerZ:newZ];
-    [layer.camera setEyeX:newEyeX eyeY:newEyeY eyeZ:newEyeZ];
+    // adjust layer
+    _layerZoomPoint   = CGPointMake(object._layerRefPoint.x * object._zoomX,
+                                    object._layerRefPoint.y * object._zoomX);
+
+    [layer setPosition:_layerZoomPoint];
 }
+
+- (void) onUpdate: (float) deltaTime
+{
+}
+
 @end

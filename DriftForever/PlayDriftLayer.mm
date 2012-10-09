@@ -35,7 +35,10 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
 
 @property (assign) BOOL     _isDebug;
 
-- (void) _restart: (id) sender;
+- (void) _onRestart: (id) sender;
+- (void) _onZoomIn: (id) sender;
+- (void) _onZoomOut: (id) sender;
+- (void) _onCancel: (id) sender;
 
 @end
 
@@ -71,9 +74,6 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
         // set flags
         _isDebug    = YES;
         
-        // init camera
-        [Camera initCameraWithLayer:self];
-        
         // init states
         _stateSelectRoute   = [[StateSelectRoute alloc] init];
         _stateDriveCar      = [[StateDriveCar alloc] init];
@@ -88,23 +88,6 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
         // set touch enable
         self.isTouchEnabled = YES;
         
-        /* // create restart button
-//        CCMenuItemImage * restartBtn = [CCMenuItemImage itemWithNormalImage:@"button_blue_restart.png"
-//                                                              selectedImage:@"button_blue_restart_pressed.png"
-//                                                                     target:self
-//                                                                   selector:@selector(_restart:)];
-        
-        _s_restartBtn   = [CCMenuItemFont itemWithString:@"Restart"
-                                                   block:^(id sender)
-        {
-            printf ("restart!!\n");
-		}];
-        
-        _s_debugMenu  = [CCMenu menuWithItems:_s_restartBtn, nil];
-        _s_restartBtn.position  = CGPointZero;
-        [self addChild:_s_debugMenu];
-        */
-        
         // create update schedule
         [self schedule:@selector(onUpdate:)];
         
@@ -113,19 +96,72 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
         [_currentState onStart];
         
         // add restart button
-        UIButton* restartBtn    = [UIButton buttonWithType:UIButtonTypeCustom];
-        UIImage* restartImage   = [UIImage imageNamed:@"button_blue_restart"];
-        [restartBtn setImage:restartImage forState:UIControlStateNormal];
-        restartBtn.frame    = CGRectMake(0.0f, 0.0f,
-                                         restartImage.size.width,
-                                         restartImage.size.height);
         UIWindow* mWindow = [[UIApplication sharedApplication] keyWindow];
-        [mWindow addSubview:restartBtn];
-        [mWindow bringSubviewToFront:restartBtn];
-        [restartBtn addTarget:self
-                       action:@selector(_onRestart:)
-             forControlEvents:UIControlEventTouchDown];
 
+        // restart button
+        {
+            UIButton* btn    = [UIButton buttonWithType:UIButtonTypeCustom];
+            UIImage* img   = [UIImage imageNamed:@"button_blue_restart"];
+            [btn setImage:img forState:UIControlStateNormal];
+            btn.frame    = CGRectMake(mWindow.bounds.size.width-img.size.width,
+                                      mWindow.bounds.size.height-img.size.height,
+                                      img.size.width,
+                                      img.size.height);
+            [mWindow addSubview:btn];
+            [mWindow bringSubviewToFront:btn];
+            [btn addTarget:self
+                    action:@selector(_onRestart:)
+          forControlEvents:UIControlEventTouchDown];
+        }
+        // zoom-in button
+        {
+            UIButton* btn    = [UIButton buttonWithType:UIButtonTypeCustom];
+            UIImage* img   = [UIImage imageNamed:@"plus"];
+            [btn setImage:img forState:UIControlStateNormal];
+            btn.frame    = CGRectMake(mWindow.bounds.size.width-img.size.width,
+                                      mWindow.bounds.size.height-img.size.height-80.0f,
+                                      img.size.width,
+                                      img.size.height);
+            [mWindow addSubview:btn];
+            [mWindow bringSubviewToFront:btn];
+            [btn addTarget:self
+                    action:@selector(_onZoomIn:)
+          forControlEvents:UIControlEventTouchDown];
+        }
+        // zoom-out button
+        {
+            UIButton* btn    = [UIButton buttonWithType:UIButtonTypeCustom];
+            UIImage* img   = [UIImage imageNamed:@"minus"];
+            [btn setImage:img forState:UIControlStateNormal];
+            btn.frame    = CGRectMake(mWindow.bounds.size.width-img.size.width,
+                                      mWindow.bounds.size.height-img.size.height-160.0f,
+                                      img.size.width,
+                                      img.size.height);
+            [mWindow addSubview:btn];
+            [mWindow bringSubviewToFront:btn];
+            [btn addTarget:self
+                    action:@selector(_onZoomOut:)
+          forControlEvents:UIControlEventTouchDown];
+        }
+        /* // cancel button
+        {
+            UIButton* btn    = [UIButton buttonWithType:UIButtonTypeCustom];
+            UIImage* img   = [UIImage imageNamed:@"cancel"];
+            [btn setImage:img forState:UIControlStateNormal];
+            btn.frame    = CGRectMake(mWindow.bounds.size.width-img.size.width,
+                                      mWindow.bounds.size.height-img.size.height-240.0f,
+                                      img.size.width,
+                                      img.size.height);
+            [mWindow addSubview:btn];
+            [mWindow bringSubviewToFront:btn];
+            [btn addTarget:self
+                    action:@selector(_onCancel:)
+          forControlEvents:UIControlEventTouchDown];
+        }
+        */
+        
+        // camera
+        [[Camera getObject] initCameraWithLayer:self];
     }
 	return self;
 }
@@ -136,6 +172,35 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
     
     _currentState   = _stateSelectRoute;
     [_currentState onStart];
+}
+
+static int _s_currentZoomLevel    = 2;
+static float _s_zoomLevel[]         = {0.5f, 0.75f, 1.0f, 1.5f, 2.0f};
+static int   _s_zoomLevelSize       = 5;
+
+- (void) _onZoomIn: (id) sender
+{
+    if ( ! ( _s_currentZoomLevel < (_s_zoomLevelSize-1) ) )
+        return;
+    
+    ++_s_currentZoomLevel;
+    
+    [[Camera getObject] zoomTo:_s_zoomLevel[_s_currentZoomLevel]];
+}
+
+- (void) _onZoomOut: (id) sender
+{
+    if ( _s_currentZoomLevel <= 0 )
+        return;
+    
+    --_s_currentZoomLevel;
+    
+    [[Camera getObject] zoomTo:_s_zoomLevel[_s_currentZoomLevel]];
+}
+
+- (void) _onCancel: (id) sender
+{
+    [_currentState onGetStringMessage:@"cancel"];
 }
 
 // on "dealloc" you need to release all your retained objects
@@ -163,6 +228,10 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
 
 - (void) onUpdate:(ccTime)dt
 {
+    // update camera
+    [[Camera getObject] onUpdate:dt];
+    
+    // update state
     BOOL isNotFinishedYet  = [_currentState onUpdate:dt];
     if ( isNotFinishedYet )
         return;
@@ -178,12 +247,6 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
     {
         CCLOG(@"State Not Found!!!!");
     }
-
-    float centerX, centerY, centerZ;
-    float eyeX, eyeY, eyeZ;
-    [self.camera centerX:&centerX centerY:&centerY centerZ:&centerZ];
-    [self.camera eyeX:&eyeX eyeY:&eyeY eyeZ:&eyeZ];
-    
 }
 
 - (void) draw
@@ -198,8 +261,8 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
     [[[CCDirector sharedDirector] touchDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
 }
 
-CGPoint _lastTouchBeganLocation;
-CGPoint _lastTouchMovedLocation;
+CGPoint _touchAtBegin;
+CGPoint _touchDeltaLastFrame;
 
 - (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
 {
@@ -208,28 +271,8 @@ CGPoint _lastTouchMovedLocation;
     if ( _isDebug )
     {
         // to move the screen
-        CGPoint location = [self convertTouchToNodeSpace: touch];
-        _lastTouchBeganLocation = location;
-        _lastTouchMovedLocation = location;
-        //return YES;
-        
-        // to get touch position
-        {
-            CGPoint location = [touch locationInView:[touch view]];
-            location = [[CCDirector sharedDirector] convertToGL:location];
-            CGFloat touchX      = location.x;
-            CGFloat touchY      = location.y;
-            
-            float centerX, centerY, centerZ;
-            float eyeX, eyeY, eyeZ;
-            [self.camera centerX:&centerX centerY:&centerY centerZ:&centerZ];
-            [self.camera eyeX:&eyeX eyeY:&eyeY eyeZ:&eyeZ];
-            
-            CGFloat touchCameraX    = touchX + centerX;
-            CGFloat touchCameraY    = touchY + centerY;
-            printf ("touching at: (%f, %f)", touchCameraX, touchCameraY);
-            printf ("\n");
-        }
+        _touchAtBegin           = [touch locationInView: [touch view]];
+        _touchDeltaLastFrame    = CGPointMake(0.0f, 0.0f);
     }
 
     return YES;
@@ -241,27 +284,19 @@ CGPoint _lastTouchMovedLocation;
 
     if ( _isDebug )
     {
-        CGPoint location = [self convertTouchToNodeSpace: touch];
-        CGPoint movedLocation   = CGPointMake(location.x-_lastTouchMovedLocation.x,
-                                              location.y-_lastTouchMovedLocation.y);
-        _lastTouchMovedLocation = location;
+        CGFloat zoomX   = [[Camera getObject] getZoomX];
         
-        // move camera
-        float centerX, centerY, centerZ;
-        float eyeX, eyeY, eyeZ;
-        [self.camera centerX:&centerX centerY:&centerY centerZ:&centerZ];
-        [self.camera eyeX:&eyeX eyeY:&eyeY eyeZ:&eyeZ];
-        float moveX = movedLocation.x;
-        float moveY = movedLocation.y;
-        float moveZ = 0.0f;
-        float newX  = centerX - moveX;
-        float newY  = centerY - moveY;
-        float newZ  = centerZ - moveZ;
-        float newEyeX  = eyeX - moveX;
-        float newEyeY  = eyeY - moveY;
-        float newEyeZ  = eyeZ - moveZ;
-        [self.camera setCenterX:newX centerY:newY centerZ:newZ];
-        [self.camera setEyeX:newEyeX eyeY:newEyeY eyeZ:newEyeZ];
+        // cal..
+        CGPoint touchPoint  = [touch locationInView: [touch view]];
+        CGPoint touchDelta  = CGPointMake((touchPoint.x - _touchAtBegin.x) / zoomX ,
+                                          (touchPoint.y - _touchAtBegin.y) / zoomX );
+        CGPoint vecMoveCam  = CGPointMake(touchDelta.x - _touchDeltaLastFrame.x,
+                                          touchDelta.y - _touchDeltaLastFrame.y);
+        _touchDeltaLastFrame    = touchDelta;
+        
+        // move cam
+        CGPoint vecMoveCamMod  = CGPointMake(vecMoveCam.x, -vecMoveCam.y);
+        [[Camera getObject] moveCameraByPoint:vecMoveCamMod];
     }
 }
 
@@ -275,14 +310,6 @@ CGPoint _lastTouchMovedLocation;
     {
         
     }
-}
-
-#pragma mark - PIMPL
-
-- (void) _restart:(id)sender
-{
-    printf ("restarted");
-    printf ("\n");
 }
 
 @end

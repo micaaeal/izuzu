@@ -21,4 +21,6 @@
 - (void) onTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event;
 - (void) onTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event;
 
+- (void) onGetStringMessage: (NSString*) message;
+
 @end

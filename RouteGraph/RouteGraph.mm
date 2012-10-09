@@ -76,6 +76,13 @@ void    RouteGraph::ClearRoute()
 }
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+void    RouteGraph::RemoveBackRoute()
+{
+    _verticesRoute.pop_back();
+    _edgeRoute.pop_back();
+}
+
+// ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 std::vector<TrEdge> RouteGraph::GetEdgeRoute()
 {
     int count   = _verticesRoute.size();
