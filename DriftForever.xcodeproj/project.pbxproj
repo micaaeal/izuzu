@@ -1376,6 +1376,7 @@
 				GCC_PREFIX_HEADER = DriftForever/Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"DriftForever/libs/kazmath/include\"";
 				INFOPLIST_FILE = DriftForever/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-ObjC",
@@ -1389,16 +1390,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Code Gears Co., Ltd.";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = DriftForever/Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"DriftForever/libs/kazmath/include\"";
 				INFOPLIST_FILE = DriftForever/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9532DEBD-9C17-4776-9FF6-A9E1771AD9C1";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
