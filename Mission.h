@@ -9,8 +9,19 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-@interface Mission : NSObject {
-    
-}
+@class Event;
+@interface Mission : NSObject
+
+// Global methods
++ (void) setCurrentMissionCode: (int) missionCode;
++ (int) getCurrentMissionCode;
++ (Mission*) GetMissionFromCode: (int) missionCode;
++ (void) removeAllMissionCache;
+
+// Class methods
+- (int) GetStartVertex;
+- (int) GetEndVertex;
+- (NSArray*) GetAllEvents;
+- (Event*) GetEventFromDistance: (float) distance; // distance is from 0.0 to 1.0
 
 @end

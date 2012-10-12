@@ -19,6 +19,7 @@ using namespace std;
 #import "Camera.h"
 
 #import "Utils.h"
+#import "Mission.h"
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 enum STATE_DRIVE_CAR
@@ -49,6 +50,9 @@ enum STATE_DRIVE_CAR
 @property (assign) vector<CGPoint>  _cMovingPoints;
 @property (assign) int              _cSubPointId;
 @property (assign) float            _cDistanceToMoveNextFrame;
+@property (assign) long double      _carMovedDistance;
+
+@property (retain) Mission*         _currentMission;
 
 @end
 
@@ -66,9 +70,13 @@ enum STATE_DRIVE_CAR
 @synthesize _cSubPointId;
 @synthesize _cDistanceToMoveNextFrame;
 
+@synthesize _carMovedDistance;
+
 vector<TrVertex>    _allVertices;
 vector<TrVertex>    _vertexRoute;
 vector<TrEdge>      _edgeRoute;
+
+@synthesize _currentMission;
 
 - (void) onStart
 {
@@ -93,7 +101,7 @@ vector<TrEdge>      _edgeRoute;
     _currentState   = STATE_DRIVE_CAR_NONE;
     
     // start drive
-    
+    _currentMission = [Mission GetMissionFromCode:[Mission getCurrentMissionCode]];
 }
 
 - (void) onFinish
@@ -157,6 +165,7 @@ vector<TrEdge>      _edgeRoute;
             _cDistanceToMoveNextFrame    = 0.0f;
             
             _currentState   = STATE_DRIVE_CAR_DRIVE_CAR_LERP;
+            _carMovedDistance   = 0.0f;
         }
             break;
         case STATE_DRIVE_CAR_DRIVE_CAR_SET_CHECKPOINT:
@@ -225,6 +234,20 @@ vector<TrEdge>      _edgeRoute;
             camPoint.y -= (winSize.height * 0.5f);
             [[Camera getObject] setCameraToPoint:camPoint];
             //---------------------------------------------------------
+            
+            // set current distance
+            float carMoveThisFrame  = sqrtf(carMoveVec.x * carMoveVec.x +
+                                            carMoveVec.y * carMoveVec.y );
+            _carMovedDistance += carMoveThisFrame;
+            
+            // check for event
+            Event* cEvent   = [_currentMission GetEventFromDistance:_carMovedDistance];
+            if ( cEvent )
+            {
+#warning .... to be continued here !!
+                printf ("fire event here");
+                printf ("\n");
+            }
             
             // if last period
             BOOL isLastSubPointPeriod   = NO;

@@ -14,6 +14,7 @@
 #import "Camera.h"
 using namespace std;
 #import "Utils.h"
+#import "Mission.h"
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 enum STATE_SELECT_ROUTE
@@ -47,6 +48,8 @@ enum STATE_SELECT_ROUTE
 @property (assign) TrVertex            _nextVertex;
 @property (assign) STATE_SELECT_ROUTE  _currentState;
 
+@property (retain) Mission*            _currentMission;
+
 @end
 
 @implementation StateSelectRoute
@@ -62,6 +65,7 @@ enum STATE_SELECT_ROUTE
 @synthesize _hasSelectedRouteThisPoint;
 @synthesize _nextVertex;
 @synthesize _currentState;
+@synthesize _currentMission;
 
 - (void) onStart
 {
@@ -106,10 +110,15 @@ enum STATE_SELECT_ROUTE
         case STATE_SELECT_ROUTE_START:
         {            
             // set currentVertexPtr from the @Mission
+            int cMissionCode    = [Mission getCurrentMissionCode];
+            Mission* cMission   = [Mission GetMissionFromCode:cMissionCode];
+            _currentMission = cMission;
+            
+            // all about route graph
             RouteGraph& routeGraph  = [World GetRouteGraph];
             vector<TrVertex> allVertices    = routeGraph.GetAllVertices();
-            _startVertex    = allVertices[1];
-            _finishVertex   = allVertices[3];
+            _startVertex    = allVertices[[_currentMission GetStartVertex]];
+            _finishVertex   = allVertices[[_currentMission GetEndVertex]];
             _currentVertex  = _startVertex;
             
             Camera* cam = [Camera getObject];

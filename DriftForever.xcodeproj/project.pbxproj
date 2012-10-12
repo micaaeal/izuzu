@@ -10,6 +10,8 @@
 		BD49BD3B1613539200C401BF /* PlayDriftLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD49BD3A1613539200C401BF /* PlayDriftLayer.mm */; };
 		BD49BD441613576E00C401BF /* World.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD49BD431613576E00C401BF /* World.mm */; };
 		BD49BD4716135A7900C401BF /* Mission.m in Sources */ = {isa = PBXBuildFile; fileRef = BD49BD4616135A7900C401BF /* Mission.m */; };
+		BDA5BD5A162737FD00EAD767 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA5BD59162737FD00EAD767 /* Event.m */; };
+		BDA5BD5E1627950500EAD767 /* Combo.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA5BD5D1627950500EAD767 /* Combo.m */; };
 		BDAF16131614B63700C50EC4 /* road_config.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDAF16121614B63700C50EC4 /* road_config.plist */; };
 		BDAF161F1614BF9200C50EC4 /* adjacency_matrix_config.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDAF161E1614BF9200C50EC4 /* adjacency_matrix_config.plist */; };
 		BDAF16221614BFD600C50EC4 /* vertices_config.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDAF16211614BFD600C50EC4 /* vertices_config.plist */; };
@@ -184,6 +186,10 @@
 		BD49BD4516135A7900C401BF /* Mission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mission.h; sourceTree = "<group>"; };
 		BD49BD4616135A7900C401BF /* Mission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mission.m; sourceTree = "<group>"; };
 		BD6922A41617561A0045538D /* MenuSelectRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuSelectRoute.h; sourceTree = "<group>"; };
+		BDA5BD58162737FD00EAD767 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		BDA5BD59162737FD00EAD767 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		BDA5BD5C1627950500EAD767 /* Combo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Combo.h; sourceTree = "<group>"; };
+		BDA5BD5D1627950500EAD767 /* Combo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Combo.m; sourceTree = "<group>"; };
 		BDAF16121614B63700C50EC4 /* road_config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = road_config.plist; sourceTree = "<group>"; };
 		BDAF161E1614BF9200C50EC4 /* adjacency_matrix_config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = adjacency_matrix_config.plist; sourceTree = "<group>"; };
 		BDAF16211614BFD600C50EC4 /* vertices_config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = vertices_config.plist; sourceTree = "<group>"; };
@@ -529,6 +535,10 @@
 			children = (
 				BD49BD4516135A7900C401BF /* Mission.h */,
 				BD49BD4616135A7900C401BF /* Mission.m */,
+				BDA5BD58162737FD00EAD767 /* Event.h */,
+				BDA5BD59162737FD00EAD767 /* Event.m */,
+				BDA5BD5C1627950500EAD767 /* Combo.h */,
+				BDA5BD5D1627950500EAD767 /* Combo.m */,
 			);
 			name = Mission;
 			sourceTree = "<group>";
@@ -1320,6 +1330,8 @@
 				BDF75DD5161933C000BEAFD1 /* Camera.mm in Sources */,
 				BDBD3F57161BB48B00488689 /* UtilVec.mm in Sources */,
 				BDBD3F5A161BC4AE00488689 /* MenuSelectRoute.mm in Sources */,
+				BDA5BD5A162737FD00EAD767 /* Event.m in Sources */,
+				BDA5BD5E1627950500EAD767 /* Combo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

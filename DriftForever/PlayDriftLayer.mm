@@ -21,6 +21,8 @@ using namespace std;
 #import "StateSelectRoute.h"
 #import "StateDriveCar.h"
 
+#import "Mission.h"
+
 // camera
 #import "Camera.h"
 
@@ -73,6 +75,10 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
     {
         // set flags
         _isDebug    = YES;
+     
+        // init all sub layers
+        CCLayer* actionLayer = [[[CCLayer alloc] init] autorelease];
+        [self addChild:actionLayer];
         
         // init states
         _stateSelectRoute   = [[StateSelectRoute alloc] init];
@@ -80,10 +86,10 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
         _currentState       = _stateSelectRoute;
         
         // assign data from world
-        [World AssignDataToLayer:self withMission:nil];
+        [World AssignDataToLayer:actionLayer withMission:nil];
         
         // assign data from car
-        [Car AssignDataToLayer:self withMission:nil];
+        [Car AssignDataToLayer:actionLayer withMission:nil];
         
         // set touch enable
         self.isTouchEnabled = YES;
@@ -91,13 +97,29 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
         // create update schedule
         [self schedule:@selector(onUpdate:)];
         
+        // set mission
+        
         // start state
-        [_currentState setLayer:self];
+        [_currentState setLayer:actionLayer];
         [_currentState onStart];
+        
+        // camera
+        [[Camera getObject] initCameraWithLayer:actionLayer];
+        [[Camera getObject] zoomTo:_s_zoomLevel[_s_currentZoomLevel]];
         
         // add restart button
         UIWindow* mWindow = [[UIApplication sharedApplication] keyWindow];
 
+        /* // add HUD buttons
+        CCMenuItemFont* menuItem    = [CCMenuItemFont itemWithString:@"HELLO MENU"];
+        CCMenu * myMenu = [CCMenu menuWithItems:menuItem, nil];
+        //[myMenu alignItemsVertically];
+        menuItem.position   = CGPointMake(100.0f, 50.0f);
+        myMenu.position     = CGPointMake(0.0f, 0.0f);
+
+        [self addChild:myMenu];
+        */
+        
         // restart button
         {
             UIButton* btn    = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -160,8 +182,6 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
         }
         */
         
-        // camera
-        [[Camera getObject] initCameraWithLayer:self];
     }
 	return self;
 }
@@ -176,7 +196,7 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
 }
 
 static int _s_currentZoomLevel    = 2;
-static float _s_zoomLevel[]         = {0.5f, 0.75f, 1.0f, 1.5f, 2.0f};
+static float _s_zoomLevel[]         = {0.25f, 0.45f, 0.6f, 0.8f, 1.0f};
 static int   _s_zoomLevelSize       = 5;
 
 - (void) _onZoomIn: (id) sender
