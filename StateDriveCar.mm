@@ -245,8 +245,8 @@ vector<TrEdge>      _edgeRoute;
             if ( cEvent )
             {
 #warning .... to be continued here !!
-                printf ("fire event here");
-                printf ("\n");
+//                printf ("fire event here");
+//                printf ("\n");
             }
             
             // if last period

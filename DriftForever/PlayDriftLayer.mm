@@ -294,6 +294,21 @@ CGPoint _touchDeltaLastFrame;
         // to move the screen
         _touchAtBegin           = [touch locationInView: [touch view]];
         _touchDeltaLastFrame    = CGPointMake(0.0f, 0.0f);
+        
+        // to get touch position
+        {
+            CGPoint location = [touch locationInView:[touch view]];
+            location = [[CCDirector sharedDirector] convertToGL:location];
+            CGFloat touchX      = location.x;
+            CGFloat touchY      = location.y;
+            
+            CGPoint cameraPoint = [[Camera getObject] getPoint];
+            
+            CGFloat touchCameraX    = touchX + cameraPoint.x;
+            CGFloat touchCameraY    = touchY + cameraPoint.y;
+            printf ("touching at: (%f, %f)", touchCameraX, touchCameraY);
+            printf ("\n");
+        }
     }
 
     return YES;

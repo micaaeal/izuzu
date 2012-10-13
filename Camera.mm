@@ -64,7 +64,6 @@ Camera* _object = nil;
 
 - (void) setCameraToPoint: (CGPoint) point
 {
-    CCLayer* layer  = _object._layer;
     CGPoint layerAbsPoint;
     
     // move camera

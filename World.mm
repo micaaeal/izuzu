@@ -63,17 +63,28 @@ WorldCache* _worldCache = nil;
     NSArray* roadConfigArray    = [[NSArray alloc] initWithContentsOfFile:roadConfigFullPath];
     
     // load road to memory
-    for (NSDictionary* cRoadDict in roadConfigArray)
+    //for (NSDictionary* cRoadDict in roadConfigArray)
+    for ( int i=roadConfigArray.count-1; i>=0; --i )
     {
+        NSDictionary* cRoadDict = [roadConfigArray objectAtIndex:i];
+        
         NSString* file_name = [cRoadDict objectForKey:@"file_name"];
         NSString* x         = [cRoadDict objectForKey:@"x"];
         NSString* y         = [cRoadDict objectForKey:@"y"];
         NSString* rotation  = [cRoadDict objectForKey:@"rotation"];
         
         CCSprite* cSprite   = [CCSprite spriteWithFile:file_name];
-        cSprite.position    = ccp( x.floatValue, y.floatValue );
-        [cSprite setRotation:rotation.floatValue];
-        [_worldCache.roadArray addObject:cSprite];
+        if ( ! cSprite )
+        {
+            printf ("null image with name: %s", [file_name UTF8String]);
+            printf ("\n");
+        }
+        else
+        {
+            cSprite.position    = ccp( x.floatValue, y.floatValue );
+            [cSprite setRotation:rotation.floatValue];
+            [_worldCache.roadArray addObject:cSprite];   
+        }
     }
     
     [roadConfigArray release];

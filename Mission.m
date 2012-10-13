@@ -62,8 +62,8 @@ static NSMutableDictionary* _missionCacheDict   = nil;
         // create new mission
         Mission* cMission   = [[Mission alloc] init];
         cMission._code      = cMissionCode;
-        cMission._vertexStart   = 1; // config this line !
-        cMission._vertexEnd     = 3; // config this line !
+        cMission._vertexStart   = 0; // config this line !
+        cMission._vertexEnd     = 1; // config this line !
         
         NSMutableArray* eventArray  = [[NSMutableArray alloc] init];
         {
