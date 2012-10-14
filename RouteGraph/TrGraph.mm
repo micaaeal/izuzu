@@ -30,6 +30,8 @@ void TrGraph::Start()
     _InitVertices(_vertices);
     _InitEdges(_edges);
     _InitAdjacencyMatrixEdgeIndice(_adjacencyMatrix, _edges);
+    
+    PrintAdJacencyMatrix();
 }
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -66,7 +68,7 @@ std::vector<TrVertex>& TrGraph::GetVerticesRef()
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 TrEdge* TrGraph::GetEdgeRef(int amX, int amY)
 {
-    const int length    = _adjacencyMatrix.length;
+    const int length    = sqrtf( _adjacencyMatrix.length );
     
     if ( amX >= length )
         return NULL;
@@ -88,7 +90,7 @@ std::vector<TrEdge>&  TrGraph::GetEdgesRef()
 
 void TrGraph::GetAdjacencyVertices(TrVertex& vertex, std::vector<TrVertex>& outVertices)
 {
-    const int length    = _adjacencyMatrix.length;
+    const int length    = sqrtf(_adjacencyMatrix.length);
     
     outVertices.clear();
     
@@ -97,6 +99,8 @@ void TrGraph::GetAdjacencyVertices(TrVertex& vertex, std::vector<TrVertex>& outV
     int adjacencyMatrixInitIndex    = vertexId * length;
     int adjacencyMatrixLastIndex    = adjacencyMatrixInitIndex + searchCount - 1;
     
+    printf ("---- ---- ---- ----");
+    printf ("\n");
     for (int i=adjacencyMatrixInitIndex; i<=adjacencyMatrixLastIndex; ++i)
     {
         bool isAdjacent = _adjacencyMatrix.edgeFlages[i];
@@ -108,13 +112,16 @@ void TrGraph::GetAdjacencyVertices(TrVertex& vertex, std::vector<TrVertex>& outV
 
         TrVertex cVertex    = _vertices[adjacencyVertexIndex];
         outVertices.push_back(cVertex);
+        
+        printf ("current vertex id: %d", cVertex.vertexId);
+        printf ("\n");
     }
 }
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 void TrGraph::_InitAdjacencyMatrix(TrAdjacencyMatrix &adjacencyMatrixRef)
 {
-    // load config file
+    /* // load config file
     NSString* configFullPath    = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:@"adjacency_matrix_config.plist"];
     NSArray* configArray    = [[NSArray alloc] initWithContentsOfFile:configFullPath];
     
@@ -129,6 +136,24 @@ void TrGraph::_InitAdjacencyMatrix(TrAdjacencyMatrix &adjacencyMatrixRef)
     
     [configArray release];
     configArray = nil;
+    /*/
+    NSString* configFullPath    = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:@"adjacency_matrix_config.plist"];
+    NSDictionary* configDict    = [[NSDictionary alloc] initWithContentsOfFile:configFullPath];
+    
+    int length       = ((NSString*)[configDict objectForKey:@"length"]).intValue;
+    
+    adjacencyMatrixRef.length   = length * length;
+    
+    // load adjacency matrix to memory
+    for ( int i=0; i<adjacencyMatrixRef.length; ++i)
+    {
+        _adjacencyMatrix.edgeFlages.push_back(false);
+        _adjacencyMatrix.edgeIndices.push_back(-1);
+    }
+    
+    [configDict release];
+    configDict = nil;
+    /**/
 }
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -190,29 +215,19 @@ void TrGraph::_InitEdges(std::vector<TrEdge>& edges)
 void TrGraph::_InitAdjacencyMatrixEdgeIndice(TrAdjacencyMatrix& adjacencyMatrixRef,
                                     std::vector<TrEdge>& edges)
 {
-    // init edge indices
-    const int arrayCount    = adjacencyMatrixRef.edgeFlages.size();
-    for (int i=0; i<arrayCount; ++i)
+    const int length        = sqrtf( _adjacencyMatrix.length );
+    
+    for (int i=0; i<edges.size(); ++i)
     {
-        bool cHasEdge   = adjacencyMatrixRef.edgeFlages[i];
+        TrEdge& cEdge   = edges[i];
         
-        if ( ! cHasEdge )
-            continue;
+        int row = cEdge.vertexStart;
+        int col = cEdge.vertexEnd;
         
-        int vertexStart = i / adjacencyMatrixRef.length;
-        int vertexEnd   = i % adjacencyMatrixRef.length;
+        int index   = row * length + col;
         
-        for (int j=0; j<edges.size(); ++j)
-        {
-            TrEdge& cEdge   = edges[j];
-            
-            if ( cEdge.vertexStart != vertexStart )
-                continue;
-            if ( cEdge.vertexEnd != vertexEnd )
-                continue;
-            
-            adjacencyMatrixRef.edgeIndices[i]  = j;
-        }
+        adjacencyMatrixRef.edgeFlages[index]    = 1;
+        adjacencyMatrixRef.edgeIndices[index]   = i;
     }
 }
 
@@ -220,26 +235,53 @@ void TrGraph::_InitAdjacencyMatrixEdgeIndice(TrAdjacencyMatrix& adjacencyMatrixR
 void TrGraph::PrintAdJacencyMatrix()
 {
     const int arrayCount    = _adjacencyMatrix.edgeFlages.size();
-    const int length        = _adjacencyMatrix.length;
+    const int length        = sqrtf( _adjacencyMatrix.length );
     
     // print edge flages
     printf ("\n");
     printf ("edge flags:");
+    
     printf ("\n");
+    for (int i=0; i<length; ++i)
+    {
+        if ( i<10 )
+        {
+            printf ("|");
+            printf ("0%d", i);
+            continue;
+        }
+        printf ("|");
+        printf ("%d", i);
+    }
+    
     for (int i=0; i<arrayCount; ++i)
     {
         bool hasAdjacentVertex    = _adjacencyMatrix.edgeFlages[i];
         
         if ( i%length == 0 )
             printf ("\n");
-        printf ("| ");
-        printf ("%s", hasAdjacentVertex? "1" : "-");
+        
+        printf ("|");
+        printf ("%s", hasAdjacentVertex? "||" : "--");
     }
-
+    
     // print edge indices
     printf ("\n");
     printf ("edge indices:");
+    
     printf ("\n");
+    for (int i=0; i<length; ++i)
+    {
+        if ( i<10 )
+        {
+            printf ("|");
+            printf ("0%d", i);
+            continue;
+        }
+        printf ("|");
+        printf ("%d", i);
+    }
+    
     for (int i=0; i<arrayCount; ++i)
     {
         int cEdgeIndex    = _adjacencyMatrix.edgeIndices[i];
@@ -247,11 +289,23 @@ void TrGraph::PrintAdJacencyMatrix()
         if ( i%length == 0 )
             printf ("\n");
         
-        printf ("| ");
         if ( cEdgeIndex == -1 )
-            printf ("-");
+        {
+            printf ("|");
+            printf ("--");
+        }
         else
-            printf ("%d", cEdgeIndex);
+        {
+            printf ("|");
+            if ( cEdgeIndex < 10 )
+            {
+                printf ("0%d", cEdgeIndex);
+            }
+            else
+            {
+                printf ("%d", cEdgeIndex);
+            }
+        }
     }
 }
 

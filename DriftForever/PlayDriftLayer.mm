@@ -295,7 +295,7 @@ CGPoint _touchDeltaLastFrame;
         _touchAtBegin           = [touch locationInView: [touch view]];
         _touchDeltaLastFrame    = CGPointMake(0.0f, 0.0f);
         
-        // to get touch position
+        /* // to get touch position
         {
             CGPoint location = [touch locationInView:[touch view]];
             location = [[CCDirector sharedDirector] convertToGL:location];
@@ -309,6 +309,7 @@ CGPoint _touchDeltaLastFrame;
             printf ("touching at: (%f, %f)", touchCameraX, touchCameraY);
             printf ("\n");
         }
+        */
     }
 
     return YES;

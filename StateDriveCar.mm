@@ -138,7 +138,18 @@ vector<TrEdge>      _edgeRoute;
             
             CGPoint carPosition = [UtilVec convertVecIfRetina:firstVertexPoint];
             [Car setPosition:carPosition];
-            CGPoint carTarget   = [UtilVec convertVecIfRetina:_edgeRoute[0].subPoints[0]];
+            
+            CGPoint carTarget   = CGPointMake(0.0f, 0.0f);
+            if ( _edgeRoute[0].subPoints.size() > 0 )
+            {
+                carTarget   = [UtilVec convertVecIfRetina:_edgeRoute[0].subPoints[0]];
+            }
+            else
+            {
+                int vertexEndCode   = _edgeRoute[0].vertexEnd;
+                carTarget   = [UtilVec convertVecIfRetina:_vertexRoute[vertexEndCode].point];
+            }
+            
             [Car setTarget:carTarget];
             [Car setSpeed:300.0f];
             
@@ -270,6 +281,7 @@ vector<TrEdge>      _edgeRoute;
         case STATE_DRIVE_CAR_REACH_TARGET:
         {
             printf ( "car is reaching the target!!!\n" );
+            _currentState   = STATE_DRIVE_CAR_FINISH;
         }
             break;
         case STATE_DRIVE_CAR_FINISH:

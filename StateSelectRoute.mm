@@ -151,10 +151,12 @@ enum STATE_SELECT_ROUTE
                                  rootLayer:layer];
             [selectRoute setActionObject:self];
             
-            for ( int i=0; i<_currentConnectedVertices.size(); ++i)
+            int connectedSize   = _currentConnectedVertices.size();
+            for ( int i=0; i<connectedSize; ++i)
             {
                 RouteGraph& cRouteGraph = [World GetRouteGraph];
                 int cConnectedVertexId  = _currentConnectedVertices[i].vertexId;
+                
                 TrEdge cEdge    = cRouteGraph.GetEdgeFromVertexId(_currentVertex.vertexId,
                                                                   cConnectedVertexId);
                 
@@ -226,14 +228,13 @@ enum STATE_SELECT_ROUTE
             _currentVertex  = _nextVertex;
             cRouteGraph.PushVertex(_currentVertex);
             
-            /*
+            // move camera
             Camera* cam = [Camera getObject];
-            CGPoint camPoint    = [UtilVec convertVecIfRetina:_currentVertex.point];
+            CGPoint camPoint = [UtilVec convertVecIfRetina:_currentVertex.point];
             CGSize winSize  = [[CCDirector sharedDirector] winSize];
             camPoint.x -= (winSize.width * 0.5f);
             camPoint.y -= (winSize.height * 0.5f);
             [cam setCameraToPoint:camPoint];
-            */
             
             // set state
             _currentState   = STATE_SELECT_ROUTE_CAMERA_STOP;
@@ -299,11 +300,13 @@ enum STATE_SELECT_ROUTE
     CGPoint viewPortPoint   = CGPointMake(camCenter.x + camSize.width*0.5f/camZoomX,
                                           camCenter.y + camSize.height*0.5f/camZoomX );
     
-    CGPoint absPoint        = CGPointMake( viewPortPoint.x - touchPoint.x / camZoomX,
-                                           viewPortPoint.y - touchPoint.y / camZoomX );
+    CGPoint absPoint        = CGPointMake( touchPoint.x / camZoomX - viewPortPoint.x,
+                                           touchPoint.y / camZoomX - viewPortPoint.y );
     
-    CGPoint buttonCoordPoint    = CGPointMake(-absPoint.x, -absPoint.y);
-    [_currentMenuSelectRoute checkActionByPoint:buttonCoordPoint];
+    printf ("touch point: (%f,%f)", absPoint.x, absPoint.y);
+    printf ("\n");
+    
+    [_currentMenuSelectRoute checkActionByPoint:absPoint];
     
     return YES;
 }
