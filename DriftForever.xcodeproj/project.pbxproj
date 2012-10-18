@@ -146,6 +146,13 @@
 		BDBD3F5A161BC4AE00488689 /* MenuSelectRoute.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDBD3F59161BC4AE00488689 /* MenuSelectRoute.mm */; };
 		BDBFC2A41623180300096792 /* minus.png in Resources */ = {isa = PBXBuildFile; fileRef = BDBFC2A21623180300096792 /* minus.png */; };
 		BDBFC2A51623180300096792 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = BDBFC2A31623180300096792 /* plus.png */; };
+		BDDA0DD0162F7F0000854B96 /* 01.png in Resources */ = {isa = PBXBuildFile; fileRef = BDDA0DCA162F7F0000854B96 /* 01.png */; };
+		BDDA0DD1162F7F0000854B96 /* 02.png in Resources */ = {isa = PBXBuildFile; fileRef = BDDA0DCB162F7F0000854B96 /* 02.png */; };
+		BDDA0DD2162F7F0000854B96 /* a.png in Resources */ = {isa = PBXBuildFile; fileRef = BDDA0DCC162F7F0000854B96 /* a.png */; };
+		BDDA0DD3162F7F0000854B96 /* b.png in Resources */ = {isa = PBXBuildFile; fileRef = BDDA0DCD162F7F0000854B96 /* b.png */; };
+		BDDA0DD4162F7F0000854B96 /* c.png in Resources */ = {isa = PBXBuildFile; fileRef = BDDA0DCE162F7F0000854B96 /* c.png */; };
+		BDDA0DD5162F7F0000854B96 /* d.png in Resources */ = {isa = PBXBuildFile; fileRef = BDDA0DCF162F7F0000854B96 /* d.png */; };
+		BDDA0DD9162F854900854B96 /* EventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = BDDA0DD8162F854900854B96 /* EventHandler.m */; };
 		BDDD91591623BB8A00A257F6 /* cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = BDDD91581623BB8A00A257F6 /* cancel.png */; };
 		BDE549F21616FDA0005B6BD5 /* StateSelectRoute.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDE549F11616FDA0005B6BD5 /* StateSelectRoute.mm */; };
 		BDE549F51616FDB3005B6BD5 /* StateDriveCar.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDE549F41616FDB3005B6BD5 /* StateDriveCar.mm */; };
@@ -462,6 +469,14 @@
 		BDBD3F59161BC4AE00488689 /* MenuSelectRoute.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MenuSelectRoute.mm; sourceTree = "<group>"; };
 		BDBFC2A21623180300096792 /* minus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = minus.png; sourceTree = "<group>"; };
 		BDBFC2A31623180300096792 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
+		BDDA0DCA162F7F0000854B96 /* 01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 01.png; sourceTree = "<group>"; };
+		BDDA0DCB162F7F0000854B96 /* 02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 02.png; sourceTree = "<group>"; };
+		BDDA0DCC162F7F0000854B96 /* a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = a.png; sourceTree = "<group>"; };
+		BDDA0DCD162F7F0000854B96 /* b.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = b.png; sourceTree = "<group>"; };
+		BDDA0DCE162F7F0000854B96 /* c.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c.png; sourceTree = "<group>"; };
+		BDDA0DCF162F7F0000854B96 /* d.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = d.png; sourceTree = "<group>"; };
+		BDDA0DD7162F854900854B96 /* EventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventHandler.h; sourceTree = "<group>"; };
+		BDDA0DD8162F854900854B96 /* EventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventHandler.m; sourceTree = "<group>"; };
 		BDDD91581623BB8A00A257F6 /* cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancel.png; sourceTree = "<group>"; };
 		BDE549EF1616FD8C005B6BD5 /* StateProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StateProtocol.h; sourceTree = "<group>"; };
 		BDE549F01616FDA0005B6BD5 /* StateSelectRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateSelectRoute.h; sourceTree = "<group>"; };
@@ -535,10 +550,6 @@
 			children = (
 				BD49BD4516135A7900C401BF /* Mission.h */,
 				BD49BD4616135A7900C401BF /* Mission.m */,
-				BDA5BD58162737FD00EAD767 /* Event.h */,
-				BDA5BD59162737FD00EAD767 /* Event.m */,
-				BDA5BD5C1627950500EAD767 /* Combo.h */,
-				BDA5BD5D1627950500EAD767 /* Combo.m */,
 			);
 			name = Mission;
 			sourceTree = "<group>";
@@ -637,6 +648,7 @@
 				BD6922A3161755FB0045538D /* Menu */,
 				BDE549ED1616FD72005B6BD5 /* State */,
 				BD49BD4816135A8600C401BF /* Mission */,
+				BDDA0DD6162F7FD700854B96 /* Event */,
 				BD49BD3D161356E600C401BF /* World */,
 				BDF75DCE161903C500BEAFD1 /* Car */,
 				BDBA3379160E252D00593FFC /* DriftForever */,
@@ -696,6 +708,7 @@
 				BDE54A28161750C9005B6BD5 /* menu */,
 				BD49BD5016135E0700C401BF /* Cocos2d_Boilerplate */,
 				BD49BD5116135F2D00C401BF /* Road */,
+				BDDA0DC8162F7EE400854B96 /* events */,
 			);
 			name = Resources;
 			path = DriftForever;
@@ -1054,6 +1067,32 @@
 			name = Utils;
 			sourceTree = "<group>";
 		};
+		BDDA0DC8162F7EE400854B96 /* events */ = {
+			isa = PBXGroup;
+			children = (
+				BDDA0DCA162F7F0000854B96 /* 01.png */,
+				BDDA0DCB162F7F0000854B96 /* 02.png */,
+				BDDA0DCC162F7F0000854B96 /* a.png */,
+				BDDA0DCD162F7F0000854B96 /* b.png */,
+				BDDA0DCE162F7F0000854B96 /* c.png */,
+				BDDA0DCF162F7F0000854B96 /* d.png */,
+			);
+			name = events;
+			sourceTree = "<group>";
+		};
+		BDDA0DD6162F7FD700854B96 /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				BDDA0DD7162F854900854B96 /* EventHandler.h */,
+				BDDA0DD8162F854900854B96 /* EventHandler.m */,
+				BDA5BD58162737FD00EAD767 /* Event.h */,
+				BDA5BD59162737FD00EAD767 /* Event.m */,
+				BDA5BD5C1627950500EAD767 /* Combo.h */,
+				BDA5BD5D1627950500EAD767 /* Combo.m */,
+			);
+			name = Event;
+			sourceTree = "<group>";
+		};
 		BDE549ED1616FD72005B6BD5 /* State */ = {
 			isa = PBXGroup;
 			children = (
@@ -1205,6 +1244,12 @@
 				BDBFC2A51623180300096792 /* plus.png in Resources */,
 				BDDD91591623BB8A00A257F6 /* cancel.png in Resources */,
 				BD56AC561629218C00941DC1 /* road_config.plist in Resources */,
+				BDDA0DD0162F7F0000854B96 /* 01.png in Resources */,
+				BDDA0DD1162F7F0000854B96 /* 02.png in Resources */,
+				BDDA0DD2162F7F0000854B96 /* a.png in Resources */,
+				BDDA0DD3162F7F0000854B96 /* b.png in Resources */,
+				BDDA0DD4162F7F0000854B96 /* c.png in Resources */,
+				BDDA0DD5162F7F0000854B96 /* d.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1332,6 +1377,7 @@
 				BDBD3F5A161BC4AE00488689 /* MenuSelectRoute.mm in Sources */,
 				BDA5BD5A162737FD00EAD767 /* Event.m in Sources */,
 				BDA5BD5E1627950500EAD767 /* Combo.m in Sources */,
+				BDDA0DD9162F854900854B96 /* EventHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,13 +10,6 @@
 
 @interface Event : NSObject
 
-@property (assign) float       atDistance; // value is between 0.0 - 1.0
-@property (retain) NSArray*    comboArray;
-
-- (void) reset;
-- (BOOL) isComboFinished;
-- (void) run: (CGFloat) dt;
-- (float) getComboListProgress;
-- (BOOL) testComboAtCurrentTime: (NSString*) comboKey;
+@property (nonatomic) CGRect boundingBox;
 
 @end

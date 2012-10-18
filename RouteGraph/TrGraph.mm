@@ -99,8 +99,8 @@ void TrGraph::GetAdjacencyVertices(TrVertex& vertex, std::vector<TrVertex>& outV
     int adjacencyMatrixInitIndex    = vertexId * length;
     int adjacencyMatrixLastIndex    = adjacencyMatrixInitIndex + searchCount - 1;
     
-    printf ("---- ---- ---- ----");
-    printf ("\n");
+//    printf ("---- ---- ---- ----");
+//    printf ("\n");
     for (int i=adjacencyMatrixInitIndex; i<=adjacencyMatrixLastIndex; ++i)
     {
         bool isAdjacent = _adjacencyMatrix.edgeFlages[i];
@@ -113,8 +113,8 @@ void TrGraph::GetAdjacencyVertices(TrVertex& vertex, std::vector<TrVertex>& outV
         TrVertex cVertex    = _vertices[adjacencyVertexIndex];
         outVertices.push_back(cVertex);
         
-        printf ("current vertex id: %d", cVertex.vertexId);
-        printf ("\n");
+//        printf ("current vertex id: %d", cVertex.vertexId);
+//        printf ("\n");
     }
 }
 

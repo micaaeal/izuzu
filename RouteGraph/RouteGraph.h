@@ -31,10 +31,15 @@ public:
     
     std::vector<TrVertex> GetAllVertices();
     void PrintVertices(std::vector<TrVertex>& vertices);
+    
+    double  GetRouteLength();
+    CGPoint GetPointByNormalizeValue(double normValue, double& outExpectedDistance);
         
 private:
     std::vector<TrVertex>   _verticesRoute;
     std::vector<TrEdge>     _edgeRoute;
     TrGraph*                _trGraphPtr;
-
+    
+    std::vector<CGPoint>    _edgeRoutePath;
+    std::vector<double>     _edgeRouteDistance;
 };

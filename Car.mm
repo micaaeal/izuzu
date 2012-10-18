@@ -135,4 +135,9 @@ CarCache* _carCache = nil;
     return _carCache.target;
 }
 
++ (CGRect) getBoundingBox
+{
+    return _carCache.carSprite.boundingBox;
+}
+
 @end

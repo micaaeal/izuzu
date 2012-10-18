@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-@class Event;
 @interface Mission : NSObject
 
 // Global methods
@@ -21,7 +20,5 @@
 // Class methods
 - (int) GetStartVertex;
 - (int) GetEndVertex;
-- (NSArray*) GetAllEvents;
-- (Event*) GetEventFromDistance: (float) distance; // distance is from 0.0 to 1.0
 
 @end

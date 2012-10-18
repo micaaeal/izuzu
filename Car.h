@@ -27,4 +27,6 @@
 + (const CGFloat) getRotation;
 + (const CGPoint) getTarget;
 
++ (CGRect) getBoundingBox;
+
 @end

@@ -97,6 +97,11 @@ vector<TrEdge>      _edgeRoute;
         printf ("\n");
     }
     
+    // set route lenght
+    double routeLength  = routeGraph.GetRouteLength();
+    printf ("route length: %lf", routeLength);
+    printf ("\n");
+    
     // set init state
     _currentState   = STATE_DRIVE_CAR_NONE;
     
@@ -153,6 +158,14 @@ vector<TrEdge>      _edgeRoute;
             [Car setTarget:carTarget];
             [Car setSpeed:300.0f];
             
+            CGRect carBoundingBox   = [Car getBoundingBox];
+            printf ("car bounding box: %f, %f, %f, %f",
+                    carBoundingBox.origin.x,
+                    carBoundingBox.origin.y,
+                    carBoundingBox.size.width,
+                    carBoundingBox.size.height);
+            printf ("\n");
+            
             // set moving point as route
             _cMovingPoints.clear();
             
@@ -177,6 +190,20 @@ vector<TrEdge>      _edgeRoute;
             
             _currentState   = STATE_DRIVE_CAR_DRIVE_CAR_LERP;
             _carMovedDistance   = 0.0f;
+            
+            printf ("---- route point ----");
+            printf ("\n");
+            RouteGraph& cRouteGraph = [World GetRouteGraph];
+            for ( int i=0; i<=10; ++i )
+            //for (int i=4; i<5; ++i)
+            {
+                float norm_v    = (float)i / 10.0f;
+                double cExpectedDistance;
+                CGPoint point   = cRouteGraph.GetPointByNormalizeValue(norm_v, cExpectedDistance);
+                printf ("point:%f:distance:%f :%f,%f:", norm_v, cExpectedDistance, point.x, point.y);
+                printf ("\n");
+            }
+            printf ("\n");
         }
             break;
         case STATE_DRIVE_CAR_DRIVE_CAR_SET_CHECKPOINT:
@@ -250,15 +277,6 @@ vector<TrEdge>      _edgeRoute;
             float carMoveThisFrame  = sqrtf(carMoveVec.x * carMoveVec.x +
                                             carMoveVec.y * carMoveVec.y );
             _carMovedDistance += carMoveThisFrame;
-            
-            // check for event
-            Event* cEvent   = [_currentMission GetEventFromDistance:_carMovedDistance];
-            if ( cEvent )
-            {
-#warning .... to be continued here !!
-//                printf ("fire event here");
-//                printf ("\n");
-            }
             
             // if last period
             BOOL isLastSubPointPeriod   = NO;

@@ -7,13 +7,11 @@
 //
 
 #import "Mission.h"
-#import "Event.h"
 #import "Combo.h"
 
 @interface Mission()
 
 @property (assign) int                  _code;
-@property (retain) NSMutableArray*      _events;
 @property (assign) int                  _vertexStart;
 @property (assign) int                  _vertexEnd;
 
@@ -21,14 +19,13 @@
 
 @implementation Mission
 @synthesize _code;
-@synthesize _events;
 @synthesize _vertexStart;
 @synthesize _vertexEnd;
 
 #pragma mark - Global methods
 
 static int _s_missionCode   = 0;
-static NSMutableDictionary* _missionCacheDict   = nil;
+static NSMutableDictionary* _s_missionCacheDict   = nil;
 
 + (void) setCurrentMissionCode: (int) missionCode
 {
@@ -42,9 +39,9 @@ static NSMutableDictionary* _missionCacheDict   = nil;
 
 + (Mission*) GetMissionFromCode: (int) missionCode
 {
-    if ( ! _missionCacheDict )
+    if ( ! _s_missionCacheDict )
     {
-        _missionCacheDict   = [[NSMutableDictionary alloc] init];
+        _s_missionCacheDict   = [[NSMutableDictionary alloc] init];
     }
     
     // search by mission id
@@ -53,7 +50,7 @@ static NSMutableDictionary* _missionCacheDict   = nil;
     {
         // get mission from cache
         NSString* missionCodeStr    = [[NSString alloc] initWithFormat:@"%d", cMissionCode];
-        Mission* missionFromCache   = [_missionCacheDict objectForKey:missionCodeStr];
+        Mission* missionFromCache   = [_s_missionCacheDict objectForKey:missionCodeStr];
         if ( missionFromCache )
         {
             return missionFromCache;
@@ -64,96 +61,24 @@ static NSMutableDictionary* _missionCacheDict   = nil;
         cMission._code      = cMissionCode;
         cMission._vertexStart   = 21; // config this line !
         cMission._vertexEnd     = 23; // config this line !
-        
-        NSMutableArray* eventArray  = [[NSMutableArray alloc] init];
-        {
-            Event* cEvent       = [[Event alloc] init];
-            cEvent.atDistance   = 0.5; // config this line !
-            
-            NSMutableArray* comboArray  = [[NSMutableArray alloc] init];
-            {
-                Combo* cCombo   = [[Combo alloc] init];
-                cCombo.startTime    = 1.0f;
-                cCombo.endTime      = 1.5f;
-                cCombo.value        = @"A";
-                [comboArray addObject:cCombo];
-                [cCombo release];
-                cCombo  = nil;
-            }
-            {
-                Combo* cCombo   = [[Combo alloc] init];
-                cCombo.startTime    = 1.0f;
-                cCombo.endTime      = 1.5f;
-                cCombo.value        = @"B";
-                [comboArray addObject:cCombo];
-                [cCombo release];
-                cCombo  = nil;
-            }
 
-            cEvent.comboArray   = comboArray;
-            
-            [comboArray release];
-            comboArray  = nil;
-            
-            [eventArray addObject:cEvent];
-            [cEvent release];
-            cEvent  = nil;
-        }
-        {
-            Event* cEvent       = [[Event alloc] init];
-            cEvent.atDistance   = 0.7; // config this line !
-
-            NSMutableArray* comboArray  = [[NSMutableArray alloc] init];
-            {
-                Combo* cCombo   = [[Combo alloc] init];
-                cCombo.startTime    = 1.0f;
-                cCombo.endTime      = 1.5f;
-                cCombo.value        = @"C";
-                [comboArray addObject:cCombo];
-                [cCombo release];
-                cCombo  = nil;
-            }
-            {
-                Combo* cCombo   = [[Combo alloc] init];
-                cCombo.startTime    = 1.0f;
-                cCombo.endTime      = 1.5f;
-                cCombo.value        = @"A";
-                [comboArray addObject:cCombo];
-                [cCombo release];
-                cCombo  = nil;
-            }
-            {
-                Combo* cCombo   = [[Combo alloc] init];
-                cCombo.startTime    = 1.0f;
-                cCombo.endTime      = 1.5f;
-                cCombo.value        = @"B";
-                [comboArray addObject:cCombo];
-                [cCombo release];
-                cCombo  = nil;
-            }
-            
-            cEvent.comboArray   = comboArray;
-            [comboArray release];
-            comboArray  = nil;
-            
-            [eventArray addObject:cEvent];
-            [cEvent release];
-            cEvent  = nil;
-        }
-        cMission._events    = eventArray;
-        [eventArray release];
-        eventArray  = nil;
-        
-        [_missionCacheDict setObject:cMission forKey:missionCodeStr];
+        [_s_missionCacheDict setObject:cMission forKey:missionCodeStr];
         
         [cMission release];
         cMission    = nil;
         
-        return [_missionCacheDict objectForKey:missionCodeStr];
+        return [_s_missionCacheDict objectForKey:missionCodeStr];
     }
     ++cMissionCode;
     
     return nil;
+}
+
++ (void) removeAllMissionCache
+{
+    [_s_missionCacheDict removeAllObjects];
+    [_s_missionCacheDict release];
+    _s_missionCacheDict = nil;
 }
 
 #pragma mark - Memory management methods
@@ -163,7 +88,6 @@ static NSMutableDictionary* _missionCacheDict   = nil;
     self    = [super init];
     if (self)
     {
-        _events         = [[NSMutableArray alloc] init];
         _vertexStart    = 0;
         _vertexEnd      = 0;
     }
@@ -172,8 +96,6 @@ static NSMutableDictionary* _missionCacheDict   = nil;
 
 - (void) dealloc
 {
-    [_events release];
-    _events = nil;
     
     [super dealloc];
 }
@@ -188,29 +110,6 @@ static NSMutableDictionary* _missionCacheDict   = nil;
 - (int) GetEndVertex
 {
     return _vertexEnd;
-}
-
-- (NSArray*) GetAllEvents
-{
-    return _events;
-}
-
-// distance is from 0.0 to 1.0
-- (Event*) GetEventFromDistance: (float) distance
-{
-    int eventCount  = _events.count;
-    
-    Event* foundedEvent = nil;
-    for ( int i=0; i<eventCount; ++i )
-    {
-        Event* cEvent   = [_events objectAtIndex:0];
-        if ( distance > cEvent.atDistance )
-        {
-            foundedEvent    = cEvent;
-        }
-    }
-    
-    return foundedEvent; // if found return object, otherwise return nil
 }
 
 @end
