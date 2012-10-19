@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "StateProtocol.h"
+#import "EventHandler.h"
 
-@interface StateDriveCar : NSObject <StateProtocol>
+@interface StateDriveCar : NSObject <StateProtocol, EventHandlerDelegate>
 
 @end

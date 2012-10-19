@@ -31,7 +31,7 @@ void TrGraph::Start()
     _InitEdges(_edges);
     _InitAdjacencyMatrixEdgeIndice(_adjacencyMatrix, _edges);
     
-    PrintAdJacencyMatrix();
+    //PrintAdJacencyMatrix();
 }
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----

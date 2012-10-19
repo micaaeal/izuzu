@@ -34,6 +34,9 @@ public:
     
     double  GetRouteLength();
     CGPoint GetPointByNormalizeValue(double normValue, double& outExpectedDistance);
+    
+    bool    GetHasCancelState();
+    void    SetHasCancelState(bool flag);
         
 private:
     std::vector<TrVertex>   _verticesRoute;
@@ -42,4 +45,6 @@ private:
     
     std::vector<CGPoint>    _edgeRoutePath;
     std::vector<double>     _edgeRouteDistance;
+    
+    bool                    _hasCancelState;
 };

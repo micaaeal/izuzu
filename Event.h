@@ -7,9 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "cocos2d.h"
 
 @interface Event : NSObject
 
-@property (nonatomic) CGRect boundingBox;
+@property (copy) NSString*      code;
+@property (assign) CGPoint      point;
+@property (copy) NSString*      typeName;
+@property (retain) CCSprite*    sprite;
+@property (assign) BOOL         isTouching;
 
 @end

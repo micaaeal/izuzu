@@ -20,6 +20,8 @@ using namespace std;
 
 #import "Utils.h"
 #import "Mission.h"
+#import "EventHandler.h"
+#import "Fuel.h"
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 enum STATE_DRIVE_CAR
@@ -54,6 +56,10 @@ enum STATE_DRIVE_CAR
 
 @property (retain) Mission*         _currentMission;
 
+@property (assign) BOOL _isInWaterEvent;
+@property (assign) BOOL _isInRoughEvent;
+- (void) _setCarCustomedAnimation: (float) deltaTime;
+
 @end
 
 @implementation StateDriveCar
@@ -72,6 +78,9 @@ enum STATE_DRIVE_CAR
 
 @synthesize _carMovedDistance;
 
+@synthesize _isInWaterEvent;
+@synthesize _isInRoughEvent;
+
 vector<TrVertex>    _allVertices;
 vector<TrVertex>    _vertexRoute;
 vector<TrEdge>      _edgeRoute;
@@ -80,6 +89,10 @@ vector<TrEdge>      _edgeRoute;
 
 - (void) onStart
 {
+    // set flags
+    _isInWaterEvent = NO;
+    _isInRoughEvent = NO;
+    
     // load route data
     RouteGraph& routeGraph  = [World GetRouteGraph];
     _allVertices    = routeGraph.GetAllVertices();
@@ -191,11 +204,11 @@ vector<TrEdge>      _edgeRoute;
             _currentState   = STATE_DRIVE_CAR_DRIVE_CAR_LERP;
             _carMovedDistance   = 0.0f;
             
+            /*
             printf ("---- route point ----");
             printf ("\n");
             RouteGraph& cRouteGraph = [World GetRouteGraph];
             for ( int i=0; i<=10; ++i )
-            //for (int i=4; i<5; ++i)
             {
                 float norm_v    = (float)i / 10.0f;
                 double cExpectedDistance;
@@ -204,6 +217,7 @@ vector<TrEdge>      _edgeRoute;
                 printf ("\n");
             }
             printf ("\n");
+            */
         }
             break;
         case STATE_DRIVE_CAR_DRIVE_CAR_SET_CHECKPOINT:
@@ -294,6 +308,18 @@ vector<TrEdge>      _edgeRoute;
             {
                 ++_cSubPointId;
             }
+            
+            // update event
+            [[EventHandler getObject] onUpdate:deltaTime];
+            
+            // customed car animation with event
+            [self _setCarCustomedAnimation:deltaTime];
+            
+            // reduce fuel
+            float fuelNorm  = [[Fuel getObject] GetFuelNorm];
+            fuelNorm -= (deltaTime*0.06f);
+            [[Fuel getObject] SetFuelNorm:fuelNorm];
+            [[Fuel getObject] Update:deltaTime];
         }
             break;
         case STATE_DRIVE_CAR_REACH_TARGET:
@@ -338,6 +364,54 @@ vector<TrEdge>      _edgeRoute;
 - (void) onGetStringMessage: (NSString*) message
 {
     
+}
+
+#pragma mark - EventHandlerDelegate
+
+- (void) onTouchingInWithEvent: (Event*) event
+{
+    printf ("onTouchingInWithEvent with code: %d", event.code.intValue);
+    printf ("\n");
+    
+    if ( [event.typeName isEqualToString:@"water"] )
+    {
+        _isInWaterEvent = YES;
+    }
+    else if ( [event.typeName isEqualToString:@"rough"] )
+    {
+        _isInRoughEvent = YES;
+    }
+}
+
+- (void) onTouchingOutWithEvent: (Event*) event
+{
+    printf ("onTouchingOutWithEvent with code: %d", event.code.intValue);
+    printf ("\n");
+    
+    if ( [event.typeName isEqualToString:@"water"] )
+    {
+        _isInWaterEvent = NO;
+    }
+    else if ( [event.typeName isEqualToString:@"rough"] )
+    {
+        _isInRoughEvent = NO;
+        [Car unsetRandomColor];
+    }
+}
+
+#pragma mark - PIMPL
+
+- (void) _setCarCustomedAnimation: (float) deltaTime
+{
+    if (_isInWaterEvent)
+    {
+        CGPoint carTarget   = CGPointMake(0.0f, 0.0f);
+        [Car setTarget:carTarget];
+    }
+    if (_isInRoughEvent)
+    {
+        [Car setRandomColor];
+    }
 }
 
 @end

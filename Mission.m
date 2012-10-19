@@ -8,6 +8,7 @@
 
 #import "Mission.h"
 #import "Combo.h"
+#import "cocos2d.h"
 
 @interface Mission()
 
@@ -26,6 +27,36 @@
 
 static int _s_missionCode   = 0;
 static NSMutableDictionary* _s_missionCacheDict   = nil;
+
+static CCSprite* _s_winFlag   = nil;
+static CCSprite* _s_startSign = nil;
+
++ (void) loadData
+{
+    _s_winFlag    = [CCSprite spriteWithFile:@"win_flag.png"];
+    _s_startSign  = [CCSprite spriteWithFile:@"start_sign.png"];
+}
+
++ (void) unloadData
+{
+    // need to do something
+}
+
++ (void) AssignDataToLayer: (CCLayer*) layer
+{
+    [layer addChild:_s_winFlag];
+    [layer addChild:_s_startSign];
+}
+
++ (void) setWinFlagPoint: (CGPoint) point
+{
+    [_s_winFlag setPosition:point];
+}
+
++ (void) setStarSignPoint: (CGPoint) point
+{
+    [_s_startSign setPosition:point];
+}
 
 + (void) setCurrentMissionCode: (int) missionCode
 {

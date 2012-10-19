@@ -140,4 +140,16 @@ CarCache* _carCache = nil;
     return _carCache.carSprite.boundingBox;
 }
 
++ (void) setRandomColor
+{
+    ccColor3B carColor = {arc4random() % 255,arc4random() % 255,arc4random() % 255};
+    [_carCache.carSprite setColor:carColor];
+}
+
++ (void) unsetRandomColor
+{
+    ccColor3B carColor = {255, 255, 255};
+    [_carCache.carSprite setColor:carColor];
+}
+
 @end

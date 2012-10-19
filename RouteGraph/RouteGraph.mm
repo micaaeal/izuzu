@@ -16,12 +16,14 @@ using namespace std;
 RouteGraph::RouteGraph()
 {
     _trGraphPtr = NULL;
+    _hasCancelState = false;
 }
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 RouteGraph::~RouteGraph()
 {
     _trGraphPtr = NULL;
+    _hasCancelState = false;
 }
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -81,7 +83,8 @@ void    RouteGraph::ClearRoute()
 void    RouteGraph::RemoveBackRoute()
 {
     _verticesRoute.pop_back();
-    _edgeRoute.pop_back();
+    // re-calculate edge route
+    GetEdgeRoute();
 }
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -269,3 +272,16 @@ CGPoint RouteGraph::GetPointByNormalizeValue(double normValue, double& outExpect
     
     return CGPointMake(targetX, targetY);
 }
+
+// ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+bool    RouteGraph::GetHasCancelState()
+{
+    return _hasCancelState;
+}
+
+// ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+void    RouteGraph::SetHasCancelState(bool flag)
+{
+    _hasCancelState = flag;
+}
+

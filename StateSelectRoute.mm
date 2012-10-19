@@ -23,6 +23,7 @@ enum STATE_SELECT_ROUTE
     
     STATE_SELECT_ROUTE_START,
     STATE_SELECT_ROUTE_LOAD_ROUTE,
+    STATE_SELECT_ROUTE_START_MOVE_CAMERA,
     STATE_SELECT_ROUTE_SELECT_ROUTE,
     STATE_SELECT_ROUTE_MOVE_CAMERA,
     STATE_SELECT_ROUTE_CAMERA_STOP,
@@ -49,6 +50,7 @@ enum STATE_SELECT_ROUTE
 @property (assign) STATE_SELECT_ROUTE  _currentState;
 
 @property (retain) Mission*            _currentMission;
+@property (assign) CGPoint             _currentCamPoint;
 
 @end
 
@@ -66,6 +68,7 @@ enum STATE_SELECT_ROUTE
 @synthesize _nextVertex;
 @synthesize _currentState;
 @synthesize _currentMission;
+@synthesize _currentCamPoint;
 
 - (void) onStart
 {
@@ -121,6 +124,10 @@ enum STATE_SELECT_ROUTE
             _finishVertex   = allVertices[[_currentMission GetEndVertex]];
             _currentVertex  = _startVertex;
             
+            // set mission start sign & win flag
+            [Mission setStarSignPoint:_startVertex.point];
+            [Mission setWinFlagPoint:_finishVertex.point];
+            
             Camera* cam = [Camera getObject];
             CGPoint camPoint = [UtilVec convertVecIfRetina:_currentVertex.point];
             CGSize winSize  = [[CCDirector sharedDirector] winSize];
@@ -130,8 +137,67 @@ enum STATE_SELECT_ROUTE
             
             routeGraph.PushVertex(_currentVertex);
             
+            // set camera first post
+            [[Camera getObject] setCameraToPoint:_finishVertex.point];
+            _currentCamPoint    = _finishVertex.point;
+            
             // set state
-            _currentState   = STATE_SELECT_ROUTE_LOAD_ROUTE;
+            _currentState   = STATE_SELECT_ROUTE_START_MOVE_CAMERA;
+        }
+            break;
+        case STATE_SELECT_ROUTE_START_MOVE_CAMERA:
+        {
+            CGPoint camStartPoint   = _finishVertex.point;
+            CGPoint camEndPoint     = _startVertex.point;
+            
+            CGPoint cCamPoint       = _currentCamPoint;
+            
+            CGPoint toMoveVec       = CGPointMake(camEndPoint.x-camStartPoint.x,
+                                                  camEndPoint.y-camStartPoint.y);
+            float deltaPointLength  = sqrtf( toMoveVec.x*toMoveVec.x + toMoveVec.y*toMoveVec.y);
+            CGPoint toMoveVecUnit   = CGPointMake(toMoveVec.x/deltaPointLength, toMoveVec.y/deltaPointLength);
+            
+            float toMoveSpeed       = 300.0f;
+            float toMoveDistance    = deltaTime * toMoveSpeed;
+            CGPoint toMoveVecAbsolute   = CGPointMake(toMoveVecUnit.x*toMoveDistance,
+                                                      toMoveVecUnit.y*toMoveDistance);
+            
+            CGPoint newCamPoint     = CGPointMake(cCamPoint.x+toMoveVecAbsolute.x,
+                                                  cCamPoint.y+toMoveVecAbsolute.y);
+            
+            CGPoint camToEndPointVec    = CGPointMake(camEndPoint.x-newCamPoint.x,
+                                                      camEndPoint.y-newCamPoint.y);
+            
+            CGFloat dotVec      = (camToEndPointVec.x * toMoveVecUnit.x) + (camToEndPointVec.y * toMoveVecUnit.y);
+            BOOL isCamBeyound   = dotVec <= 0.0f ? YES : NO;
+            
+            if ( isCamBeyound )
+            {
+                _currentCamPoint    = camEndPoint;
+                
+                CGPoint camPoint = [UtilVec convertVecIfRetina:camEndPoint];
+                CGSize winSize  = [[CCDirector sharedDirector] winSize];
+                camPoint.x -= (winSize.width * 0.5f);
+                camPoint.y -= (winSize.height * 0.5f);
+                [[Camera getObject] setCameraToPoint:camPoint];
+                
+                // set state
+                _currentState   = STATE_SELECT_ROUTE_LOAD_ROUTE;
+            }
+            else
+            {
+                _currentCamPoint    = newCamPoint;
+                
+                CGPoint camPoint = [UtilVec convertVecIfRetina:newCamPoint];
+                CGSize winSize  = [[CCDirector sharedDirector] winSize];
+                camPoint.x -= (winSize.width * 0.5f);
+                camPoint.y -= (winSize.height * 0.5f);
+                [[Camera getObject] setCameraToPoint:camPoint];
+                
+                [[Camera getObject] setCameraToPoint:camPoint];
+            }
+            
+
         }
             break;
         case STATE_SELECT_ROUTE_LOAD_ROUTE:
@@ -212,6 +278,13 @@ enum STATE_SELECT_ROUTE
             break;
         case STATE_SELECT_ROUTE_SELECT_ROUTE:
         {
+            RouteGraph& routeGraph  = [World GetRouteGraph];
+            if ( routeGraph.GetHasCancelState() )
+            {
+                routeGraph.SetHasCancelState(false);
+                _currentState   = STATE_SELECT_ROUTE_LOAD_ROUTE;
+            }
+            
             if ( _hasSelectedRouteThisPoint )
             {
                 _currentState   = STATE_SELECT_ROUTE_MOVE_CAMERA;
@@ -229,12 +302,12 @@ enum STATE_SELECT_ROUTE
             cRouteGraph.PushVertex(_currentVertex);
             
             // move camera
-            Camera* cam = [Camera getObject];
-            CGPoint camPoint = [UtilVec convertVecIfRetina:_currentVertex.point];
-            CGSize winSize  = [[CCDirector sharedDirector] winSize];
-            camPoint.x -= (winSize.width * 0.5f);
-            camPoint.y -= (winSize.height * 0.5f);
-            [cam setCameraToPoint:camPoint];
+//            Camera* cam = [Camera getObject];
+//            CGPoint camPoint = [UtilVec convertVecIfRetina:_currentVertex.point];
+//            CGSize winSize  = [[CCDirector sharedDirector] winSize];
+//            camPoint.x -= (winSize.width * 0.5f);
+//            camPoint.y -= (winSize.height * 0.5f);
+//            [cam setCameraToPoint:camPoint];
             
             // set state
             _currentState   = STATE_SELECT_ROUTE_CAMERA_STOP;

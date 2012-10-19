@@ -23,6 +23,10 @@ using namespace std;
 
 #import "Mission.h"
 
+#import "EventHandler.h"
+
+#import "Fuel.h"
+
 // camera
 #import "Camera.h"
 
@@ -40,7 +44,7 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
 - (void) _onRestart: (id) sender;
 - (void) _onZoomIn: (id) sender;
 - (void) _onZoomOut: (id) sender;
-- (void) _onCancel: (id) sender;
+- (void) _onRemoveBackRoute: (id) sender;
 
 @end
 
@@ -83,22 +87,33 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
         // init states
         _stateSelectRoute   = [[StateSelectRoute alloc] init];
         _stateDriveCar      = [[StateDriveCar alloc] init];
+        [EventHandler getObject].delegate   = _stateDriveCar;
         _currentState       = _stateSelectRoute;
         
         // assign data from world
         [World AssignDataToLayer:actionLayer withMission:nil];
         
+        // assign data from event handler
+        [[EventHandler getObject] onStart];
+        [[EventHandler getObject] assignDataToLayer:actionLayer];
+        
+        // set mission
+        [Mission loadData];
+        [Mission AssignDataToLayer:actionLayer];
+        
         // assign data from car
         [Car AssignDataToLayer:actionLayer withMission:nil];
+        
+        // assign data from Fuel
+        [[Fuel getObject] LoadData];
+        [[Fuel getObject] AssignDataToLayer:self];
         
         // set touch enable
         self.isTouchEnabled = YES;
         
         // create update schedule
         [self schedule:@selector(onUpdate:)];
-        
-        // set mission
-        
+
         // start state
         [_currentState setLayer:actionLayer];
         [_currentState onStart];
@@ -165,7 +180,7 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
                     action:@selector(_onZoomOut:)
           forControlEvents:UIControlEventTouchDown];
         }
-        /* // cancel button
+        /* // remove back route button
         {
             UIButton* btn    = [UIButton buttonWithType:UIButtonTypeCustom];
             UIImage* img   = [UIImage imageNamed:@"cancel"];
@@ -177,11 +192,10 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
             [mWindow addSubview:btn];
             [mWindow bringSubviewToFront:btn];
             [btn addTarget:self
-                    action:@selector(_onCancel:)
+                    action:@selector(_onRemoveBackRoute:)
           forControlEvents:UIControlEventTouchDown];
         }
         */
-        
     }
 	return self;
 }
@@ -219,9 +233,11 @@ static int   _s_zoomLevelSize       = 5;
     [[Camera getObject] zoomTo:_s_zoomLevel[_s_currentZoomLevel]];
 }
 
-- (void) _onCancel: (id) sender
+- (void) _onRemoveBackRoute: (id) sender
 {
-    [_currentState onGetStringMessage:@"cancel"];
+    RouteGraph& routeGraph  = [World GetRouteGraph];
+    routeGraph.RemoveBackRoute();
+    routeGraph.SetHasCancelState(true);
 }
 
 // on "dealloc" you need to release all your retained objects
@@ -268,6 +284,9 @@ static int   _s_zoomLevelSize       = 5;
     {
         CCLOG(@"State Not Found!!!!");
     }
+    
+    // update fuel
+    [[Fuel getObject] Update:dt];
 }
 
 - (void) draw

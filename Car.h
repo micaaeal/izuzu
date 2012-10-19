@@ -29,4 +29,7 @@
 
 + (CGRect) getBoundingBox;
 
++ (void) setRandomColor;
++ (void) unsetRandomColor;
+
 @end

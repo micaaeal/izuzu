@@ -10,6 +10,13 @@
 		BD49BD3B1613539200C401BF /* PlayDriftLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD49BD3A1613539200C401BF /* PlayDriftLayer.mm */; };
 		BD49BD441613576E00C401BF /* World.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD49BD431613576E00C401BF /* World.mm */; };
 		BD49BD4716135A7900C401BF /* Mission.m in Sources */ = {isa = PBXBuildFile; fileRef = BD49BD4616135A7900C401BF /* Mission.m */; };
+		BD4ABB011630691400694676 /* event_water.png in Resources */ = {isa = PBXBuildFile; fileRef = BD4ABAFE1630691400694676 /* event_water.png */; };
+		BD4ABB021630691400694676 /* event_rough.png in Resources */ = {isa = PBXBuildFile; fileRef = BD4ABAFF1630691400694676 /* event_rough.png */; };
+		BD4ABB031630691400694676 /* event_trigger.png in Resources */ = {isa = PBXBuildFile; fileRef = BD4ABB001630691400694676 /* event_trigger.png */; };
+		BD4ABB0B1630B67900694676 /* start_sign.png in Resources */ = {isa = PBXBuildFile; fileRef = BD4ABB091630B67900694676 /* start_sign.png */; };
+		BD4ABB0C1630B67900694676 /* win_flag.png in Resources */ = {isa = PBXBuildFile; fileRef = BD4ABB0A1630B67900694676 /* win_flag.png */; };
+		BD4ABB111630DA1900694676 /* Fuel.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD4ABB101630DA1900694676 /* Fuel.mm */; };
+		BD4ABB131630DC3500694676 /* fuel_gauge.png in Resources */ = {isa = PBXBuildFile; fileRef = BD4ABB121630DC3500694676 /* fuel_gauge.png */; };
 		BD56AC561629218C00941DC1 /* road_config.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD56AC551629218B00941DC1 /* road_config.plist */; };
 		BDA5BD5A162737FD00EAD767 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA5BD59162737FD00EAD767 /* Event.m */; };
 		BDA5BD5E1627950500EAD767 /* Combo.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA5BD5D1627950500EAD767 /* Combo.m */; };
@@ -152,7 +159,7 @@
 		BDDA0DD3162F7F0000854B96 /* b.png in Resources */ = {isa = PBXBuildFile; fileRef = BDDA0DCD162F7F0000854B96 /* b.png */; };
 		BDDA0DD4162F7F0000854B96 /* c.png in Resources */ = {isa = PBXBuildFile; fileRef = BDDA0DCE162F7F0000854B96 /* c.png */; };
 		BDDA0DD5162F7F0000854B96 /* d.png in Resources */ = {isa = PBXBuildFile; fileRef = BDDA0DCF162F7F0000854B96 /* d.png */; };
-		BDDA0DD9162F854900854B96 /* EventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = BDDA0DD8162F854900854B96 /* EventHandler.m */; };
+		BDDA0DD9162F854900854B96 /* EventHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDDA0DD8162F854900854B96 /* EventHandler.mm */; };
 		BDDD91591623BB8A00A257F6 /* cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = BDDD91581623BB8A00A257F6 /* cancel.png */; };
 		BDE549F21616FDA0005B6BD5 /* StateSelectRoute.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDE549F11616FDA0005B6BD5 /* StateSelectRoute.mm */; };
 		BDE549F51616FDB3005B6BD5 /* StateDriveCar.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDE549F41616FDB3005B6BD5 /* StateDriveCar.mm */; };
@@ -192,6 +199,14 @@
 		BD49BD431613576E00C401BF /* World.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = World.mm; sourceTree = "<group>"; };
 		BD49BD4516135A7900C401BF /* Mission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mission.h; sourceTree = "<group>"; };
 		BD49BD4616135A7900C401BF /* Mission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mission.m; sourceTree = "<group>"; };
+		BD4ABAFE1630691400694676 /* event_water.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = event_water.png; sourceTree = "<group>"; };
+		BD4ABAFF1630691400694676 /* event_rough.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = event_rough.png; sourceTree = "<group>"; };
+		BD4ABB001630691400694676 /* event_trigger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = event_trigger.png; sourceTree = "<group>"; };
+		BD4ABB091630B67900694676 /* start_sign.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = start_sign.png; sourceTree = "<group>"; };
+		BD4ABB0A1630B67900694676 /* win_flag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = win_flag.png; sourceTree = "<group>"; };
+		BD4ABB0F1630DA1900694676 /* Fuel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fuel.h; sourceTree = "<group>"; };
+		BD4ABB101630DA1900694676 /* Fuel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Fuel.mm; sourceTree = "<group>"; };
+		BD4ABB121630DC3500694676 /* fuel_gauge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fuel_gauge.png; sourceTree = "<group>"; };
 		BD56AC551629218B00941DC1 /* road_config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = road_config.plist; sourceTree = "<group>"; };
 		BD6922A41617561A0045538D /* MenuSelectRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuSelectRoute.h; sourceTree = "<group>"; };
 		BDA5BD58162737FD00EAD767 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
@@ -476,7 +491,7 @@
 		BDDA0DCE162F7F0000854B96 /* c.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c.png; sourceTree = "<group>"; };
 		BDDA0DCF162F7F0000854B96 /* d.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = d.png; sourceTree = "<group>"; };
 		BDDA0DD7162F854900854B96 /* EventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventHandler.h; sourceTree = "<group>"; };
-		BDDA0DD8162F854900854B96 /* EventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventHandler.m; sourceTree = "<group>"; };
+		BDDA0DD8162F854900854B96 /* EventHandler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EventHandler.mm; sourceTree = "<group>"; };
 		BDDD91581623BB8A00A257F6 /* cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancel.png; sourceTree = "<group>"; };
 		BDE549EF1616FD8C005B6BD5 /* StateProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StateProtocol.h; sourceTree = "<group>"; };
 		BDE549F01616FDA0005B6BD5 /* StateSelectRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateSelectRoute.h; sourceTree = "<group>"; };
@@ -600,9 +615,24 @@
 			name = Road;
 			sourceTree = "<group>";
 		};
+		BD4ABB0E1630DA0100694676 /* Fuel */ = {
+			isa = PBXGroup;
+			children = (
+				BD4ABB0F1630DA1900694676 /* Fuel.h */,
+				BD4ABB101630DA1900694676 /* Fuel.mm */,
+			);
+			name = Fuel;
+			sourceTree = "<group>";
+		};
 		BD5AA2F0161E04E200E367E7 /* mockup */ = {
 			isa = PBXGroup;
 			children = (
+				BD4ABB121630DC3500694676 /* fuel_gauge.png */,
+				BD4ABB091630B67900694676 /* start_sign.png */,
+				BD4ABB0A1630B67900694676 /* win_flag.png */,
+				BD4ABAFE1630691400694676 /* event_water.png */,
+				BD4ABAFF1630691400694676 /* event_rough.png */,
+				BD4ABB001630691400694676 /* event_trigger.png */,
 				BDDD91581623BB8A00A257F6 /* cancel.png */,
 				BDBFC2A21623180300096792 /* minus.png */,
 				BDBFC2A31623180300096792 /* plus.png */,
@@ -652,6 +682,7 @@
 				BD49BD3D161356E600C401BF /* World */,
 				BDF75DCE161903C500BEAFD1 /* Car */,
 				BDBA3379160E252D00593FFC /* DriftForever */,
+				BD4ABB0E1630DA0100694676 /* Fuel */,
 				BDBA3366160E252D00593FFC /* Frameworks */,
 				BDBA3364160E252D00593FFC /* Products */,
 				BDAF160B1614B58D00C50EC4 /* Dependencies */,
@@ -1084,7 +1115,7 @@
 			isa = PBXGroup;
 			children = (
 				BDDA0DD7162F854900854B96 /* EventHandler.h */,
-				BDDA0DD8162F854900854B96 /* EventHandler.m */,
+				BDDA0DD8162F854900854B96 /* EventHandler.mm */,
 				BDA5BD58162737FD00EAD767 /* Event.h */,
 				BDA5BD59162737FD00EAD767 /* Event.m */,
 				BDA5BD5C1627950500EAD767 /* Combo.h */,
@@ -1250,6 +1281,12 @@
 				BDDA0DD3162F7F0000854B96 /* b.png in Resources */,
 				BDDA0DD4162F7F0000854B96 /* c.png in Resources */,
 				BDDA0DD5162F7F0000854B96 /* d.png in Resources */,
+				BD4ABB011630691400694676 /* event_water.png in Resources */,
+				BD4ABB021630691400694676 /* event_rough.png in Resources */,
+				BD4ABB031630691400694676 /* event_trigger.png in Resources */,
+				BD4ABB0B1630B67900694676 /* start_sign.png in Resources */,
+				BD4ABB0C1630B67900694676 /* win_flag.png in Resources */,
+				BD4ABB131630DC3500694676 /* fuel_gauge.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1377,7 +1414,8 @@
 				BDBD3F5A161BC4AE00488689 /* MenuSelectRoute.mm in Sources */,
 				BDA5BD5A162737FD00EAD767 /* Event.m in Sources */,
 				BDA5BD5E1627950500EAD767 /* Combo.m in Sources */,
-				BDDA0DD9162F854900854B96 /* EventHandler.m in Sources */,
+				BDDA0DD9162F854900854B96 /* EventHandler.mm in Sources */,
+				BD4ABB111630DA1900694676 /* Fuel.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

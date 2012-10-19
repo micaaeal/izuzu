@@ -13,6 +13,10 @@
 @end
 
 @implementation Event
-@synthesize boundingBox;
+@synthesize code;
+@synthesize point;
+@synthesize typeName;
+@synthesize sprite;
+@synthesize isTouching;
 
 @end

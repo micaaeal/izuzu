@@ -11,6 +11,13 @@
 
 @interface Mission : NSObject
 
+// res
++ (void) loadData;
++ (void) unloadData;
++ (void) AssignDataToLayer: (CCLayer*) layer;
++ (void) setWinFlagPoint: (CGPoint) point;
++ (void) setStarSignPoint: (CGPoint) point;
+
 // Global methods
 + (void) setCurrentMissionCode: (int) missionCode;
 + (int) getCurrentMissionCode;
