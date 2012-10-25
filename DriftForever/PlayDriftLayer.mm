@@ -22,10 +22,9 @@ using namespace std;
 #import "StateDriveCar.h"
 
 #import "Mission.h"
-
 #import "EventHandler.h"
-
-#import "Fuel.h"
+#import "Console.h"
+#import "ComboPlayer.h"
 
 // camera
 #import "Camera.h"
@@ -38,6 +37,7 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
 @property (retain) id<StateProtocol>    _currentState;
 @property (retain) StateSelectRoute*    _stateSelectRoute;
 @property (retain) StateDriveCar*       _stateDriveCar;
+@property (retain) CCLayer*             _actionLayer;
 
 @property (assign) BOOL     _isDebug;
 
@@ -53,6 +53,7 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
 @synthesize _stateDriveCar;
 @synthesize _currentState;
 @synthesize _isDebug;
+@synthesize _actionLayer;
 
 // Helper class method that creates a Scene with the HelloWorldLayer as the only child.
 +(CCScene *) scene
@@ -62,7 +63,7 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
 	
 	// 'layer' is an autorelease object.
 	PlayDriftLayer *layer = [PlayDriftLayer node];
-	
+    
 	// add layer as a child to scene
 	[scene addChild: layer];
 	
@@ -78,11 +79,12 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
 	if( (self=[super init]) )
     {
         // set flags
-        _isDebug    = YES;
+        _isDebug    = NO;
      
         // init all sub layers
         CCLayer* actionLayer = [[[CCLayer alloc] init] autorelease];
         [self addChild:actionLayer];
+        _actionLayer    = actionLayer;
         
         // init states
         _stateSelectRoute   = [[StateSelectRoute alloc] init];
@@ -105,8 +107,15 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
         [Car AssignDataToLayer:actionLayer withMission:nil];
         
         // assign data from Fuel
-        [[Fuel getObject] LoadData];
-        [[Fuel getObject] AssignDataToLayer:self];
+        [[Console getObject] LoadData];
+        [[Console getObject] AssignDataToLayer:self];
+        [Console getObject].delegate    = _stateDriveCar;
+        [[Console getObject] hideConsole];
+        
+        // assign data from ComboPlayer
+        [[ComboPlayer getObject] LoadData];
+        [[ComboPlayer getObject] AssignDataToLayer:self];
+        [ComboPlayer getObject].delegate    = _stateDriveCar;
         
         // set touch enable
         self.isTouchEnabled = YES;
@@ -140,7 +149,7 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
             UIButton* btn    = [UIButton buttonWithType:UIButtonTypeCustom];
             UIImage* img   = [UIImage imageNamed:@"button_blue_restart"];
             [btn setImage:img forState:UIControlStateNormal];
-            btn.frame    = CGRectMake(mWindow.bounds.size.width-img.size.width,
+            btn.frame    = CGRectMake(0.0f,
                                       mWindow.bounds.size.height-img.size.height,
                                       img.size.width,
                                       img.size.height);
@@ -155,7 +164,7 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
             UIButton* btn    = [UIButton buttonWithType:UIButtonTypeCustom];
             UIImage* img   = [UIImage imageNamed:@"plus"];
             [btn setImage:img forState:UIControlStateNormal];
-            btn.frame    = CGRectMake(mWindow.bounds.size.width-img.size.width,
+            btn.frame    = CGRectMake(0.0f,
                                       mWindow.bounds.size.height-img.size.height-80.0f,
                                       img.size.width,
                                       img.size.height);
@@ -170,7 +179,7 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
             UIButton* btn    = [UIButton buttonWithType:UIButtonTypeCustom];
             UIImage* img   = [UIImage imageNamed:@"minus"];
             [btn setImage:img forState:UIControlStateNormal];
-            btn.frame    = CGRectMake(mWindow.bounds.size.width-img.size.width,
+            btn.frame    = CGRectMake(0.0f,
                                       mWindow.bounds.size.height-img.size.height-160.0f,
                                       img.size.width,
                                       img.size.height);
@@ -207,6 +216,8 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
     _currentState   = _stateSelectRoute;
     [_currentState onFinish];
     [_currentState onStart];
+    
+    [[Console getObject] hideConsole];
 }
 
 static int _s_currentZoomLevel    = 2;
@@ -279,6 +290,7 @@ static int   _s_zoomLevelSize       = 5;
         _currentState   = _stateDriveCar;
         [_stateDriveCar setLayer:self];
         [_stateDriveCar onStart];
+        [[Console getObject] showConsole];
     }
     else
     {
@@ -286,7 +298,7 @@ static int   _s_zoomLevelSize       = 5;
     }
     
     // update fuel
-    [[Fuel getObject] Update:dt];
+    [[Console getObject] Update:dt];
 }
 
 - (void) draw

@@ -17,6 +17,7 @@
 @property (assign) CGFloat      rotation;
 @property (assign) CGPoint      target;
 @property (assign) float        speed;
+@property (assign) CGPoint      directionUnitVec;
 
 @end
 @implementation CarCache
@@ -25,6 +26,7 @@
 @synthesize rotation;
 @synthesize target;
 @synthesize speed;
+@synthesize directionUnitVec;
 
 - (id) init
 {
@@ -36,6 +38,7 @@
         rotation    = 0.0f;
         target      = CGPointMake(0.0f, 0.0f);
         speed       = 1.0f;
+        directionUnitVec    = CGPointMake(0.0f, 0.0f);
     }
     return self;
 }
@@ -112,6 +115,19 @@ CarCache* _carCache = nil;
     float deltaY    = target.y - _carCache.position.y;
     _carCache.target    = target;
 
+    if ( _carCache.target.x == _carCache.position.x )
+    {
+        if ( _carCache.target.y == _carCache.position.y )
+        {
+            return;
+        }
+    }
+    
+    // set direction vec
+    float range     = sqrtf( deltaX*deltaX + deltaY*deltaY );
+    _carCache.directionUnitVec  = CGPointMake(deltaX/range, deltaY/range);
+    
+    // set rotation
     float radian    = atan2f(deltaY, deltaX);
     radian  = M_PI_2 - radian;
     float rotation  = (radian * 180.0f / M_PI );
@@ -133,6 +149,11 @@ CarCache* _carCache = nil;
 + (const CGPoint) getTarget
 {
     return _carCache.target;
+}
+
++ (const CGPoint) getDirectionUnitVec
+{
+    return _carCache.directionUnitVec;
 }
 
 + (CGRect) getBoundingBox

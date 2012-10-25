@@ -16,5 +16,7 @@
 @property (copy) NSString*      typeName;
 @property (retain) CCSprite*    sprite;
 @property (assign) BOOL         isTouching;
+@property (retain) NSMutableArray*  eventBlockCodeArray;
+
 
 @end

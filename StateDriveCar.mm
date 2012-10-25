@@ -20,8 +20,6 @@ using namespace std;
 
 #import "Utils.h"
 #import "Mission.h"
-#import "EventHandler.h"
-#import "Fuel.h"
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 enum STATE_DRIVE_CAR
@@ -58,6 +56,13 @@ enum STATE_DRIVE_CAR
 
 @property (assign) BOOL _isInWaterEvent;
 @property (assign) BOOL _isInRoughEvent;
+
+@property (assign) float    _carAcceleration;
+@property (assign) float    _carBreakDeAcceleration;
+@property (assign) float    _carNormalDeAcceleration;
+@property (assign) float    _carMaxSpeed;
+@property (assign) float    _carMinSpeed;
+
 - (void) _setCarCustomedAnimation: (float) deltaTime;
 
 @end
@@ -81,6 +86,13 @@ enum STATE_DRIVE_CAR
 @synthesize _isInWaterEvent;
 @synthesize _isInRoughEvent;
 
+@synthesize _carAcceleration;
+@synthesize _carBreakDeAcceleration;
+@synthesize _carNormalDeAcceleration;
+
+@synthesize _carMaxSpeed;
+@synthesize _carMinSpeed;
+
 vector<TrVertex>    _allVertices;
 vector<TrVertex>    _vertexRoute;
 vector<TrEdge>      _edgeRoute;
@@ -92,6 +104,13 @@ vector<TrEdge>      _edgeRoute;
     // set flags
     _isInWaterEvent = NO;
     _isInRoughEvent = NO;
+    
+    _carAcceleration            = 120.0f;
+    _carBreakDeAcceleration     = -300.0f;
+    _carNormalDeAcceleration    = -60.0f;
+    
+    _carMaxSpeed   = 600.0f;
+    _carMinSpeed   = 0.0f;
     
     // load route data
     RouteGraph& routeGraph  = [World GetRouteGraph];
@@ -169,7 +188,9 @@ vector<TrEdge>      _edgeRoute;
             }
             
             [Car setTarget:carTarget];
-            [Car setSpeed:300.0f];
+            //[Car setSpeed:300.0f];
+            //[Car setSpeed:30.0f];
+            [Car setSpeed:0.0f];
             
             CGRect carBoundingBox   = [Car getBoundingBox];
             printf ("car bounding box: %f, %f, %f, %f",
@@ -227,6 +248,42 @@ vector<TrEdge>      _edgeRoute;
             break;
         case STATE_DRIVE_CAR_DRIVE_CAR_LERP:
         {
+            //---------------------------------------------------------
+            // calculate car speed
+            BOOL isAccel    = [[Console getObject] getIsTouchingAccel];
+            BOOL isBreak    = [[Console getObject] getIsTouchingBreak];
+            
+            float a = _carNormalDeAcceleration;
+            if ( isAccel )
+            {
+                a += _carAcceleration;
+            }
+            if ( isBreak )
+            {
+                a += _carBreakDeAcceleration;
+            }
+            
+            float deltaVelocity = a * deltaTime;
+            
+            CGFloat carInitSpeed    = [Car getSpeed];
+            float netCarSpeed       = carInitSpeed+deltaVelocity;
+            if ( netCarSpeed > _carMaxSpeed )
+                netCarSpeed = _carMaxSpeed;
+            else if ( netCarSpeed < _carMinSpeed )
+                netCarSpeed = _carMinSpeed;
+            [Car setSpeed:netCarSpeed];
+            
+            // reduce fuel
+            float fuelNorm  = [[Console getObject] GetFuelNorm];
+            
+            if ( isAccel )
+            {
+                fuelNorm -= (deltaTime*0.06f);
+            }
+            
+            [[Console getObject] SetFuelNorm:fuelNorm];
+            [[Console getObject] Update:deltaTime];
+            
             // flags
             BOOL isEndThisSubPoint = NO;
             
@@ -315,11 +372,8 @@ vector<TrEdge>      _edgeRoute;
             // customed car animation with event
             [self _setCarCustomedAnimation:deltaTime];
             
-            // reduce fuel
-            float fuelNorm  = [[Fuel getObject] GetFuelNorm];
-            fuelNorm -= (deltaTime*0.06f);
-            [[Fuel getObject] SetFuelNorm:fuelNorm];
-            [[Fuel getObject] Update:deltaTime];
+            // update combo
+            [[ComboPlayer getObject] Update:deltaTime];
         }
             break;
         case STATE_DRIVE_CAR_REACH_TARGET:
@@ -348,17 +402,33 @@ vector<TrEdge>      _edgeRoute;
 
 - (BOOL) onTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
 {
+    BOOL isComboPlaying = [[ComboPlayer getObject] isPlayingCombo];
+
+    CGPoint location = [touch locationInView:[touch view]];
+    location = [[CCDirector sharedDirector] convertToGL:location];
+    
+    if ( isComboPlaying )
+    {
+        [[ComboPlayer getObject] touchButtonAtPoint:location];
+    }
+    
+    [[Console getObject] touchButtonAtPoint:location];
+    
     return YES;
 }
 
 - (void) onTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event
 {
-    
+    CGPoint location = [touch locationInView:[touch view]];
+    location = [[CCDirector sharedDirector] convertToGL:location];
+    [[Console getObject] touchMoveAtPoint:location];
 }
 
 - (void) onTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
 {
-    
+    CGPoint location = [touch locationInView:[touch view]];
+    location = [[CCDirector sharedDirector] convertToGL:location];
+    [[Console getObject] unTouchButtonAtPoint:location];
 }
 
 - (void) onGetStringMessage: (NSString*) message
@@ -368,24 +438,34 @@ vector<TrEdge>      _edgeRoute;
 
 #pragma mark - EventHandlerDelegate
 
-- (void) onTouchingInWithEvent: (Event*) event
+- (void) onTouchingInWithEvent: (Event*) event isComboSuccess:(BOOL)isComboSuccess
 {
-    printf ("onTouchingInWithEvent with code: %d", event.code.intValue);
+    printf ("Into Event with code: %d", event.code.intValue);
+    printf (" -- isComboSuccess: %s", isComboSuccess? "yes": "no" );
     printf ("\n");
     
-    if ( [event.typeName isEqualToString:@"water"] )
+    if ( isComboSuccess )
     {
-        _isInWaterEvent = YES;
+        //[[ComboPlayer getObject] finishCombo:YES];        
     }
-    else if ( [event.typeName isEqualToString:@"rough"] )
+    else
     {
-        _isInRoughEvent = YES;
+        if ( [event.typeName isEqualToString:@"water"] )
+        {
+            _isInWaterEvent = YES;
+        }
+        else if ( [event.typeName isEqualToString:@"rough"] )
+        {
+            _isInRoughEvent = YES;
+        }   
+        
+        [[ComboPlayer getObject] finishCombo:NO];
     }
 }
 
 - (void) onTouchingOutWithEvent: (Event*) event
 {
-    printf ("onTouchingOutWithEvent with code: %d", event.code.intValue);
+    printf ("out of Event with code: %d", event.code.intValue);
     printf ("\n");
     
     if ( [event.typeName isEqualToString:@"water"] )
@@ -397,6 +477,48 @@ vector<TrEdge>      _edgeRoute;
         _isInRoughEvent = NO;
         [Car unsetRandomColor];
     }
+}
+
+- (void) onStartCombo: (Combo*) combo
+{
+    printf ("onStartCombo with code: %d", combo.code.intValue);
+    printf ("\n");
+    
+    [[ComboPlayer getObject] startCombo:combo];
+}
+
+- (void) onComboFinished:(Combo *)combo isSuccess:(BOOL)isSuccess
+{
+    printf ("onComboFinished: withParameter: %s", isSuccess? "Success" : "Failed");
+    printf ("\n");
+    
+    [[EventHandler getObject] finishCombo:combo];
+}
+
+#pragma mark - ConsoleDelegate
+
+- (void) onStartAccel
+{
+//    printf ("onStartAccel");
+//    printf ("\n");
+}
+
+- (void) onFinishAccel
+{
+//    printf ("onFinishAccel");
+//    printf ("\n");    
+}
+
+- (void) onStartBreak
+{
+//    printf ("onStartBreak");
+//    printf ("\n");    
+}
+
+- (void) onFinishBreak
+{
+//    printf ("onFinishBreak");
+//    printf ("\n");    
 }
 
 #pragma mark - PIMPL

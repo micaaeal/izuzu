@@ -26,6 +26,7 @@
 + (const CGPoint) getPosition;
 + (const CGFloat) getRotation;
 + (const CGPoint) getTarget;
++ (const CGPoint) getDirectionUnitVec;
 
 + (CGRect) getBoundingBox;
 

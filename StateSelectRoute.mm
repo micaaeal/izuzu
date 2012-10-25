@@ -52,6 +52,9 @@ enum STATE_SELECT_ROUTE
 @property (retain) Mission*            _currentMission;
 @property (assign) CGPoint             _currentCamPoint;
 
+@property (assign) CGPoint              _touchAtBegin;
+@property (assign) CGPoint              _touchDeltaLastFrame;
+
 @end
 
 @implementation StateSelectRoute
@@ -69,6 +72,8 @@ enum STATE_SELECT_ROUTE
 @synthesize _currentState;
 @synthesize _currentMission;
 @synthesize _currentCamPoint;
+@synthesize _touchAtBegin;
+@synthesize _touchDeltaLastFrame;
 
 - (void) onStart
 {
@@ -358,6 +363,9 @@ enum STATE_SELECT_ROUTE
 
 - (BOOL) onTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
 {
+    if ( _currentState != STATE_SELECT_ROUTE_SELECT_ROUTE )
+        return NO;
+    
     CGPoint location    = [touch locationInView:[touch view]];
     CGPoint touchPoint  = [[CCDirector sharedDirector] convertToGL:location];
 
@@ -381,17 +389,37 @@ enum STATE_SELECT_ROUTE
     
     [_currentMenuSelectRoute checkActionByPoint:absPoint];
     
+    // to move the screen
+    _touchAtBegin           = [touch locationInView: [touch view]];
+    _touchDeltaLastFrame    = CGPointMake(0.0f, 0.0f);
+    
     return YES;
 }
 
 - (void) onTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event
 {
+    if ( _currentState != STATE_SELECT_ROUTE_SELECT_ROUTE )
+        return;
     
+    CGFloat zoomX   = [[Camera getObject] getZoomX];
+    
+    // cal..
+    CGPoint touchPoint  = [touch locationInView: [touch view]];
+    CGPoint touchDelta  = CGPointMake((touchPoint.x - _touchAtBegin.x) / zoomX ,
+                                      (touchPoint.y - _touchAtBegin.y) / zoomX );
+    CGPoint vecMoveCam  = CGPointMake(touchDelta.x - _touchDeltaLastFrame.x,
+                                      touchDelta.y - _touchDeltaLastFrame.y);
+    _touchDeltaLastFrame    = touchDelta;
+    
+    // move cam
+    CGPoint vecMoveCamMod  = CGPointMake(vecMoveCam.x, -vecMoveCam.y);
+    [[Camera getObject] moveCameraByPoint:vecMoveCamMod];
 }
 
 - (void) onTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
 {
-    
+    if ( _currentState != STATE_SELECT_ROUTE_SELECT_ROUTE )
+        return;
 }
 
 - (void) onGetStringMessage: (NSString*) message

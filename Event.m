@@ -8,15 +8,12 @@
 
 #import "Event.h"
 
-@interface Event()
-
-@end
-
 @implementation Event
 @synthesize code;
 @synthesize point;
 @synthesize typeName;
 @synthesize sprite;
 @synthesize isTouching;
+@synthesize eventBlockCodeArray;
 
 @end

@@ -9,7 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "StateProtocol.h"
 #import "EventHandler.h"
+#import "ComboPlayer.h"
+#import "Console.h"
 
-@interface StateDriveCar : NSObject <StateProtocol, EventHandlerDelegate>
+@interface StateDriveCar : NSObject <StateProtocol, EventHandlerDelegate, ComboPlayerDelegate, ConsoleDelegate>
 
 @end

@@ -17,14 +17,6 @@ static CGFloat  _s_gameScale    = 1.0f;
 + (CGPoint) convertVecIfRetina: (CGPoint&) vec
 {
     return vec;
-    
-    CGPoint netVec  = CGPointMake(vec.x * _s_gameScale,
-                                  vec.y * _s_gameScale);
-    return netVec;
-    
-    // @TODO perf can be improve here
-    CGFloat screenScale    = [[UIScreen mainScreen] scale];
-    return CGPointMake( vec.x / screenScale, vec.y / screenScale );
 }
 
 + (CGFloat) convertScaleIfRetina: (CGFloat) scale

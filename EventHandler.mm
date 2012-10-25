@@ -8,18 +8,24 @@
 
 #import "EventHandler.h"
 #import "Car.h"
+#import "UtilVec.h"
 
 EventHandler* _s_eventHandler   = nil;
 
 @interface EventHandler()
 
 @property (retain) NSMutableArray* _eventArray;
+@property (retain) NSMutableArray* _comboArray;
+
+- (BOOL) _registerCombo: (Combo*) combo;
+- (BOOL) _unRegisterCombo: (Combo*) combo;
 
 @end
 
 @implementation EventHandler
 @synthesize delegate;
 @synthesize _eventArray;
+@synthesize _comboArray;
 
 + (EventHandler*) getObject
 {
@@ -37,6 +43,7 @@ EventHandler* _s_eventHandler   = nil;
     if (self)
     {
         _eventArray = [[NSMutableArray alloc] init];
+        _comboArray = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -46,6 +53,9 @@ EventHandler* _s_eventHandler   = nil;
     [_eventArray release];
     _eventArray = nil;
     
+    [_comboArray release];
+    _comboArray = nil;
+    
     [super dealloc];
 }
 
@@ -53,58 +63,59 @@ EventHandler* _s_eventHandler   = nil;
 {
     [_eventArray removeAllObjects];
     
+    // load road config file
+    NSString* eventConfigFullPath    = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:@"event_config.plist"];
+    NSArray* eventConfigArray    = [[NSArray alloc] initWithContentsOfFile:eventConfigFullPath];
+
     int cEventCode    = 0;
+    for (NSDictionary* cDict in eventConfigArray)
     {
-        Event* cEvent   = [[Event alloc] init];
+        Event* cEvent   = nil;
+        
+        NSString* typeName  = [cDict objectForKey:@"typeName"];
+        
+        if ( [typeName isEqualToString:@"combo"] )
+        {
+            cEvent  = [[Combo alloc] init];
+            
+            NSArray* comboList  = [[NSArray alloc] initWithArray:[cDict objectForKey:@"comboList"]];
+            ((Combo*)cEvent).comboList    = comboList;
+            [comboList release];
+            comboList   = nil;
+            
+            NSDictionary* comboVecDict  = [cDict objectForKey:@"comboVec"];
+            ((Combo*)cEvent).comboVec   = CGPointMake(((NSString*)[comboVecDict objectForKey:@"x"]).floatValue, 
+                                                      ((NSString*)[comboVecDict objectForKey:@"y"]).floatValue);
+            
+            printf ("");
+        }
+        else
+        {
+            cEvent  = [[Event alloc] init];
+            
+            NSMutableArray* blockCodeArray  = [[NSMutableArray alloc] init];
+            cEvent.eventBlockCodeArray  = blockCodeArray;
+            [blockCodeArray release];
+            blockCodeArray  = nil;
+            [cEvent.eventBlockCodeArray removeAllObjects];
+        
+            NSArray* configEBCA = [cDict objectForKey:@"eventBlockCodeArray"];
+            for (NSString* cCode in configEBCA)
+            {
+                [cEvent.eventBlockCodeArray addObject:cCode];
+            }
+        }
+        
         cEvent.code     = [NSString stringWithFormat:@"%d", cEventCode];
-        cEvent.point    = CGPointMake(6031.833496, -4753.666992);
-        cEvent.typeName = @"water";
+        
+        NSDictionary* pointDict = [cDict objectForKey:@"point"];
+        cEvent.point    = CGPointMake(((NSString*)[pointDict objectForKey:@"x"]).floatValue,
+                                      ((NSString*)[pointDict objectForKey:@"y"]).floatValue);
+        
+        cEvent.typeName = typeName;
         cEvent.isTouching   = NO;
-        [_eventArray addObject:cEvent];
-        ++cEventCode;
-    }
-    {
-        Event* cEvent   = [[Event alloc] init];
-        cEvent.code     = [NSString stringWithFormat:@"%d", cEventCode];
-        cEvent.point    = CGPointMake(6815.833496, -4769.666992);
-        cEvent.typeName = @"rough";
-        cEvent.isTouching   = NO;
-        [_eventArray addObject:cEvent];
-        ++cEventCode;
-    }
-    {
-        Event* cEvent   = [[Event alloc] init];
-        cEvent.code     = [NSString stringWithFormat:@"%d", cEventCode];
-        cEvent.point    = CGPointMake(5559.833496, -4317.666992);
-        cEvent.typeName = @"rough";
-        cEvent.isTouching   = NO;
-        [_eventArray addObject:cEvent];
-        ++cEventCode;
-    }
-    {
-        Event* cEvent   = [[Event alloc] init];
-        cEvent.code     = [NSString stringWithFormat:@"%d", cEventCode];
-        cEvent.point    = CGPointMake(5823.833496, -3805.666992);
-        cEvent.typeName = @"water";
-        cEvent.isTouching   = NO;
-        [_eventArray addObject:cEvent];
-        ++cEventCode;
-    }
-    {
-        Event* cEvent   = [[Event alloc] init];
-        cEvent.code     = [NSString stringWithFormat:@"%d", cEventCode];
-        cEvent.point    = CGPointMake(6835.833496, -3797.666992);
-        cEvent.typeName = @"rough";
-        cEvent.isTouching   = NO;
-        [_eventArray addObject:cEvent];
-        ++cEventCode;
-    }
-    {
-        Event* cEvent   = [[Event alloc] init];
-        cEvent.code     = [NSString stringWithFormat:@"%d", cEventCode];
-        cEvent.point    = CGPointMake(7051.833496, -4225.666992);
-        cEvent.typeName = @"water";
-        cEvent.isTouching   = NO;
+        
+        
         [_eventArray addObject:cEvent];
         ++cEventCode;
     }
@@ -129,10 +140,16 @@ EventHandler* _s_eventHandler   = nil;
         {
             cSprite = [CCSprite spriteWithFile:@"event_rough.png"];
         }
+        else if ( [cEvent.typeName isEqualToString:@"combo"] )
+        {
+            cSprite = [CCSprite spriteWithFile:@"event_trigger.png"];
+        } 
         cSprite.position    = CGPointMake(cEvent.point.x,
                                           cEvent.point.y);
         cEvent.sprite       = cSprite;
         [layer addChild:cSprite];
+        
+        cSprite.scale   = [UtilVec convertScaleIfRetina:cSprite.scale];
     }
 }
 
@@ -170,6 +187,7 @@ EventHandler* _s_eventHandler   = nil;
                 if ( cEventPoint.y >= carBottom && cEventPoint.y <= carTop )
                 {
                     isThisEventTouchTheCar  = YES;
+                    break;
                 }
             }
         }
@@ -180,7 +198,67 @@ EventHandler* _s_eventHandler   = nil;
             {
                 if ( delegate )
                 {
-                    [delegate onTouchingInWithEvent:cEvent];
+                    // start combo if combo
+                    if ( [cEvent isKindOfClass:[Combo class]] )
+                    {
+                        Combo* cCombo   = (Combo*)cEvent;
+                        
+                        CGPoint dirUnitVec   = [Car getDirectionUnitVec];
+                        float dotValue  = cCombo.comboVec.x*dirUnitVec.x + cCombo.comboVec.y*dirUnitVec.y;
+                        if ( dotValue >=0 )
+                        {
+                            [self _registerCombo:cCombo];
+                            [delegate onStartCombo:cCombo];
+                        }
+                    }
+                    else
+                    {
+                        // start event with combo conditions
+                        BOOL isFoundComboForThisEvent   = NO;
+                        
+                        NSMutableArray* foundedComboArray   = [[NSMutableArray alloc] init];
+                        for (NSString* comboCode in cEvent.eventBlockCodeArray)
+                        {
+                            Combo* foundedCombo = [_eventArray objectAtIndex:[comboCode intValue]];
+                            [foundedComboArray addObject:foundedCombo];
+                        }
+                            
+                        for (Combo* cRegisteredCombo in _comboArray)
+                        {
+                            for (Combo* cFoundedCombo in foundedComboArray)
+                            {
+                                if (cFoundedCombo == cRegisteredCombo)
+                                {
+                                    isFoundComboForThisEvent    = YES;
+                                    break;
+                                }
+                            }
+                            if ( isFoundComboForThisEvent )
+                            {
+                                break;
+                            }
+                        }
+                        
+                        [foundedComboArray release];
+                        foundedComboArray   = nil;
+                        
+                        if ( cEvent.eventBlockCodeArray.count == 0)
+                        {
+                            [delegate onTouchingInWithEvent:cEvent isComboSuccess:NO];
+                        }
+                        else
+                        {
+                            if ( isFoundComboForThisEvent )
+                            {
+                                [delegate onTouchingInWithEvent:cEvent isComboSuccess:NO];
+                            }
+                            else 
+                            {
+                                [delegate onTouchingInWithEvent:cEvent isComboSuccess:YES];
+                            }   
+                        }
+                    }
+                    
                 }
             }
             
@@ -192,13 +270,88 @@ EventHandler* _s_eventHandler   = nil;
             {
                 if ( delegate )
                 {
-                    [delegate onTouchingOutWithEvent:cEvent];
+                    if ( [cEvent isKindOfClass:[Combo class]] )
+                    {
+                    }
+                    else
+                    {
+                        // stop event
+                        [delegate onTouchingOutWithEvent:cEvent];   
+                    }
                 }
             }
             
             cEvent.isTouching   = NO;
         }
     }
+}
+
+- (BOOL) finishCombo:(Combo *)combo
+{
+    return [self _unRegisterCombo:combo];
+}
+
+- (BOOL) hasRegisteredCombo: (Combo*) combo
+{
+    return NO;
+}
+
+#pragma mark - PIMPL
+
+- (BOOL) _registerCombo: (Combo*) combo
+{
+    // high performance approach
+    NSUInteger index    = [_comboArray indexOfObject:combo];
+    
+    // better checker approach
+    /* 
+    NSUInteger index = NSNotFound;
+    for ( int i=0; i<_comboArray.count; ++i )
+    {
+        Combo* cCombo   = [_comboArray objectAtIndex:i];
+        if ( [cCombo.code isEqualToString:combo.code] )
+        {
+            index = i;
+            break;
+        }
+    }
+    */
+    
+    if ( index != NSNotFound )
+        return NO;
+    
+    [_comboArray addObject:combo];
+    
+    return YES;
+}
+
+- (BOOL) _unRegisterCombo: (Combo*) combo
+{
+    // high performance approach
+    NSUInteger index    = [_comboArray indexOfObject:combo];
+    
+    // better checker approach
+    /* 
+     NSUInteger index = NSNotFound;
+     for ( int i=0; i<_comboArray.count; ++i )
+     {
+     Combo* cCombo   = [_comboArray objectAtIndex:i];
+     if ( [cCombo.code isEqualToString:combo.code] )
+     {
+     index = i;
+     break;
+     }
+     }
+     */
+    
+    if ( index == NSNotFound )
+        return NO;
+    
+    [_comboArray removeObject:combo];
+//    printf ("registered combo count: %d", _comboArray.count);
+//    printf ("\n");
+    
+    return YES;
 }
 
 @end

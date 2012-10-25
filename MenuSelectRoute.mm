@@ -149,19 +149,11 @@ static float _s_routeButtonRadius   = 100;
 }
 
 - (void) checkActionByPoint: (CGPoint) point
-{
-//    printf ("---- ----\n");
+{ 
     for (int i=0; i<_routeButtonArray.count; ++i)
     {
         CCSprite* cButtonSprite     = [_routeButtonArray objectAtIndex:i];
         CGRect cButtonSpriteRect    = cButtonSprite.boundingBox;
-        
-//        printf ("button rect: (%f,%f,%f,%f)",
-//                cButtonSpriteRect.origin.x,
-//                cButtonSpriteRect.origin.y,
-//                cButtonSpriteRect.size.width,
-//                cButtonSpriteRect.size.height);
-//        printf ("\n");
         
         if (point.x > cButtonSpriteRect.origin.x
             &&
@@ -176,7 +168,6 @@ static float _s_routeButtonRadius   = 100;
             }
         }
     }
-//    printf ("---- ----\n");
 }
 
 - (void) setButtonStateToRed: (int) buttonIndex

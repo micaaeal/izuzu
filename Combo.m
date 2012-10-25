@@ -9,8 +9,13 @@
 #import "Combo.h"
 
 @implementation Combo
-@synthesize startTime;
-@synthesize endTime;
-@synthesize value;
+@synthesize code;
+@synthesize point;
+@synthesize typeName;
+@synthesize sprite;
+@synthesize isTouching;
+
+@synthesize comboList;
+@synthesize comboVec;
 
 @end

@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Event.h"
 
-@interface Combo : NSObject
+@interface Combo : Event
 
-@property (assign) float startTime;
-@property (assign) float endTime;
-@property (copy) NSString* value;
+@property (retain) NSArray*     comboList;
+@property (assign) CGPoint      comboVec;
 
 @end
