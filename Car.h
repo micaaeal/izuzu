@@ -18,6 +18,9 @@
 + (BOOL) AssignDataToLayer: (CCLayer*) layer withMission: (Mission*) mission;
 + (BOOL) UnSssignDataFromLayer: (CCLayer*) layer;
 
++ (void) Update: (float) deltaTime;
+
+// properties
 + (float) getSpeed;
 + (void) setSpeed: (float) speed;
 
@@ -30,7 +33,13 @@
 
 + (CGRect) getBoundingBox;
 
+// events
 + (void) setRandomColor;
 + (void) unsetRandomColor;
+
+// animations
++ (void) playSwerveAnim;
++ (BOOL) isPlayingSwerveAnim;
++ (void) stopSwerveAnim;
 
 @end

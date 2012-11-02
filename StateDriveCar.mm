@@ -56,6 +56,8 @@ enum STATE_DRIVE_CAR
 
 @property (assign) BOOL _isInWaterEvent;
 @property (assign) BOOL _isInRoughEvent;
+@property (assign) BOOL _isInWaterEventLastFrame;
+@property (assign) BOOL _isInRoughEventLastFrame;
 
 @property (assign) float    _carAcceleration;
 @property (assign) float    _carBreakDeAcceleration;
@@ -85,6 +87,8 @@ enum STATE_DRIVE_CAR
 
 @synthesize _isInWaterEvent;
 @synthesize _isInRoughEvent;
+@synthesize _isInWaterEventLastFrame;
+@synthesize _isInRoughEventLastFrame;
 
 @synthesize _carAcceleration;
 @synthesize _carBreakDeAcceleration;
@@ -104,6 +108,8 @@ vector<TrEdge>      _edgeRoute;
     // set flags
     _isInWaterEvent = NO;
     _isInRoughEvent = NO;
+    _isInWaterEventLastFrame    = NO;
+    _isInRoughEventLastFrame    = NO;
     
     _carAcceleration            = 120.0f;
     _carBreakDeAcceleration     = -300.0f;
@@ -191,6 +197,7 @@ vector<TrEdge>      _edgeRoute;
             //[Car setSpeed:300.0f];
             //[Car setSpeed:30.0f];
             [Car setSpeed:0.0f];
+            [Car Update:deltaTime];
             
             CGRect carBoundingBox   = [Car getBoundingBox];
             printf ("car bounding box: %f, %f, %f, %f",
@@ -332,10 +339,6 @@ vector<TrEdge>      _edgeRoute;
                 _cDistanceToMoveNextFrame   = p2CarLength - p2pVecLength;
             }
             
-            // set car rotation and position
-            [Car setTarget:carNextPosition];
-            [Car setPosition:carNextPosition];
-            
             // camera to the car
             CGPoint camPoint    = [Car getPosition];
             CGSize winSize  = [[CCDirector sharedDirector] winSize];
@@ -366,6 +369,10 @@ vector<TrEdge>      _edgeRoute;
                 ++_cSubPointId;
             }
             
+            // update car properties from route
+            [Car setTarget:carNextPosition];
+            [Car setPosition:carNextPosition];
+            
             // update event
             [[EventHandler getObject] onUpdate:deltaTime];
             
@@ -374,6 +381,10 @@ vector<TrEdge>      _edgeRoute;
             
             // update combo
             [[ComboPlayer getObject] Update:deltaTime];
+        
+            // update car
+            [Car Update:deltaTime];
+            
         }
             break;
         case STATE_DRIVE_CAR_REACH_TARGET:
@@ -525,6 +536,29 @@ vector<TrEdge>      _edgeRoute;
 
 - (void) _setCarCustomedAnimation: (float) deltaTime
 {
+    // update anim state
+    if ( _isInWaterEvent != _isInWaterEventLastFrame )
+    {
+        if ( _isInWaterEvent )
+        {
+            [Car playSwerveAnim];
+        }
+        if ( !_isInWaterEvent )
+        {
+            [Car stopSwerveAnim];
+        }
+    }
+    
+    if ( _isInRoughEvent && !_isInRoughEventLastFrame )
+    {
+        
+    }
+    
+    // update vars
+    _isInWaterEventLastFrame    = _isInWaterEvent;
+    _isInRoughEventLastFrame    = _isInRoughEvent;
+    
+    /*
     if (_isInWaterEvent)
     {
         CGPoint carTarget   = CGPointMake(0.0f, 0.0f);
@@ -534,6 +568,7 @@ vector<TrEdge>      _edgeRoute;
     {
         [Car setRandomColor];
     }
+    */
 }
 
 @end

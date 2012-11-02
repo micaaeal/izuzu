@@ -19,6 +19,10 @@
 @property (assign) float        speed;
 @property (assign) CGPoint      directionUnitVec;
 
+// animation
+@property (assign) BOOL     isPlayingSwerveAnim;
+@property (assign) BOOL     isPlayingSwerveAnimLastFrame;
+
 @end
 @implementation CarCache
 @synthesize carSprite;
@@ -27,6 +31,8 @@
 @synthesize target;
 @synthesize speed;
 @synthesize directionUnitVec;
+@synthesize isPlayingSwerveAnim;
+@synthesize isPlayingSwerveAnimLastFrame;
 
 - (id) init
 {
@@ -39,6 +45,9 @@
         target      = CGPointMake(0.0f, 0.0f);
         speed       = 1.0f;
         directionUnitVec    = CGPointMake(0.0f, 0.0f);
+        
+        isPlayingSwerveAnim             = NO;
+        isPlayingSwerveAnimLastFrame    = NO;
     }
     return self;
 }
@@ -91,6 +100,40 @@ CarCache* _carCache = nil;
     return YES;
 }
 
++ (void) Update: (float) deltaTime
+{
+
+    // swerve animation
+    if ( _carCache.isPlayingSwerveAnim != _carCache.isPlayingSwerveAnimLastFrame )
+    {
+        // play swerve
+        if ( _carCache.isPlayingSwerveAnim == YES )
+        {
+
+        }
+        // stop swerve
+        if ( _carCache.isPlayingSwerveAnim == NO )
+        {
+            
+        }
+        
+    }
+    
+    if ( _carCache.isPlayingSwerveAnim )
+    {
+        CGPoint carTarget   = CGPointMake(0.0f, 0.0f);
+        [_carCache setTarget:carTarget];
+    }
+    
+    // update anim status
+    _carCache.isPlayingSwerveAnimLastFrame  = _carCache.isPlayingSwerveAnim;
+    
+    // set car sprite
+    [_carCache.carSprite setPosition:_carCache.position];
+    [_carCache.carSprite setRotation:_carCache.rotation];
+    
+}
+
 #pragma mark - Reutines
 
 + (float) getSpeed
@@ -106,7 +149,6 @@ CarCache* _carCache = nil;
 + (void) setPosition: (CGPoint&) position
 {
     _carCache.position  = position;
-    [_carCache.carSprite setPosition:position];
 }
 
 + (void) setTarget: (CGPoint&) target
@@ -133,7 +175,6 @@ CarCache* _carCache = nil;
     float rotation  = (radian * 180.0f / M_PI );
     
     _carCache.rotation  = rotation;
-    [_carCache.carSprite setRotation:rotation];
 }
 
 + (const CGPoint) getPosition
@@ -161,6 +202,8 @@ CarCache* _carCache = nil;
     return _carCache.carSprite.boundingBox;
 }
 
+#pragma mark - events
+
 + (void) setRandomColor
 {
     ccColor3B carColor = {arc4random() % 255,arc4random() % 255,arc4random() % 255};
@@ -171,6 +214,23 @@ CarCache* _carCache = nil;
 {
     ccColor3B carColor = {255, 255, 255};
     [_carCache.carSprite setColor:carColor];
+}
+
+#pragma mark - animations
+
++ (void) playSwerveAnim
+{
+    _carCache.isPlayingSwerveAnim = YES;
+}
+
++ (BOOL) isPlayingSwerveAnim
+{
+    return _carCache.isPlayingSwerveAnim;
+}
+
++ (void) stopSwerveAnim
+{
+    _carCache.isPlayingSwerveAnim = NO;
 }
 
 @end
