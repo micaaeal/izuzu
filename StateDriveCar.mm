@@ -107,7 +107,7 @@ vector<TrEdge>      _edgeRoute;
     
     _carAcceleration            = 120.0f;
     _carBreakDeAcceleration     = -300.0f;
-    _carNormalDeAcceleration    = -60.0f;
+    _carNormalDeAcceleration    = -10.0f;
     
     _carMaxSpeed   = 600.0f;
     _carMinSpeed   = 0.0f;
