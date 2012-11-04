@@ -42,4 +42,8 @@
 + (BOOL) isPlayingSwerveAnim;
 + (void) stopSwerveAnim;
 
++ (void) playRoughAnim;
++ (BOOL) isPlayingRoughAnim;
++ (void) stopRoughAnim;
+
 @end

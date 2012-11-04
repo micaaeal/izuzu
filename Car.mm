@@ -22,6 +22,8 @@
 // animation
 @property (assign) BOOL     isPlayingSwerveAnim;
 @property (assign) BOOL     isPlayingSwerveAnimLastFrame;
+@property (assign) BOOL     isPlayingRoughAnim;
+@property (assign) BOOL     isPlayingRoughAnimLastFrame;
 
 @end
 @implementation CarCache
@@ -33,6 +35,8 @@
 @synthesize directionUnitVec;
 @synthesize isPlayingSwerveAnim;
 @synthesize isPlayingSwerveAnimLastFrame;
+@synthesize isPlayingRoughAnim;
+@synthesize isPlayingRoughAnimLastFrame;
 
 - (id) init
 {
@@ -48,6 +52,8 @@
         
         isPlayingSwerveAnim             = NO;
         isPlayingSwerveAnimLastFrame    = NO;
+        isPlayingRoughAnim              = NO;
+        isPlayingRoughAnimLastFrame     = NO;
     }
     return self;
 }
@@ -102,31 +108,21 @@ CarCache* _carCache = nil;
 
 + (void) Update: (float) deltaTime
 {
-
-    // swerve animation
-    if ( _carCache.isPlayingSwerveAnim != _carCache.isPlayingSwerveAnimLastFrame )
-    {
-        // play swerve
-        if ( _carCache.isPlayingSwerveAnim == YES )
-        {
-
-        }
-        // stop swerve
-        if ( _carCache.isPlayingSwerveAnim == NO )
-        {
-            
-        }
-        
-    }
-    
+ 
     if ( _carCache.isPlayingSwerveAnim )
     {
         CGPoint carTarget   = CGPointMake(0.0f, 0.0f);
-        [_carCache setTarget:carTarget];
+        [Car setTarget:carTarget];
+    }
+    
+    if ( _carCache.isPlayingRoughAnim )
+    {
+        [Car setRandomColor];
     }
     
     // update anim status
     _carCache.isPlayingSwerveAnimLastFrame  = _carCache.isPlayingSwerveAnim;
+    _carCache.isPlayingRoughAnimLastFrame   = _carCache.isPlayingRoughAnim;
     
     // set car sprite
     [_carCache.carSprite setPosition:_carCache.position];
@@ -218,6 +214,7 @@ CarCache* _carCache = nil;
 
 #pragma mark - animations
 
+// swerve animation
 + (void) playSwerveAnim
 {
     _carCache.isPlayingSwerveAnim = YES;
@@ -231,6 +228,22 @@ CarCache* _carCache = nil;
 + (void) stopSwerveAnim
 {
     _carCache.isPlayingSwerveAnim = NO;
+}
+
+// rough animation
++ (void) playRoughAnim
+{
+    _carCache.isPlayingRoughAnim    = YES;
+}
+
++ (BOOL) isPlayingRoughAnim
+{
+    return _carCache.isPlayingRoughAnim;
+}
+
++ (void) stopRoughAnim
+{
+    _carCache.isPlayingRoughAnim    = NO;
 }
 
 @end

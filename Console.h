@@ -9,20 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-@protocol ConsoleDelegate <NSObject>
-
-- (void) onStartAccel;
-- (void) onFinishAccel;
-- (void) onStartBreak;
-- (void) onFinishBreak;
-
-@end
-
 @interface Console : NSObject
 
 + (Console*) getObject;
-
-@property (assign) id<ConsoleDelegate> delegate;
 
 - (void) LoadData;
 - (void) UnloadData;

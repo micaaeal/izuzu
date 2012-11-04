@@ -14,9 +14,9 @@
 @property (copy) NSString*      code;
 @property (assign) CGPoint      point;
 @property (copy) NSString*      typeName;
+@property (copy) NSString*      eventName;
 @property (retain) CCSprite*    sprite;
 @property (assign) BOOL         isTouching;
 @property (retain) NSMutableArray*  eventBlockCodeArray;
-
 
 @end

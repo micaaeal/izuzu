@@ -15,17 +15,12 @@ EventHandler* _s_eventHandler   = nil;
 @interface EventHandler()
 
 @property (retain) NSMutableArray* _eventArray;
-@property (retain) NSMutableArray* _comboArray;
-
-- (BOOL) _registerCombo: (Combo*) combo;
-- (BOOL) _unRegisterCombo: (Combo*) combo;
 
 @end
 
 @implementation EventHandler
 @synthesize delegate;
 @synthesize _eventArray;
-@synthesize _comboArray;
 
 + (EventHandler*) getObject
 {
@@ -43,7 +38,6 @@ EventHandler* _s_eventHandler   = nil;
     if (self)
     {
         _eventArray = [[NSMutableArray alloc] init];
-        _comboArray = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -53,9 +47,6 @@ EventHandler* _s_eventHandler   = nil;
     [_eventArray release];
     _eventArray = nil;
     
-    [_comboArray release];
-    _comboArray = nil;
-    
     [super dealloc];
 }
 
@@ -63,7 +54,7 @@ EventHandler* _s_eventHandler   = nil;
 {
     [_eventArray removeAllObjects];
     
-    // load road config file
+    // load events from config file
     NSString* eventConfigFullPath    = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:@"event_config.plist"];
     NSArray* eventConfigArray    = [[NSArray alloc] initWithContentsOfFile:eventConfigFullPath];
 
@@ -76,6 +67,7 @@ EventHandler* _s_eventHandler   = nil;
         
         if ( [typeName isEqualToString:@"combo"] )
         {
+            /*
             cEvent  = [[Combo alloc] init];
             
             NSArray* comboList  = [[NSArray alloc] initWithArray:[cDict objectForKey:@"comboList"]];
@@ -86,8 +78,7 @@ EventHandler* _s_eventHandler   = nil;
             NSDictionary* comboVecDict  = [cDict objectForKey:@"comboVec"];
             ((Combo*)cEvent).comboVec   = CGPointMake(((NSString*)[comboVecDict objectForKey:@"x"]).floatValue, 
                                                       ((NSString*)[comboVecDict objectForKey:@"y"]).floatValue);
-            
-            printf ("");
+            */
         }
         else
         {
@@ -104,20 +95,20 @@ EventHandler* _s_eventHandler   = nil;
             {
                 [cEvent.eventBlockCodeArray addObject:cCode];
             }
+            
+            cEvent.code     = [NSString stringWithFormat:@"%d", cEventCode];
+            
+            NSDictionary* pointDict = [cDict objectForKey:@"point"];
+            cEvent.point    = CGPointMake(((NSString*)[pointDict objectForKey:@"x"]).floatValue,
+                                          ((NSString*)[pointDict objectForKey:@"y"]).floatValue);
+            
+            cEvent.typeName = typeName;
+            cEvent.isTouching   = NO;
+            
+            
+            [_eventArray addObject:cEvent];
+            ++cEventCode;
         }
-        
-        cEvent.code     = [NSString stringWithFormat:@"%d", cEventCode];
-        
-        NSDictionary* pointDict = [cDict objectForKey:@"point"];
-        cEvent.point    = CGPointMake(((NSString*)[pointDict objectForKey:@"x"]).floatValue,
-                                      ((NSString*)[pointDict objectForKey:@"y"]).floatValue);
-        
-        cEvent.typeName = typeName;
-        cEvent.isTouching   = NO;
-        
-        
-        [_eventArray addObject:cEvent];
-        ++cEventCode;
     }
 }
 
@@ -140,10 +131,7 @@ EventHandler* _s_eventHandler   = nil;
         {
             cSprite = [CCSprite spriteWithFile:@"event_rough.png"];
         }
-        else if ( [cEvent.typeName isEqualToString:@"combo"] )
-        {
-            cSprite = [CCSprite spriteWithFile:@"event_trigger.png"];
-        } 
+        
         cSprite.position    = CGPointMake(cEvent.point.x,
                                           cEvent.point.y);
         cEvent.sprite       = cSprite;
@@ -222,41 +210,6 @@ EventHandler* _s_eventHandler   = nil;
                             Combo* foundedCombo = [_eventArray objectAtIndex:[comboCode intValue]];
                             [foundedComboArray addObject:foundedCombo];
                         }
-                            
-                        for (Combo* cRegisteredCombo in _comboArray)
-                        {
-                            for (Combo* cFoundedCombo in foundedComboArray)
-                            {
-                                if (cFoundedCombo == cRegisteredCombo)
-                                {
-                                    isFoundComboForThisEvent    = YES;
-                                    break;
-                                }
-                            }
-                            if ( isFoundComboForThisEvent )
-                            {
-                                break;
-                            }
-                        }
-                        
-                        [foundedComboArray release];
-                        foundedComboArray   = nil;
-                        
-                        if ( cEvent.eventBlockCodeArray.count == 0)
-                        {
-                            [delegate onTouchingInWithEvent:cEvent isComboSuccess:NO];
-                        }
-                        else
-                        {
-                            if ( isFoundComboForThisEvent )
-                            {
-                                [delegate onTouchingInWithEvent:cEvent isComboSuccess:NO];
-                            }
-                            else 
-                            {
-                                [delegate onTouchingInWithEvent:cEvent isComboSuccess:YES];
-                            }   
-                        }
                     }
                     
                 }
@@ -286,72 +239,6 @@ EventHandler* _s_eventHandler   = nil;
     }
 }
 
-- (BOOL) finishCombo:(Combo *)combo
-{
-    return [self _unRegisterCombo:combo];
-}
-
-- (BOOL) hasRegisteredCombo: (Combo*) combo
-{
-    return NO;
-}
-
 #pragma mark - PIMPL
-
-- (BOOL) _registerCombo: (Combo*) combo
-{
-    // high performance approach
-    NSUInteger index    = [_comboArray indexOfObject:combo];
-    
-    // better checker approach
-    /* 
-    NSUInteger index = NSNotFound;
-    for ( int i=0; i<_comboArray.count; ++i )
-    {
-        Combo* cCombo   = [_comboArray objectAtIndex:i];
-        if ( [cCombo.code isEqualToString:combo.code] )
-        {
-            index = i;
-            break;
-        }
-    }
-    */
-    
-    if ( index != NSNotFound )
-        return NO;
-    
-    [_comboArray addObject:combo];
-    
-    return YES;
-}
-
-- (BOOL) _unRegisterCombo: (Combo*) combo
-{
-    // high performance approach
-    NSUInteger index    = [_comboArray indexOfObject:combo];
-    
-    // better checker approach
-    /* 
-     NSUInteger index = NSNotFound;
-     for ( int i=0; i<_comboArray.count; ++i )
-     {
-     Combo* cCombo   = [_comboArray objectAtIndex:i];
-     if ( [cCombo.code isEqualToString:combo.code] )
-     {
-     index = i;
-     break;
-     }
-     }
-     */
-    
-    if ( index == NSNotFound )
-        return NO;
-    
-    [_comboArray removeObject:combo];
-//    printf ("registered combo count: %d", _comboArray.count);
-//    printf ("\n");
-    
-    return YES;
-}
 
 @end

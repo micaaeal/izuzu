@@ -109,7 +109,6 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
         // assign data from Fuel
         [[Console getObject] LoadData];
         [[Console getObject] AssignDataToLayer:self];
-        [Console getObject].delegate    = _stateDriveCar;
         [[Console getObject] hideConsole];
         
         // assign data from ComboPlayer
@@ -134,16 +133,6 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
         // add restart button
         UIWindow* mWindow = [[UIApplication sharedApplication] keyWindow];
 
-        /* // add HUD buttons
-        CCMenuItemFont* menuItem    = [CCMenuItemFont itemWithString:@"HELLO MENU"];
-        CCMenu * myMenu = [CCMenu menuWithItems:menuItem, nil];
-        //[myMenu alignItemsVertically];
-        menuItem.position   = CGPointMake(100.0f, 50.0f);
-        myMenu.position     = CGPointMake(0.0f, 0.0f);
-
-        [self addChild:myMenu];
-        */
-        
         // restart button
         {
             UIButton* btn    = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -189,22 +178,6 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
                     action:@selector(_onZoomOut:)
           forControlEvents:UIControlEventTouchDown];
         }
-        /* // remove back route button
-        {
-            UIButton* btn    = [UIButton buttonWithType:UIButtonTypeCustom];
-            UIImage* img   = [UIImage imageNamed:@"cancel"];
-            [btn setImage:img forState:UIControlStateNormal];
-            btn.frame    = CGRectMake(mWindow.bounds.size.width-img.size.width,
-                                      mWindow.bounds.size.height-img.size.height-240.0f,
-                                      img.size.width,
-                                      img.size.height);
-            [mWindow addSubview:btn];
-            [mWindow bringSubviewToFront:btn];
-            [btn addTarget:self
-                    action:@selector(_onRemoveBackRoute:)
-          forControlEvents:UIControlEventTouchDown];
-        }
-        */
     }
 	return self;
 }
@@ -325,22 +298,6 @@ CGPoint _touchDeltaLastFrame;
         // to move the screen
         _touchAtBegin           = [touch locationInView: [touch view]];
         _touchDeltaLastFrame    = CGPointMake(0.0f, 0.0f);
-        
-        /* // to get touch position
-        {
-            CGPoint location = [touch locationInView:[touch view]];
-            location = [[CCDirector sharedDirector] convertToGL:location];
-            CGFloat touchX      = location.x;
-            CGFloat touchY      = location.y;
-            
-            CGPoint cameraPoint = [[Camera getObject] getPoint];
-            
-            CGFloat touchCameraX    = touchX + cameraPoint.x;
-            CGFloat touchCameraY    = touchY + cameraPoint.y;
-            printf ("touching at: (%f, %f)", touchCameraX, touchCameraY);
-            printf ("\n");
-        }
-        */
     }
 
     return YES;

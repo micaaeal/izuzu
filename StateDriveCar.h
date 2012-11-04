@@ -12,6 +12,6 @@
 #import "ComboPlayer.h"
 #import "Console.h"
 
-@interface StateDriveCar : NSObject <StateProtocol, EventHandlerDelegate, ComboPlayerDelegate, ConsoleDelegate>
+@interface StateDriveCar : NSObject <StateProtocol, EventHandlerDelegate, ComboPlayerDelegate>
 
 @end

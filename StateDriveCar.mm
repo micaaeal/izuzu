@@ -65,7 +65,11 @@ enum STATE_DRIVE_CAR
 @property (assign) float    _carMaxSpeed;
 @property (assign) float    _carMinSpeed;
 
-- (void) _setCarCustomedAnimation: (float) deltaTime;
+@property (assign) float    _timeSpeed;
+@property (assign) float    _timeSlowMotion;
+
+- (void) _startSlowMotion;
+- (void) _stopSlowMotion;
 
 @end
 
@@ -85,17 +89,15 @@ enum STATE_DRIVE_CAR
 
 @synthesize _carMovedDistance;
 
-@synthesize _isInWaterEvent;
-@synthesize _isInRoughEvent;
-@synthesize _isInWaterEventLastFrame;
-@synthesize _isInRoughEventLastFrame;
-
 @synthesize _carAcceleration;
 @synthesize _carBreakDeAcceleration;
 @synthesize _carNormalDeAcceleration;
 
 @synthesize _carMaxSpeed;
 @synthesize _carMinSpeed;
+
+@synthesize _timeSpeed;
+@synthesize _timeSlowMotion;
 
 vector<TrVertex>    _allVertices;
 vector<TrVertex>    _vertexRoute;
@@ -105,18 +107,16 @@ vector<TrEdge>      _edgeRoute;
 
 - (void) onStart
 {
-    // set flags
-    _isInWaterEvent = NO;
-    _isInRoughEvent = NO;
-    _isInWaterEventLastFrame    = NO;
-    _isInRoughEventLastFrame    = NO;
     
     _carAcceleration            = 120.0f;
     _carBreakDeAcceleration     = -300.0f;
     _carNormalDeAcceleration    = -10.0f;
     
-    _carMaxSpeed   = 600.0f;
-    _carMinSpeed   = 0.0f;
+    _carMaxSpeed    = 600.0f;
+    _carMinSpeed    = 0.0f;
+    
+    _timeSpeed      = 1.0f;
+    _timeSlowMotion = 0.5f;
     
     // load route data
     RouteGraph& routeGraph  = [World GetRouteGraph];
@@ -154,6 +154,9 @@ vector<TrEdge>      _edgeRoute;
 
 - (BOOL) onUpdate: (float) deltaTime // if retuen YES, means end current state
 {
+    // timing with speed
+    deltaTime *= _timeSpeed;
+    
     switch (_currentState) {
         case STATE_DRIVE_CAR_NONE:
         {
@@ -232,20 +235,6 @@ vector<TrEdge>      _edgeRoute;
             _currentState   = STATE_DRIVE_CAR_DRIVE_CAR_LERP;
             _carMovedDistance   = 0.0f;
             
-            /*
-            printf ("---- route point ----");
-            printf ("\n");
-            RouteGraph& cRouteGraph = [World GetRouteGraph];
-            for ( int i=0; i<=10; ++i )
-            {
-                float norm_v    = (float)i / 10.0f;
-                double cExpectedDistance;
-                CGPoint point   = cRouteGraph.GetPointByNormalizeValue(norm_v, cExpectedDistance);
-                printf ("point:%f:distance:%f :%f,%f:", norm_v, cExpectedDistance, point.x, point.y);
-                printf ("\n");
-            }
-            printf ("\n");
-            */
         }
             break;
         case STATE_DRIVE_CAR_DRIVE_CAR_SET_CHECKPOINT:
@@ -376,9 +365,6 @@ vector<TrEdge>      _edgeRoute;
             // update event
             [[EventHandler getObject] onUpdate:deltaTime];
             
-            // customed car animation with event
-            [self _setCarCustomedAnimation:deltaTime];
-            
             // update combo
             [[ComboPlayer getObject] Update:deltaTime];
         
@@ -449,12 +435,9 @@ vector<TrEdge>      _edgeRoute;
 
 #pragma mark - EventHandlerDelegate
 
+/*
 - (void) onTouchingInWithEvent: (Event*) event isComboSuccess:(BOOL)isComboSuccess
 {
-    printf ("Into Event with code: %d", event.code.intValue);
-    printf (" -- isComboSuccess: %s", isComboSuccess? "yes": "no" );
-    printf ("\n");
-    
     if ( isComboSuccess )
     {
         //[[ComboPlayer getObject] finishCombo:YES];        
@@ -463,11 +446,11 @@ vector<TrEdge>      _edgeRoute;
     {
         if ( [event.typeName isEqualToString:@"water"] )
         {
-            _isInWaterEvent = YES;
+            [Car playSwerveAnim];
         }
         else if ( [event.typeName isEqualToString:@"rough"] )
         {
-            _isInRoughEvent = YES;
+            [Car playRoughAnim];
         }   
         
         [[ComboPlayer getObject] finishCombo:NO];
@@ -476,19 +459,16 @@ vector<TrEdge>      _edgeRoute;
 
 - (void) onTouchingOutWithEvent: (Event*) event
 {
-    printf ("out of Event with code: %d", event.code.intValue);
-    printf ("\n");
-    
     if ( [event.typeName isEqualToString:@"water"] )
     {
-        _isInWaterEvent = NO;
+        [Car stopSwerveAnim];
     }
     else if ( [event.typeName isEqualToString:@"rough"] )
     {
-        _isInRoughEvent = NO;
-        [Car unsetRandomColor];
+        [Car stopRoughAnim];
     }
 }
+*/
 
 - (void) onStartCombo: (Combo*) combo
 {
@@ -496,6 +476,8 @@ vector<TrEdge>      _edgeRoute;
     printf ("\n");
     
     [[ComboPlayer getObject] startCombo:combo];
+    
+    [self _startSlowMotion];
 }
 
 - (void) onComboFinished:(Combo *)combo isSuccess:(BOOL)isSuccess
@@ -504,71 +486,20 @@ vector<TrEdge>      _edgeRoute;
     printf ("\n");
     
     [[EventHandler getObject] finishCombo:combo];
-}
-
-#pragma mark - ConsoleDelegate
-
-- (void) onStartAccel
-{
-//    printf ("onStartAccel");
-//    printf ("\n");
-}
-
-- (void) onFinishAccel
-{
-//    printf ("onFinishAccel");
-//    printf ("\n");    
-}
-
-- (void) onStartBreak
-{
-//    printf ("onStartBreak");
-//    printf ("\n");    
-}
-
-- (void) onFinishBreak
-{
-//    printf ("onFinishBreak");
-//    printf ("\n");    
+    
+    [self _stopSlowMotion];
 }
 
 #pragma mark - PIMPL
 
-- (void) _setCarCustomedAnimation: (float) deltaTime
+- (void) _startSlowMotion
 {
-    // update anim state
-    if ( _isInWaterEvent != _isInWaterEventLastFrame )
-    {
-        if ( _isInWaterEvent )
-        {
-            [Car playSwerveAnim];
-        }
-        if ( !_isInWaterEvent )
-        {
-            [Car stopSwerveAnim];
-        }
-    }
-    
-    if ( _isInRoughEvent && !_isInRoughEventLastFrame )
-    {
-        
-    }
-    
-    // update vars
-    _isInWaterEventLastFrame    = _isInWaterEvent;
-    _isInRoughEventLastFrame    = _isInRoughEvent;
-    
-    /*
-    if (_isInWaterEvent)
-    {
-        CGPoint carTarget   = CGPointMake(0.0f, 0.0f);
-        [Car setTarget:carTarget];
-    }
-    if (_isInRoughEvent)
-    {
-        [Car setRandomColor];
-    }
-    */
+    _timeSpeed  = _timeSlowMotion;
+}
+
+- (void) _stopSlowMotion
+{
+    _timeSpeed  = 1.0f;
 }
 
 @end

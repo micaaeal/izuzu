@@ -12,6 +12,7 @@
 @synthesize code;
 @synthesize point;
 @synthesize typeName;
+@synthesize eventName;
 @synthesize sprite;
 @synthesize isTouching;
 @synthesize eventBlockCodeArray;

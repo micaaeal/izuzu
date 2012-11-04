@@ -36,8 +36,6 @@ static Console*    _s_console = nil;
 @synthesize _isTouchedAccel;
 @synthesize _isTouchedBreak;
 
-@synthesize delegate;
-
 + (Console*) getObject
 {
     if ( ! _s_console )
@@ -145,33 +143,17 @@ static Console*    _s_console = nil;
     // update accel
     if ( _isTouchingAccel && !_isTouchedAccel )
     {
-        if ( delegate )
-        {
-            [delegate onStartAccel];
-        }
     }
     if ( !_isTouchingAccel && _isTouchedAccel )
     {
-        if ( delegate )
-        {
-            [delegate onFinishAccel];
-        }
     }
     
     // update break
     if ( _isTouchingBreak && !_isTouchedBreak )
     {
-        if ( delegate )
-        {
-            [delegate onStartBreak];
-        }
     }
     if ( !_isTouchingBreak && _isTouchedBreak )
     {
-        if ( delegate )
-        {
-            [delegate onFinishBreak];
-        }
     }
     
     _isTouchedAccel = _isTouchingAccel;
