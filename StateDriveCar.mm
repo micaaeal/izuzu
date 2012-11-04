@@ -485,7 +485,7 @@ vector<TrEdge>      _edgeRoute;
     printf ("onComboFinished: withParameter: %s", isSuccess? "Success" : "Failed");
     printf ("\n");
     
-    [[EventHandler getObject] finishCombo:combo];
+    //[[EventHandler getObject] finishCombo:combo];
     
     [self _stopSlowMotion];
 }
