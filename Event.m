@@ -11,10 +11,10 @@
 @implementation Event
 @synthesize code;
 @synthesize point;
-@synthesize typeName;
 @synthesize eventName;
-@synthesize sprite;
 @synthesize isTouching;
-@synthesize eventBlockCodeArray;
+@synthesize comboList;
+@synthesize comboTime;
+@synthesize sprite;
 
 @end

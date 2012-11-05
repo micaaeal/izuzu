@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
-#import "Combo.h"
+#import "Event.h"
 
 @protocol ComboPlayerDelegate <NSObject>
 
-- (void) onComboFinished: (Combo*) combo isSuccess: (BOOL) isSuccess;
+- (void) onEventFinished: (Event*) event isSuccess: (BOOL) isSuccess;
 
 @end
 
@@ -25,12 +25,12 @@
 - (void) LoadData;
 - (void) UnloadData;
 
-- (void) startCombo: (Combo*) combo;
-- (void) finishCombo: (BOOL) isSuccess;
-- (BOOL) isPlayingCombo;
+- (void) startEvent: (Event*) event;
+- (void) finishEvent: (BOOL) isSuccess;
+- (BOOL) isPlayingEvent;
 
 - (void) AssignDataToLayer: (CCLayer*) layer;
-- (void) Update: (float) deltaTime;
+- (void) Update: (float) deltaTime realTime: (float) realTime;
 
 - (void) touchButtonAtPoint: (CGPoint) point;
 

@@ -15,14 +15,14 @@ CGPoint buttonPointArray[4];
 
 @interface ComboPlayer()
 
-@property (retain) NSMutableDictionary* resourceDict;
-
 // combo list
 @property (assign) CGPoint  comboListPointRef;
 @property (assign) float    comboListSpace;
 @property (assign) int      currentComboIndex;
-@property (retain) Combo*   currentCombo;
+@property (retain) Event*   currentEvent;
+@property (assign) float    comboTime;
 
+@property (retain) NSMutableDictionary* comboButtonDict;
 @property (retain) NSMutableArray*  buttonSpriteArray;
 @property (retain) NSMutableArray*  comboSpriteArray;
 @property (retain) NSMutableArray*  comboNumberArray;
@@ -31,11 +31,12 @@ CGPoint buttonPointArray[4];
 @end
 
 @implementation ComboPlayer
-@synthesize resourceDict;
 @synthesize comboListPointRef;
 @synthesize comboListSpace;
 @synthesize currentComboIndex;
-@synthesize currentCombo;
+@synthesize currentEvent;
+@synthesize comboTime;
+@synthesize comboButtonDict;
 @synthesize buttonSpriteArray;
 @synthesize comboSpriteArray;
 @synthesize comboNumberArray;
@@ -47,7 +48,6 @@ CGPoint buttonPointArray[4];
     if ( ! _s_object )
     {
         _s_object   = [[ComboPlayer alloc] init];
-        _s_object.resourceDict      = [[NSMutableDictionary alloc] init];
         
         CGSize winSize          = [CCDirector sharedDirector].winSize;
         
@@ -62,10 +62,12 @@ CGPoint buttonPointArray[4];
         
         _s_object.comboListSpace    = 70.0f;
         _s_object.currentComboIndex = 0;
-        _s_object.currentCombo      = nil;
+        _s_object.currentEvent      = nil;
+        _s_object.comboTime         = 0.0f;
         _s_object.comboSpriteArray  = [[NSMutableArray alloc] init];
         _s_object.comboNumberArray  = [[NSMutableArray alloc] init];
         _s_object.buttonSpriteArray = [[NSMutableArray alloc] init];
+        _s_object.comboButtonDict   = [[NSMutableDictionary alloc] init];
         _s_object.delegate          = nil;
     }
     
@@ -74,36 +76,65 @@ CGPoint buttonPointArray[4];
 
 - (void) LoadData
 {
-    NSArray* spriteNameArray    = [[NSArray alloc] initWithObjects:
-                                   @"button_a",
-                                   @"button_b",
-                                   @"button_c",
-                                   @"button_d",
+    // combo buttons
+    {
+        NSString* fullStr   = [NSString stringWithFormat:@"%@.png", @"button_a"];
+        CCSprite* cSprite   = [CCSprite spriteWithFile:fullStr];
+        [comboButtonDict setObject:cSprite forKey:@"button_a"];
+    }
+    {
+        NSString* fullStr   = [NSString stringWithFormat:@"%@.png", @"button_b"];
+        CCSprite* cSprite   = [CCSprite spriteWithFile:fullStr];
+        [comboButtonDict setObject:cSprite forKey:@"button_b"];
+    }
+    {
+        NSString* fullStr   = [NSString stringWithFormat:@"%@.png", @"button_c"];
+        CCSprite* cSprite   = [CCSprite spriteWithFile:fullStr];
+        [comboButtonDict setObject:cSprite forKey:@"button_c"];
+    }
+    {
+        NSString* fullStr   = [NSString stringWithFormat:@"%@.png", @"button_d"];
+        CCSprite* cSprite   = [CCSprite spriteWithFile:fullStr];
+        [comboButtonDict setObject:cSprite forKey:@"button_d"];
+    }
+    
+    // combos
+    NSArray* comboSpriteNameArray    = [[NSArray alloc] initWithObjects:
+                                   
                                    @"combo_a",
                                    @"combo_b",
                                    @"combo_c",
                                    @"combo_d",
-                                   @"combo_arrow",
+                                   
+                                   @"combo_a",
+                                   @"combo_b",
+                                   @"combo_c",
+                                   @"combo_d",
+                                   
+                                   @"combo_a",
+                                   @"combo_b",
+                                   @"combo_c",
+                                   @"combo_d",
+                                   
+                                   @"combo_a",
+                                   @"combo_b",
+                                   @"combo_c",
+                                   @"combo_d",
+                                   
                                    nil];
     
-    for (NSString* cSpriteName in spriteNameArray)
+    for (NSString* cSpriteName in comboSpriteNameArray)
     {
         NSString* fullStr   = [NSString stringWithFormat:@"%@.png", cSpriteName];
-        CCSprite* sprite    = [CCSprite spriteWithFile:fullStr];
-        [[ComboPlayer getObject].resourceDict setObject:sprite forKey:cSpriteName];
+        CCSprite* cSprite   = [CCSprite spriteWithFile:fullStr];
+        [comboSpriteArray addObject:cSprite];
     }
     
-    // combo image
-    [comboSpriteArray addObject:[resourceDict objectForKey:@"combo_a"]];
-    [comboSpriteArray addObject:[resourceDict objectForKey:@"combo_b"]];
-    [comboSpriteArray addObject:[resourceDict objectForKey:@"combo_c"]];
-    [comboSpriteArray addObject:[resourceDict objectForKey:@"combo_d"]];
+    [comboSpriteNameArray release];
+    comboSpriteNameArray = nil;
     
     // combo arrow
-    comboArrowSprite    = [resourceDict objectForKey:@"combo_arrow"];
-    
-    [spriteNameArray release];
-    spriteNameArray = nil;
+    comboArrowSprite    = [CCSprite spriteWithFile:@"combo_arrow"];
 }
 
 - (void) UnloadData
@@ -113,9 +144,10 @@ CGPoint buttonPointArray[4];
 
 - (void) AssignDataToLayer: (CCLayer*) layer
 {
+    // combo buttons
     [buttonSpriteArray removeAllObjects];
     
-    NSDictionary* resDict   = [ComboPlayer getObject].resourceDict;
+    NSDictionary* resDict   = [ComboPlayer getObject].comboButtonDict;
     for (NSString* cKey in resDict)
     {
         CCSprite* cSprite   = [resDict objectForKey:cKey];
@@ -130,7 +162,7 @@ CGPoint buttonPointArray[4];
         {
             buttonPointArray[0] = CGPointMake(buttonCenter.x - space01, 
                                               buttonCenter.y + space03); 
-            [cSprite setPosition:buttonPointArray[0]];    
+            [cSprite setPosition:buttonPointArray[0]];
             [buttonSpriteArray addObject:cSprite];
             [cSprite setScale:[UtilVec convertScaleIfRetina:cSprite.scale]];
         }
@@ -167,10 +199,26 @@ CGPoint buttonPointArray[4];
         
         [cSprite setOpacity:0];
     }
+    
+    // combos
+    for (CCSprite* cSprite in comboSpriteArray)
+    {
+        [layer addChild:cSprite];
+        
+        [cSprite setPosition:CGPointMake(0,
+                                         0)];
+        [cSprite setScale:[UtilVec convertScaleIfRetina:cSprite.scale]];
+        [cSprite setOpacity:0];
+    }
+    
 }
 
-- (void) startCombo: (Combo*) combo
+- (void) startEvent:(Event *)event
 {
+    // set combo time
+    comboTime   = event.comboTime.floatValue;
+    
+    // init event
     currentComboIndex   = 0;
     
     for (CCSprite* cButton in buttonSpriteArray)
@@ -179,7 +227,7 @@ CGPoint buttonPointArray[4];
     }
     
     [comboNumberArray removeAllObjects];
-    for (NSString* cComboStr in combo.comboList)
+    for (NSString* cComboStr in event.comboList)
     {
         if ( [cComboStr.uppercaseString isEqualToString:@"A"] )
         {
@@ -202,33 +250,45 @@ CGPoint buttonPointArray[4];
         }
     }
     
-    currentCombo  = combo;
+    currentEvent  = event;
 }
 
-- (void) finishCombo: (BOOL) isSuccess
+- (void) finishEvent:(BOOL)isSuccess
 {
     if ( delegate )
     {
-        [delegate onComboFinished:currentCombo isSuccess:isSuccess];
+        [delegate onEventFinished:currentEvent isSuccess:isSuccess];
     }
     
-    for (NSString* cKey in resourceDict)
+    // combo buttons
+    for (NSString* cKey in comboButtonDict)
     {
-        CCSprite* cSprite   = [resourceDict objectForKey:cKey];
+        CCSprite* cSprite   = [comboButtonDict objectForKey:cKey];
         [cSprite setOpacity:0];
     }
     
-    currentCombo  = nil;
+    // combos
+    for (CCSprite* cSprite in comboSpriteArray)
+    {
+        [cSprite setOpacity:0];
+    }
+    
+    // combo arrow
+    [comboArrowSprite setOpacity:0];
+    
+    currentEvent  = nil;
 }
 
-- (BOOL) isPlayingCombo
+- (BOOL) isPlayingEvent
 {
-    return currentCombo? YES : NO;
+    return currentEvent? YES : NO;
 }
 
-- (void) Update: (float) deltaTime
+- (void) Update: (float) deltaTime realTime: (float) realTime
 {
-    if ( currentCombo )
+    comboTime   -= realTime;
+    
+    if ( currentEvent )
     {
         CGPoint cComboPos   = comboListPointRef;
     
@@ -238,21 +298,33 @@ CGPoint buttonPointArray[4];
         for ( int i=currentComboIndex; i<comboNumberArray.count; ++i)
         {
             int cSpriteIndex    = ((NSNumber*)[comboNumberArray objectAtIndex:i]).intValue;
+            int cIndex          = cSpriteIndex + (i*4);
             
-            CCSprite* cSprite   = [comboSpriteArray objectAtIndex:cSpriteIndex];
+            CCSprite* cSprite   = [comboSpriteArray objectAtIndex:cIndex];
             [cSprite setOpacity:255];
             [cSprite setPosition:cComboPos];
             
             cComboPos.x += comboListSpace;
         }
+    
+        // finish event by time
+        if ( comboTime <= 0.0f )
+        {
+            comboTime   = 0.0f;
+            [self finishEvent:NO];
+        }
+    }
+    
+    if ( comboTime <= 0.0f)
+    {
+        comboTime   = 0.0f;
     }
 }
 
 - (void) touchButtonAtPoint: (CGPoint) point
 {
-//    printf ("touching button AT point: (%f,%f)", point.x, point.y);
-//    printf ("\n");
-    if ( currentCombo )
+
+    if ( currentEvent )
     {
         CCSprite* cButtonSprite = [buttonSpriteArray objectAtIndex:0];
         float width     = cButtonSprite.contentSize.width * cButtonSprite.scaleX;
@@ -275,20 +347,15 @@ CGPoint buttonPointArray[4];
         
         if ( touchButtonIndex != -1 )
         {
-//            printf ("touch button at index: %d", touchButtonIndex);
-//            printf ("\n");
-            
+
             NSNumber* cComboNumber  = [comboNumberArray objectAtIndex:currentComboIndex];
             
             if ( touchButtonIndex == cComboNumber.intValue )
             {
-//                printf ("correct combo!");
-//                printf ("\n");
                 ++currentComboIndex;
                 if ( currentComboIndex >= comboNumberArray.count )
                 {
-//                    printf ("finish combo!");
-                    [self finishCombo:YES];
+                    [self finishEvent:YES];
                 }
                 
                 for (CCSprite* cSprite in comboSpriteArray)
@@ -298,8 +365,7 @@ CGPoint buttonPointArray[4];
             }
             else
             {
-//                printf ("wrong combo!");
-//                printf ("\n");
+                // do nothing
             }
         }
     }

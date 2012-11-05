@@ -11,12 +11,14 @@
 
 @interface Event : NSObject
 
-@property (copy) NSString*      code;
-@property (assign) CGPoint      point;
-@property (copy) NSString*      typeName;
-@property (copy) NSString*      eventName;
-@property (retain) CCSprite*    sprite;
-@property (assign) BOOL         isTouching;
-@property (retain) NSMutableArray*  eventBlockCodeArray;
+@property (copy) NSString*          code;
+@property (assign) CGPoint          point;
+@property (copy) NSString*          eventName;
+@property (assign) BOOL             isTouching;
+
+@property (retain) NSArray*         comboList;
+@property (copy) NSString*          comboTime;
+
+@property (retain) CCSprite*        sprite;
 
 @end

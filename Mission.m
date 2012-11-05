@@ -7,7 +7,7 @@
 //
 
 #import "Mission.h"
-#import "Combo.h"
+#import "Event.h"
 #import "cocos2d.h"
 
 @interface Mission()

@@ -24,8 +24,8 @@
 + (float) getSpeed;
 + (void) setSpeed: (float) speed;
 
-+ (void) setPosition: (CGPoint&) position;
-+ (void) setTarget: (CGPoint&) target;
++ (void) setPosition: (CGPoint) position;
++ (void) setTarget: (CGPoint) target;
 + (const CGPoint) getPosition;
 + (const CGFloat) getRotation;
 + (const CGPoint) getTarget;
@@ -38,6 +38,9 @@
 + (void) unsetRandomColor;
 
 // animations
++ (BOOL) isPlayingAnyAnim;
++ (void) stopAllAnim;
+
 + (void) playSwerveAnim;
 + (BOOL) isPlayingSwerveAnim;
 + (void) stopSwerveAnim;

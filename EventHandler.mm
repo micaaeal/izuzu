@@ -61,54 +61,27 @@ EventHandler* _s_eventHandler   = nil;
     int cEventCode    = 0;
     for (NSDictionary* cDict in eventConfigArray)
     {
-        Event* cEvent   = nil;
         
-        NSString* typeName  = [cDict objectForKey:@"typeName"];
+        Event* cEvent  = [[Event alloc] init];
         
-        if ( [typeName isEqualToString:@"combo"] )
-        {
-            /*
-            cEvent  = [[Combo alloc] init];
-            
-            NSArray* comboList  = [[NSArray alloc] initWithArray:[cDict objectForKey:@"comboList"]];
-            ((Combo*)cEvent).comboList    = comboList;
-            [comboList release];
-            comboList   = nil;
-            
-            NSDictionary* comboVecDict  = [cDict objectForKey:@"comboVec"];
-            ((Combo*)cEvent).comboVec   = CGPointMake(((NSString*)[comboVecDict objectForKey:@"x"]).floatValue, 
-                                                      ((NSString*)[comboVecDict objectForKey:@"y"]).floatValue);
-            */
-        }
-        else
-        {
-            cEvent  = [[Event alloc] init];
-            
-            NSMutableArray* blockCodeArray  = [[NSMutableArray alloc] init];
-            cEvent.eventBlockCodeArray  = blockCodeArray;
-            [blockCodeArray release];
-            blockCodeArray  = nil;
-            [cEvent.eventBlockCodeArray removeAllObjects];
+        cEvent.code         = [NSString stringWithFormat:@"%d", cEventCode];
+        NSDictionary* pointDict = [cDict objectForKey:@"point"];
+        cEvent.point    = CGPointMake(((NSString*)[pointDict objectForKey:@"x"]).floatValue,
+                                      ((NSString*)[pointDict objectForKey:@"y"]).floatValue);
+        NSString* eventName = [cDict objectForKey:@"eventName"];
+        cEvent.eventName    = eventName;
+        cEvent.isTouching   = NO;
         
-            NSArray* configEBCA = [cDict objectForKey:@"eventBlockCodeArray"];
-            for (NSString* cCode in configEBCA)
-            {
-                [cEvent.eventBlockCodeArray addObject:cCode];
-            }
-            
-            cEvent.code     = [NSString stringWithFormat:@"%d", cEventCode];
-            
-            NSDictionary* pointDict = [cDict objectForKey:@"point"];
-            cEvent.point    = CGPointMake(((NSString*)[pointDict objectForKey:@"x"]).floatValue,
-                                          ((NSString*)[pointDict objectForKey:@"y"]).floatValue);
-            
-            cEvent.typeName = typeName;
-            cEvent.isTouching   = NO;
-            
-            
-            [_eventArray addObject:cEvent];
-            ++cEventCode;
-        }
+        NSArray* comboList  = [[NSArray alloc] initWithArray:[cDict objectForKey:@"comboList"]];
+        cEvent.comboList    = comboList;
+        [comboList release];
+        comboList   = nil;
+        
+        cEvent.comboTime    = [cDict objectForKey:@"comboTime"];
+        
+        [_eventArray addObject:cEvent];
+        ++cEventCode;
+        
     }
 }
 
@@ -123,11 +96,11 @@ EventHandler* _s_eventHandler   = nil;
     {
         // load trigger sprite
         CCSprite* cSprite   = nil;
-        if ( [cEvent.typeName isEqualToString:@"water"] )
+        if ( [cEvent.eventName isEqualToString:@"water"] )
         {
             cSprite = [CCSprite spriteWithFile:@"event_water.png"];
         }
-        else if ( [cEvent.typeName isEqualToString:@"rough"] )
+        else if ( [cEvent.eventName isEqualToString:@"rough"] )
         {
             cSprite = [CCSprite spriteWithFile:@"event_rough.png"];
         }
@@ -186,32 +159,7 @@ EventHandler* _s_eventHandler   = nil;
             {
                 if ( delegate )
                 {
-                    // start combo if combo
-                    if ( [cEvent isKindOfClass:[Combo class]] )
-                    {
-                        Combo* cCombo   = (Combo*)cEvent;
-                        
-                        CGPoint dirUnitVec   = [Car getDirectionUnitVec];
-                        float dotValue  = cCombo.comboVec.x*dirUnitVec.x + cCombo.comboVec.y*dirUnitVec.y;
-                        if ( dotValue >=0 )
-                        {
-                            [self _registerCombo:cCombo];
-                            [delegate onStartCombo:cCombo];
-                        }
-                    }
-                    else
-                    {
-                        // start event with combo conditions
-                        BOOL isFoundComboForThisEvent   = NO;
-                        
-                        NSMutableArray* foundedComboArray   = [[NSMutableArray alloc] init];
-                        for (NSString* comboCode in cEvent.eventBlockCodeArray)
-                        {
-                            Combo* foundedCombo = [_eventArray objectAtIndex:[comboCode intValue]];
-                            [foundedComboArray addObject:foundedCombo];
-                        }
-                    }
-                    
+                    [delegate onStartEvent:cEvent];                    
                 }
             }
             
@@ -219,26 +167,9 @@ EventHandler* _s_eventHandler   = nil;
         }
         else
         {
-            if ( cEvent.isTouching == YES )
-            {
-                if ( delegate )
-                {
-                    if ( [cEvent isKindOfClass:[Combo class]] )
-                    {
-                    }
-                    else
-                    {
-                        // stop event
-                        [delegate onTouchingOutWithEvent:cEvent];   
-                    }
-                }
-            }
-            
             cEvent.isTouching   = NO;
         }
     }
 }
-
-#pragma mark - PIMPL
 
 @end

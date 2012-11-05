@@ -24,6 +24,14 @@
 @property (assign) BOOL     isPlayingSwerveAnimLastFrame;
 @property (assign) BOOL     isPlayingRoughAnim;
 @property (assign) BOOL     isPlayingRoughAnimLastFrame;
+@property (assign) BOOL     isPlayingAnyAnim;
+@property (assign) BOOL     isPlayingAnyAnimLastFrame;
+
+@property (assign) float    animSwervePlayTime;
+@property (assign) float    animRoughPlayTime;
+
+@property (assign) CGPoint  animPointStamp;
+@property (assign) float    animRotationStamp;
 
 @end
 @implementation CarCache
@@ -37,6 +45,14 @@
 @synthesize isPlayingSwerveAnimLastFrame;
 @synthesize isPlayingRoughAnim;
 @synthesize isPlayingRoughAnimLastFrame;
+@synthesize isPlayingAnyAnim;
+@synthesize isPlayingAnyAnimLastFrame;
+
+@synthesize animSwervePlayTime;
+@synthesize animRoughPlayTime;
+
+@synthesize animPointStamp;
+@synthesize animRotationStamp;
 
 - (id) init
 {
@@ -54,6 +70,14 @@
         isPlayingSwerveAnimLastFrame    = NO;
         isPlayingRoughAnim              = NO;
         isPlayingRoughAnimLastFrame     = NO;
+        isPlayingAnyAnim                = NO;
+        isPlayingAnyAnimLastFrame       = NO;
+        
+        animSwervePlayTime  = 0.0f;
+        animRoughPlayTime   = 0.0f;
+        
+        animPointStamp  = CGPointMake(0.0f, 0.0f);
+        animRotationStamp   = 0.0f;
     }
     return self;
 }
@@ -108,26 +132,80 @@ CarCache* _carCache = nil;
 
 + (void) Update: (float) deltaTime
 {
- 
+    BOOL isPlayingAnyAnim   = NO;
+    
+    if ( _carCache.isPlayingRoughAnim != _carCache.isPlayingRoughAnimLastFrame )
+    {
+        if ( _carCache.isPlayingRoughAnim )
+        {
+            _carCache.animRoughPlayTime  = 0.0f;
+        }
+        else if ( ! _carCache.isPlayingRoughAnim )
+        {
+            _carCache.animRoughPlayTime  = 0.0f;
+        }
+    }
+        
+    if ( _carCache.isPlayingSwerveAnim )
+    {
+        // animation time
+        _carCache.animSwervePlayTime += deltaTime;
+        if ( _carCache.animSwervePlayTime >= 2.0f )
+        {
+            [Car stopAllAnim];
+        }
+    }
+    
+    if ( _carCache.isPlayingSwerveAnim != _carCache.isPlayingSwerveAnimLastFrame )
+    {
+        if ( _carCache.isPlayingSwerveAnim )
+        {
+            _carCache.animSwervePlayTime    = 0.0f;
+            _carCache.animPointStamp        = _carCache.position;
+            _carCache.animRotationStamp     = _carCache.rotation;
+        }
+        
+        else if ( ! _carCache.isPlayingSwerveAnim )
+        {
+            _carCache.animSwervePlayTime    = 0.0f;
+            [Car setPosition:_carCache.animPointStamp];
+            [_carCache setRotation:_carCache.animRotationStamp];
+            [Car setSpeed:0.0f];
+        }
+    }
+    
     if ( _carCache.isPlayingSwerveAnim )
     {
         CGPoint carTarget   = CGPointMake(0.0f, 0.0f);
         [Car setTarget:carTarget];
-    }
-    
-    if ( _carCache.isPlayingRoughAnim )
-    {
-        [Car setRandomColor];
+        isPlayingAnyAnim    = YES;
+        
+        // set car sprite
+        CGPoint position    = _carCache.position;
+        position.y += (deltaTime*40.0f);
+        [_carCache setPosition:position];
+        
+        [_carCache.carSprite setPosition:_carCache.position];
+        [_carCache.carSprite setRotation:_carCache.rotation];
     }
     
     // update anim status
     _carCache.isPlayingSwerveAnimLastFrame  = _carCache.isPlayingSwerveAnim;
     _carCache.isPlayingRoughAnimLastFrame   = _carCache.isPlayingRoughAnim;
+    _carCache.isPlayingAnyAnimLastFrame     = _carCache.isPlayingAnyAnim;
     
-    // set car sprite
-    [_carCache.carSprite setPosition:_carCache.position];
-    [_carCache.carSprite setRotation:_carCache.rotation];
+    if ( ! isPlayingAnyAnim )
+    {
+        // set car sprite
+        [_carCache.carSprite setPosition:_carCache.position];
+        [_carCache.carSprite setRotation:_carCache.rotation];
+    }
     
+    if ( _carCache.isPlayingRoughAnim )
+    {
+        [Car setRandomColor];
+        isPlayingAnyAnim    = YES;
+    }
 }
 
 #pragma mark - Reutines
@@ -142,12 +220,12 @@ CarCache* _carCache = nil;
     _carCache.speed = speed;
 }
 
-+ (void) setPosition: (CGPoint&) position
++ (void) setPosition: (CGPoint) position
 {
     _carCache.position  = position;
 }
 
-+ (void) setTarget: (CGPoint&) target
++ (void) setTarget: (CGPoint) target
 {
     float deltaX    = target.x - _carCache.position.x;
     float deltaY    = target.y - _carCache.position.y;
@@ -214,10 +292,23 @@ CarCache* _carCache = nil;
 
 #pragma mark - animations
 
++ (void) stopAllAnim
+{
+    [Car stopSwerveAnim];
+    [Car stopRoughAnim];
+    _carCache.isPlayingAnyAnim      = NO;
+}
+
++ (BOOL) isPlayingAnyAnim
+{
+    return _carCache.isPlayingAnyAnim;
+}
+
 // swerve animation
 + (void) playSwerveAnim
 {
-    _carCache.isPlayingSwerveAnim = YES;
+    _carCache.isPlayingSwerveAnim   = YES;
+    _carCache.isPlayingAnyAnim      = YES;
 }
 
 + (BOOL) isPlayingSwerveAnim
@@ -227,13 +318,14 @@ CarCache* _carCache = nil;
 
 + (void) stopSwerveAnim
 {
-    _carCache.isPlayingSwerveAnim = NO;
+    _carCache.isPlayingSwerveAnim   = NO;
 }
 
 // rough animation
 + (void) playRoughAnim
 {
     _carCache.isPlayingRoughAnim    = YES;
+    _carCache.isPlayingAnyAnim      = YES;
 }
 
 + (BOOL) isPlayingRoughAnim

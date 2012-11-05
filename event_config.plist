@@ -10,63 +10,17 @@
 			<key>y</key>
 			<string>-4769.666992</string>
 		</dict>
-		<key>typeName</key>
-		<string>rough</string>
-		<key>eventBlockCodeArray</key>
-		<array>
-			<string>1</string>
-			<string>2</string>
-		</array>
-	</dict>
-	<dict>
-		<key>point</key>
-		<dict>
-			<key>x</key>
-			<string>6700.833496</string>
-			<key>y</key>
-			<string>-4769.666992</string>
-		</dict>
-		<key>typeName</key>
-		<string>combo</string>
+		<key>eventName</key>
+		<string>water</string>
 		<key>comboList</key>
 		<array>
 			<string>B</string>
-			<string>A</string>
-			<string>C</string>
-			<string>D</string>
-		</array>
-		<key>comboVec</key>
-		<dict>
-			<key>x</key>
-			<string>1.0</string>
-			<key>y</key>
-			<string>0.0</string>
-		</dict>
-	</dict>
-	<dict>
-		<key>point</key>
-		<dict>
-			<key>x</key>
-			<string>6920.166504</string>
-			<key>y</key>
-			<string>-4769.666992</string>
-		</dict>
-		<key>typeName</key>
-		<string>combo</string>
-		<key>comboList</key>
-		<array>
-			<string>A</string>
 			<string>B</string>
 			<string>C</string>
 			<string>D</string>
 		</array>
-		<key>comboVec</key>
-		<dict>
-			<key>x</key>
-			<string>-1.0</string>
-			<key>y</key>
-			<string>0.0</string>
-		</dict>
+		<key>comboTime</key>
+		<string>2</string>
 	</dict>
 	<dict>
 		<key>point</key>
@@ -76,62 +30,17 @@
 			<key>y</key>
 			<string>-4753.666992</string>
 		</dict>
-		<key>typeName</key>
+		<key>eventName</key>
 		<string>water</string>
-		<key>eventBlockCodeArray</key>
-		<array/>
-	</dict>
-	<dict>
-		<key>point</key>
-		<dict>
-			<key>x</key>
-			<string>5559.833496</string>
-			<key>y</key>
-			<string>-4317.666992</string>
-		</dict>
-		<key>typeName</key>
-		<string>rough</string>
-		<key>eventBlockCodeArray</key>
-		<array/>
-	</dict>
-	<dict>
-		<key>point</key>
-		<dict>
-			<key>x</key>
-			<string>5823.833496</string>
-			<key>y</key>
-			<string>-3805.666992</string>
-		</dict>
-		<key>typeName</key>
-		<string>water</string>
-		<key>eventBlockCodeArray</key>
-		<array/>
-	</dict>
-	<dict>
-		<key>point</key>
-		<dict>
-			<key>x</key>
-			<string>6835.833496</string>
-			<key>y</key>
-			<string>-3797.666992</string>
-		</dict>
-		<key>typeName</key>
-		<string>rough</string>
-		<key>eventBlockCodeArray</key>
-		<array/>
-	</dict>
-	<dict>
-		<key>point</key>
-		<dict>
-			<key>x</key>
-			<string>7051.833496</string>
-			<key>y</key>
-			<string>-4225.666992</string>
-		</dict>
-		<key>typeName</key>
-		<string>rough</string>
-		<key>eventBlockCodeArray</key>
-		<array/>
+		<key>comboList</key>
+		<array>
+			<string>A</string>
+			<string>A</string>
+			<string>C</string>
+			<string>D</string>
+		</array>
+		<key>comboTime</key>
+		<string>2</string>
 	</dict>
 </array>
 </plist>

@@ -9,11 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "Event.h"
-#import "Combo.h"
 
 @protocol EventHandlerDelegate <NSObject>
 
-- (void) onStartCombo: (Combo*) combo;
+- (void) onStartEvent: (Event*) event;
 
 @end
 

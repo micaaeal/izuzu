@@ -71,6 +71,8 @@ enum STATE_DRIVE_CAR
 - (void) _startSlowMotion;
 - (void) _stopSlowMotion;
 
+- (void) _moveCarWithTime: (float) deltaTime realTime: (float) realTime;
+
 @end
 
 @implementation StateDriveCar
@@ -116,7 +118,7 @@ vector<TrEdge>      _edgeRoute;
     _carMinSpeed    = 0.0f;
     
     _timeSpeed      = 1.0f;
-    _timeSlowMotion = 0.5f;
+    _timeSlowMotion = 0.2f;
     
     // load route data
     RouteGraph& routeGraph  = [World GetRouteGraph];
@@ -155,6 +157,7 @@ vector<TrEdge>      _edgeRoute;
 - (BOOL) onUpdate: (float) deltaTime // if retuen YES, means end current state
 {
     // timing with speed
+    float realTime  = deltaTime;
     deltaTime *= _timeSpeed;
     
     switch (_currentState) {
@@ -280,53 +283,19 @@ vector<TrEdge>      _edgeRoute;
             [[Console getObject] SetFuelNorm:fuelNorm];
             [[Console getObject] Update:deltaTime];
             
-            // flags
-            BOOL isEndThisSubPoint = NO;
-            
-            //---------------------------------------------------------
-            int subPointsSize   = _cMovingPoints.size();
-            CGPoint cSubPoint       = _cMovingPoints[_cSubPointId];
-            CGPoint nextSubPoint    = _cMovingPoints[_cSubPointId+1];
-            CGPoint cCarPoint       = [Car getPosition];
-            CGFloat cCarSpeed       = [Car getSpeed];
-            
-            // get new position
-            CGPoint p2pVec      = CGPointMake(nextSubPoint.x - cSubPoint.x,
-                                              nextSubPoint.y - cSubPoint.y);
-            
-            CGFloat p2pVecLength    = sqrtf( ( p2pVec.x * p2pVec.x ) + ( p2pVec.y * p2pVec.y ) );
-            CGPoint p2pVecNorm      = CGPointMake(p2pVec.x / p2pVecLength,
-                                                  p2pVec.y / p2pVecLength);
-            
-            // car distance this frame
-            CGFloat carDistance     = cCarSpeed * deltaTime;
-            carDistance += _cDistanceToMoveNextFrame;
-            _cDistanceToMoveNextFrame   = 0.0f;
-            
-            CGPoint carMoveVec      = CGPointMake(carDistance * p2pVecNorm.x,
-                                                  carDistance * p2pVecNorm.y);
-            
-            CGPoint carNewVec       = CGPointMake(cCarPoint.x + carMoveVec.x,
-                                                  cCarPoint.y + carMoveVec.y);
-            
-            // test is beyond the target
-            CGPoint car2pVec    = CGPointMake(nextSubPoint.x - carNewVec.x,
-                                              nextSubPoint.y - carNewVec.y);
-            CGFloat dotVec      = (p2pVec.x * car2pVec.x) + (p2pVec.y * car2pVec.y);
-            
-            BOOL isCarGoBeyond  = dotVec <= 0.0f ? YES : NO;
-            
-            CGPoint carNextPosition    = carNewVec;
-            if ( isCarGoBeyond )
+            if ( ! [Car isPlayingAnyAnim] )
             {
-                isEndThisSubPoint   = YES;
-                carNextPosition     = nextSubPoint;
-                
-                CGPoint p2CarVec    = CGPointMake(carNewVec.x-cSubPoint.x,
-                                                  carNewVec.y-cSubPoint.y);
-                CGFloat p2CarLength = sqrtf( p2CarVec.x*p2CarVec.x + p2CarVec.y*p2CarVec.y );
-                _cDistanceToMoveNextFrame   = p2CarLength - p2pVecLength;
+                [self _moveCarWithTime:deltaTime realTime:realTime];
             }
+            
+            // update event
+            [[EventHandler getObject] onUpdate:deltaTime];
+            
+            // update combo
+            [[ComboPlayer getObject] Update:deltaTime realTime:realTime];
+        
+            // update car
+            [Car Update:deltaTime];
             
             // camera to the car
             CGPoint camPoint    = [Car getPosition];
@@ -334,43 +303,6 @@ vector<TrEdge>      _edgeRoute;
             camPoint.x -= (winSize.width * 0.5f);
             camPoint.y -= (winSize.height * 0.5f);
             [[Camera getObject] setCameraToPoint:camPoint];
-            //---------------------------------------------------------
-            
-            // set current distance
-            float carMoveThisFrame  = sqrtf(carMoveVec.x * carMoveVec.x +
-                                            carMoveVec.y * carMoveVec.y );
-            _carMovedDistance += carMoveThisFrame;
-            
-            // if last period
-            BOOL isLastSubPointPeriod   = NO;
-            if ( _cSubPointId >= subPointsSize-2 )
-            {
-                isLastSubPointPeriod    = YES;
-            }
-            
-            // check is end
-            if ( isLastSubPointPeriod && isEndThisSubPoint )
-            {
-                _currentState   = STATE_DRIVE_CAR_REACH_TARGET;
-            }
-            else if ( isEndThisSubPoint )
-            {
-                ++_cSubPointId;
-            }
-            
-            // update car properties from route
-            [Car setTarget:carNextPosition];
-            [Car setPosition:carNextPosition];
-            
-            // update event
-            [[EventHandler getObject] onUpdate:deltaTime];
-            
-            // update combo
-            [[ComboPlayer getObject] Update:deltaTime];
-        
-            // update car
-            [Car Update:deltaTime];
-            
         }
             break;
         case STATE_DRIVE_CAR_REACH_TARGET:
@@ -399,7 +331,7 @@ vector<TrEdge>      _edgeRoute;
 
 - (BOOL) onTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
 {
-    BOOL isComboPlaying = [[ComboPlayer getObject] isPlayingCombo];
+    BOOL isComboPlaying = [[ComboPlayer getObject] isPlayingEvent];
 
     CGPoint location = [touch locationInView:[touch view]];
     location = [[CCDirector sharedDirector] convertToGL:location];
@@ -435,62 +367,110 @@ vector<TrEdge>      _edgeRoute;
 
 #pragma mark - EventHandlerDelegate
 
-/*
-- (void) onTouchingInWithEvent: (Event*) event isComboSuccess:(BOOL)isComboSuccess
+- (void) onStartEvent:(Event *)event;
 {
-    if ( isComboSuccess )
-    {
-        //[[ComboPlayer getObject] finishCombo:YES];        
-    }
-    else
-    {
-        if ( [event.typeName isEqualToString:@"water"] )
-        {
-            [Car playSwerveAnim];
-        }
-        else if ( [event.typeName isEqualToString:@"rough"] )
-        {
-            [Car playRoughAnim];
-        }   
-        
-        [[ComboPlayer getObject] finishCombo:NO];
-    }
-}
-
-- (void) onTouchingOutWithEvent: (Event*) event
-{
-    if ( [event.typeName isEqualToString:@"water"] )
-    {
-        [Car stopSwerveAnim];
-    }
-    else if ( [event.typeName isEqualToString:@"rough"] )
-    {
-        [Car stopRoughAnim];
-    }
-}
-*/
-
-- (void) onStartCombo: (Combo*) combo
-{
-    printf ("onStartCombo with code: %d", combo.code.intValue);
-    printf ("\n");
-    
-    [[ComboPlayer getObject] startCombo:combo];
+    [[ComboPlayer getObject] startEvent:event];
     
     [self _startSlowMotion];
 }
 
-- (void) onComboFinished:(Combo *)combo isSuccess:(BOOL)isSuccess
+- (void) onEventFinished:(Event *)event isSuccess:(BOOL)isSuccess
 {
-    printf ("onComboFinished: withParameter: %s", isSuccess? "Success" : "Failed");
-    printf ("\n");
-    
-    //[[EventHandler getObject] finishCombo:combo];
-    
     [self _stopSlowMotion];
+    
+    if ( ! isSuccess )
+    {
+        if ( [event.eventName isEqualToString:@"water"] )
+        {
+            [Car playSwerveAnim];
+        }
+        else if ( [event.eventName isEqualToString:@"rough"] )
+        {
+            
+        }
+    }
 }
 
 #pragma mark - PIMPL
+
+- (void) _moveCarWithTime: (float) deltaTime realTime: (float) realTime
+{
+    // flags
+    BOOL isEndThisSubPoint = NO;
+    
+    //---------------------------------------------------------
+    int subPointsSize   = _cMovingPoints.size();
+    CGPoint cSubPoint       = _cMovingPoints[_cSubPointId];
+    CGPoint nextSubPoint    = _cMovingPoints[_cSubPointId+1];
+    CGPoint cCarPoint       = [Car getPosition];
+    CGFloat cCarSpeed       = [Car getSpeed];
+    
+    // get new position
+    CGPoint p2pVec      = CGPointMake(nextSubPoint.x - cSubPoint.x,
+                                      nextSubPoint.y - cSubPoint.y);
+    
+    CGFloat p2pVecLength    = sqrtf( ( p2pVec.x * p2pVec.x ) + ( p2pVec.y * p2pVec.y ) );
+    CGPoint p2pVecNorm      = CGPointMake(p2pVec.x / p2pVecLength,
+                                          p2pVec.y / p2pVecLength);
+    
+    // car distance this frame
+    CGFloat carDistance     = cCarSpeed * deltaTime;
+    carDistance += _cDistanceToMoveNextFrame;
+    _cDistanceToMoveNextFrame   = 0.0f;
+    
+    CGPoint carMoveVec      = CGPointMake(carDistance * p2pVecNorm.x,
+                                          carDistance * p2pVecNorm.y);
+    
+    CGPoint carNewVec       = CGPointMake(cCarPoint.x + carMoveVec.x,
+                                          cCarPoint.y + carMoveVec.y);
+    
+    // test is beyond the target
+    CGPoint car2pVec    = CGPointMake(nextSubPoint.x - carNewVec.x,
+                                      nextSubPoint.y - carNewVec.y);
+    CGFloat dotVec      = (p2pVec.x * car2pVec.x) + (p2pVec.y * car2pVec.y);
+    
+    BOOL isCarGoBeyond  = dotVec <= 0.0f ? YES : NO;
+    
+    CGPoint carNextPosition    = carNewVec;
+    if ( isCarGoBeyond )
+    {
+        isEndThisSubPoint   = YES;
+        carNextPosition     = nextSubPoint;
+        
+        CGPoint p2CarVec    = CGPointMake(carNewVec.x-cSubPoint.x,
+                                          carNewVec.y-cSubPoint.y);
+        CGFloat p2CarLength = sqrtf( p2CarVec.x*p2CarVec.x + p2CarVec.y*p2CarVec.y );
+        _cDistanceToMoveNextFrame   = p2CarLength - p2pVecLength;
+    }
+    
+    //---------------------------------------------------------
+    
+    // set current distance
+    float carMoveThisFrame  = sqrtf(carMoveVec.x * carMoveVec.x +
+                                    carMoveVec.y * carMoveVec.y );
+    _carMovedDistance += carMoveThisFrame;
+    
+    // if last period
+    BOOL isLastSubPointPeriod   = NO;
+    if ( _cSubPointId >= subPointsSize-2 )
+    {
+        isLastSubPointPeriod    = YES;
+    }
+    
+    // check is end
+    if ( isLastSubPointPeriod && isEndThisSubPoint )
+    {
+        _currentState   = STATE_DRIVE_CAR_REACH_TARGET;
+    }
+    else if ( isEndThisSubPoint )
+    {
+        ++_cSubPointId;
+    }
+    
+    // update car properties from route
+    [Car setTarget:carNextPosition];
+    [Car setPosition:carNextPosition];
+}
 
 - (void) _startSlowMotion
 {
