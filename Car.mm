@@ -26,12 +26,18 @@
 @property (assign) BOOL     isPlayingRoughAnimLastFrame;
 @property (assign) BOOL     isPlayingAnyAnim;
 @property (assign) BOOL     isPlayingAnyAnimLastFrame;
+@property (assign) BOOL     isPlayingOvershootAnim;
+@property (assign) BOOL     isPlayingOvershootAnimLastFrame;
 
 @property (assign) float    animSwervePlayTime;
 @property (assign) float    animRoughPlayTime;
+@property (assign) float    animOvershootPlayTime;
 
 @property (assign) CGPoint  animPointStamp;
 @property (assign) float    animRotationStamp;
+
+@property (assign) float    blinkPeriod;
+@property (assign) float    blinkTimeRemained;
 
 @end
 @implementation CarCache
@@ -41,18 +47,25 @@
 @synthesize target;
 @synthesize speed;
 @synthesize directionUnitVec;
+
 @synthesize isPlayingSwerveAnim;
 @synthesize isPlayingSwerveAnimLastFrame;
 @synthesize isPlayingRoughAnim;
 @synthesize isPlayingRoughAnimLastFrame;
 @synthesize isPlayingAnyAnim;
 @synthesize isPlayingAnyAnimLastFrame;
+@synthesize isPlayingOvershootAnim;
+@synthesize isPlayingOvershootAnimLastFrame;
 
 @synthesize animSwervePlayTime;
 @synthesize animRoughPlayTime;
+@synthesize animOvershootPlayTime;
 
 @synthesize animPointStamp;
 @synthesize animRotationStamp;
+
+@synthesize blinkPeriod;
+@synthesize blinkTimeRemained;
 
 - (id) init
 {
@@ -72,12 +85,18 @@
         isPlayingRoughAnimLastFrame     = NO;
         isPlayingAnyAnim                = NO;
         isPlayingAnyAnimLastFrame       = NO;
+        isPlayingOvershootAnim          = NO;
+        isPlayingOvershootAnimLastFrame = NO;
         
-        animSwervePlayTime  = 0.0f;
-        animRoughPlayTime   = 0.0f;
+        animSwervePlayTime      = 0.0f;
+        animRoughPlayTime       = 0.0f;
+        animOvershootPlayTime   = 0.0f;
         
         animPointStamp  = CGPointMake(0.0f, 0.0f);
         animRotationStamp   = 0.0f;
+        
+        blinkPeriod         = 0.3f;
+        blinkTimeRemained   = 0.0f;
     }
     return self;
 }
@@ -134,6 +153,7 @@ CarCache* _carCache = nil;
 {
     BOOL isPlayingAnyAnim   = NO;
     
+    /*
     if ( _carCache.isPlayingRoughAnim != _carCache.isPlayingRoughAnimLastFrame )
     {
         if ( _carCache.isPlayingRoughAnim )
@@ -145,10 +165,11 @@ CarCache* _carCache = nil;
             _carCache.animRoughPlayTime  = 0.0f;
         }
     }
-        
+    */
+    
+    // count time to make swerve animation stop
     if ( _carCache.isPlayingSwerveAnim )
     {
-        // animation time
         _carCache.animSwervePlayTime += deltaTime;
         if ( _carCache.animSwervePlayTime >= 2.0f )
         {
@@ -156,6 +177,17 @@ CarCache* _carCache = nil;
         }
     }
     
+    // count time to make swerve animation stop 
+    if ( _carCache.isPlayingOvershootAnim )
+    {
+        _carCache.animOvershootPlayTime += deltaTime;
+        if ( _carCache.animOvershootPlayTime >= 2.0f )
+        {
+            [Car stopAllAnim];
+        }
+    }
+    
+    // start & stop swerve animation events
     if ( _carCache.isPlayingSwerveAnim != _carCache.isPlayingSwerveAnimLastFrame )
     {
         if ( _carCache.isPlayingSwerveAnim )
@@ -173,26 +205,65 @@ CarCache* _carCache = nil;
             [Car setSpeed:0.0f];
         }
     }
+
+    // start & stop overshoot animation events
+    if ( _carCache.isPlayingOvershootAnim != _carCache.isPlayingOvershootAnimLastFrame )
+    {
+        if ( _carCache.isPlayingOvershootAnim )
+        {
+            _carCache.animOvershootPlayTime    = 0.0f;
+            _carCache.animPointStamp        = _carCache.position;
+            _carCache.animRotationStamp     = _carCache.rotation;
+        }
+        
+        else if ( ! _carCache.isPlayingSwerveAnim )
+        {
+            _carCache.animOvershootPlayTime    = 0.0f;
+            [Car setPosition:_carCache.animPointStamp];
+            [_carCache setRotation:_carCache.animRotationStamp];
+            [Car setSpeed:0.0f];
+        }
+    }
     
+    // while playing swerve animation
     if ( _carCache.isPlayingSwerveAnim )
     {
-        CGPoint carTarget   = CGPointMake(0.0f, 0.0f);
-        [Car setTarget:carTarget];
         isPlayingAnyAnim    = YES;
         
         // set car sprite
         CGPoint position    = _carCache.position;
         position.y += (deltaTime*40.0f);
+        position.x += (deltaTime*40.0f);
         [_carCache setPosition:position];
         
         [_carCache.carSprite setPosition:_carCache.position];
+        
+        _carCache.rotation += 200.0 * deltaTime;
+        [_carCache.carSprite setRotation:_carCache.rotation];
+    }
+    
+    // while playing swerve animation
+    if ( _carCache.isPlayingOvershootAnim )
+    {
+        isPlayingAnyAnim    = YES;
+        
+        // set car sprite
+        CGPoint position    = _carCache.position;
+        position.y += (deltaTime*20.0f);
+        position.x += (deltaTime*20.0f);
+        [_carCache setPosition:position];
+        
+        [_carCache.carSprite setPosition:_carCache.position];
+        
+        _carCache.rotation -= 80.0 * deltaTime;
         [_carCache.carSprite setRotation:_carCache.rotation];
     }
     
     // update anim status
-    _carCache.isPlayingSwerveAnimLastFrame  = _carCache.isPlayingSwerveAnim;
-    _carCache.isPlayingRoughAnimLastFrame   = _carCache.isPlayingRoughAnim;
-    _carCache.isPlayingAnyAnimLastFrame     = _carCache.isPlayingAnyAnim;
+    _carCache.isPlayingSwerveAnimLastFrame      = _carCache.isPlayingSwerveAnim;
+    _carCache.isPlayingRoughAnimLastFrame       = _carCache.isPlayingRoughAnim;
+    _carCache.isPlayingOvershootAnimLastFrame   = _carCache.isPlayingOvershootAnim;
+    _carCache.isPlayingAnyAnimLastFrame         = _carCache.isPlayingAnyAnim;
     
     if ( ! isPlayingAnyAnim )
     {
@@ -205,6 +276,30 @@ CarCache* _carCache = nil;
     {
         [Car setRandomColor];
         isPlayingAnyAnim    = YES;
+    }
+    
+    // car blink
+    if ( _carCache.blinkTimeRemained >= 0.00001 )
+    {
+        float blinkPeriod       = _carCache.blinkPeriod;
+        float blinkPeriod_2     = _carCache.blinkPeriod * 2.0f;
+        int blinkBase           = int( _carCache.blinkTimeRemained / blinkPeriod_2 );
+        float blinkRemained     = _carCache.blinkTimeRemained - ( (float)blinkBase * blinkPeriod_2 );
+        float flag      = blinkRemained - blinkPeriod;
+        if ( flag >= 0.0f )
+        {
+            [_carCache.carSprite setOpacity:0];
+        }
+        else
+        {
+            [_carCache.carSprite setOpacity:255];
+        }
+     
+        _carCache.blinkTimeRemained -= deltaTime;
+        if ( _carCache.blinkTimeRemained <= 0.00001 )
+        {
+            _carCache.blinkTimeRemained = 0.0f;
+        }
     }
 }
 
@@ -276,6 +371,16 @@ CarCache* _carCache = nil;
     return _carCache.carSprite.boundingBox;
 }
 
++ (void) hideCar
+{
+    [_carCache.carSprite setOpacity:0];
+}
+
++ (void) showCar
+{
+    [_carCache.carSprite setOpacity:255];
+}
+
 #pragma mark - events
 
 + (void) setRandomColor
@@ -296,6 +401,7 @@ CarCache* _carCache = nil;
 {
     [Car stopSwerveAnim];
     [Car stopRoughAnim];
+    [Car stopOvershootAnim];
     _carCache.isPlayingAnyAnim      = NO;
 }
 
@@ -319,9 +425,27 @@ CarCache* _carCache = nil;
 + (void) stopSwerveAnim
 {
     _carCache.isPlayingSwerveAnim   = NO;
+    [Car playBlinkWithTime:1.8f];
 }
 
 // rough animation
++ (void) playOvershootAnim
+{
+    _carCache.isPlayingOvershootAnim    = YES;
+    _carCache.isPlayingAnyAnim          = YES;
+}
+
++ (BOOL) isPlayingOvershootAnim
+{
+    return _carCache.isPlayingOvershootAnim;
+}
+
++ (void) stopOvershootAnim
+{
+    _carCache.isPlayingOvershootAnim    = NO;
+    [Car playBlinkWithTime:1.8f];
+}
+
 + (void) playRoughAnim
 {
     _carCache.isPlayingRoughAnim    = YES;
@@ -336,6 +460,12 @@ CarCache* _carCache = nil;
 + (void) stopRoughAnim
 {
     _carCache.isPlayingRoughAnim    = NO;
+    [Car playBlinkWithTime:1.8f];
+}
+
++ (void) playBlinkWithTime: (float) blinkTime
+{
+    _carCache.blinkTimeRemained     = blinkTime;
 }
 
 @end

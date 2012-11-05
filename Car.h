@@ -33,6 +33,10 @@
 
 + (CGRect) getBoundingBox;
 
+// texture
++ (void) hideCar;
++ (void) showCar;
+
 // events
 + (void) setRandomColor;
 + (void) unsetRandomColor;
@@ -41,6 +45,10 @@
 + (BOOL) isPlayingAnyAnim;
 + (void) stopAllAnim;
 
++ (void) playOvershootAnim;
++ (BOOL) isPlayingOvershootAnim;
++ (void) stopOvershootAnim;
+
 + (void) playSwerveAnim;
 + (BOOL) isPlayingSwerveAnim;
 + (void) stopSwerveAnim;
@@ -48,5 +56,7 @@
 + (void) playRoughAnim;
 + (BOOL) isPlayingRoughAnim;
 + (void) stopRoughAnim;
+
++ (void) playBlinkWithTime: (float) blinkTime;
 
 @end

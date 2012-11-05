@@ -63,10 +63,13 @@ enum STATE_DRIVE_CAR
 @property (assign) float    _carBreakDeAcceleration;
 @property (assign) float    _carNormalDeAcceleration;
 @property (assign) float    _carMaxSpeed;
+@property (assign) float    _carSpeedLimit;
 @property (assign) float    _carMinSpeed;
 
 @property (assign) float    _timeSpeed;
 @property (assign) float    _timeSlowMotion;
+
+@property (assign) float    _dangerousAngle;
 
 - (void) _startSlowMotion;
 - (void) _stopSlowMotion;
@@ -96,10 +99,13 @@ enum STATE_DRIVE_CAR
 @synthesize _carNormalDeAcceleration;
 
 @synthesize _carMaxSpeed;
+@synthesize _carSpeedLimit;
 @synthesize _carMinSpeed;
 
 @synthesize _timeSpeed;
 @synthesize _timeSlowMotion;
+
+@synthesize _dangerousAngle;
 
 vector<TrVertex>    _allVertices;
 vector<TrVertex>    _vertexRoute;
@@ -109,16 +115,18 @@ vector<TrEdge>      _edgeRoute;
 
 - (void) onStart
 {
-    
     _carAcceleration            = 120.0f;
     _carBreakDeAcceleration     = -300.0f;
     _carNormalDeAcceleration    = -10.0f;
     
     _carMaxSpeed    = 600.0f;
     _carMinSpeed    = 0.0f;
+    _carSpeedLimit  = ( 0.8 * ( _carMaxSpeed - _carMinSpeed ) ) + _carMinSpeed;
     
     _timeSpeed      = 1.0f;
     _timeSlowMotion = 0.2f;
+    
+    _dangerousAngle = 100.0f;
     
     // load route data
     RouteGraph& routeGraph  = [World GetRouteGraph];
@@ -238,6 +246,8 @@ vector<TrEdge>      _edgeRoute;
             _currentState   = STATE_DRIVE_CAR_DRIVE_CAR_LERP;
             _carMovedDistance   = 0.0f;
             
+            // Car
+            [Car showCar];
         }
             break;
         case STATE_DRIVE_CAR_DRIVE_CAR_SET_CHECKPOINT:
@@ -293,7 +303,7 @@ vector<TrEdge>      _edgeRoute;
             
             // update combo
             [[ComboPlayer getObject] Update:deltaTime realTime:realTime];
-        
+            
             // update car
             [Car Update:deltaTime];
             
@@ -378,6 +388,7 @@ vector<TrEdge>      _edgeRoute;
 {
     [self _stopSlowMotion];
     
+    // play failed animation
     if ( ! isSuccess )
     {
         if ( [event.eventName isEqualToString:@"water"] )
@@ -464,7 +475,58 @@ vector<TrEdge>      _edgeRoute;
     }
     else if ( isEndThisSubPoint )
     {
+        
+        // increase point
         ++_cSubPointId;
+        
+        // check is car overshooting here
+        BOOL isNeedCheckOvershoot   = YES;
+        if ( _cSubPointId <= 0 || _cSubPointId > ( subPointsSize - 2 ) )
+        {
+            isNeedCheckOvershoot    = NO;
+        }
+        else
+        {
+            int id_01 = _cSubPointId - 1;
+            int id_02 = _cSubPointId;
+            int id_03 = _cSubPointId + 1;
+            
+            CGPoint point_01    = _cMovingPoints[id_01];
+            CGPoint point_02    = _cMovingPoints[id_02];
+            CGPoint point_03    = _cMovingPoints[id_03];
+            
+            CGPoint vec_01  = CGPointMake(point_01.x - point_02.x,
+                                          point_01.y - point_02.y);
+            CGPoint vec_02  = CGPointMake(point_03.x - point_02.x,
+                                          point_03.y - point_02.y);
+            float abs_01    = sqrtf(vec_01.x*vec_01.x + vec_01.y*vec_01.y);
+            float abs_02    = sqrtf(vec_02.x*vec_02.x + vec_02.y*vec_02.y);
+            CGPoint vec_01_norm = CGPointMake(vec_01.x / abs_01,
+                                              vec_01.y / abs_01);
+            CGPoint vec_02_norm = CGPointMake(vec_02.x / abs_02,
+                                              vec_02.y / abs_02);
+            
+            // angle
+            // cos θ = (a·b)/(|a||b|);
+            float dotValue  = vec_01_norm.x * vec_02_norm.x + vec_01_norm.y * vec_02_norm.y;
+            
+            float cosf      = dotValue;
+            
+            float radian    = acosf(cosf);
+            float angle     = radian * 180.0f / M_PI;
+            
+            if ( angle < _dangerousAngle )
+            {
+                // car speed
+                float speed = [Car getSpeed];
+                
+                // check0
+                if ( speed > _carSpeedLimit )
+                {
+                    [Car playOvershootAnim];
+                }
+            }
+        }
     }
     
     // update car properties from route

@@ -15,6 +15,7 @@
 using namespace std;
 #import "Utils.h"
 #import "Mission.h"
+#import "Car.h"
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 enum STATE_SELECT_ROUTE
@@ -116,7 +117,10 @@ enum STATE_SELECT_ROUTE
         }
             break;
         case STATE_SELECT_ROUTE_START:
-        {            
+        {
+            // Car
+            [Car hideCar];
+            
             // set currentVertexPtr from the @Mission
             int cMissionCode    = [Mission getCurrentMissionCode];
             Mission* cMission   = [Mission GetMissionFromCode:cMissionCode];
