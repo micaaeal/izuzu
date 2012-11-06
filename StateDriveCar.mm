@@ -491,7 +491,7 @@ vector<TrEdge>      _edgeRoute;
         }
         else
         {
-            // .
+            // ..
             int id_01 = _cSubPointId - 1;
             int id_02 = _cSubPointId;
             int id_03 = _cSubPointId + 1;
