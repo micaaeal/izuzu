@@ -76,6 +76,10 @@ enum STATE_DRIVE_CAR
 
 - (void) _moveCarWithTime: (float) deltaTime realTime: (float) realTime;
 
+- (BOOL) _isDangerousBendWithPoint01:(CGPoint) point_01
+                             point02:(CGPoint) point_02
+                             point03:(CGPoint) point_03;
+
 @end
 
 @implementation StateDriveCar
@@ -495,27 +499,10 @@ vector<TrEdge>      _edgeRoute;
             CGPoint point_02    = _cMovingPoints[id_02];
             CGPoint point_03    = _cMovingPoints[id_03];
             
-            CGPoint vec_01  = CGPointMake(point_01.x - point_02.x,
-                                          point_01.y - point_02.y);
-            CGPoint vec_02  = CGPointMake(point_03.x - point_02.x,
-                                          point_03.y - point_02.y);
-            float abs_01    = sqrtf(vec_01.x*vec_01.x + vec_01.y*vec_01.y);
-            float abs_02    = sqrtf(vec_02.x*vec_02.x + vec_02.y*vec_02.y);
-            CGPoint vec_01_norm = CGPointMake(vec_01.x / abs_01,
-                                              vec_01.y / abs_01);
-            CGPoint vec_02_norm = CGPointMake(vec_02.x / abs_02,
-                                              vec_02.y / abs_02);
-            
-            // angle
-            // cos θ = (a·b)/(|a||b|);
-            float dotValue  = vec_01_norm.x * vec_02_norm.x + vec_01_norm.y * vec_02_norm.y;
-            
-            float cosf      = dotValue;
-            
-            float radian    = acosf(cosf);
-            float angle     = radian * 180.0f / M_PI;
-            
-            if ( angle < _dangerousAngle )
+                        
+            if ( [self _isDangerousBendWithPoint01:point_01
+                                           point02:point_02
+                                           point03:point_03] )
             {
                 // car speed
                 float speed = [Car getSpeed];
@@ -542,6 +529,38 @@ vector<TrEdge>      _edgeRoute;
 - (void) _stopSlowMotion
 {
     _timeSpeed  = 1.0f;
+}
+
+- (BOOL) _isDangerousBendWithPoint01:(CGPoint) point_01
+                             point02:(CGPoint) point_02
+                             point03:(CGPoint) point_03
+{
+    CGPoint vec_01  = CGPointMake(point_01.x - point_02.x,
+                                  point_01.y - point_02.y);
+    CGPoint vec_02  = CGPointMake(point_03.x - point_02.x,
+                                  point_03.y - point_02.y);
+    float abs_01    = sqrtf(vec_01.x*vec_01.x + vec_01.y*vec_01.y);
+    float abs_02    = sqrtf(vec_02.x*vec_02.x + vec_02.y*vec_02.y);
+    CGPoint vec_01_norm = CGPointMake(vec_01.x / abs_01,
+                                      vec_01.y / abs_01);
+    CGPoint vec_02_norm = CGPointMake(vec_02.x / abs_02,
+                                      vec_02.y / abs_02);
+    
+    // angle
+    // cos θ = (a·b)/(|a||b|);
+    float dotValue  = vec_01_norm.x * vec_02_norm.x + vec_01_norm.y * vec_02_norm.y;
+    
+    float cosf      = dotValue;
+    
+    float radian    = acosf(cosf);
+    float angle     = radian * 180.0f / M_PI;
+
+    if ( angle < _dangerousAngle )
+    {
+        return YES;
+    }
+    
+    return NO;
 }
 
 @end
