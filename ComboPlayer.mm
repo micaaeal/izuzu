@@ -227,6 +227,7 @@ CGPoint buttonPointArray[4];
     }
     
     [comboNumberArray removeAllObjects];
+    /*
     for (NSString* cComboStr in event.comboList)
     {
         if ( [cComboStr.uppercaseString isEqualToString:@"A"] )
@@ -249,6 +250,14 @@ CGPoint buttonPointArray[4];
             // do nothing
         }
     }
+    /*/
+    // random the combo in list
+    for ( int i=0; i<4; ++i )
+    {
+        u_int32_t randValue         = arc4random()  % 4;
+        [comboNumberArray addObject:[NSNumber numberWithInt:randValue]];
+    }
+    /**/
     
     currentEvent  = event;
 }
@@ -363,9 +372,9 @@ CGPoint buttonPointArray[4];
                     [cSprite setOpacity:0];
                 }
             }
-            else
+            else // press the wrong combo button
             {
-                // do nothing
+                [self finishEvent:NO];
             }
         }
     }

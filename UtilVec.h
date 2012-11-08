@@ -10,7 +10,7 @@
 
 @interface UtilVec : NSObject
 
-+ (CGPoint) convertVecIfRetina: (CGPoint&) vec;
++ (CGPoint) convertVecIfRetina: (CGPoint) vec;
 + (CGFloat) convertScaleIfRetina: (CGFloat) scale;
 
 + (void) setGameScale: (CGFloat) gameScale;

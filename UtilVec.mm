@@ -14,7 +14,7 @@ static CGFloat  _s_gameScale    = 1.0f;
 @implementation UtilVec
 
 // screen convertion
-+ (CGPoint) convertVecIfRetina: (CGPoint&) vec
++ (CGPoint) convertVecIfRetina: (CGPoint) vec
 {
     return vec;
 }

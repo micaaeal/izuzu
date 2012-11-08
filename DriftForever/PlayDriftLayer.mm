@@ -11,6 +11,7 @@
 // object modules
 #import "World.h"
 #import "Car.h"
+#import "WindShield.h"
 
 // graph
 #import "RouteGraph.h"
@@ -115,6 +116,10 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
         [[ComboPlayer getObject] LoadData];
         [[ComboPlayer getObject] AssignDataToLayer:self];
         [ComboPlayer getObject].delegate    = _stateDriveCar;
+        
+        // assign data from WindShield
+        [[WindShield getObject] onStart];
+        [[WindShield getObject] assignDataToLayer:self];
         
         // set touch enable
         self.isTouchEnabled = YES;

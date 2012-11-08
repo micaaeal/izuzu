@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD1B83A6164B2413005950CB /* water_windshield.png in Resources */ = {isa = PBXBuildFile; fileRef = BD1B83A5164B2413005950CB /* water_windshield.png */; };
+		BD1B83AA164B2469005950CB /* WindShield.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1B83A9164B2469005950CB /* WindShield.m */; };
 		BD49BD3B1613539200C401BF /* PlayDriftLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD49BD3A1613539200C401BF /* PlayDriftLayer.mm */; };
 		BD49BD441613576E00C401BF /* World.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD49BD431613576E00C401BF /* World.mm */; };
 		BD49BD4716135A7900C401BF /* Mission.m in Sources */ = {isa = PBXBuildFile; fileRef = BD49BD4616135A7900C401BF /* Mission.m */; };
@@ -202,6 +204,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BD1B83A5164B2413005950CB /* water_windshield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = water_windshield.png; sourceTree = "<group>"; };
+		BD1B83A8164B2469005950CB /* WindShield.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindShield.h; sourceTree = "<group>"; };
+		BD1B83A9164B2469005950CB /* WindShield.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WindShield.m; sourceTree = "<group>"; };
 		BD49BD391613539200C401BF /* PlayDriftLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayDriftLayer.h; sourceTree = "<group>"; };
 		BD49BD3A1613539200C401BF /* PlayDriftLayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PlayDriftLayer.mm; sourceTree = "<group>"; };
 		BD49BD421613576E00C401BF /* World.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = World.h; sourceTree = "<group>"; };
@@ -645,6 +650,7 @@
 		BD5AA2F0161E04E200E367E7 /* mockup */ = {
 			isa = PBXGroup;
 			children = (
+				BD1B83A5164B2413005950CB /* water_windshield.png */,
 				BD9CDB57163788BD005AA313 /* accel_padel.png */,
 				BD9CDB58163788BD005AA313 /* break_padel.png */,
 				BD6CA9D21636FEEF00131027 /* combo_arrow.png */,
@@ -1177,6 +1183,8 @@
 			children = (
 				BDF75DCF161903DE00BEAFD1 /* Car.h */,
 				BDF75DD0161903DE00BEAFD1 /* Car.mm */,
+				BD1B83A8164B2469005950CB /* WindShield.h */,
+				BD1B83A9164B2469005950CB /* WindShield.m */,
 			);
 			name = Car;
 			sourceTree = "<group>";
@@ -1315,6 +1323,7 @@
 				BD6CA9D31636FEEF00131027 /* combo_arrow.png in Resources */,
 				BD9CDB59163788BD005AA313 /* accel_padel.png in Resources */,
 				BD9CDB5A163788BD005AA313 /* break_padel.png in Resources */,
+				BD1B83A6164B2413005950CB /* water_windshield.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1444,6 +1453,7 @@
 				BDDA0DD9162F854900854B96 /* EventHandler.mm in Sources */,
 				BD4ABB111630DA1900694676 /* Console.mm in Sources */,
 				BD6CA9D11636D1F200131027 /* ComboPlayer.mm in Sources */,
+				BD1B83AA164B2469005950CB /* WindShield.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

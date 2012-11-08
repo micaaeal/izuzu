@@ -21,6 +21,7 @@
 - (CGFloat) getZoomX;
 
 - (void) zoomTo: (CGFloat) zoomX;
+
 - (void) onUpdate: (float) deltaTime;
 
 @end

@@ -21,6 +21,8 @@ using namespace std;
 #import "Utils.h"
 #import "Mission.h"
 
+#import "WindShield.h"
+
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 enum STATE_DRIVE_CAR
 {
@@ -65,11 +67,15 @@ enum STATE_DRIVE_CAR
 @property (assign) float    _carMaxSpeed;
 @property (assign) float    _carSpeedLimit;
 @property (assign) float    _carMinSpeed;
+@property (assign) float    _carGearDAcceleration;
 
 @property (assign) float    _timeSpeed;
 @property (assign) float    _timeSlowMotion;
 
 @property (assign) float    _dangerousAngle;
+
+@property (assign) CGPoint  _dragStart;
+@property (assign) CGPoint  _dragEnd;
 
 - (void) _startSlowMotion;
 - (void) _stopSlowMotion;
@@ -105,11 +111,15 @@ enum STATE_DRIVE_CAR
 @synthesize _carMaxSpeed;
 @synthesize _carSpeedLimit;
 @synthesize _carMinSpeed;
+@synthesize _carGearDAcceleration;
 
 @synthesize _timeSpeed;
 @synthesize _timeSlowMotion;
 
 @synthesize _dangerousAngle;
+
+@synthesize _dragStart;
+@synthesize _dragEnd;
 
 vector<TrVertex>    _allVertices;
 vector<TrVertex>    _vertexRoute;
@@ -122,15 +132,19 @@ vector<TrEdge>      _edgeRoute;
     _carAcceleration            = 120.0f;
     _carBreakDeAcceleration     = -300.0f;
     _carNormalDeAcceleration    = -10.0f;
+    _carGearDAcceleration       = 50.0f;
     
     _carMaxSpeed    = 600.0f;
-    _carMinSpeed    = 0.0f;
+    _carMinSpeed    = 50.0f;
     _carSpeedLimit  = ( 0.8 * ( _carMaxSpeed - _carMinSpeed ) ) + _carMinSpeed;
     
     _timeSpeed      = 1.0f;
     _timeSlowMotion = 0.2f;
     
     _dangerousAngle = 100.0f;
+    
+    _dragStart  = CGPointMake(0.0f, 0.0f);
+    _dragEnd    = CGPointMake(0.0f, 0.0f);
     
     // load route data
     RouteGraph& routeGraph  = [World GetRouteGraph];
@@ -252,6 +266,7 @@ vector<TrEdge>      _edgeRoute;
             
             // Car
             [Car showCar];
+            
         }
             break;
         case STATE_DRIVE_CAR_DRIVE_CAR_SET_CHECKPOINT:
@@ -278,12 +293,21 @@ vector<TrEdge>      _edgeRoute;
             
             float deltaVelocity = a * deltaTime;
             
-            CGFloat carInitSpeed    = [Car getSpeed];
-            float netCarSpeed       = carInitSpeed+deltaVelocity;
+            CGFloat currentSpeed    = [Car getSpeed];
+            float netCarSpeed       = currentSpeed+deltaVelocity;
             if ( netCarSpeed > _carMaxSpeed )
                 netCarSpeed = _carMaxSpeed;
-            else if ( netCarSpeed < _carMinSpeed )
-                netCarSpeed = _carMinSpeed;
+            else if ( netCarSpeed < 0.0f )
+            {
+                netCarSpeed = 0.0f;
+            }
+            
+            if ( netCarSpeed < _carMinSpeed && !isBreak )
+            {
+                float deltaVelocity = _carGearDAcceleration * deltaTime;
+                netCarSpeed += deltaVelocity;
+            }
+            
             [Car setSpeed:netCarSpeed];
             
             // reduce fuel
@@ -350,6 +374,8 @@ vector<TrEdge>      _edgeRoute;
     CGPoint location = [touch locationInView:[touch view]];
     location = [[CCDirector sharedDirector] convertToGL:location];
     
+    _dragStart  = location;
+    
     if ( isComboPlaying )
     {
         [[ComboPlayer getObject] touchButtonAtPoint:location];
@@ -370,7 +396,24 @@ vector<TrEdge>      _edgeRoute;
 - (void) onTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
 {
     CGPoint location = [touch locationInView:[touch view]];
-    location = [[CCDirector sharedDirector] convertToGL:location];
+    location    = [[CCDirector sharedDirector] convertToGL:location];
+    
+    _dragEnd    = location;
+    CGPoint dragElapse  = CGPointMake(_dragEnd.x - _dragStart.x,
+                                      _dragEnd.y - _dragStart.y);
+    float dragDistance  = sqrtf(dragElapse.x*dragElapse.x + dragElapse.y*dragElapse.y);
+    
+    if (_currentState == STATE_DRIVE_CAR_DRIVE_CAR_LERP )
+    {
+        if ( [[WindShield getObject] hasAnythingOnWindshield] )
+        {
+            if ( dragDistance >= 10.0f )
+            {
+                [[WindShield getObject] clearAllVisionBarrier];
+            }
+        }
+    }
+    
     [[Console getObject] unTouchButtonAtPoint:location];
 }
 
@@ -398,6 +441,7 @@ vector<TrEdge>      _edgeRoute;
         if ( [event.eventName isEqualToString:@"water"] )
         {
             [Car playSwerveAnim];
+            [[WindShield getObject] showWater];
         }
         else if ( [event.eventName isEqualToString:@"rough"] )
         {
