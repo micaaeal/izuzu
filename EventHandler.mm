@@ -139,6 +139,10 @@ EventHandler* _s_eventHandler   = nil;
                                           cEventRect.origin.y + cEventRect.size.height
                                           );
         
+        if ( [Car isPlayingAnyAnim] )
+            continue;
+        
+        // check event touching
         BOOL isThisEventTouchTheCar = NO;
         for (int i=0; i<4; ++i)
         {

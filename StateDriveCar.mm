@@ -76,6 +76,13 @@ enum STATE_DRIVE_CAR
 
 @property (assign) CGPoint  _dragStart;
 @property (assign) CGPoint  _dragEnd;
+@property (assign) BOOL     _isDragging;
+@property (assign) double   _dragTime;
+
+@property (assign) float    _camZoomTarget;
+@property (assign) float    _camZoomSpeed;
+@property (assign) float    _camZoomInMax;
+@property (assign) float    _camZoomOutMax;
 
 - (void) _startSlowMotion;
 - (void) _stopSlowMotion;
@@ -120,6 +127,13 @@ enum STATE_DRIVE_CAR
 
 @synthesize _dragStart;
 @synthesize _dragEnd;
+@synthesize _isDragging;
+@synthesize _dragTime;
+
+@synthesize _camZoomTarget;
+@synthesize _camZoomSpeed;
+@synthesize _camZoomInMax;
+@synthesize _camZoomOutMax;
 
 vector<TrVertex>    _allVertices;
 vector<TrVertex>    _vertexRoute;
@@ -145,12 +159,19 @@ vector<TrEdge>      _edgeRoute;
     
     _dragStart  = CGPointMake(0.0f, 0.0f);
     _dragEnd    = CGPointMake(0.0f, 0.0f);
+    _isDragging = NO;
+    _dragTime   = 0.0f;
     
     // load route data
     RouteGraph& routeGraph  = [World GetRouteGraph];
     _allVertices    = routeGraph.GetAllVertices();
     _vertexRoute    = routeGraph.GetVertexRoute();
     _edgeRoute      = routeGraph.GetEdgeRoute();
+    
+    _camZoomTarget      = [[Camera getObject] getZoomX];
+    _camZoomSpeed       = 0.3f;
+    _camZoomInMax       = 0.5;
+    _camZoomOutMax      = 0.2;
 
     printf ("edge route");
     printf ("\n");
@@ -266,7 +287,6 @@ vector<TrEdge>      _edgeRoute;
             
             // Car
             [Car showCar];
-            
         }
             break;
         case STATE_DRIVE_CAR_DRIVE_CAR_SET_CHECKPOINT:
@@ -310,6 +330,38 @@ vector<TrEdge>      _edgeRoute;
             
             [Car setSpeed:netCarSpeed];
             
+            // set camera zooming
+            float zoomCurrent   = [[Camera getObject] getZoomX];
+            
+            // calculate the final cam zoom by speed
+            float deltaSpeed   = _carMaxSpeed - 0.0f;
+            float deltaZoom    = _camZoomOutMax - _camZoomInMax;
+            float zoomTarget    = ( netCarSpeed * deltaZoom / deltaSpeed ) + _camZoomInMax;
+            _camZoomTarget  = zoomTarget;
+            
+            // interpolate zoom to target
+            float deltaZoomWithTime     = _camZoomSpeed * realTime;
+            float zoomDistance          = zoomTarget - zoomCurrent;
+            float zoomDirection         = 0.0f;
+            if ( zoomDistance == 0.0f )
+                zoomDirection   = 0.0f;
+            else
+                zoomDirection   = ( zoomDistance / (float)ABS(zoomDistance) );
+                    
+            float zoomBy                = zoomDirection * deltaZoomWithTime;
+            
+            float nextZoom  = zoomCurrent + zoomBy;
+            
+            if ( zoomCurrent < zoomTarget )
+                if ( nextZoom > zoomTarget )
+                    nextZoom    = zoomTarget;
+            
+            if ( zoomCurrent > zoomTarget )
+                if ( nextZoom < zoomTarget )
+                    nextZoom    = zoomTarget;
+            
+            [[Camera getObject] zoomTo:nextZoom];
+            
             // reduce fuel
             float fuelNorm  = [[Console getObject] GetFuelNorm];
             
@@ -341,6 +393,12 @@ vector<TrEdge>      _edgeRoute;
             camPoint.x -= (winSize.width * 0.5f);
             camPoint.y -= (winSize.height * 0.5f);
             [[Camera getObject] setCameraToPoint:camPoint];
+            
+            // Draging and time
+            if ( _isDragging )
+            {
+                _dragTime += realTime;
+            }
         }
             break;
         case STATE_DRIVE_CAR_REACH_TARGET:
@@ -375,6 +433,7 @@ vector<TrEdge>      _edgeRoute;
     location = [[CCDirector sharedDirector] convertToGL:location];
     
     _dragStart  = location;
+    _isDragging = YES;
     
     if ( isComboPlaying )
     {
@@ -409,10 +468,16 @@ vector<TrEdge>      _edgeRoute;
         {
             if ( dragDistance >= 10.0f )
             {
-                [[WindShield getObject] clearAllVisionBarrier];
+                if ( _dragTime <= 1.0 )
+                {
+                    [[WindShield getObject] clearAllVisionBarrier];
+                }
             }
         }
     }
+    
+    _isDragging = NO;
+    _dragTime   = 0.0;
     
     [[Console getObject] unTouchButtonAtPoint:location];
 }

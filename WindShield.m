@@ -68,9 +68,13 @@ WindShield* _s_object   = nil;
 
 - (void) assignDataToLayer: (CCLayer*) layer
 {
+    CGSize winSize          = [CCDirector sharedDirector].winSize;
+    
     CCSprite* cSprite   = [CCSprite spriteWithFile:@"water_windshield.png"];
     [layer addChild:cSprite];
-    [cSprite setPosition:CGPointMake(100.0, 100.0)];
+    [cSprite setPosition:CGPointMake(winSize.width * 0.5f,
+                                     winSize.height * 0.5f)];
+    [cSprite setScale:5.0f];
     [cSprite setScale:[UtilVec convertScaleIfRetina:cSprite.scale]];
     [cSprite setOpacity:0];
     _waterSprite    = cSprite;
