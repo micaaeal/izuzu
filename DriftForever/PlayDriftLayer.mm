@@ -183,6 +183,21 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
                     action:@selector(_onZoomOut:)
           forControlEvents:UIControlEventTouchDown];
         }
+        // cancel button
+        {
+            UIButton* btn    = [UIButton buttonWithType:UIButtonTypeCustom];
+            UIImage* img   = [UIImage imageNamed:@"cancel"];
+            [btn setImage:img forState:UIControlStateNormal];
+            btn.frame    = CGRectMake(0.0f,
+                                      mWindow.bounds.size.height-img.size.height-240.0f,
+                                      img.size.width,
+                                      img.size.height);
+            [mWindow addSubview:btn];
+            [mWindow bringSubviewToFront:btn];
+            [btn addTarget:self
+                    action:@selector(_onRemoveBackRoute:)
+          forControlEvents:UIControlEventTouchDown];
+        }
     }
 	return self;
 }
@@ -199,7 +214,7 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
 }
 
 static int _s_currentZoomLevel    = 2;
-static float _s_zoomLevel[]         = {0.25f, 0.45f, 0.6f, 0.8f, 1.0f};
+static float _s_zoomLevel[]         = {0.2f, 0.23f, 0.25f, 0.45f, 0.6f};
 static int   _s_zoomLevelSize       = 5;
 
 - (void) _onZoomIn: (id) sender
@@ -224,9 +239,10 @@ static int   _s_zoomLevelSize       = 5;
 
 - (void) _onRemoveBackRoute: (id) sender
 {
-    RouteGraph& routeGraph  = [World GetRouteGraph];
-    routeGraph.RemoveBackRoute();
-    routeGraph.SetHasCancelState(true);
+    if ( _currentState == _stateSelectRoute )
+    {
+        [_currentState onGetStringMessage:@"remove_back"];
+    }
 }
 
 // on "dealloc" you need to release all your retained objects

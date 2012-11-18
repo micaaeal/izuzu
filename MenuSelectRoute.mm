@@ -17,6 +17,7 @@ static float _s_routeButtonRadius   = 100;
 @property (retain) id<MenuSelectRoute>  _actionObject;
 @property (assign) CGPoint              _anchor;
 @property (retain) NSMutableArray*      _routeButtonArrayRed;
+@property (retain) CCLayer*             _rootLayer;
 
 @end
 
@@ -26,6 +27,7 @@ static float _s_routeButtonRadius   = 100;
 @synthesize _actionObject;
 @synthesize _anchor;
 @synthesize _routeButtonArrayRed;
+@synthesize _rootLayer;
 
 - (id) init
 {
@@ -36,15 +38,26 @@ static float _s_routeButtonRadius   = 100;
         _routeButtonArray   = [[NSMutableArray alloc] init];
         _actionObject       = nil;
         _anchor             = CGPointMake(0.0f, 0.0f);
-        _routeButtonArrayRed    = [[NSMutableArray alloc] init];;
+        _routeButtonArrayRed    = [[NSMutableArray alloc] init];
+        _rootLayer          = nil;
     }
     return self;
 }
 
 - (void) dealloc
 {
+    for ( CCSprite* cButton in _routeButtonArrayRed )
+    {
+        [_rootLayer removeChild:cButton cleanup:YES];
+    }
+    
     [_routeButtonArrayRed release];
     _routeButtonArrayRed    = nil;
+    
+    for ( CCSprite* cButton in _routeButtonArray )
+    {
+        [_rootLayer removeChild:cButton cleanup:YES];
+    }
     
     [_routeButtonArray release];
     _routeButtonArray   = nil;
@@ -56,12 +69,11 @@ static float _s_routeButtonRadius   = 100;
 {
     _routeCount = routeCount;
     _anchor     = point;
+    _rootLayer  = rootLayer;
     
     for (int i=0; i<_routeCount; ++i)
     {
-        // @TODO critical optimize is needed here ... revision
-        
-        // load red buttons
+        // load select buttons
         {
             CCSprite* button = [CCSprite spriteWithFile: @"route_select_img.png"];
             button.position = point;
@@ -73,7 +85,7 @@ static float _s_routeButtonRadius   = 100;
             [_routeButtonArray addObject:button];
         }
         
-        // load the red buttons
+        // load desselect buttons
         {
             CCSprite* button    = [CCSprite spriteWithFile: @"route_disselect_img.png"];
             button.position     = point;
@@ -90,7 +102,8 @@ static float _s_routeButtonRadius   = 100;
 
 - (void) setButtonAtPoint: (CGPoint) point
 {
-    CGPoint deltaPoint  = CGPointMake(point.x-_anchor.x, point.y-_anchor.y);
+    CGPoint deltaPoint  = CGPointMake(point.x-_anchor.x,
+                                      point.y-_anchor.y);
     
     for (int i=0; i<_routeButtonArray.count; ++i)
     {
@@ -98,13 +111,15 @@ static float _s_routeButtonRadius   = 100;
         {
             CCSprite* cButtonSprite = [_routeButtonArray objectAtIndex:i];
             CGPoint spritePosition  = cButtonSprite.position;
-            cButtonSprite.position  = CGPointMake(spritePosition.x+deltaPoint.x, spritePosition.y+deltaPoint.y);
+            cButtonSprite.position  = CGPointMake(spritePosition.x+deltaPoint.x,
+                                                  spritePosition.y+deltaPoint.y);
         }
         // for red buttons
         {
             CCSprite* cButtonSprite = [_routeButtonArrayRed objectAtIndex:i];
             CGPoint spritePosition  = cButtonSprite.position;
-            cButtonSprite.position  = CGPointMake(spritePosition.x+deltaPoint.x, spritePosition.y+deltaPoint.y);
+            cButtonSprite.position  = CGPointMake(spritePosition.x+deltaPoint.x,
+                                                  spritePosition.y+deltaPoint.y);
         }
     }
     

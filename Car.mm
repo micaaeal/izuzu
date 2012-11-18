@@ -140,6 +140,7 @@ CarCache* _carCache = nil;
 + (BOOL) AssignDataToLayer: (CCLayer*) layer withMission: (Mission*) mission
 {
     [layer addChild:_carCache.carSprite];
+    _carCache.carSprite.zOrder  = 10;
     return YES;
 }
 
