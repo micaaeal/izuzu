@@ -287,6 +287,9 @@ vector<TrEdge>      _edgeRoute;
             
             // Car
             [Car showCar];
+            
+            // Init fuel
+            [[Console getObject] SetFuelNorm:1.0f];
         }
             break;
         case STATE_DRIVE_CAR_DRIVE_CAR_SET_CHECKPOINT:

@@ -14,7 +14,9 @@ static Console*    _s_console = nil;
 @interface Console()
 
 @property (retain) CCSprite*    _spriteFuel;
+@property (retain) CCSprite*    _spriteFuelGaugeNeedle;
 @property (assign) float        _fuelNorm;
+
 @property (retain) CCSprite*    _accelSprite;
 @property (retain) CCSprite*    _breakSprite;
 
@@ -28,6 +30,7 @@ static Console*    _s_console = nil;
 
 @implementation Console
 @synthesize _spriteFuel;
+@synthesize _spriteFuelGaugeNeedle;
 @synthesize _fuelNorm;
 @synthesize _accelSprite;
 @synthesize _breakSprite;
@@ -51,6 +54,7 @@ static Console*    _s_console = nil;
     if (self)
     {
         _spriteFuel     = nil;
+        _spriteFuelGaugeNeedle  = nil;
         _fuelNorm       = 1.0f;
         
         _accelSprite    = nil;
@@ -68,6 +72,7 @@ static Console*    _s_console = nil;
 - (void) LoadData
 {
     _spriteFuel     = [CCSprite spriteWithFile:@"fuel_gauge.png"];
+    _spriteFuelGaugeNeedle  = [CCSprite spriteWithFile:@"fuel_gauge_needle.png"];
     
     _accelSprite    = [CCSprite spriteWithFile:@"accel_padel.png"];
     _breakSprite    = [CCSprite spriteWithFile:@"break_padel.png"];
@@ -81,6 +86,7 @@ static Console*    _s_console = nil;
 - (void) AssignDataToLayer: (CCLayer*) layer
 {
     [layer addChild:_spriteFuel];
+    [layer addChild:_spriteFuelGaugeNeedle];
 
     // win size
     CGSize winSize          = [CCDirector sharedDirector].winSize;
@@ -91,6 +97,15 @@ static Console*    _s_console = nil;
     
     [_spriteFuel setPosition:fuelGaugePoint];
     [_spriteFuel setScale:[UtilVec convertScaleIfRetina:_spriteFuel.scale]];
+
+    [_spriteFuelGaugeNeedle setAnchorPoint:CGPointMake(0.5f,
+                                                       0.2f)];
+
+    [_spriteFuelGaugeNeedle setPosition:CGPointMake(fuelGaugePoint.x - 0.2,
+                                                    fuelGaugePoint.y + 2.0f )];
+    
+    [_spriteFuelGaugeNeedle setScale:[UtilVec convertScaleIfRetina:_spriteFuelGaugeNeedle.scale]];
+
     
     // padel
     CGFloat accelPadelX     = winSize.width - 40.0f;
@@ -115,29 +130,22 @@ static Console*    _s_console = nil;
 
 - (void) Update: (float) deltaTime
 {
-    // update fuel
-    if ( _spriteFuel )
+    if ( _fuelNorm < 0.0f )
     {
-        if ( _fuelNorm >= 0.75 )
-        {
-            ccColor3B color = {0, 255, 0};
-            [_spriteFuel setColor:color];
-        }
-        else if ( _fuelNorm >= 0.5 )
-        {
-            ccColor3B color = {255, 252, 10};
-            [_spriteFuel setColor:color];
-        }
-        else if ( _fuelNorm >= 0.25 )
-        {
-            ccColor3B color = {255, 131, 10};
-            [_spriteFuel setColor:color];
-        }
-        else
-        {
-            ccColor3B color = {255, 50, 10};
-            [_spriteFuel setColor:color];
-        }
+        printf ("_fuelNorm < 0.0f");
+        printf ("\n");
+    }
+    // update fuel
+    if ( _spriteFuel && _spriteFuelGaugeNeedle )
+    {
+        float angleMax      = 90;
+        float angleMin      = -180;
+        float angleDelta    = angleMax - angleMin;
+        
+        float angle         = (angleDelta * _fuelNorm) + angleMin;
+        float needleAngle   = angle;
+        
+        [_spriteFuelGaugeNeedle setRotation:needleAngle];
     }
     
     // update accel
@@ -162,6 +170,11 @@ static Console*    _s_console = nil;
 
 - (void) SetFuelNorm: (float) fuelNorm // between 0.0 and 1.0
 {
+    if ( fuelNorm < 0.0f )
+        fuelNorm   = 0.0f;
+    else if ( fuelNorm > 1.0f )
+        fuelNorm   = 1.0f;
+    
     _fuelNorm   = fuelNorm;
 }
 
@@ -348,6 +361,7 @@ static Console*    _s_console = nil;
 - (void) hideConsole
 {
     [_spriteFuel setOpacity:0];
+    [_spriteFuelGaugeNeedle setOpacity:0];
     [_accelSprite setOpacity:0];
     [_breakSprite setOpacity:0];
 }
@@ -355,6 +369,7 @@ static Console*    _s_console = nil;
 - (void) showConsole
 {
     [_spriteFuel setOpacity:255];
+    [_spriteFuelGaugeNeedle setOpacity:255];
     [_accelSprite setOpacity:255];
     [_breakSprite setOpacity:255];    
 }

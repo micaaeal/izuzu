@@ -423,9 +423,33 @@ enum STATE_SELECT_ROUTE
         MenuSelectRoute* cMenuSelectRoute   = _menuSelectRouteArray.lastObject;
         
         // reset button
-        for ( int i=0; i<cMenuSelectRoute.routeCount; ++i )
+        for ( int i=0; i<_currentConnectedVertices.size(); ++i )
         {
-            [cMenuSelectRoute setButtonStateToGreen:i];
+            // id
+            int cConnectedVertexId  = _currentConnectedVertices[i].vertexId;
+            
+            // count
+            BOOL alreadyHasRoute    = NO;
+            RouteGraph& cRouteGraph         = [World GetRouteGraph];
+            vector<TrVertex> vertexRoute    = cRouteGraph.GetVertexRoute();
+            for (int cv=0; cv<vertexRoute.size(); ++cv)
+            {
+                TrVertex cVertex    = vertexRoute[cv];
+                if ( cVertex.vertexId == cConnectedVertexId )
+                {
+                    alreadyHasRoute = YES;
+                    break;
+                }
+            }
+            
+            if ( alreadyHasRoute )
+            {
+                [cMenuSelectRoute setButtonStateToRed:i];
+            }
+            else
+            {
+                [cMenuSelectRoute setButtonStateToGreen:i];
+            }
         }
     }
 }
