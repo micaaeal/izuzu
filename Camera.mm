@@ -18,6 +18,8 @@ Camera* _object = nil;
 @property (assign) CGFloat      _zoomX;
 @property (assign) CGPoint      _layerZoomPoint;
 
+@property (assign) CGRect       _bound;
+
 @end
 
 @implementation Camera
@@ -26,6 +28,7 @@ Camera* _object = nil;
 @synthesize _layerRefPoint;
 @synthesize _zoomX;
 @synthesize _layerZoomPoint;
+@synthesize _bound;
 
 + (Camera*) getObject
 {
@@ -35,6 +38,10 @@ Camera* _object = nil;
         _object._isZooming      = NO;
         _object._layerRefPoint  = _object._layer.position;
         _object._zoomX          = 1.0f;
+        _object._bound          = CGRectMake(2547.833984,
+                                             (-6080.666992),
+                                             9512.833984-2547.833984,
+                                             (-1105.666992)-(-6080.666992));
     }
     
     return _object;
@@ -50,16 +57,15 @@ Camera* _object = nil;
     CGPoint layerAbsPoint;
     
     // move camera
-    _layerRefPoint  = CGPointMake(_layerRefPoint.x + point.x,
-                                  _layerRefPoint.y + point.y);
+    CGPoint newPoint    = CGPointMake(_layerRefPoint.x + point.x,
+                                      _layerRefPoint.y + point.y);
+
+    _layerRefPoint  = newPoint;
     layerAbsPoint   = _layerRefPoint;
     
     // set zoom
     [_object zoomTo:_object._zoomX];
     
-    // set to layer
-    //CCLayer* layer  = _object._layer;
-    //[layer setPosition:layerAbsPoint];
 }
 
 - (void) setCameraToPoint: (CGPoint) point
