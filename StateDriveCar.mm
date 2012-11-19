@@ -373,6 +373,8 @@ vector<TrEdge>      _edgeRoute;
                 fuelNorm -= (deltaTime*0.06f);
             }
             
+            float speedNorm = netCarSpeed / _carSpeedLimit;
+            [[Console getObject] SetSpeedNorm:speedNorm];
             [[Console getObject] SetFuelNorm:fuelNorm];
             [[Console getObject] Update:deltaTime];
             
@@ -516,6 +518,9 @@ vector<TrEdge>      _edgeRoute;
             
         }
     }
+    
+    // Finish events
+    [[EventHandler getObject] finishAllEvents];
 }
 
 #pragma mark - PIMPL

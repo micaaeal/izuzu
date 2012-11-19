@@ -14,13 +14,18 @@ EventHandler* _s_eventHandler   = nil;
 
 @interface EventHandler()
 
-@property (retain) NSMutableArray* _eventArray;
+@property (retain) NSMutableArray*  _eventArray;
+
+@property (assign) CGPoint          _labelPoint;
+@property (retain) CCSprite*        _labelWater;
 
 @end
 
 @implementation EventHandler
 @synthesize delegate;
 @synthesize _eventArray;
+@synthesize _labelPoint;
+@synthesize _labelWater;
 
 + (EventHandler*) getObject
 {
@@ -81,8 +86,10 @@ EventHandler* _s_eventHandler   = nil;
         
         [_eventArray addObject:cEvent];
         ++cEventCode;
-        
     }
+    
+    // load sprite
+    _labelWater = [CCSprite spriteWithFile:@"sign_car_water.png"];
 }
 
 - (void) onFinish
@@ -90,7 +97,7 @@ EventHandler* _s_eventHandler   = nil;
     [_eventArray removeAllObjects];
 }
 
-- (void) assignDataToLayer: (CCLayer*) layer
+- (void) assignDataToActionLayer: (CCLayer*) actionLayer uiLayer: (CCLayer*) uiLayer
 {
     for (Event* cEvent in _eventArray)
     {
@@ -108,10 +115,24 @@ EventHandler* _s_eventHandler   = nil;
         cSprite.position    = CGPointMake(cEvent.point.x,
                                           cEvent.point.y);
         cEvent.sprite       = cSprite;
-        [layer addChild:cSprite];
+        [actionLayer addChild:cSprite];
         
         cSprite.scale   = [UtilVec convertScaleIfRetina:cSprite.scale];
     }
+    
+    // set label point
+    // win size
+    CGSize winSize          = [CCDirector sharedDirector].winSize;
+    
+    // meter
+    _labelPoint  = CGPointMake(winSize.width - 40,
+                               winSize.height - 120);
+    // sprites
+    [uiLayer addChild:_labelWater];
+    _labelWater.position    = _labelPoint;
+    _labelWater.scale       = [UtilVec convertScaleIfRetina:_labelWater.scale];
+    
+    _labelWater.opacity = 0;
 }
 
 - (void) onUpdate: (float) deltaTime
@@ -163,6 +184,15 @@ EventHandler* _s_eventHandler   = nil;
             {
                 if ( delegate )
                 {
+                    if ( [cEvent.eventName isEqualToString:@"water"] )
+                    {
+                        _labelWater.opacity = 255;
+                    }
+                    else if ( [cEvent.eventName isEqualToString:@"rough"] )
+                    {
+                        // need doing something
+                    }
+                        
                     [delegate onStartEvent:cEvent];                    
                 }
             }
@@ -174,6 +204,11 @@ EventHandler* _s_eventHandler   = nil;
             cEvent.isTouching   = NO;
         }
     }
+}
+
+- (void) finishAllEvents
+{
+    _labelWater.opacity = 0;
 }
 
 @end

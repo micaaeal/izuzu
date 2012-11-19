@@ -16,6 +16,9 @@ static Console*    _s_console = nil;
 @property (retain) CCSprite*    _spriteFuel;
 @property (retain) CCSprite*    _spriteFuelGaugeNeedle;
 @property (assign) float        _fuelNorm;
+@property (assign) float        _speedNorm;
+@property (retain) CCLabelTTF*  _txtSpeed;
+@property (retain) CCSprite*    _spriteSpeedMeter;
 
 @property (retain) CCSprite*    _accelSprite;
 @property (retain) CCSprite*    _breakSprite;
@@ -32,6 +35,9 @@ static Console*    _s_console = nil;
 @synthesize _spriteFuel;
 @synthesize _spriteFuelGaugeNeedle;
 @synthesize _fuelNorm;
+@synthesize _speedNorm;
+@synthesize _txtSpeed;
+@synthesize _spriteSpeedMeter;
 @synthesize _accelSprite;
 @synthesize _breakSprite;
 @synthesize _isTouchingAccel;
@@ -56,6 +62,13 @@ static Console*    _s_console = nil;
         _spriteFuel     = nil;
         _spriteFuelGaugeNeedle  = nil;
         _fuelNorm       = 1.0f;
+        _speedNorm      = 0.0f;
+        
+        _txtSpeed       = (CCLabelTTF*)[CCLabelTTF labelWithString:@"0"
+                                                        dimensions:CGSizeMake(120, 50)
+                                                        hAlignment:kCCTextAlignmentRight
+                                                          fontName:@"Arial"
+                                                          fontSize:16];
         
         _accelSprite    = nil;
         _breakSprite    = nil;
@@ -76,6 +89,8 @@ static Console*    _s_console = nil;
     
     _accelSprite    = [CCSprite spriteWithFile:@"accel_padel.png"];
     _breakSprite    = [CCSprite spriteWithFile:@"break_padel.png"];
+    
+    _spriteSpeedMeter   = [CCSprite spriteWithFile:@"speed_meter.png"];
 }
 
 - (void) UnloadData
@@ -106,12 +121,19 @@ static Console*    _s_console = nil;
     
     [_spriteFuelGaugeNeedle setScale:[UtilVec convertScaleIfRetina:_spriteFuelGaugeNeedle.scale]];
 
+    // text speed
+    [layer addChild:_spriteSpeedMeter];
+    [layer addChild:_txtSpeed];
+    [_spriteSpeedMeter setPosition:CGPointMake(80.0f, winSize.height - 77)];
+    [_spriteSpeedMeter setScale:[UtilVec convertScaleIfRetina:_spriteSpeedMeter.scale]];
+    [_txtSpeed setPosition:CGPointMake(0.0f, winSize.height - 105)];
+    [_txtSpeed setScale:[UtilVec convertScaleIfRetina:_txtSpeed.scale]];
     
     // padel
     CGFloat accelPadelX     = winSize.width - 40.0f;
-    CGFloat accelPadelY     = 100.0f;
-    CGFloat breakPadelX     = winSize.width - 120.0f;
-    CGFloat breakPadelY     = 65.0f;
+    CGFloat accelPadelY     = 80.0f;
+    CGFloat breakPadelX     = winSize.width - 100.0f;
+    CGFloat breakPadelY     = 60.0f;
     
     if ( _accelSprite )
     {
@@ -130,11 +152,6 @@ static Console*    _s_console = nil;
 
 - (void) Update: (float) deltaTime
 {
-    if ( _fuelNorm < 0.0f )
-    {
-        printf ("_fuelNorm < 0.0f");
-        printf ("\n");
-    }
     // update fuel
     if ( _spriteFuel && _spriteFuelGaugeNeedle )
     {
@@ -181,6 +198,33 @@ static Console*    _s_console = nil;
 - (float) GetFuelNorm // between 0.0 and 1.0
 {
     return _fuelNorm;
+}
+
+- (void) SetSpeedNorm: (float) speedNorm // between 0.0 and 1.0
+{
+    if ( speedNorm < 0.0f )
+        speedNorm   = 0.0f;
+    else if ( speedNorm > 1.0f )
+        speedNorm   = 1.0f;
+    
+    _speedNorm  = speedNorm;
+    
+    // set speed to text
+    float carSpeedMax   = 130.0f;
+    float carSpeedMin   = 0.0f;
+    float carSpeedDelta = carSpeedMax - carSpeedMin;
+    
+    float cCarSpeed     = ( carSpeedDelta * _speedNorm ) + carSpeedMin;
+    int cCarSpeedInt    = cCarSpeed;
+    
+    NSString* speedStr  = [NSString stringWithFormat:@"%d", cCarSpeedInt];
+    
+    [_txtSpeed setString:speedStr];
+}
+
+- (float) GetSpeedNorm // between 0.0 and 1.0
+{
+    return _speedNorm;
 }
 
 - (void) touchButtonAtPoint: (CGPoint) point
@@ -364,6 +408,8 @@ static Console*    _s_console = nil;
     [_spriteFuelGaugeNeedle setOpacity:0];
     [_accelSprite setOpacity:0];
     [_breakSprite setOpacity:0];
+    [_spriteSpeedMeter setOpacity:0];
+    [_txtSpeed setOpacity:0];
 }
 
 - (void) showConsole
@@ -371,7 +417,9 @@ static Console*    _s_console = nil;
     [_spriteFuel setOpacity:255];
     [_spriteFuelGaugeNeedle setOpacity:255];
     [_accelSprite setOpacity:255];
-    [_breakSprite setOpacity:255];    
+    [_breakSprite setOpacity:255];
+    [_spriteSpeedMeter setOpacity:255];
+    [_txtSpeed setOpacity:255];
 }
 
 @end

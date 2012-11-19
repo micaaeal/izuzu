@@ -25,8 +25,9 @@
 - (void) onStart;
 - (void) onFinish;
 
-- (void) assignDataToLayer: (CCLayer*) layer;
+- (void) assignDataToActionLayer: (CCLayer*) actionLayer uiLayer: (CCLayer*) uiLayer;
 
 - (void) onUpdate: (float) deltaTime;
+- (void) finishAllEvents;
 
 @end

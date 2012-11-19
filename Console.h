@@ -22,6 +22,9 @@
 - (void) SetFuelNorm: (float) fuelNorm; // between 0.0 and 1.0
 - (float) GetFuelNorm; // between 0.0 and 1.0
 
+- (void) SetSpeedNorm: (float) speedNorm; // between 0.0 and 1.0
+- (float) GetSpeedNorm; // between 0.0 and 1.0
+
 - (void) touchButtonAtPoint: (CGPoint) point;
 - (void) touchMoveAtPoint: (CGPoint) point;
 - (void) unTouchButtonAtPoint: (CGPoint) point;

@@ -98,7 +98,7 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
         
         // assign data from event handler
         [[EventHandler getObject] onStart];
-        [[EventHandler getObject] assignDataToLayer:actionLayer];
+        [[EventHandler getObject] assignDataToActionLayer:actionLayer uiLayer:self];
         
         // set mission
         [Mission loadData];
@@ -199,6 +199,7 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
           forControlEvents:UIControlEventTouchDown];
         }
     }
+    
 	return self;
 }
 

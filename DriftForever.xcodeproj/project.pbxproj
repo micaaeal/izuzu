@@ -20,6 +20,8 @@
 		BD9CDB59163788BD005AA313 /* accel_padel.png in Resources */ = {isa = PBXBuildFile; fileRef = BD9CDB57163788BD005AA313 /* accel_padel.png */; };
 		BD9CDB5A163788BD005AA313 /* break_padel.png in Resources */ = {isa = PBXBuildFile; fileRef = BD9CDB58163788BD005AA313 /* break_padel.png */; };
 		BDA5BD5A162737FD00EAD767 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA5BD59162737FD00EAD767 /* Event.m */; };
+		BDA6A2851659941600504EB6 /* sign_car_water.png in Resources */ = {isa = PBXBuildFile; fileRef = BDA6A2841659941600504EB6 /* sign_car_water.png */; };
+		BDA6A2891659BD6C00504EB6 /* speed_meter.png in Resources */ = {isa = PBXBuildFile; fileRef = BDA6A2881659BD6C00504EB6 /* speed_meter.png */; };
 		BDAF161F1614BF9200C50EC4 /* adjacency_matrix_config.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDAF161E1614BF9200C50EC4 /* adjacency_matrix_config.plist */; };
 		BDAF16221614BFD600C50EC4 /* vertices_config.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDAF16211614BFD600C50EC4 /* vertices_config.plist */; };
 		BDAF16241614BFE200C50EC4 /* edges_config.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDAF16231614BFE200C50EC4 /* edges_config.plist */; };
@@ -226,6 +228,8 @@
 		BD9CDB58163788BD005AA313 /* break_padel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = break_padel.png; path = Resources/break_padel.png; sourceTree = "<group>"; };
 		BDA5BD58162737FD00EAD767 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
 		BDA5BD59162737FD00EAD767 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		BDA6A2841659941600504EB6 /* sign_car_water.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sign_car_water.png; path = Resources/sign_car_water.png; sourceTree = "<group>"; };
+		BDA6A2881659BD6C00504EB6 /* speed_meter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = speed_meter.png; path = Resources/speed_meter.png; sourceTree = "<group>"; };
 		BDAF161E1614BF9200C50EC4 /* adjacency_matrix_config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = adjacency_matrix_config.plist; sourceTree = "<group>"; };
 		BDAF16211614BFD600C50EC4 /* vertices_config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = vertices_config.plist; sourceTree = "<group>"; };
 		BDAF16231614BFE200C50EC4 /* edges_config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = edges_config.plist; sourceTree = "<group>"; };
@@ -652,6 +656,8 @@
 		BD5AA2F0161E04E200E367E7 /* mockup */ = {
 			isa = PBXGroup;
 			children = (
+				BDA6A2881659BD6C00504EB6 /* speed_meter.png */,
+				BDA6A2841659941600504EB6 /* sign_car_water.png */,
 				BD4EFDB91659795E008108C2 /* fuel_gauge_needle.png */,
 				BDF7B2EC165946A30056353C /* fuel_gauge.png */,
 				BDF7B2E816593CFA0056353C /* water_windshield.png */,
@@ -1328,6 +1334,8 @@
 				BDF7B2E916593CFA0056353C /* water_windshield.png in Resources */,
 				BDF7B2ED165946A30056353C /* fuel_gauge.png in Resources */,
 				BD4EFDBA1659795E008108C2 /* fuel_gauge_needle.png in Resources */,
+				BDA6A2851659941600504EB6 /* sign_car_water.png in Resources */,
+				BDA6A2891659BD6C00504EB6 /* speed_meter.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
