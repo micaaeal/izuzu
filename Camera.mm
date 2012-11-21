@@ -20,6 +20,8 @@ Camera* _object = nil;
 
 @property (assign) CGRect       _bound;
 
+- (void) _setCameraInBound;
+
 @end
 
 @implementation Camera
@@ -38,10 +40,10 @@ Camera* _object = nil;
         _object._isZooming      = NO;
         _object._layerRefPoint  = _object._layer.position;
         _object._zoomX          = 1.0f;
-        _object._bound          = CGRectMake(2547.833984,
-                                             (-6080.666992),
-                                             9512.833984-2547.833984,
-                                             (-1105.666992)-(-6080.666992));
+        _object._bound          = CGRectMake((2435.833496),
+                                             (-872.666992),
+                                             (9125.833984)-(2435.833496),
+                                             (-6183.666992)-(-872.666992));
     }
     
     return _object;
@@ -54,33 +56,23 @@ Camera* _object = nil;
 
 - (void) moveCameraByPoint: (CGPoint) point
 {
-    CGPoint layerAbsPoint;
-    
     // move camera
     CGPoint newPoint    = CGPointMake(_layerRefPoint.x + point.x,
                                       _layerRefPoint.y + point.y);
 
     _layerRefPoint  = newPoint;
-    layerAbsPoint   = _layerRefPoint;
-    
+
     // set zoom
     [_object zoomTo:_object._zoomX];
-    
 }
 
 - (void) setCameraToPoint: (CGPoint) point
 {
-    CGPoint layerAbsPoint;
-    
     // move camera
     _layerRefPoint  = CGPointMake(-point.x, -point.y);
-    layerAbsPoint   = _layerRefPoint;
-    
+
     // set zoom
     [_object zoomTo:_object._zoomX];
-    
-    // set to layer
-    //[layer setPosition:layerAbsPoint];
 }
 
 - (CGPoint) getPoint
@@ -103,15 +95,72 @@ Camera* _object = nil;
     CCLayer* layer  = object._layer;
     [layer setScale:zoomX];
     
+    [self _setCameraInBound];
+    
     // adjust layer
     _layerZoomPoint   = CGPointMake(object._layerRefPoint.x * object._zoomX,
                                     object._layerRefPoint.y * object._zoomX);
-
+    
     [layer setPosition:_layerZoomPoint];
 }
 
 - (void) onUpdate: (float) deltaTime
 {
+}
+
+#pragma mark - PIMPL
+
+- (void) _setCameraInBound
+{
+    // calc scale
+    CGSize screenSize   = [CCDirector sharedDirector].winSize;
+
+    CGPoint currentPoint    = CGPointMake(-_layerRefPoint.x, -_layerRefPoint.y);
+    
+    float screenWidhHalf    = screenSize.width*.5;
+    float screenHeightHalf  = screenSize.height*.5;
+    
+    CGPoint centerPoint     = CGPointMake(currentPoint.x + screenWidhHalf,
+                                          currentPoint.y + screenHeightHalf);
+    
+    currentPoint    = centerPoint;
+    
+    CGSize actualSize   = CGSizeMake(screenSize.width/_layer.scale,
+                                     screenSize.height/_layer.scale);
+    
+    float actualSizeWidthHalf   = actualSize.width*.5f;
+    float actualSizeHeightHalf  = actualSize.height*.5f;
+    
+    CGRect bound            = CGRectMake(_bound.origin.x,
+                                         _bound.origin.y,
+                                         _bound.size.width,
+                                         _bound.size.height
+                                         );
+    
+    // manipulate point
+    if ( currentPoint.x < bound.origin.x+actualSizeWidthHalf )
+    {
+        currentPoint.x  = bound.origin.x+actualSizeWidthHalf;
+    }
+    if ( currentPoint.y > bound.origin.y-actualSizeHeightHalf )
+    {
+        currentPoint.y  = bound.origin.y-actualSizeHeightHalf;
+    }
+    float maxX  = bound.origin.x + bound.size.width;
+    float maxY  = bound.origin.y + bound.size.height;
+    if ( currentPoint.x > maxX-actualSizeWidthHalf )
+    {
+        currentPoint.x  = maxX-actualSizeWidthHalf;
+    }
+    if ( currentPoint.y < maxY+actualSizeHeightHalf )
+    {
+        currentPoint.y  = maxY+actualSizeHeightHalf;
+    }
+    
+    currentPoint    = CGPointMake(currentPoint.x - screenWidhHalf,
+                                  currentPoint.y - screenHeightHalf);
+    // set point
+    _layerRefPoint  = CGPointMake(-currentPoint.x, -currentPoint.y);
 }
 
 @end
