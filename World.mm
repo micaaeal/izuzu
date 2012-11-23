@@ -10,11 +10,14 @@
 #import "RouteGraph/RouteGraph.h"
 #import "Utils.h"
 
+#import "Camera.h"
+
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 @interface WorldCache: NSObject
 @property (retain) NSMutableArray*  roadArray;
 @property (assign) RouteGraph*      routeGraph;
 @property (assign) CGRect           screenBounds;
+@property (assign) CCLayer*         layer;
 @end
 @implementation WorldCache
 @synthesize roadArray;
@@ -132,6 +135,9 @@ WorldCache* _worldCache = nil;
         [layer addChild:cSprite];
     }
     
+    // set layer ref
+    _worldCache.layer   = layer;
+    
     return YES;
 }
 
@@ -146,6 +152,62 @@ WorldCache* _worldCache = nil;
 + (RouteGraph&) GetRouteGraph
 {
     return *_worldCache.routeGraph;
+}
+
++ (void) Draw
+{
+    /*
+    Camera* camera      = [Camera getObject];
+    CGPoint camPoint    = [camera getPoint];
+    CGFloat camZoomX    = [camera getZoomX];
+    CGSize camSize  = [[CCDirector sharedDirector] winSize];
+    CGPoint camCenter       = CGPointMake(camPoint.x - camSize.width*0.5f,
+                                          camPoint.y - camSize.height*0.5f);
+    CGPoint viewPortPoint   = CGPointMake(camCenter.x + camSize.width*0.5f/camZoomX,
+                                          camCenter.y + camSize.height*0.5f/camZoomX );
+    
+    CGPoint absPoint        = CGPointMake(camSize.width*0.5f / camZoomX - viewPortPoint.x,
+                                          camSize.height*0.5f / camZoomX - viewPortPoint.y );
+    
+    {
+        float centerX   = ( 6477.833496 ) - absPoint.x;
+        float centerY   = ( -4512.666992 ) - absPoint.y;
+        
+        float width     = 100.0f*camZoomX;
+        float height    = 100.0f*camZoomX;
+        
+        {
+            CGPoint shipPointArray[4];
+            shipPointArray[0].x  = centerX + width;
+            shipPointArray[0].y  = centerY + height;
+            shipPointArray[1].x  = centerX + width;
+            shipPointArray[1].y  = centerY - height;
+            shipPointArray[2].x  = centerX - width;
+            shipPointArray[2].y  = centerY - height;
+            shipPointArray[3].x  = centerX - width;
+            shipPointArray[3].y  = centerY + height;
+            
+            NSUInteger numberOfPoint    = 4;
+            ccDrawSolidPoly(shipPointArray, numberOfPoint, ccc4f(0.5, 0.5, 0.5, 1.0));
+        }
+        {
+            centerX += 210.0f*camZoomX;
+            
+            CGPoint shipPointArray[4];
+            shipPointArray[0].x  = centerX + width;
+            shipPointArray[0].y  = centerY + height;
+            shipPointArray[1].x  = centerX + width;
+            shipPointArray[1].y  = centerY - height;
+            shipPointArray[2].x  = centerX - width;
+            shipPointArray[2].y  = centerY - height;
+            shipPointArray[3].x  = centerX - width;
+            shipPointArray[3].y  = centerY + height;
+            
+            NSUInteger numberOfPoint    = 4;
+            ccDrawSolidPoly(shipPointArray, numberOfPoint, ccc4f(0.5, 0.7, 0.5, 1.0));
+        }
+    }
+     */
 }
 
 @end

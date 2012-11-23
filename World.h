@@ -24,4 +24,6 @@ class RouteGraph;
 
 + (RouteGraph&) GetRouteGraph;
 
++ (void) Draw;
+
 @end

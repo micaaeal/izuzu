@@ -218,6 +218,9 @@ static int _s_currentZoomLevel    = 2;
 static float _s_zoomLevel[]         = {0.2f, 0.23f, 0.25f, 0.45f, 0.6f};
 static int   _s_zoomLevelSize       = 5;
 
+//static float _s_zoomLevel[]         = {0.2f, 1.0f, 1.0f};
+//static int   _s_zoomLevelSize       = 3;
+
 - (void) _onZoomIn: (id) sender
 {
     if ( ! ( _s_currentZoomLevel < (_s_zoomLevelSize-1) ) )
@@ -299,6 +302,8 @@ static int   _s_zoomLevelSize       = 5;
 - (void) draw
 {
     [_currentState onRender];
+    
+    [World Draw];
 }
 
 #pragma mark - ccTouch
