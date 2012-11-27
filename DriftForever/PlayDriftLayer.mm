@@ -214,12 +214,23 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
     [[Console getObject] hideConsole];
 }
 
+//*
 static int _s_currentZoomLevel    = 2;
-static float _s_zoomLevel[]         = {0.2f, 0.23f, 0.25f, 0.45f, 0.6f};
-static int   _s_zoomLevelSize       = 5;
+static float _s_zoomLevel[]         = {0.2f, 0.23f, 0.25f, 0.45f, 0.6f, 1.0f};
+static int   _s_zoomLevelSize       = 6;
+/**/
 
-//static float _s_zoomLevel[]         = {0.2f, 1.0f, 1.0f};
-//static int   _s_zoomLevelSize       = 3;
+/*
+static int _s_currentZoomLevel    = 2;
+static float _s_zoomLevel[]         = {0.0f, 0.2f, 1.0f, 1.25f, 1.5f};
+static int   _s_zoomLevelSize       = 5;
+/**/
+
+/*
+static int _s_currentZoomLevel    = 2;
+static float _s_zoomLevel[]         = {0.04f, 0.046f, 0.05f, 0.09f, 0.12f, 0.2f};
+static int   _s_zoomLevelSize       = 6;
+/**/
 
 - (void) _onZoomIn: (id) sender
 {

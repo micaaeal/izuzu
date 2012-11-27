@@ -88,6 +88,7 @@ void ccDrawPoly( const CGPoint *vertices, NSUInteger numOfVertices, BOOL closePo
 /** draws a solid polygon given a pointer to CGPoint coordiantes, the number of vertices measured in points, and a color.
  */
 void ccDrawSolidPoly( const CGPoint *poli, NSUInteger numberOfPoints, ccColor4F color );
+void ccDrawSolidPolyAAA( const CGPoint *poli, NSUInteger numberOfPoints, ccColor4F color );
     
 /** draws a circle given the center, radius and number of segments measured in points */
 void ccDrawCircle( CGPoint center, float radius, float angle, NSUInteger segments, BOOL drawLineToCenter);

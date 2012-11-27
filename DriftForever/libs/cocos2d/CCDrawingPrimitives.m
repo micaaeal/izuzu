@@ -218,6 +218,43 @@ void ccDrawSolidPoly( const CGPoint *poli, NSUInteger numberOfPoints, ccColor4F 
 	glDrawArrays(GL_TRIANGLE_FAN, 0, (GLsizei) numberOfPoints);
 }
 
+void ccDrawSolidPolyAAA( const CGPoint *poli, NSUInteger numberOfPoints, ccColor4F color )
+{
+    lazy_init();
+    
+	[shader_ use];
+	[shader_ setUniformForModelViewProjectionMatrix];
+	[shader_ setUniformLocation:colorLocation_ with4fv:(GLfloat*) &color.r count:1];
+    
+	ccGLEnableVertexAttribs( kCCVertexAttribFlag_Position );
+    
+	// XXX: Mac OpenGL error. arrays can't go out of scope before draw is executed
+	ccVertex2F newPoli[numberOfPoints];
+    
+	// iPhone and 32-bit machines optimization
+	if( sizeof(CGPoint) == sizeof(ccVertex2F) )
+		glVertexAttribPointer(kCCVertexAttrib_Position, 2, GL_FLOAT, GL_FALSE, 0, poli);
+	
+	else
+    {
+		// Mac on 64-bit
+		for( NSUInteger i=0; i<numberOfPoints;i++)
+			newPoli[i] = (ccVertex2F) { poli[i].x, poli[i].y };
+		
+		glVertexAttribPointer(kCCVertexAttrib_Position, 2, GL_FLOAT, GL_FALSE, 0, newPoli);
+	}
+    
+	glDrawArrays(GL_LINE_STRIP, 0, (GLsizei) numberOfPoints);
+    /*
+#define GL_POINTS                         0x0000
+#define GL_LINES                          0x0001
+#define GL_LINE_LOOP                      0x0002
+#define GL_LINE_STRIP                     0x0003
+#define GL_TRIANGLES                      0x0004
+#define GL_TRIANGLE_STRIP                 0x0005
+#define GL_TRIANGLE_FAN                   0x0006
+     */
+}
 
 void ccDrawCircle( CGPoint center, float r, float a, NSUInteger segs, BOOL drawLineToCenter)
 {
