@@ -7,6 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD0E18FE1665950100971528 /* CarAndCharViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD0E18FC1665950100971528 /* CarAndCharViewController.m */; };
+		BD0E18FF1665950100971528 /* CarAndCharViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD0E18FD1665950100971528 /* CarAndCharViewController.xib */; };
+		BD0E19021665962B00971528 /* startMenuPart04.png in Resources */ = {isa = PBXBuildFile; fileRef = BD0E19011665962B00971528 /* startMenuPart04.png */; };
+		BD0E19041665969700971528 /* nameTab.png in Resources */ = {isa = PBXBuildFile; fileRef = BD0E19031665969700971528 /* nameTab.png */; };
+		BD0E1909166596AF00971528 /* femaleButton01.png in Resources */ = {isa = PBXBuildFile; fileRef = BD0E1905166596AF00971528 /* femaleButton01.png */; };
+		BD0E190A166596AF00971528 /* femaleButton02.png in Resources */ = {isa = PBXBuildFile; fileRef = BD0E1906166596AF00971528 /* femaleButton02.png */; };
+		BD0E190B166596AF00971528 /* maleButton01.png in Resources */ = {isa = PBXBuildFile; fileRef = BD0E1907166596AF00971528 /* maleButton01.png */; };
+		BD0E190C166596AF00971528 /* maleButton02.png in Resources */ = {isa = PBXBuildFile; fileRef = BD0E1908166596AF00971528 /* maleButton02.png */; };
+		BD0E190F1665971100971528 /* backButton01.png in Resources */ = {isa = PBXBuildFile; fileRef = BD0E190D1665971100971528 /* backButton01.png */; };
+		BD0E19101665971100971528 /* backButton02.png in Resources */ = {isa = PBXBuildFile; fileRef = BD0E190E1665971100971528 /* backButton02.png */; };
+		BD0E19131665971B00971528 /* okButton01.png in Resources */ = {isa = PBXBuildFile; fileRef = BD0E19111665971B00971528 /* okButton01.png */; };
+		BD0E19141665971B00971528 /* okButton02.png in Resources */ = {isa = PBXBuildFile; fileRef = BD0E19121665971B00971528 /* okButton02.png */; };
+		BD0E1916166597B600971528 /* startMenuPart03.png in Resources */ = {isa = PBXBuildFile; fileRef = BD0E1915166597B600971528 /* startMenuPart03.png */; };
+		BD0E191A166597DB00971528 /* StartMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD0E1918166597DB00971528 /* StartMenuViewController.m */; };
+		BD0E191B166597DB00971528 /* StartMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD0E1919166597DB00971528 /* StartMenuViewController.xib */; };
 		BD1B83AA164B2469005950CB /* WindShield.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1B83A9164B2469005950CB /* WindShield.m */; };
 		BD49BD3B1613539200C401BF /* PlayDriftLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD49BD3A1613539200C401BF /* PlayDriftLayer.mm */; };
 		BD49BD441613576E00C401BF /* World.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD49BD431613576E00C401BF /* World.mm */; };
@@ -149,7 +164,6 @@
 		BDBA34EB160E253100593FFC /* vec4.c in Sources */ = {isa = PBXBuildFile; fileRef = BDBA34EA160E253100593FFC /* vec4.c */; };
 		BDBA34F0160E253100593FFC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BDBA34EF160E253100593FFC /* main.m */; };
 		BDBA34F3160E253100593FFC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BDBA34F2160E253100593FFC /* AppDelegate.m */; };
-		BDBA34F6160E253100593FFC /* HelloWorldLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = BDBA34F5160E253100593FFC /* HelloWorldLayer.m */; };
 		BDBA34F9160E253100593FFC /* IntroLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDBA34F8160E253100593FFC /* IntroLayer.mm */; };
 		BDBD3F57161BB48B00488689 /* UtilVec.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDBD3F56161BB48B00488689 /* UtilVec.mm */; };
 		BDBD3F5A161BC4AE00488689 /* MenuSelectRoute.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDBD3F59161BC4AE00488689 /* MenuSelectRoute.mm */; };
@@ -207,6 +221,23 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BD0E18FB1665950100971528 /* CarAndCharViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarAndCharViewController.h; sourceTree = "<group>"; };
+		BD0E18FC1665950100971528 /* CarAndCharViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarAndCharViewController.m; sourceTree = "<group>"; };
+		BD0E18FD1665950100971528 /* CarAndCharViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CarAndCharViewController.xib; sourceTree = "<group>"; };
+		BD0E19011665962B00971528 /* startMenuPart04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = startMenuPart04.png; sourceTree = "<group>"; };
+		BD0E19031665969700971528 /* nameTab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nameTab.png; sourceTree = "<group>"; };
+		BD0E1905166596AF00971528 /* femaleButton01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = femaleButton01.png; sourceTree = "<group>"; };
+		BD0E1906166596AF00971528 /* femaleButton02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = femaleButton02.png; sourceTree = "<group>"; };
+		BD0E1907166596AF00971528 /* maleButton01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = maleButton01.png; sourceTree = "<group>"; };
+		BD0E1908166596AF00971528 /* maleButton02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = maleButton02.png; sourceTree = "<group>"; };
+		BD0E190D1665971100971528 /* backButton01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backButton01.png; sourceTree = "<group>"; };
+		BD0E190E1665971100971528 /* backButton02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backButton02.png; sourceTree = "<group>"; };
+		BD0E19111665971B00971528 /* okButton01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = okButton01.png; sourceTree = "<group>"; };
+		BD0E19121665971B00971528 /* okButton02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = okButton02.png; sourceTree = "<group>"; };
+		BD0E1915166597B600971528 /* startMenuPart03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = startMenuPart03.png; sourceTree = "<group>"; };
+		BD0E1917166597DB00971528 /* StartMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartMenuViewController.h; sourceTree = "<group>"; };
+		BD0E1918166597DB00971528 /* StartMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartMenuViewController.m; sourceTree = "<group>"; };
+		BD0E1919166597DB00971528 /* StartMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StartMenuViewController.xib; sourceTree = "<group>"; };
 		BD1B83A8164B2469005950CB /* WindShield.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindShield.h; sourceTree = "<group>"; };
 		BD1B83A9164B2469005950CB /* WindShield.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WindShield.m; sourceTree = "<group>"; };
 		BD49BD391613539200C401BF /* PlayDriftLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayDriftLayer.h; sourceTree = "<group>"; };
@@ -491,8 +522,6 @@
 		BDBA34EF160E253100593FFC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BDBA34F1160E253100593FFC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BDBA34F2160E253100593FFC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		BDBA34F4160E253100593FFC /* HelloWorldLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelloWorldLayer.h; sourceTree = "<group>"; };
-		BDBA34F5160E253100593FFC /* HelloWorldLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloWorldLayer.m; sourceTree = "<group>"; };
 		BDBA34F7160E253100593FFC /* IntroLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntroLayer.h; sourceTree = "<group>"; };
 		BDBA34F8160E253100593FFC /* IntroLayer.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = IntroLayer.mm; sourceTree = "<group>"; };
 		BDBD3F55161BB48B00488689 /* UtilVec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilVec.h; sourceTree = "<group>"; };
@@ -580,6 +609,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BD0E18FA166594CB00971528 /* MenuView */ = {
+			isa = PBXGroup;
+			children = (
+				BD0E18FB1665950100971528 /* CarAndCharViewController.h */,
+				BD0E18FC1665950100971528 /* CarAndCharViewController.m */,
+				BD0E18FD1665950100971528 /* CarAndCharViewController.xib */,
+				BD0E1917166597DB00971528 /* StartMenuViewController.h */,
+				BD0E1918166597DB00971528 /* StartMenuViewController.m */,
+				BD0E1919166597DB00971528 /* StartMenuViewController.xib */,
+			);
+			name = MenuView;
+			sourceTree = "<group>";
+		};
+		BD0E19001665957000971528 /* main_menu */ = {
+			isa = PBXGroup;
+			children = (
+				BD0E1915166597B600971528 /* startMenuPart03.png */,
+				BD0E19111665971B00971528 /* okButton01.png */,
+				BD0E19121665971B00971528 /* okButton02.png */,
+				BD0E190D1665971100971528 /* backButton01.png */,
+				BD0E190E1665971100971528 /* backButton02.png */,
+				BD0E1905166596AF00971528 /* femaleButton01.png */,
+				BD0E1906166596AF00971528 /* femaleButton02.png */,
+				BD0E1907166596AF00971528 /* maleButton01.png */,
+				BD0E1908166596AF00971528 /* maleButton02.png */,
+				BD0E19031665969700971528 /* nameTab.png */,
+				BD0E19011665962B00971528 /* startMenuPart04.png */,
+			);
+			name = main_menu;
+			sourceTree = "<group>";
+		};
 		BD49BD3D161356E600C401BF /* World */ = {
 			isa = PBXGroup;
 			children = (
@@ -765,10 +825,9 @@
 		BDBA3379160E252D00593FFC /* DriftForever */ = {
 			isa = PBXGroup;
 			children = (
+				BD0E18FA166594CB00971528 /* MenuView */,
 				BDBA34F1160E253100593FFC /* AppDelegate.h */,
 				BDBA34F2160E253100593FFC /* AppDelegate.m */,
-				BDBA34F4160E253100593FFC /* HelloWorldLayer.h */,
-				BDBA34F5160E253100593FFC /* HelloWorldLayer.m */,
 				BDBA34F7160E253100593FFC /* IntroLayer.h */,
 				BDBA34F8160E253100593FFC /* IntroLayer.mm */,
 				BD49BD391613539200C401BF /* PlayDriftLayer.h */,
@@ -782,9 +841,10 @@
 		BDBA337A160E252D00593FFC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BD0E19001665957000971528 /* main_menu */,
 				BD5AA2F0161E04E200E367E7 /* mockup */,
 				BDF75DCA1618FE6D00BEAFD1 /* car */,
-				BDE54A28161750C9005B6BD5 /* menu */,
+				BDE54A28161750C9005B6BD5 /* route_selector */,
 				BD49BD5016135E0700C401BF /* Cocos2d_Boilerplate */,
 				BD49BD5116135F2D00C401BF /* Road */,
 			);
@@ -1170,13 +1230,13 @@
 			name = State;
 			sourceTree = "<group>";
 		};
-		BDE54A28161750C9005B6BD5 /* menu */ = {
+		BDE54A28161750C9005B6BD5 /* route_selector */ = {
 			isa = PBXGroup;
 			children = (
 				BDF8D1C716340D0B00F8D94B /* route_disselect_img.png */,
 				BDF8D1C816340D0B00F8D94B /* route_select_img.png */,
 			);
-			name = menu;
+			name = route_selector;
 			sourceTree = "<group>";
 		};
 		BDF75DCA1618FE6D00BEAFD1 /* car */ = {
@@ -1336,6 +1396,19 @@
 				BD4EFDBA1659795E008108C2 /* fuel_gauge_needle.png in Resources */,
 				BDA6A2851659941600504EB6 /* sign_car_water.png in Resources */,
 				BDA6A2891659BD6C00504EB6 /* speed_meter.png in Resources */,
+				BD0E18FF1665950100971528 /* CarAndCharViewController.xib in Resources */,
+				BD0E19021665962B00971528 /* startMenuPart04.png in Resources */,
+				BD0E19041665969700971528 /* nameTab.png in Resources */,
+				BD0E1909166596AF00971528 /* femaleButton01.png in Resources */,
+				BD0E190A166596AF00971528 /* femaleButton02.png in Resources */,
+				BD0E190B166596AF00971528 /* maleButton01.png in Resources */,
+				BD0E190C166596AF00971528 /* maleButton02.png in Resources */,
+				BD0E190F1665971100971528 /* backButton01.png in Resources */,
+				BD0E19101665971100971528 /* backButton02.png in Resources */,
+				BD0E19131665971B00971528 /* okButton01.png in Resources */,
+				BD0E19141665971B00971528 /* okButton02.png in Resources */,
+				BD0E1916166597B600971528 /* startMenuPart03.png in Resources */,
+				BD0E191B166597DB00971528 /* StartMenuViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1448,7 +1521,6 @@
 				BDBA34EB160E253100593FFC /* vec4.c in Sources */,
 				BDBA34F0160E253100593FFC /* main.m in Sources */,
 				BDBA34F3160E253100593FFC /* AppDelegate.m in Sources */,
-				BDBA34F6160E253100593FFC /* HelloWorldLayer.m in Sources */,
 				BDBA34F9160E253100593FFC /* IntroLayer.mm in Sources */,
 				BD49BD3B1613539200C401BF /* PlayDriftLayer.mm in Sources */,
 				BD49BD441613576E00C401BF /* World.mm in Sources */,
@@ -1466,6 +1538,8 @@
 				BD4ABB111630DA1900694676 /* Console.mm in Sources */,
 				BD6CA9D11636D1F200131027 /* ComboPlayer.mm in Sources */,
 				BD1B83AA164B2469005950CB /* WindShield.m in Sources */,
+				BD0E18FE1665950100971528 /* CarAndCharViewController.m in Sources */,
+				BD0E191A166597DB00971528 /* StartMenuViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
