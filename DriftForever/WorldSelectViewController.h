@@ -19,6 +19,15 @@
 
 @property (assign) id<WorldSelectViewDelegate> delegate;
 
+@property (retain, nonatomic) IBOutlet UIImageView *imgWorld;
+@property (retain, nonatomic) IBOutlet UIButton *btnPrevWorld;
+@property (retain, nonatomic) IBOutlet UIButton *btnNextWorld;
+@property (retain, nonatomic) IBOutlet UIButton *btnSelectWorld;
+@property (retain, nonatomic) IBOutlet UIButton *btnBack;
+
+- (IBAction)onPressPrevWorld:(id)sender;
+- (IBAction)onPressNextWorld:(id)sender;
+
 - (IBAction)onPressSelectWorld:(id)sender;
 - (IBAction)onPressBackButton:(id)sender;
 

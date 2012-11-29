@@ -19,6 +19,8 @@
 
 @property (assign) id<MissionSelectViewDelegate> delegate;
 
+@property (retain, nonatomic) IBOutlet UIButton *btnBack;
+
 @property (retain, nonatomic) IBOutlet UIButton *btnMission01;
 @property (retain, nonatomic) IBOutlet UIButton *btnMission02;
 @property (retain, nonatomic) IBOutlet UIButton *btnMission03;

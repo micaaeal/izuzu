@@ -28,6 +28,14 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    [_btnBack setImage:[UIImage imageNamed:@"backButton02"] forState:UIControlStateHighlighted];
+    
+    // Manual set
+    [_btnMission02 setEnabled:NO];
+    [_btnMission03 setEnabled:NO];
+    [_btnMission04 setEnabled:NO];
+    [_btnMission05 setEnabled:NO];
 }
 
 - (void)didReceiveMemoryWarning
@@ -42,6 +50,7 @@
     [_btnMission03 release];
     [_btnMission04 release];
     [_btnMission05 release];
+    [_btnBack release];
     [super dealloc];
 }
 
@@ -51,6 +60,7 @@
     [self setBtnMission03:nil];
     [self setBtnMission04:nil];
     [self setBtnMission05:nil];
+    [self setBtnBack:nil];
     [super viewDidUnload];
 }
 
