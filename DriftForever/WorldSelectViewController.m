@@ -1,18 +1,18 @@
 //
-//  CarAndCharViewController.m
+//  MissionSelectViewController.m
 //  DriftForever
 //
-//  Created by Adawat Chanchua on 11/28/55 BE.
+//  Created by Adawat Chanchua on 11/29/55 BE.
 //
 //
 
-#import "CarAndCharViewController.h"
+#import "WorldSelectViewController.h"
 
-@interface CarAndCharViewController ()
+@interface WorldSelectViewController ()
 
 @end
 
-@implementation CarAndCharViewController
+@implementation WorldSelectViewController
 @synthesize delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -36,28 +36,20 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)onPressOKButton:(id)sender
+- (IBAction)onPressSelectWorld:(id)sender
 {
     if ( delegate )
     {
-        [delegate onNext:self];
+        [delegate onSelectWorld:self];
     }
 }
 
-- (IBAction)onTouchRootView:(id)sender
+- (IBAction)onPressBackButton:(id)sender
 {
-    if ( _txtPlayerName.isFirstResponder )
+    if ( delegate )
     {
-        [_txtPlayerName resignFirstResponder];
+        [delegate onBack:self];
     }
 }
 
-- (void)dealloc {
-    [_txtPlayerName release];
-    [super dealloc];
-}
-- (void)viewDidUnload {
-    [self setTxtPlayerName:nil];
-    [super viewDidUnload];
-}
 @end

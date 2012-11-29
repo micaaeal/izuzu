@@ -14,4 +14,15 @@
 
 // @TODO    = need to imporve this point
 // @WARNING = this section of code is weak
+#define _GAME_MODE_MAINSTREAM_      0
+#define _GAME_MODE_DEBUG_           1
+
+#define _IS_SET_GAME_MODE_DEBUG_
+
+#define _GAME_MODE_     _GAME_MODE_MAINSTREAM_
+#if defined ( _IS_SET_GAME_MODE_DEBUG_ )
+#   undef _GAME_MODE_
+#   define _GAME_MODE_  _GAME_MODE_DEBUG_
+#endif
+
 #endif

@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "cocos2d.h"
+#import "StartMenuViewController.h"
 
-@interface AppController : NSObject <UIApplicationDelegate, CCDirectorDelegate>
+@interface AppController : NSObject <UIApplicationDelegate, CCDirectorDelegate, StartMenuViewDelegate>
 {
 	UIWindow *window_;
 	UINavigationController *navController_;
@@ -18,9 +19,9 @@
 }
 
 @property (nonatomic, retain) UIWindow *window;
+@property (retain) UIViewController* rootViewController;
+
 @property (readonly) UINavigationController *navController;
 @property (readonly) CCDirectorIOS *director;
-
-@property (retain) UIViewController* rootViewController;
 
 @end

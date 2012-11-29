@@ -7,7 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CarAndCharViewController.h"
+#import "WorldSelectViewController.h"
+#import "MissionSelectViewController.h"
 
-@interface StartMenuViewController : UIViewController
+@protocol StartMenuViewDelegate <NSObject>
+
+- (void) onStartPlayingGame: (id) sender;
+
+@end
+
+@interface StartMenuViewController : UIViewController <CarAndCharViewDelegate, WorldSelectViewDelegate, MissionSelectViewDelegate>
+
+@property (assign) id<StartMenuViewDelegate> delegate;
+
+@property (retain, nonatomic) IBOutlet CarAndCharViewController *carAndCharacterViewController;
+@property (retain, nonatomic) IBOutlet WorldSelectViewController *worldSelectViewController;
+@property (retain, nonatomic) IBOutlet MissionSelectViewController *missionViewController;
+
+- (IBAction)onPressStartButton:(id)sender;
 
 @end

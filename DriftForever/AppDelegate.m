@@ -11,8 +11,6 @@
 #import "AppDelegate.h"
 #import "IntroLayer.h"
 
-#import "StartMenuViewController.h"
-
 @interface AppController()
 
 - (void) _loadCocosDirector;
@@ -29,18 +27,23 @@
 	// Create the main window
 	window_ = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    /*
-    // create rootViewController
-    rootViewController = [[[StartMenuViewController alloc] initWithNibName:@"StartMenuViewController" bundle:nil] autorelease];
-    [window_ setRootViewController:rootViewController];
-    /*/
-    // create cocos2d director
-    [self _loadCocosDirector];
-     
-	// set the Navigation Controller as the root view controller
-//	[window_ addSubview:navController_.view];	// Generates flicker.
-	[window_ setRootViewController:navController_];
-    /**/
+    if ( _GAME_MODE_ == _GAME_MODE_MAINSTREAM_ )
+    {
+        // create rootViewController
+        rootViewController = [[[StartMenuViewController alloc] initWithNibName:@"StartMenuViewController" bundle:nil] autorelease];
+        [window_ setRootViewController:rootViewController];
+        StartMenuViewController* smvc   = ((StartMenuViewController*)rootViewController);
+        smvc.delegate   = self;
+    }
+    else if ( _GAME_MODE_ == _GAME_MODE_DEBUG_ )
+    {
+        // create cocos2d director
+        [self _loadCocosDirector];
+        
+        // set the Navigation Controller as the root view controller
+        //	[window_ addSubview:navController_.view];	// Generates flicker.
+        [window_ setRootViewController:navController_];
+    }
     
 	// make main window visible
 	[window_ makeKeyAndVisible];
@@ -53,7 +56,6 @@
 {
 	return UIInterfaceOrientationIsLandscape(interfaceOrientation);
 }
-
 
 // getting a call, pause the game
 -(void) applicationWillResignActive:(UIApplication *)application
@@ -106,6 +108,17 @@
     [rootViewController release];
 
 	[super dealloc];
+}
+
+#pragma mark - StartMenuViewDelegate
+
+- (void) onStartPlayingGame:(id)sender
+{
+    [self _loadCocosDirector];
+    
+	// set the Navigation Controller as the root view controller
+    //	[window_ addSubview:navController_.view];	// Generates flicker.
+	[window_ setRootViewController:navController_];
 }
 
 #pragma mark - PIMPL
