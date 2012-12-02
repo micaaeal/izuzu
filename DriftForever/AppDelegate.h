@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "cocos2d.h"
 #import "StartMenuViewController.h"
+#import "GameFlowSignal.h"
 
-@interface AppController : NSObject <UIApplicationDelegate, CCDirectorDelegate, StartMenuViewDelegate>
+@interface AppController : NSObject <UIApplicationDelegate, CCDirectorDelegate, StartMenuViewDelegate, GameFlowSignalDelegate>
 {
 	UIWindow *window_;
 	UINavigationController *navController_;

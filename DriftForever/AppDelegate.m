@@ -10,10 +10,19 @@
 
 #import "AppDelegate.h"
 #import "IntroLayer.h"
+#import "PlayDriftLayer.h"
 
 @interface AppController()
 
+@property (assign) BOOL _hasLoadedPlayDriftLayer;
+@property (assign) BOOL _isOnResume;
+
+- (void) _loadMenuView;
+- (void) _unloadMenuView;
+
 - (void) _loadCocosDirector;
+- (void) _unloadCocosDirector;
+- (void) _resumeCocosDirector;
 
 @end
 
@@ -22,26 +31,26 @@
 @synthesize window=window_, navController=navController_, director=director_;
 @synthesize rootViewController;
 
+@synthesize _hasLoadedPlayDriftLayer;
+@synthesize _isOnResume;
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // register to gameFlowSignal
+    [[GameFlowSignal getObject] setAppController:self];
+    _hasLoadedPlayDriftLayer    = NO;
+    
 	// Create the main window
 	window_ = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     if ( _GAME_MODE_ == _GAME_MODE_MAINSTREAM_ )
     {
-        // create rootViewController
-        rootViewController = [[[StartMenuViewController alloc] initWithNibName:@"StartMenuViewController" bundle:nil] autorelease];
+        [self _loadMenuView];
         [window_ setRootViewController:rootViewController];
-        StartMenuViewController* smvc   = ((StartMenuViewController*)rootViewController);
-        smvc.delegate   = self;
     }
     else if ( _GAME_MODE_ == _GAME_MODE_DEBUG_ )
     {
-        // create cocos2d director
         [self _loadCocosDirector];
-        
-        // set the Navigation Controller as the root view controller
-        //	[window_ addSubview:navController_.view];	// Generates flicker.
         [window_ setRootViewController:navController_];
     }
     
@@ -114,17 +123,39 @@
 
 - (void) onStartPlayingGame:(id)sender
 {
-    [self _loadCocosDirector];
+    [self _unloadMenuView];
     
-	// set the Navigation Controller as the root view controller
-    //	[window_ addSubview:navController_.view];	// Generates flicker.
-	[window_ setRootViewController:navController_];
+    if ( ! _hasLoadedPlayDriftLayer )
+    {
+        _hasLoadedPlayDriftLayer    = YES;
+        [self _loadCocosDirector];
+    }
+    else
+    {
+        [self _resumeCocosDirector];
+    }
 }
 
 #pragma mark - PIMPL
 
+- (void) _loadMenuView
+{
+    // create rootViewController
+    rootViewController = [[[StartMenuViewController alloc] initWithNibName:@"StartMenuViewController" bundle:nil] autorelease];
+    [window_ setRootViewController:rootViewController];
+    StartMenuViewController* smvc   = ((StartMenuViewController*)rootViewController);
+    smvc.delegate   = self;
+}
+
+- (void) _unloadMenuView
+{
+    
+}
+
 - (void) _loadCocosDirector
 {
+    _isOnResume = NO;
+    
     // Create an CCGLView with a RGB565 color buffer, and a depth buffer of 0-bits
 	CCGLView *glView = [CCGLView viewWithFrame:[window_ bounds]
 								   pixelFormat:kEAGLColorFormatRGB565	//kEAGLColorFormatRGBA8
@@ -178,11 +209,65 @@
     
 	// and add the scene to the stack. The director will run it when it automatically when the view is displayed.
 	[director_ pushScene: [IntroLayer scene]];
-    
 	
 	// Create a Navigation Controller with the Director
 	navController_ = [[UINavigationController alloc] initWithRootViewController:director_];
 	navController_.navigationBarHidden = YES;
+    
+    [window_ setRootViewController:navController_];
+}
+
+- (void) _unloadCocosDirector
+{
+    
+}
+
+- (void) _resumeCocosDirector
+{
+    _isOnResume = YES;
+    
+    //[director_ pushScene: [IntroLayer scene]];
+    
+    [window_ setRootViewController:navController_];
+    
+    [[GameFlowSignal getObject] startPlayDrifLayer:self];
+}
+
+#pragma mark - GameFlowSignalDelegate
+
+- (void) onStartLoadingLayer:(id)sender
+{
+    
+}
+
+- (void) onFinishLoadingLayer:(id)sender
+{
+    if ( ! _isOnResume )
+    {
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0
+                                                                                     scene:[PlayDriftLayer scene]
+                                                                                 withColor:ccWHITE]];
+    }
+    else
+    {
+        //[[CCDirector sharedDirector] popScene];
+    }
+    
+    [[GameFlowSignal getObject] unSetLoadingLayer];
+    [[GameFlowSignal getObject] startPlayDrifLayer:self];
+    
+    _isOnResume = NO;
+}
+
+- (void) onStartPlayDriftLayer:(id)sender
+{
+    // do nothing
+}
+
+- (void) onFinishPlayDriftLayer:(id)sender
+{
+    [self _unloadCocosDirector];
+    [self _loadMenuView];
 }
 
 @end

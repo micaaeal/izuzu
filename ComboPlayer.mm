@@ -134,7 +134,8 @@ CGPoint buttonPointArray[4];
     comboSpriteNameArray = nil;
     
     // combo arrow
-    comboArrowSprite    = [CCSprite spriteWithFile:@"combo_arrow"];
+    comboArrowSprite    = [CCSprite spriteWithFile:@"combo_arrow.png"];
+    [comboArrowSprite retain];
 }
 
 - (void) UnloadData

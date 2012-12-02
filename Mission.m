@@ -10,11 +10,19 @@
 #import "Event.h"
 #import "cocos2d.h"
 
+static Mission* _s_mission  = nil;
+
 @interface Mission()
 
-@property (assign) int                  _code;
-@property (assign) int                  _vertexStart;
-@property (assign) int                  _vertexEnd;
+@property (assign) int  _code;
+@property (assign) int  _vertexStart;
+@property (assign) int  _vertexEnd;
+
+@property (assign) int  _missionCode;
+@property (retain) NSMutableDictionary* _missionCacheDict;
+
+@property (retain) CCSprite*    _winFlag;
+@property (retain) CCSprite*    _startSign;
 
 @end
 
@@ -23,56 +31,69 @@
 @synthesize _vertexStart;
 @synthesize _vertexEnd;
 
+@synthesize _missionCode;
+@synthesize _missionCacheDict;
+
+@synthesize _winFlag;
+@synthesize _startSign;
+
 #pragma mark - Global methods
 
-static int _s_missionCode   = 0;
-static NSMutableDictionary* _s_missionCacheDict   = nil;
-
-static CCSprite* _s_winFlag   = nil;
-static CCSprite* _s_startSign = nil;
-
-+ (void) loadData
++ (Mission*) getObject
 {
-    _s_winFlag    = [CCSprite spriteWithFile:@"win_flag.png"];
-    _s_startSign  = [CCSprite spriteWithFile:@"start_sign.png"];
+    if ( ! _s_mission )
+    {
+        _s_mission = [[Mission alloc] init];
+    }
+    
+    return _s_mission;
 }
 
-+ (void) unloadData
+- (void) loadData
+{
+    _winFlag    = [CCSprite spriteWithFile:@"win_flag.png"];
+    _startSign  = [CCSprite spriteWithFile:@"start_sign.png"];
+    
+    [_winFlag retain];
+    [_startSign retain];
+}
+
+- (void) unloadData
 {
     // need to do something
 }
 
-+ (void) AssignDataToLayer: (CCLayer*) layer
+- (void) AssignDataToLayer: (CCLayer*) layer
 {
-    [layer addChild:_s_winFlag];
-    [layer addChild:_s_startSign];
+    [layer addChild:_winFlag];
+    [layer addChild:_startSign];
 }
 
-+ (void) setWinFlagPoint: (CGPoint) point
+- (void) setWinFlagPoint: (CGPoint) point
 {
-    [_s_winFlag setPosition:point];
+    [_winFlag setPosition:point];
 }
 
-+ (void) setStarSignPoint: (CGPoint) point
+- (void) setStarSignPoint: (CGPoint) point
 {
-    [_s_startSign setPosition:point];
+    [_startSign setPosition:point];
 }
 
-+ (void) setCurrentMissionCode: (int) missionCode
+- (void) setCurrentMissionCode: (int) missionCode
 {
-    _s_missionCode  = 0;
+    _missionCode  = 0;
 }
 
-+ (int) getCurrentMissionCode
+- (int) getCurrentMissionCode
 {
-    return _s_missionCode;
+    return _missionCode;
 }
 
-+ (Mission*) GetMissionFromCode: (int) missionCode
+- (Mission*) GetMissionFromCode: (int) missionCode
 {
-    if ( ! _s_missionCacheDict )
+    if ( ! _missionCacheDict )
     {
-        _s_missionCacheDict   = [[NSMutableDictionary alloc] init];
+        _missionCacheDict   = [[NSMutableDictionary alloc] init];
     }
     
     // search by mission id
@@ -81,7 +102,7 @@ static CCSprite* _s_startSign = nil;
     {
         // get mission from cache
         NSString* missionCodeStr    = [[NSString alloc] initWithFormat:@"%d", cMissionCode];
-        Mission* missionFromCache   = [_s_missionCacheDict objectForKey:missionCodeStr];
+        Mission* missionFromCache   = [_missionCacheDict objectForKey:missionCodeStr];
         if ( missionFromCache )
         {
             return missionFromCache;
@@ -93,23 +114,33 @@ static CCSprite* _s_startSign = nil;
         cMission._vertexStart   = 21; // config this line !
         cMission._vertexEnd     = 23; // config this line !
 
-        [_s_missionCacheDict setObject:cMission forKey:missionCodeStr];
+        [_missionCacheDict setObject:cMission forKey:missionCodeStr];
         
         [cMission release];
         cMission    = nil;
         
-        return [_s_missionCacheDict objectForKey:missionCodeStr];
+        return [_missionCacheDict objectForKey:missionCodeStr];
     }
     ++cMissionCode;
     
     return nil;
 }
 
-+ (void) removeAllMissionCache
+- (void) removeAllMissionCache
 {
-    [_s_missionCacheDict removeAllObjects];
-    [_s_missionCacheDict release];
-    _s_missionCacheDict = nil;
+    [_missionCacheDict removeAllObjects];
+    [_missionCacheDict release];
+    _missionCacheDict = nil;
+}
+
+- (int) GetStartVertex
+{
+    return _vertexStart;
+}
+
+- (int) GetEndVertex
+{
+    return _vertexEnd;
 }
 
 #pragma mark - Memory management methods
@@ -129,18 +160,6 @@ static CCSprite* _s_startSign = nil;
 {
     
     [super dealloc];
-}
-
-#pragma mark - Class methods
-
-- (int) GetStartVertex
-{
-    return _vertexStart;
-}
-
-- (int) GetEndVertex
-{
-    return _vertexEnd;
 }
 
 @end

@@ -11,18 +11,20 @@
 
 @interface Mission : NSObject
 
++ (Mission*) getObject;
+
 // res
-+ (void) loadData;
-+ (void) unloadData;
-+ (void) AssignDataToLayer: (CCLayer*) layer;
-+ (void) setWinFlagPoint: (CGPoint) point;
-+ (void) setStarSignPoint: (CGPoint) point;
+- (void) loadData;
+- (void) unloadData;
+- (void) AssignDataToLayer: (CCLayer*) layer;
+- (void) setWinFlagPoint: (CGPoint) point;
+- (void) setStarSignPoint: (CGPoint) point;
 
 // Global methods
-+ (void) setCurrentMissionCode: (int) missionCode;
-+ (int) getCurrentMissionCode;
-+ (Mission*) GetMissionFromCode: (int) missionCode;
-+ (void) removeAllMissionCache;
+- (void) setCurrentMissionCode: (int) missionCode;
+- (int) getCurrentMissionCode;
+- (Mission*) GetMissionFromCode: (int) missionCode;
+- (void) removeAllMissionCache;
 
 // Class methods
 - (int) GetStartVertex;

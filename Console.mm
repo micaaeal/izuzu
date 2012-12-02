@@ -69,6 +69,7 @@ static Console*    _s_console = nil;
                                                         hAlignment:kCCTextAlignmentRight
                                                           fontName:@"Arial"
                                                           fontSize:16];
+        [_txtSpeed retain];
         
         _accelSprite    = nil;
         _breakSprite    = nil;
@@ -91,6 +92,12 @@ static Console*    _s_console = nil;
     _breakSprite    = [CCSprite spriteWithFile:@"break_padel.png"];
     
     _spriteSpeedMeter   = [CCSprite spriteWithFile:@"speed_meter.png"];
+    
+    [_spriteFuel retain];
+    [_spriteFuelGaugeNeedle retain];
+    [_accelSprite retain];
+    [_breakSprite retain];
+    [_spriteSpeedMeter retain];
 }
 
 - (void) UnloadData

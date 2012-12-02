@@ -116,8 +116,8 @@ enum STATE_SELECT_ROUTE
             [Car hideCar];
             
             // set currentVertexPtr from the @Mission
-            int cMissionCode    = [Mission getCurrentMissionCode];
-            Mission* cMission   = [Mission GetMissionFromCode:cMissionCode];
+            int cMissionCode    = [[Mission getObject] getCurrentMissionCode];
+            Mission* cMission   = [[Mission getObject] GetMissionFromCode:cMissionCode];
             _currentMission = cMission;
             
             // all about route graph
@@ -127,8 +127,8 @@ enum STATE_SELECT_ROUTE
             _finishVertex   = allVertices[[_currentMission GetEndVertex]];
             
             // set mission start sign & win flag
-            [Mission setStarSignPoint:_startVertex.point];
-            [Mission setWinFlagPoint:_finishVertex.point];
+            [[Mission getObject] setStarSignPoint:_startVertex.point];
+            [[Mission getObject] setWinFlagPoint:_finishVertex.point];
             
             Camera* cam = [Camera getObject];
             CGPoint camPoint = [UtilVec convertVecIfRetina:_startVertex.point];

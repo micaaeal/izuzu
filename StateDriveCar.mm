@@ -193,7 +193,7 @@ vector<TrEdge>      _edgeRoute;
     _currentState   = STATE_DRIVE_CAR_NONE;
     
     // start drive
-    _currentMission = [Mission GetMissionFromCode:[Mission getCurrentMissionCode]];
+    _currentMission = [[Mission getObject] GetMissionFromCode:[[Mission getObject] getCurrentMissionCode]];
 }
 
 - (void) onFinish

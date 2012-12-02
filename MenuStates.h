@@ -26,5 +26,6 @@ enum GENDER_CODE {
 @property (assign)  int         missionCode;
 
 - (void) resetAllStates;
+- (void) printMenuStates;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "CarAndCharViewController.h"
+#import "MenuStates.h"
 
 @interface CarAndCharViewController ()
 
@@ -71,8 +72,6 @@
                                        @"woman01.png",nil];
     }
 
-    // load gender data
-    
     // button
     NSString* maleImageName     = @"maleButton02.png";
     NSString* femaleImageName   = @"femaleButton01.png";
@@ -85,12 +84,16 @@
     [_btnOK setImage:[UIImage imageNamed:@"okButton02"] forState:UIControlStateHighlighted];
     
     // set gender image from data
-    NSString* charImageName   = [_characterImageNameArray objectAtIndex:0];
+    int genderCode              = [[MenuStates getObject] genderCode];
+    NSString* charImageName     = [_characterImageNameArray objectAtIndex:genderCode];
     UIImage* charImage          = [UIImage imageNamed:charImageName];
     [_imgCharacter setImage:charImage];
     
     // set car index
-    _currentCarIndex    = 0;
+    _currentCarIndex        = [[MenuStates getObject] carCode];
+    NSString* carImageName  = [_carImageNameArray objectAtIndex:_currentCarIndex];
+    UIImage* carImage       = [UIImage imageNamed:carImageName];
+    [_imgCar setImage:carImage];
     
     // UI.
     _txtPlayerName.delegate = self;
@@ -126,28 +129,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)onPressFemale:(id)sender {
-    
-    // button
-    NSString* maleImageName     = @"maleButton01.png";
-    NSString* femaleImageName   = @"femaleButton02.png";
-    [_btnMale setImage:[UIImage imageNamed:maleImageName] forState:UIControlStateNormal];
-    [_btnFemale setImage:[UIImage imageNamed:femaleImageName] forState:UIControlStateNormal];
-    
-    // image
-    NSString* charImageName     = [_characterImageNameArray objectAtIndex:1];
-    UIImage* charImage          = [UIImage imageNamed:charImageName];
-    [_imgCharacter setImage:charImage];
-    
-    // data
-    
-    // UI.
-    if ( _txtPlayerName.isFirstResponder )
-    {
-        [_txtPlayerName resignFirstResponder];
-    }
-}
-
 - (IBAction)onPressMale:(id)sender {
     
     // button
@@ -162,6 +143,30 @@
     [_imgCharacter setImage:charImage];
     
     // data
+    [[MenuStates getObject] setGenderCode:0];
+    
+    // UI.
+    if ( _txtPlayerName.isFirstResponder )
+    {
+        [_txtPlayerName resignFirstResponder];
+    }
+}
+
+- (IBAction)onPressFemale:(id)sender {
+    
+    // button
+    NSString* maleImageName     = @"maleButton01.png";
+    NSString* femaleImageName   = @"femaleButton02.png";
+    [_btnMale setImage:[UIImage imageNamed:maleImageName] forState:UIControlStateNormal];
+    [_btnFemale setImage:[UIImage imageNamed:femaleImageName] forState:UIControlStateNormal];
+    
+    // image
+    NSString* charImageName     = [_characterImageNameArray objectAtIndex:1];
+    UIImage* charImage          = [UIImage imageNamed:charImageName];
+    [_imgCharacter setImage:charImage];
+    
+    // data
+    [[MenuStates getObject] setGenderCode:1];
     
     // UI.
     if ( _txtPlayerName.isFirstResponder )
@@ -184,6 +189,9 @@
     NSString* carImageName  = [_carImageNameArray objectAtIndex:_currentCarIndex];
     UIImage* carImage       = [UIImage imageNamed:carImageName];
     [_imgCar setImage:carImage];
+    
+    // Data
+    [[MenuStates getObject] setCarCode:_currentCarIndex];
     
     // UI.
     if ( _txtPlayerName.isFirstResponder )
@@ -208,6 +216,9 @@
     UIImage* carImage       = [UIImage imageNamed:carImageName];
     [_imgCar setImage:carImage];
     
+    // Data
+    [[MenuStates getObject] setCarCode:_currentCarIndex];
+    
     // UI.
     if ( _txtPlayerName.isFirstResponder )
     {
@@ -230,6 +241,9 @@
     {
         [_txtPlayerName resignFirstResponder];
     }
+    
+    // Data
+    [[MenuStates getObject] setPlayerName:_txtPlayerName.text];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -237,6 +251,9 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
 
     [textField resignFirstResponder];
+    
+    // Data
+    [[MenuStates getObject] setPlayerName:textField.text];
     
     return YES;
 }

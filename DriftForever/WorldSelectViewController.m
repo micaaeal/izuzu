@@ -7,12 +7,15 @@
 //
 
 #import "WorldSelectViewController.h"
+#import "MenuStates.h"
 
 @interface WorldSelectViewController ()
 
 @property (retain) NSArray* _worldButtonImageNameArray;
 @property (retain) NSArray* _worldImageNameArray;
 @property (assign) int      _currentWorldIndex;
+
+- (void) _setWorldImage;
 
 @end
 
@@ -67,10 +70,9 @@
                                        nil];
     }
     
-    // init from data
-    
     // init world index
-    _currentWorldIndex  = 0;
+    _currentWorldIndex  = [[MenuStates getObject] worldCode];
+    [self _setWorldImage];
     
     // UI.
     [_btnNextWorld setImage:[UIImage imageNamed:@"rightArrow02.png"] forState:UIControlStateHighlighted];
@@ -115,16 +117,7 @@
     if ( _currentWorldIndex >= worldCount )
         _currentWorldIndex  = 0;
     
-    NSString* worldImageName    = [_worldImageNameArray objectAtIndex:_currentWorldIndex];
-    UIImage* worldImage         = [UIImage imageNamed:worldImageName];
-    [_imgWorld setImage:worldImage];
-    
-    NSString* worldButtonImageName    = [_worldButtonImageNameArray objectAtIndex:_currentWorldIndex];
-    UIImage* worldButtonImage         = [UIImage imageNamed:worldButtonImageName];
-    [_btnSelectWorld setImage:worldButtonImage forState:UIControlStateNormal];
-    
-    // manual set
-    [_btnSelectWorld setEnabled:( _currentWorldIndex == 0 )];
+    [self _setWorldImage];
 }
 
 - (IBAction)onPressPrevWorld:(id)sender {
@@ -136,16 +129,7 @@
     if ( _currentWorldIndex < 0 )
         _currentWorldIndex  = worldCount - 1;
     
-    NSString* worldImageName    = [_worldImageNameArray objectAtIndex:_currentWorldIndex];
-    UIImage* worldImage         = [UIImage imageNamed:worldImageName];
-    [_imgWorld setImage:worldImage];
-    
-    NSString* worldButtonImageName    = [_worldButtonImageNameArray objectAtIndex:_currentWorldIndex];
-    UIImage* worldButtonImage         = [UIImage imageNamed:worldButtonImageName];
-    [_btnSelectWorld setImage:worldButtonImage forState:UIControlStateNormal];
-    
-    // manual set
-    [_btnSelectWorld setEnabled:( _currentWorldIndex == 0 )];
+    [self _setWorldImage];
 }
 
 - (IBAction)onPressSelectWorld:(id)sender
@@ -162,6 +146,22 @@
     {
         [delegate onBack:self];
     }
+}
+
+#pragma mark - PIMPL
+
+- (void) _setWorldImage
+{
+    NSString* worldImageName    = [_worldImageNameArray objectAtIndex:_currentWorldIndex];
+    UIImage* worldImage         = [UIImage imageNamed:worldImageName];
+    [_imgWorld setImage:worldImage];
+    
+    NSString* worldButtonImageName    = [_worldButtonImageNameArray objectAtIndex:_currentWorldIndex];
+    UIImage* worldButtonImage         = [UIImage imageNamed:worldButtonImageName];
+    [_btnSelectWorld setImage:worldButtonImage forState:UIControlStateNormal];
+    
+    // manual set
+    [_btnSelectWorld setEnabled:( _currentWorldIndex == 0 )];
 }
 
 @end

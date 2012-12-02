@@ -396,7 +396,6 @@ WorldCache* _worldCache = nil;
     }
     
     // draw floor
-    //*
     ccDrawSolidPoly(&waterTran.front(),
                     waterTran.size(),
                     ccc4f(22.0f/255.0f,
@@ -427,17 +426,6 @@ WorldCache* _worldCache = nil;
                           156.0f/255.0f,
                           10.0f/255.0f,
                           1.0));
-    /*/
-    ccDrawPoly(&floor01Tran.front(),
-               floor01Tran.size(),
-               YES);
-    ccDrawPoly(&floor02Tran.front(),
-               floor02Tran.size(),
-               YES);
-    ccDrawPoly(&floor03Tran.front(),
-               floor03Tran.size(),
-               YES);
-    /**/
 }
 
 @end
