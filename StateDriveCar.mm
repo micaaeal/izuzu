@@ -163,7 +163,7 @@ vector<TrEdge>      _edgeRoute;
     _dragTime   = 0.0f;
     
     // load route data
-    RouteGraph& routeGraph  = [World GetRouteGraph];
+    RouteGraph& routeGraph  = [[World getObject] GetRouteGraph];
     _allVertices    = routeGraph.GetAllVertices();
     _vertexRoute    = routeGraph.GetVertexRoute();
     _edgeRoute      = routeGraph.GetEdgeRoute();

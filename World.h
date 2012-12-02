@@ -12,18 +12,17 @@
 
 class RouteGraph;
 @interface World : NSObject
-{
-    
-}
 
-+ (BOOL) LoadData;
-+ (BOOL) UnloadData;
++ (World*) getObject;
 
-+ (BOOL) AssignDataToLayer: (CCLayer*) layer withMission: (Mission*) mission;
-+ (BOOL) UnSssignDataFromLayer: (CCLayer*) layer;
+- (BOOL) LoadData;
+- (BOOL) UnloadData;
 
-+ (RouteGraph&) GetRouteGraph;
+- (BOOL) AssignDataToLayer: (CCLayer*) layer withMission: (Mission*) mission;
+- (BOOL) UnSssignDataFromLayer: (CCLayer*) layer;
 
-+ (void) Draw;
+- (RouteGraph&) GetRouteGraph;
+
+- (void) Draw;
 
 @end

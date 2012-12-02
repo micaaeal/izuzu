@@ -23,36 +23,52 @@ using namespace std;
 @property (assign) CGRect           screenBounds;
 @property (assign) CCLayer*         layer;
 
+@property (assign) vector<CGPoint>  water;
+@property (assign) CGPoint*         water_buffer;
 @property (assign) vector<CGPoint>  floor01;
+@property (assign) CGPoint*         floor01_buffer;
 @property (assign) vector<CGPoint>  floor02;
+@property (assign) CGPoint*         floor02_buffer;
 @property (assign) vector<CGPoint>  floor03;
+@property (assign) CGPoint*         floor03_buffer;
 @property (assign) vector<CGPoint>  floor_grass;
+@property (assign) CGPoint*         floor_grass_buffer;
 
 - (void) loadFloor;
 
-- (CGPoint) getFloor01ByNumber: (int) number;
-- (int) getFloor01Size;
+- (vector<CGPoint>) getWater;
+- (vector<CGPoint>) getFloor01;
+- (vector<CGPoint>) getFloor02;
+- (vector<CGPoint>) getFloor03;
+- (vector<CGPoint>) getFloorGrass;
 
-- (CGPoint) getFloor02ByNumber: (int) number;
-- (int) getFloor02Size;
+- (void) _CreateBufferPoints:(CGPoint**) outBufferPoints fromSourcePointsSize:(long)size;
 
-- (CGPoint) getFloor03ByNumber: (int) number;
-- (int) getFloor03Size;
-
-- (CGPoint) getFloorGrassByNumber: (int) number;
-- (int) getFloorGrassSize;
+- (void) _PaintR:(float)r g:(float)g b:(float)b a:(float)a
+    sourcePoints:(CGPoint*)sourcePoints
+    bufferPoints:(CGPoint*)bufferPoints
+            size:(long)size
+   viewPortPoint:(CGPoint)viewPortPoint
+         camZoom:(float)camZoom;
 
 @end
+
 @implementation WorldCache
 @synthesize roadArray;
 @synthesize routeGraph;
 @synthesize screenBounds;
 
 // floor res
+@synthesize water;
+@synthesize water_buffer;
 @synthesize floor01;
+@synthesize floor01_buffer;
 @synthesize floor02;
+@synthesize floor02_buffer;
 @synthesize floor03;
+@synthesize floor03_buffer;
 @synthesize floor_grass;
+@synthesize floor_grass_buffer;
 
 - (id) init
 {
@@ -82,6 +98,14 @@ using namespace std;
 
 - (void) loadFloor
 {
+    // load water
+    water.clear();
+    water.push_back(CGPointMake(-20000, 20000));
+    water.push_back(CGPointMake(20000, 20000));
+    water.push_back(CGPointMake(20000, -20000));
+    water.push_back(CGPointMake(-20000, -20000));
+    [self _CreateBufferPoints:&water_buffer fromSourcePointsSize:water.size()];
+    
     // load floor01
     floor01.clear();
     floor01.push_back(CGPointMake(	-	9600	,	330	));
@@ -120,6 +144,7 @@ using namespace std;
     floor01.push_back(CGPointMake(	-	6194	,	6184	));
     floor01.push_back(CGPointMake(	-	6194	,	6330	));
     floor01.push_back(CGPointMake(	-	9600	,	6330	));
+    [self _CreateBufferPoints:&floor01_buffer fromSourcePointsSize:floor01.size()];
     
     floor02.clear();
     floor02.push_back(CGPointMake(	-	9600	,	788	));
@@ -141,6 +166,7 @@ using namespace std;
     floor02.push_back(CGPointMake(	-	6210	,	6010	));
     floor02.push_back(CGPointMake(	-	6384	,	6133	));
     floor02.push_back(CGPointMake(	-	9600	,	6133	));
+    [self _CreateBufferPoints:&floor02_buffer fromSourcePointsSize:floor02.size()];
     
     floor03.clear();
     floor03.push_back(CGPointMake(	-	9600	,	3300	));
@@ -151,6 +177,7 @@ using namespace std;
     floor03.push_back(CGPointMake(	-	6700	,	5600	));
     floor03.push_back(CGPointMake(	-	6700	,	5912	));
     floor03.push_back(CGPointMake(	-	9600	,	5912	));
+    [self _CreateBufferPoints:&floor03_buffer fromSourcePointsSize:floor03.size()];
     
     floor_grass.clear();
     floor_grass.push_back(CGPointMake(	-	9030	,	3320	));
@@ -178,56 +205,90 @@ using namespace std;
     floor_grass.push_back(CGPointMake(	-	5606	,	6010	));
     floor_grass.push_back(CGPointMake(	-	5606	,	5550	));
     floor_grass.push_back(CGPointMake(	-	9030	,	3320	));
+    [self _CreateBufferPoints:&floor_grass_buffer fromSourcePointsSize:floor_grass.size()];
 }
 
-- (CGPoint) getFloor01ByNumber: (int) number
+- (vector<CGPoint>) getWater
 {
-    return floor01[number];
+    return water;
 }
 
-- (int) getFloor01Size
+- (vector<CGPoint>) getFloor01
 {
-    return floor01.size();
+    return floor01;
 }
 
-- (CGPoint) getFloor02ByNumber: (int) number
+- (vector<CGPoint>) getFloor02
 {
-    return floor02[number];
+    return floor02;
 }
 
-- (int) getFloor02Size
+- (vector<CGPoint>) getFloor03
 {
-    return floor02.size();
+    return floor03;
 }
 
-- (CGPoint) getFloor03ByNumber: (int) number
+- (vector<CGPoint>) getFloorGrass
 {
-    return floor03[number];
+    return floor_grass;
 }
 
-- (int) getFloor03Size
+- (void) _CreateBufferPoints:(CGPoint**) outBufferPoints fromSourcePointsSize:(long)size
 {
-    return floor03.size();
+    *outBufferPoints = new CGPoint[size];
+    for (int i=0; i<size; ++i)
+    {
+        (*outBufferPoints)[i]  = CGPointMake(0.0f, 0.0f);
+    }
 }
 
-- (CGPoint) getFloorGrassByNumber: (int) number
+- (void) _PaintR:(float)r g:(float)g b:(float)b a:(float)a
+    sourcePoints:(CGPoint*)sourcePoints
+    bufferPoints:(CGPoint*)bufferPoints
+            size:(long)size
+   viewPortPoint:(CGPoint)viewPortPoint
+         camZoom:(float)camZoom
 {
-    return floor_grass[number];
-}
-
-- (int) getFloorGrassSize
-{
-    return floor_grass.size();
+    for (int i=0; i<size; ++i)
+    {
+        CGPoint cPoint  = sourcePoints[i];
+        
+        float centerX   = ( viewPortPoint.x - cPoint.x ) * camZoom;
+        float centerY   = ( viewPortPoint.y - cPoint.y ) * camZoom;
+        
+        bufferPoints[i].x   = centerX;
+        bufferPoints[i].y   = centerY;
+    }
+    
+    ccDrawSolidPoly(bufferPoints,
+                    size,
+                    ccc4f(r, g, b, a));
 }
 
 @end
 
-WorldCache* _worldCache = nil;
+World* _s_world = nil;
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-@implementation World
+@interface World()
 
-+ (BOOL) LoadData
+@property (retain) WorldCache* _worldCache;
+
+@end
+
+@implementation World
+@synthesize _worldCache;
+
++ (World*) getObject
+{
+    if ( ! _s_world )
+    {
+        _s_world    = [[World alloc] init];
+    }
+    return _s_world;
+}
+
+- (BOOL) LoadData
 {
     if ( ! _worldCache )
     {
@@ -239,7 +300,6 @@ WorldCache* _worldCache = nil;
     NSArray* roadConfigArray    = [[NSArray alloc] initWithContentsOfFile:roadConfigFullPath];
     
     // load road to memory
-    //for (NSDictionary* cRoadDict in roadConfigArray)
     for ( int i=roadConfigArray.count-1; i>=0; --i )
     {
         NSDictionary* cRoadDict = [roadConfigArray objectAtIndex:i];
@@ -284,7 +344,7 @@ WorldCache* _worldCache = nil;
     return YES;
 }
 
-+ (BOOL) UnloadData
+- (BOOL) UnloadData
 {
     if ( _worldCache )
     {
@@ -297,7 +357,7 @@ WorldCache* _worldCache = nil;
     return YES;
 }
 
-+ (BOOL) AssignDataToLayer: (CCLayer*) layer withMission: (Mission*) mission
+- (BOOL) AssignDataToLayer: (CCLayer*) layer withMission: (Mission*) mission
 {
     if ( ! _worldCache )
         return NO;
@@ -314,7 +374,7 @@ WorldCache* _worldCache = nil;
     return YES;
 }
 
-+ (BOOL) UnSssignDataFromLayer: (CCLayer*) layer
+- (BOOL) UnSssignDataFromLayer: (CCLayer*) layer
 {
     if ( ! _worldCache )
         return NO;
@@ -322,12 +382,12 @@ WorldCache* _worldCache = nil;
     return YES;
 }
 
-+ (RouteGraph&) GetRouteGraph
+- (RouteGraph&) GetRouteGraph
 {
     return *_worldCache.routeGraph;
 }
 
-+ (void) Draw
+- (void) Draw
 {
     Camera* camera      = [Camera getObject];
     CGPoint camPoint    = [camera getPoint];
@@ -340,92 +400,59 @@ WorldCache* _worldCache = nil;
     CGPoint viewPortPoint   = CGPointMake(camCenter.x + camSize.width*0.5f/camZoomX,
                                           camCenter.y + camSize.height*0.5f/camZoomX );
     
-    // water
-    vector<CGPoint> waterTran;
-    waterTran.push_back(CGPointMake(-20000, 20000));
-    waterTran.push_back(CGPointMake(20000, 20000));
-    waterTran.push_back(CGPointMake(20000, -20000));
-    waterTran.push_back(CGPointMake(-20000, -20000));
+    [_worldCache _PaintR:22.0f/255.0f
+                       g:153.0f/255.0f
+                       b:168.0f/255.0f
+                       a:1.0
+            sourcePoints:&[_worldCache getWater][0]
+            bufferPoints:_worldCache.water_buffer
+                    size:[_worldCache getWater].size()
+           viewPortPoint:viewPortPoint camZoom:camZoomX];
     
-    // floor01
-    vector<CGPoint> floor01Tran;
-    for (int i=0; i<[_worldCache getFloor01Size]; ++i)
-    {
-        CGPoint cPoint  = [_worldCache getFloor01ByNumber:i];
-        
-        float centerX   = ( viewPortPoint.x - cPoint.x ) * camZoomX;
-        float centerY   = ( viewPortPoint.y - cPoint.y ) * camZoomX;
-        
-        floor01Tran.push_back(CGPointMake(centerX, centerY));
-    }
+    [_worldCache _PaintR:22.0f/255.0f
+                       g:153.0f/255.0f
+                       b:168.0f/255.0f
+                       a:1.0
+            sourcePoints:&[_worldCache getFloor01][0]
+            bufferPoints:_worldCache.floor01_buffer
+                    size:[_worldCache getFloor01].size()
+           viewPortPoint:viewPortPoint camZoom:camZoomX];
     
-    // floor02
-    vector<CGPoint> floor02Tran;
-    for (int i=0; i<[_worldCache getFloor02Size]; ++i)
-    {
-        CGPoint cPoint  = [_worldCache getFloor02ByNumber:i];
-        
-        float centerX   = ( viewPortPoint.x - cPoint.x ) * camZoomX;
-        float centerY   = ( viewPortPoint.y - cPoint.y ) * camZoomX;
-        
-        floor02Tran.push_back(CGPointMake(centerX, centerY));
-    }
+    [_worldCache _PaintR:195.0f/255.0f
+                       g:181.0f/255.0f
+                       b:155.0f/255.0f
+                       a:1.0
+            sourcePoints:&[_worldCache getFloor01][0]
+            bufferPoints:_worldCache.floor01_buffer
+                    size:[_worldCache getFloor01].size()
+           viewPortPoint:viewPortPoint camZoom:camZoomX];
+
+    [_worldCache _PaintR:149.0f/255.0f
+                       g:149.0f/255.0f
+                       b:122.0f/255.0f
+                       a:1.0
+            sourcePoints:&[_worldCache getFloor02][0]
+            bufferPoints:_worldCache.floor01_buffer
+                    size:[_worldCache getFloor02].size()
+           viewPortPoint:viewPortPoint camZoom:camZoomX];
     
-    // floor03
-    vector<CGPoint> floor03Tran;
-    for (int i=0; i<[_worldCache getFloor03Size]; ++i)
-    {
-        CGPoint cPoint  = [_worldCache getFloor03ByNumber:i];
-        
-        float centerX   = ( viewPortPoint.x - cPoint.x ) * camZoomX;
-        float centerY   = ( viewPortPoint.y - cPoint.y ) * camZoomX;
-        
-        floor03Tran.push_back(CGPointMake(centerX, centerY));
-    }
+    [_worldCache _PaintR:196.0f/255.0f
+                       g:188.0f/255.0f
+                       b:171.0f/255.0f
+                       a:1.0
+            sourcePoints:&[_worldCache getFloor03][0]
+            bufferPoints:_worldCache.floor01_buffer
+                    size:[_worldCache getFloor03].size()
+           viewPortPoint:viewPortPoint camZoom:camZoomX];
     
-    // floor_grass
-    vector<CGPoint> floorGrassTran;
-    for (int i=0; i<[_worldCache getFloorGrassSize]; ++i)
-    {
-        CGPoint cPoint  = [_worldCache getFloorGrassByNumber:i];
-        
-        float centerX   = ( viewPortPoint.x - cPoint.x ) * camZoomX;
-        float centerY   = ( viewPortPoint.y - cPoint.y ) * camZoomX;
-        
-        floorGrassTran.push_back(CGPointMake(centerX, centerY));
-    }
-    
-    // draw floor
-    ccDrawSolidPoly(&waterTran.front(),
-                    waterTran.size(),
-                    ccc4f(22.0f/255.0f,
-                          153.0f/255.0f,
-                          168.0f/255.0f,
-                          1.0));
-    ccDrawSolidPoly(&floor01Tran.front(),
-                    floor01Tran.size(),
-                    ccc4f(195.0f/255.0f,
-                          181.0f/255.0f,
-                          155.0f/255.0f,
-                          1.0));
-    ccDrawSolidPoly(&floor02Tran.front(),
-                    floor02Tran.size(),
-                    ccc4f(149.0f/255.0f,
-                          140.0f/255.0f,
-                          122.0f/255.0f,
-                          1.0));
-    ccDrawSolidPoly(&floor03Tran.front(),
-                    floor03Tran.size(),
-                    ccc4f(196.0f/255.0f,
-                          188.0f/255.0f,
-                          171.0f/255.0f,
-                          1.0));
-    ccDrawSolidPoly(&floorGrassTran.front(),
-                    floorGrassTran.size(),
-                    ccc4f(135.0f/255.0f,
-                          156.0f/255.0f,
-                          10.0f/255.0f,
-                          1.0));
+    [_worldCache _PaintR:135.0f/255.0f
+                       g:156.0f/255.0f
+                       b:10.0f/255.0f
+                       a:1.0
+            sourcePoints:&[_worldCache getFloorGrass][0]
+            bufferPoints:_worldCache.floor01_buffer
+                    size:[_worldCache getFloorGrass].size()
+           viewPortPoint:viewPortPoint camZoom:camZoomX];
 }
 
 @end

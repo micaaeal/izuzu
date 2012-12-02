@@ -72,7 +72,7 @@ IntroLayer* _s_introLayer   = nil;
         [self scheduleOnce:@selector(makeTransition:) delay:1];
         
         // Load ...
-        [World LoadData];
+        [[World getObject] LoadData];
         [Car LoadData];
         [[Mission getObject] loadData];
         [[Console getObject] LoadData];

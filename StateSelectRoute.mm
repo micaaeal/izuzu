@@ -80,7 +80,7 @@ enum STATE_SELECT_ROUTE
     _menuSelectRouteArray   = [[NSMutableArray alloc] init];
     
     // clear routeGraph
-    RouteGraph& routeGraph  = [World GetRouteGraph];
+    RouteGraph& routeGraph  = [[World getObject] GetRouteGraph];
     routeGraph.ClearRoute();
 }
 
@@ -121,7 +121,7 @@ enum STATE_SELECT_ROUTE
             _currentMission = cMission;
             
             // all about route graph
-            RouteGraph& routeGraph  = [World GetRouteGraph];
+            RouteGraph& routeGraph  = [[World getObject] GetRouteGraph];
             vector<TrVertex> allVertices    = routeGraph.GetAllVertices();
             _startVertex    = allVertices[[_currentMission GetStartVertex]];
             _finishVertex   = allVertices[[_currentMission GetEndVertex]];
@@ -203,7 +203,7 @@ enum STATE_SELECT_ROUTE
         case STATE_SELECT_ROUTE_LOAD_ROUTE:
         {
             // manipulate route graph
-            RouteGraph& routeGraph  = [World GetRouteGraph];
+            RouteGraph& routeGraph  = [[World getObject] GetRouteGraph];
             routeGraph.GetConnectedVertices(_currentConnectedVertices);
             TrVertex lastVertex     = routeGraph.GetVertexRoute().back();
             
@@ -221,7 +221,7 @@ enum STATE_SELECT_ROUTE
             for ( int i=0; i<connectedSize; ++i)
             {
                 // get edge from that point
-                RouteGraph& cRouteGraph = [World GetRouteGraph];
+                RouteGraph& cRouteGraph = [[World getObject] GetRouteGraph];
                 int cConnectedVertexId  = _currentConnectedVertices[i].vertexId;
                 
                 TrEdge cEdge    = cRouteGraph.GetEdgeFromVertexId(lastVertex.vertexId,
@@ -277,7 +277,7 @@ enum STATE_SELECT_ROUTE
             break;
         case STATE_SELECT_ROUTE_SELECT_ROUTE:
         {
-            RouteGraph& routeGraph  = [World GetRouteGraph];
+            RouteGraph& routeGraph  = [[World getObject] GetRouteGraph];
             if ( routeGraph.GetHasCancelState() )
             {
                 routeGraph.SetHasCancelState(false);
@@ -298,7 +298,7 @@ enum STATE_SELECT_ROUTE
             break;
         case STATE_SELECT_ROUTE_CAMERA_STOP:
         {
-            RouteGraph& routeGraph  = [World GetRouteGraph];
+            RouteGraph& routeGraph  = [[World getObject] GetRouteGraph];
             routeGraph.GetConnectedVertices(_currentConnectedVertices);
             TrVertex lastVertex     = routeGraph.GetVertexRoute().back();
             
@@ -314,7 +314,7 @@ enum STATE_SELECT_ROUTE
             break;
         case STATE_SELECT_ROUTE_REACH_TARGET:
         {
-            RouteGraph& cRouteGraph     = [World GetRouteGraph];
+            RouteGraph& cRouteGraph     = [[World getObject] GetRouteGraph];
             vector<TrEdge> edgeRoute    = cRouteGraph.GetEdgeRoute();
 
             for ( int i=0; i<edgeRoute.size(); ++i)
@@ -414,7 +414,7 @@ enum STATE_SELECT_ROUTE
             return;
         
         // remove last route
-        RouteGraph& routeGraph  = [World GetRouteGraph];
+        RouteGraph& routeGraph  = [[World getObject] GetRouteGraph];
         routeGraph.RemoveBackRoute();
         routeGraph.GetConnectedVertices(_currentConnectedVertices);
         
@@ -430,7 +430,7 @@ enum STATE_SELECT_ROUTE
             
             // count
             BOOL alreadyHasRoute    = NO;
-            RouteGraph& cRouteGraph         = [World GetRouteGraph];
+            RouteGraph& cRouteGraph         = [[World getObject] GetRouteGraph];
             vector<TrVertex> vertexRoute    = cRouteGraph.GetVertexRoute();
             for (int cv=0; cv<vertexRoute.size(); ++cv)
             {
@@ -479,7 +479,7 @@ enum STATE_SELECT_ROUTE
     // next vertex
     TrVertex nextVertex     = _currentConnectedVertices[buttonId];
     
-    RouteGraph& routeGraph  = [World GetRouteGraph];
+    RouteGraph& routeGraph  = [[World getObject] GetRouteGraph];
     routeGraph.PushVertex(nextVertex);
     
     _hasSelectedRouteThisPoint  = YES;

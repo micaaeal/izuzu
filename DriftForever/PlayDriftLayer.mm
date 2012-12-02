@@ -112,7 +112,7 @@ PlayDriftLayer* _s_playDriftLayer   = nil;
         _currentState       = _stateSelectRoute;
         
         // assign data from world
-        [World AssignDataToLayer:actionLayer withMission:nil];
+        [[World getObject] AssignDataToLayer:actionLayer withMission:nil];
         
         // assign data from event handler
         [[EventHandler getObject] onStart];
@@ -288,9 +288,9 @@ PlayDriftLayer* _s_playDriftLayer   = nil;
     [[Console getObject] hideConsole];
 }
 
-static int _s_currentZoomLevel    = 2;
-static float _s_zoomLevel[]         = {0.2f, 0.23f, 0.25f, 0.45f, 0.6f, 1.0f};
-//static float _s_zoomLevel[]         = {0.02f, 0.023f, 0.025f, 0.045f, 0.06f, 0.10f};
+static int _s_currentZoomLevel    = 0;
+//static float _s_zoomLevel[]         = {0.05f, 0.23f, 0.25f, 0.45f, 0.6f, 1.0f};
+static float _s_zoomLevel[]         = {0.1f, 0.023f, 0.025f, 0.045f, 0.06f, 0.10f};
 static int   _s_zoomLevelSize       = 6;
 
 - (void) _onZoomIn: (id) sender
@@ -383,7 +383,7 @@ static int   _s_zoomLevelSize       = 6;
 {
     [_currentState onRender];
     
-    [World Draw];
+    [[World getObject] Draw];
 }
 
 #pragma mark - ccTouch
