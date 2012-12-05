@@ -617,6 +617,8 @@ World* _s_world = nil;
         CCSprite* treeSprite    = [CCSprite spriteWithFile:@"tree.png"];
         [_worldCache.treeArray addObject:treeSprite];
         [treeSprite setPosition:treePoint];
+        CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:treeSprite.scale];
+        [treeSprite setScale:cSpriteScale];
     }
     
     // ----------------------------------------------------------------
@@ -629,8 +631,10 @@ World* _s_world = nil;
         buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
         CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build01.png"];
         [_worldCache.buildingArray addObject:buildingSprite];
-        buildingPoint.x += buildingSprite.textureRect.size.width*0.5f;
-        buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f;
+        CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+        [buildingSprite setScale:cSpriteScale];
+        buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+        buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
         [buildingSprite setPosition:buildingPoint];
     }
     {
@@ -640,8 +644,10 @@ World* _s_world = nil;
         buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
         CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build02.png"];
         [_worldCache.buildingArray addObject:buildingSprite];
-        buildingPoint.x += buildingSprite.textureRect.size.width*0.5f;
-        buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f;
+        CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+        [buildingSprite setScale:cSpriteScale];
+        buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+        buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
         [buildingSprite setPosition:buildingPoint];
     }
     {
@@ -651,8 +657,10 @@ World* _s_world = nil;
         buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
         CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build03.png"];
         [_worldCache.buildingArray addObject:buildingSprite];
-        buildingPoint.x += buildingSprite.textureRect.size.width*0.5f;
-        buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f;
+        CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+        [buildingSprite setScale:cSpriteScale];
+        buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+        buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
         [buildingSprite setPosition:buildingPoint];
     }
     {
@@ -662,8 +670,10 @@ World* _s_world = nil;
         buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
         CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build04.png"];
         [_worldCache.buildingArray addObject:buildingSprite];
-        buildingPoint.x += buildingSprite.textureRect.size.width*0.5f;
-        buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f;
+        CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+        [buildingSprite setScale:cSpriteScale];
+        buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+        buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
         [buildingSprite setPosition:buildingPoint];
     }
     {
@@ -688,8 +698,10 @@ World* _s_world = nil;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
             CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build05.png"];
             [_worldCache.buildingArray addObject:buildingSprite];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f;
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
             [buildingSprite setPosition:buildingPoint];
         }
     }
@@ -706,8 +718,10 @@ World* _s_world = nil;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
             CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build06.png"];
             [_worldCache.buildingArray addObject:buildingSprite];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f;
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
             [buildingSprite setPosition:buildingPoint];
         }
     }
@@ -723,8 +737,10 @@ World* _s_world = nil;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
             CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build07.png"];
             [_worldCache.buildingArray addObject:buildingSprite];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f;
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
             [buildingSprite setPosition:buildingPoint];
         }
     }
@@ -739,8 +755,10 @@ World* _s_world = nil;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
             CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build08.png"];
             [_worldCache.buildingArray addObject:buildingSprite];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f;
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
             [buildingSprite setPosition:buildingPoint];
         }
     }
@@ -758,8 +776,10 @@ World* _s_world = nil;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
             CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build09.png"];
             [_worldCache.buildingArray addObject:buildingSprite];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f;
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
             [buildingSprite setPosition:buildingPoint];
         }
     }
@@ -774,8 +794,10 @@ World* _s_world = nil;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
             CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build10.png"];
             [_worldCache.buildingArray addObject:buildingSprite];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f;
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
             [buildingSprite setPosition:buildingPoint];
         }
     }
@@ -791,8 +813,10 @@ World* _s_world = nil;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
             CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build11.png"];
             [_worldCache.buildingArray addObject:buildingSprite];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f;
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
             [buildingSprite setPosition:buildingPoint];
         }
     }
@@ -807,8 +831,10 @@ World* _s_world = nil;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
             CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build12.png"];
             [_worldCache.buildingArray addObject:buildingSprite];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f;
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
             [buildingSprite setPosition:buildingPoint];
         }
     }
@@ -824,8 +850,10 @@ World* _s_world = nil;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
             CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build13.png"];
             [_worldCache.buildingArray addObject:buildingSprite];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f;
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
             [buildingSprite setPosition:buildingPoint];
         }
     }
@@ -840,8 +868,10 @@ World* _s_world = nil;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
             CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build14.png"];
             [_worldCache.buildingArray addObject:buildingSprite];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f;
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
             [buildingSprite setPosition:buildingPoint];
         }
     }
@@ -856,8 +886,10 @@ World* _s_world = nil;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
             CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build15.png"];
             [_worldCache.buildingArray addObject:buildingSprite];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f;
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
             [buildingSprite setPosition:buildingPoint];
         }
     }
@@ -872,8 +904,10 @@ World* _s_world = nil;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
             CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build16.png"];
             [_worldCache.buildingArray addObject:buildingSprite];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f;
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
             [buildingSprite setPosition:buildingPoint];
         }
     }
@@ -888,8 +922,10 @@ World* _s_world = nil;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
             CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build17.png"];
             [_worldCache.buildingArray addObject:buildingSprite];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f;
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
             [buildingSprite setPosition:buildingPoint];
         }
     }
@@ -914,8 +950,10 @@ World* _s_world = nil;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
             CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"prob01.png"];
             [_worldCache.probArray addObject:buildingSprite];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f;
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
             [buildingSprite setPosition:buildingPoint];
         }
     }
@@ -935,8 +973,10 @@ World* _s_world = nil;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
             CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"prob02.png"];
             [_worldCache.probArray addObject:buildingSprite];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f;
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
             [buildingSprite setPosition:buildingPoint];
         }
     }
@@ -955,8 +995,10 @@ World* _s_world = nil;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
             CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"prob04.png"];
             [_worldCache.probArray addObject:buildingSprite];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f;
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
             [buildingSprite setPosition:buildingPoint];
         }
     }
@@ -992,8 +1034,10 @@ World* _s_world = nil;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
             CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"prob05.png"];
             [_worldCache.probArray addObject:buildingSprite];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f;
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
             [buildingSprite setPosition:buildingPoint];
         }
     }
@@ -1008,8 +1052,10 @@ World* _s_world = nil;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
             CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"prob06.png"];
             [_worldCache.probArray addObject:buildingSprite];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f;
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
             [buildingSprite setPosition:buildingPoint];
         }
     }
@@ -1024,8 +1070,10 @@ World* _s_world = nil;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
             CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"prob07.png"];
             [_worldCache.probArray addObject:buildingSprite];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f;
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
             [buildingSprite setPosition:buildingPoint];
         }
     }
@@ -1042,8 +1090,10 @@ World* _s_world = nil;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
             CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"rail.png"];
             [_worldCache.probArray addObject:buildingSprite];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f;
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
             [buildingSprite setPosition:buildingPoint];
         }
     }
@@ -1058,8 +1108,10 @@ World* _s_world = nil;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
             CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"targetA.png"];
             [_worldCache.probArray addObject:buildingSprite];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f;
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
             [buildingSprite setPosition:buildingPoint];
         }
     }
@@ -1074,8 +1126,10 @@ World* _s_world = nil;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
             CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"targetB.png"];
             [_worldCache.probArray addObject:buildingSprite];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f;
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
             [buildingSprite setPosition:buildingPoint];
         }
     }
@@ -1090,8 +1144,10 @@ World* _s_world = nil;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
             CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"targetC.png"];
             [_worldCache.probArray addObject:buildingSprite];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f;
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
             [buildingSprite setPosition:buildingPoint];
         }
     }
@@ -1106,8 +1162,10 @@ World* _s_world = nil;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
             CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"targetD.png"];
             [_worldCache.probArray addObject:buildingSprite];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f;
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
             [buildingSprite setPosition:buildingPoint];
         }
     }
@@ -1122,8 +1180,10 @@ World* _s_world = nil;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
             CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"targetE.png"];
             [_worldCache.probArray addObject:buildingSprite];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f;
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
             [buildingSprite setPosition:buildingPoint];
         }
     }
@@ -1149,8 +1209,10 @@ World* _s_world = nil;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
             CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"tent01.png"];
             [_worldCache.probArray addObject:buildingSprite];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f;
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
             [buildingSprite setPosition:buildingPoint];
         }
     }
@@ -1170,8 +1232,10 @@ World* _s_world = nil;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
             CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"tent02.png"];
             [_worldCache.probArray addObject:buildingSprite];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f;
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
             [buildingSprite setPosition:buildingPoint];
         }
     }
@@ -1191,8 +1255,10 @@ World* _s_world = nil;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
             CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"tent03.png"];
             [_worldCache.probArray addObject:buildingSprite];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f;
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
             [buildingSprite setPosition:buildingPoint];
         }
     }

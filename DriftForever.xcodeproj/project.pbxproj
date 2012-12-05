@@ -10,6 +10,19 @@
 		BD0E18FF1665950100971528 /* CarAndCharViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD0E18FD1665950100971528 /* CarAndCharViewController.xib */; };
 		BD0E191A166597DB00971528 /* StartMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD0E1918166597DB00971528 /* StartMenuViewController.m */; };
 		BD1B83AA164B2469005950CB /* WindShield.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1B83A9164B2469005950CB /* WindShield.m */; };
+		BD42683F166FB5CC00D5789D /* GamePlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD42683D166FB5CC00D5789D /* GamePlayViewController.m */; };
+		BD426840166FB5CC00D5789D /* GamePlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD42683E166FB5CC00D5789D /* GamePlayViewController.xib */; };
+		BD426844166FBCBA00D5789D /* PauseMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD426842166FBCBA00D5789D /* PauseMenuViewController.m */; };
+		BD426845166FBCBA00D5789D /* PauseMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD426843166FBCBA00D5789D /* PauseMenuViewController.xib */; };
+		BD426848166FBDE900D5789D /* pauseButton01.png in Resources */ = {isa = PBXBuildFile; fileRef = BD426846166FBDE900D5789D /* pauseButton01.png */; };
+		BD426849166FBDE900D5789D /* pauseButton02.png in Resources */ = {isa = PBXBuildFile; fileRef = BD426847166FBDE900D5789D /* pauseButton02.png */; };
+		BD426851166FC09500D5789D /* pauseMenu01_01.png in Resources */ = {isa = PBXBuildFile; fileRef = BD42684A166FC09500D5789D /* pauseMenu01_01.png */; };
+		BD426852166FC09500D5789D /* pauseMenu01_02.png in Resources */ = {isa = PBXBuildFile; fileRef = BD42684B166FC09500D5789D /* pauseMenu01_02.png */; };
+		BD426853166FC09500D5789D /* pauseMenu02_01.png in Resources */ = {isa = PBXBuildFile; fileRef = BD42684C166FC09500D5789D /* pauseMenu02_01.png */; };
+		BD426854166FC09500D5789D /* pauseMenu02_02.png in Resources */ = {isa = PBXBuildFile; fileRef = BD42684D166FC09500D5789D /* pauseMenu02_02.png */; };
+		BD426855166FC09500D5789D /* pauseMenu03_01.png in Resources */ = {isa = PBXBuildFile; fileRef = BD42684E166FC09500D5789D /* pauseMenu03_01.png */; };
+		BD426856166FC09500D5789D /* pauseMenu03_02.png in Resources */ = {isa = PBXBuildFile; fileRef = BD42684F166FC09500D5789D /* pauseMenu03_02.png */; };
+		BD426857166FC09500D5789D /* pauseTab.png in Resources */ = {isa = PBXBuildFile; fileRef = BD426850166FC09500D5789D /* pauseTab.png */; };
 		BD49BD441613576E00C401BF /* World.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD49BD431613576E00C401BF /* World.mm */; };
 		BD56AC561629218C00941DC1 /* road_config.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD56AC551629218B00941DC1 /* road_config.plist */; };
 		BD6CA9CE1636996900131027 /* event_config.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD6CA9CD1636996900131027 /* event_config.plist */; };
@@ -301,6 +314,21 @@
 		BD0E1918166597DB00971528 /* StartMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartMenuViewController.m; sourceTree = "<group>"; };
 		BD1B83A8164B2469005950CB /* WindShield.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindShield.h; sourceTree = "<group>"; };
 		BD1B83A9164B2469005950CB /* WindShield.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WindShield.m; sourceTree = "<group>"; };
+		BD42683C166FB5CC00D5789D /* GamePlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePlayViewController.h; sourceTree = "<group>"; };
+		BD42683D166FB5CC00D5789D /* GamePlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePlayViewController.m; sourceTree = "<group>"; };
+		BD42683E166FB5CC00D5789D /* GamePlayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GamePlayViewController.xib; sourceTree = "<group>"; };
+		BD426841166FBCBA00D5789D /* PauseMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PauseMenuViewController.h; sourceTree = "<group>"; };
+		BD426842166FBCBA00D5789D /* PauseMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PauseMenuViewController.m; sourceTree = "<group>"; };
+		BD426843166FBCBA00D5789D /* PauseMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PauseMenuViewController.xib; sourceTree = "<group>"; };
+		BD426846166FBDE900D5789D /* pauseButton01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pauseButton01.png; sourceTree = "<group>"; };
+		BD426847166FBDE900D5789D /* pauseButton02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pauseButton02.png; sourceTree = "<group>"; };
+		BD42684A166FC09500D5789D /* pauseMenu01_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pauseMenu01_01.png; sourceTree = "<group>"; };
+		BD42684B166FC09500D5789D /* pauseMenu01_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pauseMenu01_02.png; sourceTree = "<group>"; };
+		BD42684C166FC09500D5789D /* pauseMenu02_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pauseMenu02_01.png; sourceTree = "<group>"; };
+		BD42684D166FC09500D5789D /* pauseMenu02_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pauseMenu02_02.png; sourceTree = "<group>"; };
+		BD42684E166FC09500D5789D /* pauseMenu03_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pauseMenu03_01.png; sourceTree = "<group>"; };
+		BD42684F166FC09500D5789D /* pauseMenu03_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pauseMenu03_02.png; sourceTree = "<group>"; };
+		BD426850166FC09500D5789D /* pauseTab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pauseTab.png; sourceTree = "<group>"; };
 		BD49BD421613576E00C401BF /* World.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = World.h; sourceTree = "<group>"; };
 		BD49BD431613576E00C401BF /* World.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = World.mm; sourceTree = "<group>"; };
 		BD4ABB0F1630DA1900694676 /* Console.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Console.h; sourceTree = "<group>"; };
@@ -780,6 +808,16 @@
 			name = MenuView;
 			sourceTree = "<group>";
 		};
+		BD426835166FB4E500D5789D /* GamePlayMenu */ = {
+			isa = PBXGroup;
+			children = (
+				BD426841166FBCBA00D5789D /* PauseMenuViewController.h */,
+				BD426842166FBCBA00D5789D /* PauseMenuViewController.m */,
+				BD426843166FBCBA00D5789D /* PauseMenuViewController.xib */,
+			);
+			name = GamePlayMenu;
+			sourceTree = "<group>";
+		};
 		BD49BD3D161356E600C401BF /* World */ = {
 			isa = PBXGroup;
 			children = (
@@ -848,6 +886,15 @@
 		BD9AF9A6166B9FAE009988F9 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				BD42684A166FC09500D5789D /* pauseMenu01_01.png */,
+				BD42684B166FC09500D5789D /* pauseMenu01_02.png */,
+				BD42684C166FC09500D5789D /* pauseMenu02_01.png */,
+				BD42684D166FC09500D5789D /* pauseMenu02_02.png */,
+				BD42684E166FC09500D5789D /* pauseMenu03_01.png */,
+				BD42684F166FC09500D5789D /* pauseMenu03_02.png */,
+				BD426850166FC09500D5789D /* pauseTab.png */,
+				BD426846166FBDE900D5789D /* pauseButton01.png */,
+				BD426847166FBDE900D5789D /* pauseButton02.png */,
 				BDB75790166F8D2F00912496 /* back.png */,
 				BDB7576A166F8D0C00912496 /* back.png */,
 				BDB7576B166F8D0C00912496 /* build01.png */,
@@ -1053,8 +1100,12 @@
 				BD9AFA7E166BA158009988F9 /* GameFlowSignal.h */,
 				BD9AFA7F166BA158009988F9 /* GameFlowSignal.m */,
 				BD0E18FA166594CB00971528 /* MenuView */,
+				BD426835166FB4E500D5789D /* GamePlayMenu */,
 				BD9AFA84166BA1E7009988F9 /* AppDelegate.h */,
 				BD9AFA85166BA1E7009988F9 /* AppDelegate.m */,
+				BD42683C166FB5CC00D5789D /* GamePlayViewController.h */,
+				BD42683D166FB5CC00D5789D /* GamePlayViewController.m */,
+				BD42683E166FB5CC00D5789D /* GamePlayViewController.xib */,
 				BD9AFA89166BA21E009988F9 /* IntroLayer.h */,
 				BD9AFA8A166BA21F009988F9 /* IntroLayer.mm */,
 				BD9AFA8B166BA21F009988F9 /* PlayDriftLayer.h */,
@@ -1685,6 +1736,17 @@
 				BDB7578F166F8D0C00912496 /* debug.png in Resources */,
 				BDB75791166F8D2F00912496 /* back.png in Resources */,
 				BDB75793166F8EB500912496 /* StartMenuViewController.xib in Resources */,
+				BD426840166FB5CC00D5789D /* GamePlayViewController.xib in Resources */,
+				BD426845166FBCBA00D5789D /* PauseMenuViewController.xib in Resources */,
+				BD426848166FBDE900D5789D /* pauseButton01.png in Resources */,
+				BD426849166FBDE900D5789D /* pauseButton02.png in Resources */,
+				BD426851166FC09500D5789D /* pauseMenu01_01.png in Resources */,
+				BD426852166FC09500D5789D /* pauseMenu01_02.png in Resources */,
+				BD426853166FC09500D5789D /* pauseMenu02_01.png in Resources */,
+				BD426854166FC09500D5789D /* pauseMenu02_02.png in Resources */,
+				BD426855166FC09500D5789D /* pauseMenu03_01.png in Resources */,
+				BD426856166FC09500D5789D /* pauseMenu03_02.png in Resources */,
+				BD426857166FC09500D5789D /* pauseTab.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1820,6 +1882,8 @@
 				BD9AFA88166BA1FE009988F9 /* PlayDriftLayer.mm in Sources */,
 				BD9AFA8C166BA21F009988F9 /* IntroLayer.mm in Sources */,
 				BD9AFA8E166BA326009988F9 /* Console.mm in Sources */,
+				BD42683F166FB5CC00D5789D /* GamePlayViewController.m in Sources */,
+				BD426844166FBCBA00D5789D /* PauseMenuViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

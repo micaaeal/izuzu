@@ -13,9 +13,16 @@
 #import "PlayDriftLayer.h"
 
 @interface AppController()
+{
+	UIWindow *window_;
+	CCDirectorIOS	*director_;							// weak ref
+}
 
+@property (retain) UINavigationController *navController_;
+@property (retain) GamePlayViewController* _gamePlayViewController;
 @property (assign) BOOL _hasLoadedPlayDriftLayer;
 @property (assign) BOOL _isOnResume;
+
 
 - (void) _loadMenuView;
 - (void) _unloadMenuView;
@@ -29,6 +36,7 @@
 @implementation AppController
 
 @synthesize window=window_, navController=navController_, director=director_;
+@synthesize _gamePlayViewController;
 @synthesize rootViewController;
 
 @synthesize _hasLoadedPlayDriftLayer;
@@ -46,12 +54,12 @@
     if ( _GAME_MODE_ == _GAME_MODE_MAINSTREAM_ )
     {
         [self _loadMenuView];
-        [window_ setRootViewController:rootViewController];
+        //[window_ setRootViewController:rootViewController];
     }
     else if ( _GAME_MODE_ == _GAME_MODE_DEBUG_ )
     {
         [self _loadCocosDirector];
-        [window_ setRootViewController:navController_];
+        //[window_ setRootViewController:navController_];
     }
     
 	// make main window visible
@@ -214,7 +222,12 @@
 	navController_ = [[UINavigationController alloc] initWithRootViewController:director_];
 	navController_.navigationBarHidden = YES;
     
-    [window_ setRootViewController:navController_];
+    _gamePlayViewController = [[GamePlayViewController alloc]
+                               initWithNibName:@"GamePlayViewController" bundle:nil];
+    [_gamePlayViewController.view addSubview:navController_.view];
+    navController_.view.frame   = _gamePlayViewController.view.bounds;
+    [_gamePlayViewController.view sendSubviewToBack:navController_.view];
+    [window_ setRootViewController:_gamePlayViewController];
 }
 
 - (void) _unloadCocosDirector

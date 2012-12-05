@@ -10,14 +10,9 @@
 #import "cocos2d.h"
 #import "StartMenuViewController.h"
 #import "GameFlowSignal.h"
+#import "GamePlayViewController.h"
 
 @interface AppController : NSObject <UIApplicationDelegate, CCDirectorDelegate, StartMenuViewDelegate, GameFlowSignalDelegate>
-{
-	UIWindow *window_;
-	UINavigationController *navController_;
-
-	CCDirectorIOS	*director_;							// weak ref
-}
 
 @property (nonatomic, retain) UIWindow *window;
 @property (retain) UIViewController* rootViewController;
