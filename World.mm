@@ -1196,6 +1196,7 @@ World* _s_world = nil;
             [buildingSprite setPosition:buildingPoint];
         }
     }
+    
     return YES;
 }
 
