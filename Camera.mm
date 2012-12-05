@@ -40,10 +40,10 @@ Camera* _object = nil;
         _object._isZooming      = NO;
         _object._layerRefPoint  = _object._layer.position;
         _object._zoomX          = 1.0f;
-        _object._bound          = CGRectMake((2435.833496),
-                                             (-872.666992),
-                                             (9125.833984)-(2435.833496),
-                                             (-6183.666992)-(-872.666992));
+        _object._bound          = CGRectMake((2235.833496),
+                                             (-702.666992),
+                                             (9525.833984)-(2435.833496),
+                                             (-6423.666992)-(-872.666992));
     }
     
     return _object;

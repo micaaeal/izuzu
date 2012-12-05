@@ -4,16 +4,6 @@
 <array>
 	<dict>
 		<key>file_name</key>
-		<string>NAME.png</string>
-		<key>rotation</key>
-		<string>ROTATION</string>
-		<key>x</key>
-		<string>X</string>
-		<key>y</key>
-		<string>Y</string>
-	</dict>
-	<dict>
-		<key>file_name</key>
 		<string>3traffic.png</string>
 		<key>rotation</key>
 		<string>-45</string>
