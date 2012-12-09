@@ -15,6 +15,7 @@
 
 - (void) onStart;
 - (void) onFinish;
+- (void) onRestart;
 - (BOOL) onUpdate: (float) deltaTime; // if retuen YES, means end current state
 - (void) onRender;
 - (BOOL) onTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event;

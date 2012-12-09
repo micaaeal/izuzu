@@ -257,9 +257,12 @@
 {
     if ( ! _isOnResume )
     {
+        CCScene* playDriftScene  = [PlayDriftLayer scene];
         [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0
-                                                                                     scene:[PlayDriftLayer scene]
+                                                                                     scene:playDriftScene
                                                                                  withColor:ccWHITE]];
+        PlayDriftLayer* playDriftLayer  = (PlayDriftLayer*)[playDriftScene getChildByTag:101];
+        _gamePlayViewController.playDriftLayer  = playDriftLayer;
     }
     else
     {

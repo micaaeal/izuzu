@@ -8,7 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol PauseMenuViewDelegate <NSObject>
+
+- (void) onResume: (id) sender;
+- (void) onRetry: (id) sender;
+- (void) onExit: (id) sender;
+
+@end
+
 @interface PauseMenuViewController : UIViewController
+
+@property (assign) id<PauseMenuViewDelegate> delegate;
 
 @property (retain, nonatomic) IBOutlet UIButton *btnResume;
 @property (retain, nonatomic) IBOutlet UIButton *btnRetry;

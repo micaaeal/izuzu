@@ -467,7 +467,7 @@ using namespace std;
 
 - (void) _CreateBufferPoints:(CGPoint**) outBufferPoints fromSourcePointsSize:(long)size
 {
-    *outBufferPoints = new CGPoint[size];
+    *outBufferPoints = new CGPoint[size+1];
     for (int i=0; i<size; ++i)
     {
         (*outBufferPoints)[i]  = CGPointMake(0.0f, 0.0f);

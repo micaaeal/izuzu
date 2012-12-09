@@ -27,6 +27,15 @@
 		BD56AC561629218C00941DC1 /* road_config.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD56AC551629218B00941DC1 /* road_config.plist */; };
 		BD6CA9CE1636996900131027 /* event_config.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD6CA9CD1636996900131027 /* event_config.plist */; };
 		BD6CA9D11636D1F200131027 /* ComboPlayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD6CA9D01636D1F200131027 /* ComboPlayer.mm */; };
+		BD8CB7CE1674AA9500210980 /* restartMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = BD8CB7C71674AA9300210980 /* restartMenu.png */; };
+		BD8CB7CF1674AA9500210980 /* restartMenu01_01.png in Resources */ = {isa = PBXBuildFile; fileRef = BD8CB7C81674AA9400210980 /* restartMenu01_01.png */; };
+		BD8CB7D01674AA9500210980 /* restartMenu01_02.png in Resources */ = {isa = PBXBuildFile; fileRef = BD8CB7C91674AA9400210980 /* restartMenu01_02.png */; };
+		BD8CB7D11674AA9500210980 /* restartMenu02_01.png in Resources */ = {isa = PBXBuildFile; fileRef = BD8CB7CA1674AA9400210980 /* restartMenu02_01.png */; };
+		BD8CB7D21674AA9500210980 /* restartMenu02_02.png in Resources */ = {isa = PBXBuildFile; fileRef = BD8CB7CB1674AA9400210980 /* restartMenu02_02.png */; };
+		BD8CB7D31674AA9500210980 /* restartMenu03_01.png in Resources */ = {isa = PBXBuildFile; fileRef = BD8CB7CC1674AA9400210980 /* restartMenu03_01.png */; };
+		BD8CB7D41674AA9500210980 /* restartMenu03_02.png in Resources */ = {isa = PBXBuildFile; fileRef = BD8CB7CD1674AA9400210980 /* restartMenu03_02.png */; };
+		BD8CB7D81674AAB900210980 /* RestartMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8CB7D61674AAB800210980 /* RestartMenuViewController.m */; };
+		BD8CB7D91674AAB900210980 /* RestartMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD8CB7D71674AAB900210980 /* RestartMenuViewController.xib */; };
 		BD9AFA0D166B9FC6009988F9 /* 3traffic.png in Resources */ = {isa = PBXBuildFile; fileRef = BD9AF9A7166B9FC6009988F9 /* 3traffic.png */; };
 		BD9AFA0E166B9FC6009988F9 /* 3trafficAlpha.png in Resources */ = {isa = PBXBuildFile; fileRef = BD9AF9A8166B9FC6009988F9 /* 3trafficAlpha.png */; };
 		BD9AFA0F166B9FC6009988F9 /* 4traffic.png in Resources */ = {isa = PBXBuildFile; fileRef = BD9AF9A9166B9FC6009988F9 /* 4traffic.png */; };
@@ -337,6 +346,16 @@
 		BD6CA9CD1636996900131027 /* event_config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = event_config.plist; sourceTree = "<group>"; };
 		BD6CA9CF1636D1F200131027 /* ComboPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComboPlayer.h; sourceTree = "<group>"; };
 		BD6CA9D01636D1F200131027 /* ComboPlayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ComboPlayer.mm; sourceTree = "<group>"; };
+		BD8CB7C71674AA9300210980 /* restartMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = restartMenu.png; sourceTree = "<group>"; };
+		BD8CB7C81674AA9400210980 /* restartMenu01_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = restartMenu01_01.png; sourceTree = "<group>"; };
+		BD8CB7C91674AA9400210980 /* restartMenu01_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = restartMenu01_02.png; sourceTree = "<group>"; };
+		BD8CB7CA1674AA9400210980 /* restartMenu02_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = restartMenu02_01.png; sourceTree = "<group>"; };
+		BD8CB7CB1674AA9400210980 /* restartMenu02_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = restartMenu02_02.png; sourceTree = "<group>"; };
+		BD8CB7CC1674AA9400210980 /* restartMenu03_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = restartMenu03_01.png; sourceTree = "<group>"; };
+		BD8CB7CD1674AA9400210980 /* restartMenu03_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = restartMenu03_02.png; sourceTree = "<group>"; };
+		BD8CB7D51674AAB800210980 /* RestartMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestartMenuViewController.h; sourceTree = "<group>"; };
+		BD8CB7D61674AAB800210980 /* RestartMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestartMenuViewController.m; sourceTree = "<group>"; };
+		BD8CB7D71674AAB900210980 /* RestartMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestartMenuViewController.xib; sourceTree = "<group>"; };
 		BD9AF9A7166B9FC6009988F9 /* 3traffic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 3traffic.png; path = Resources/3traffic.png; sourceTree = "<group>"; };
 		BD9AF9A8166B9FC6009988F9 /* 3trafficAlpha.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 3trafficAlpha.png; path = Resources/3trafficAlpha.png; sourceTree = "<group>"; };
 		BD9AF9A9166B9FC6009988F9 /* 4traffic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 4traffic.png; path = Resources/4traffic.png; sourceTree = "<group>"; };
@@ -811,9 +830,15 @@
 		BD426835166FB4E500D5789D /* GamePlayMenu */ = {
 			isa = PBXGroup;
 			children = (
+				BD8CB7D51674AAB800210980 /* RestartMenuViewController.h */,
+				BD8CB7D61674AAB800210980 /* RestartMenuViewController.m */,
+				BD8CB7D71674AAB900210980 /* RestartMenuViewController.xib */,
 				BD426841166FBCBA00D5789D /* PauseMenuViewController.h */,
 				BD426842166FBCBA00D5789D /* PauseMenuViewController.m */,
 				BD426843166FBCBA00D5789D /* PauseMenuViewController.xib */,
+				BD42683C166FB5CC00D5789D /* GamePlayViewController.h */,
+				BD42683D166FB5CC00D5789D /* GamePlayViewController.m */,
+				BD42683E166FB5CC00D5789D /* GamePlayViewController.xib */,
 			);
 			name = GamePlayMenu;
 			sourceTree = "<group>";
@@ -886,6 +911,13 @@
 		BD9AF9A6166B9FAE009988F9 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				BD8CB7C71674AA9300210980 /* restartMenu.png */,
+				BD8CB7C81674AA9400210980 /* restartMenu01_01.png */,
+				BD8CB7C91674AA9400210980 /* restartMenu01_02.png */,
+				BD8CB7CA1674AA9400210980 /* restartMenu02_01.png */,
+				BD8CB7CB1674AA9400210980 /* restartMenu02_02.png */,
+				BD8CB7CC1674AA9400210980 /* restartMenu03_01.png */,
+				BD8CB7CD1674AA9400210980 /* restartMenu03_02.png */,
 				BD42684A166FC09500D5789D /* pauseMenu01_01.png */,
 				BD42684B166FC09500D5789D /* pauseMenu01_02.png */,
 				BD42684C166FC09500D5789D /* pauseMenu02_01.png */,
@@ -1103,9 +1135,6 @@
 				BD426835166FB4E500D5789D /* GamePlayMenu */,
 				BD9AFA84166BA1E7009988F9 /* AppDelegate.h */,
 				BD9AFA85166BA1E7009988F9 /* AppDelegate.m */,
-				BD42683C166FB5CC00D5789D /* GamePlayViewController.h */,
-				BD42683D166FB5CC00D5789D /* GamePlayViewController.m */,
-				BD42683E166FB5CC00D5789D /* GamePlayViewController.xib */,
 				BD9AFA89166BA21E009988F9 /* IntroLayer.h */,
 				BD9AFA8A166BA21F009988F9 /* IntroLayer.mm */,
 				BD9AFA8B166BA21F009988F9 /* PlayDriftLayer.h */,
@@ -1747,6 +1776,14 @@
 				BD426855166FC09500D5789D /* pauseMenu03_01.png in Resources */,
 				BD426856166FC09500D5789D /* pauseMenu03_02.png in Resources */,
 				BD426857166FC09500D5789D /* pauseTab.png in Resources */,
+				BD8CB7CE1674AA9500210980 /* restartMenu.png in Resources */,
+				BD8CB7CF1674AA9500210980 /* restartMenu01_01.png in Resources */,
+				BD8CB7D01674AA9500210980 /* restartMenu01_02.png in Resources */,
+				BD8CB7D11674AA9500210980 /* restartMenu02_01.png in Resources */,
+				BD8CB7D21674AA9500210980 /* restartMenu02_02.png in Resources */,
+				BD8CB7D31674AA9500210980 /* restartMenu03_01.png in Resources */,
+				BD8CB7D41674AA9500210980 /* restartMenu03_02.png in Resources */,
+				BD8CB7D91674AAB900210980 /* RestartMenuViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1884,6 +1921,7 @@
 				BD9AFA8E166BA326009988F9 /* Console.mm in Sources */,
 				BD42683F166FB5CC00D5789D /* GamePlayViewController.m in Sources */,
 				BD426844166FBCBA00D5789D /* PauseMenuViewController.m in Sources */,
+				BD8CB7D81674AAB900210980 /* RestartMenuViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -201,6 +201,12 @@ vector<TrEdge>      _edgeRoute;
     
 }
 
+- (void) onRestart
+{
+    // set init state
+    _currentState   = STATE_DRIVE_CAR_NONE;
+}
+
 - (BOOL) onUpdate: (float) deltaTime // if retuen YES, means end current state
 {
     // timing with speed

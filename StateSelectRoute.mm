@@ -101,6 +101,11 @@ enum STATE_SELECT_ROUTE
     _menuSelectRouteArray   = nil;
 }
 
+- (void) onRestart
+{
+    
+}
+
 - (BOOL) onUpdate: (float) deltaTime // if retuen YES, means end current state
 {
     switch (_currentState)

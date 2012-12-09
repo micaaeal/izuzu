@@ -18,10 +18,6 @@
 #import <vector>
 using namespace std;
 
-// states
-#import "StateSelectRoute.h"
-#import "StateDriveCar.h"
-
 #import "Mission.h"
 #import "EventHandler.h"
 #import "Console.h"
@@ -35,9 +31,6 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
 
 @interface PlayDriftLayer()
 
-@property (retain) id<StateProtocol>    _currentState;
-@property (retain) StateSelectRoute*    _stateSelectRoute;
-@property (retain) StateDriveCar*       _stateDriveCar;
 @property (retain) CCLayer*             _actionLayer;
 
 @property (retain) NSMutableArray*      _debugButtons;
@@ -46,18 +39,17 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
 @property (assign) BOOL     _isDebug;
 
 - (void) _onToggleDebugMode: (id) sender;
-- (void) _onRestart: (id) sender;
+
 - (void) _onZoomIn: (id) sender;
 - (void) _onZoomOut: (id) sender;
 - (void) _onRemoveBackRoute: (id) sender;
-- (void) _onBackToMenu: (id) sender;
 
 @end
 
 @implementation PlayDriftLayer
-@synthesize _stateSelectRoute;
-@synthesize _stateDriveCar;
-@synthesize _currentState;
+@synthesize stateSelectRoute    = _stateSelectRoute;
+@synthesize stateDriveCar       = _stateDriveCar;
+@synthesize currentState   = _currentState;
 @synthesize _isDebug;
 @synthesize _actionLayer;
 
@@ -80,6 +72,7 @@ PlayDriftLayer* _s_playDriftLayer   = nil;
     
     // add layer as a child to scene
     [_s_playDriftScene addChild: layer];
+    layer.tag   = 101;
     
     _s_playDriftLayer   = layer;
 
@@ -187,7 +180,7 @@ PlayDriftLayer* _s_playDriftLayer   = nil;
             [mWindow addSubview:btn];
             [mWindow bringSubviewToFront:btn];
             [btn addTarget:self
-                    action:@selector(_onRestart:)
+                    action:@selector(onRestart:)
           forControlEvents:UIControlEventTouchDown];
             [_debugButtons addObject:btn];
         }
@@ -250,7 +243,7 @@ PlayDriftLayer* _s_playDriftLayer   = nil;
             [mWindow addSubview:btn];
             [mWindow bringSubviewToFront:btn];
             [btn addTarget:self
-                    action:@selector(_onBackToMenu:)
+                    action:@selector(onBackToMenu:)
           forControlEvents:UIControlEventTouchDown];
             [_debugButtons addObject:btn];
         }
@@ -279,7 +272,12 @@ PlayDriftLayer* _s_playDriftLayer   = nil;
     }
 }
 
-- (void) _onRestart: (id) sender
+- (void) onRstartDrive: (id) sender
+{
+    
+}
+
+- (void) onRestart: (id) sender
 {
     _currentState   = _stateSelectRoute;
     [_currentState onFinish];
@@ -321,7 +319,7 @@ static int   _s_zoomLevelSize       = 6;
     }
 }
 
-- (void) _onBackToMenu: (id) sender
+- (void) onBackToMenu: (id) sender
 {
     [[GameFlowSignal getObject] finishPlayDriftLayer:self];
 }
@@ -466,7 +464,7 @@ CGPoint _touchDeltaLastFrame;
         [cView setHidden:YES];
     }
     
-    [self _onRestart:sender];
+    [self onRestart:sender];
 }
 
 - (void) onFinishPlayDriftLayer:(id)sender

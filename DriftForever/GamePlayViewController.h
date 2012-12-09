@@ -8,10 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "PauseMenuViewController.h"
+#import "RestartMenuViewController.h"
 
-@interface GamePlayViewController : UIViewController
+@class PlayDriftLayer;
+@interface GamePlayViewController : UIViewController <PauseMenuViewDelegate, RestartMenuViewDelegate>
 
+@property (assign) PlayDriftLayer*  playDriftLayer;
 @property (retain, nonatomic) IBOutlet PauseMenuViewController *pauseMenuViewController;
+@property (retain, nonatomic) IBOutlet RestartMenuViewController *restartMenuViewController;
+
+@property (retain, nonatomic) IBOutlet UIButton *btnPause;
 
 - (IBAction)onPause:(id)sender;
 
