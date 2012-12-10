@@ -74,12 +74,16 @@
     [self.view addSubview:_winMenuViewController.view];
     [_winMenuViewController initDataByHand:self isWin:YES];
     _winMenuViewController.delegate = self;
+    
+    [[CCDirector sharedDirector] pause];
 }
 - (IBAction) onLost: (id) sender
 {
     [self.view addSubview:_winMenuViewController.view];
     [_winMenuViewController initDataByHand:self isWin:NO];
     _winMenuViewController.delegate = self;
+    
+    [[CCDirector sharedDirector] pause];
 }
 
 #pragma mark - PauseMenuViewDelegate + RestartMenuViewDelegate

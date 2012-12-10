@@ -385,6 +385,14 @@ vector<TrEdge>      _edgeRoute;
             [[Console getObject] SetFuelNorm:fuelNorm];
             [[Console getObject] Update:deltaTime];
             
+            if ( fuelNorm <= 0.0f )
+            {
+                if ( delegate )
+                {
+                    [delegate onGetStateMessage:@"lost" sender:self];
+                }
+            }
+            
             if ( ! [Car isPlayingAnyAnim] )
             {
                 [self _moveCarWithTime:deltaTime realTime:realTime];
