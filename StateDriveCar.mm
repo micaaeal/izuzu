@@ -96,6 +96,7 @@ enum STATE_DRIVE_CAR
 @end
 
 @implementation StateDriveCar
+@synthesize delegate;
 @synthesize layer;
 @synthesize _camInitX;
 @synthesize _camInitY;
@@ -415,6 +416,11 @@ vector<TrEdge>      _edgeRoute;
         case STATE_DRIVE_CAR_REACH_TARGET:
         {
             printf ( "car is reaching the target!!!\n" );
+            if ( delegate )
+            {
+                [delegate onGetStateMessage:@"win" sender:self];
+            }
+            
             _currentState   = STATE_DRIVE_CAR_FINISH;
         }
             break;

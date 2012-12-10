@@ -15,12 +15,20 @@
 #import "StateSelectRoute.h"
 #import "StateDriveCar.h"
 
-@interface PlayDriftLayer : CCLayer <GameFlowSignalDelegate>
+@protocol PlayDriftLayerDelegate <NSObject>
+
+- (void) onWin: (id) sender;
+- (void) onLost: (id) sender;
+
+@end
+
+@interface PlayDriftLayer : CCLayer <GameFlowSignalDelegate, StateDelegate>
 {
 }
 
 +(CCScene *) scene;
 
+@property (assign) id<PlayDriftLayerDelegate> delegate;
 @property (retain) StateSelectRoute*    stateSelectRoute;
 @property (retain) StateDriveCar*       stateDriveCar;
 @property (retain) id<StateProtocol>    currentState;

@@ -10,7 +10,6 @@
 
 #import "AppDelegate.h"
 #import "IntroLayer.h"
-#import "PlayDriftLayer.h"
 
 @interface AppController()
 {
@@ -262,6 +261,7 @@
                                                                                      scene:playDriftScene
                                                                                  withColor:ccWHITE]];
         PlayDriftLayer* playDriftLayer  = (PlayDriftLayer*)[playDriftScene getChildByTag:101];
+        playDriftLayer.delegate = self;
         _gamePlayViewController.playDriftLayer  = playDriftLayer;
     }
     else
@@ -284,6 +284,18 @@
 {
     [self _unloadCocosDirector];
     [self _loadMenuView];
+}
+
+#pragma mark - PlayDriftLayerDelegate
+
+- (void) onWin:(id)sender
+{
+    [_gamePlayViewController onWin:self];
+}
+
+- (void) onLost:(id)sender
+{
+    [_gamePlayViewController onLost:self];
 }
 
 @end

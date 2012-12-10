@@ -56,6 +56,7 @@ enum STATE_SELECT_ROUTE
 @end
 
 @implementation StateSelectRoute
+@synthesize delegate;
 @synthesize layer;
 @synthesize _vertexRoute;
 @synthesize _edgeRoute;

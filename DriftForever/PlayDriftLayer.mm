@@ -100,7 +100,9 @@ PlayDriftLayer* _s_playDriftLayer   = nil;
         
         // init states
         _stateSelectRoute   = [[StateSelectRoute alloc] init];
+        _stateSelectRoute.delegate  = self;
         _stateDriveCar      = [[StateDriveCar alloc] init];
+        _stateDriveCar.delegate = self;
         [EventHandler getObject].delegate   = _stateDriveCar;
         _currentState       = _stateSelectRoute;
         
@@ -470,6 +472,26 @@ CGPoint _touchDeltaLastFrame;
 - (void) onFinishPlayDriftLayer:(id)sender
 {
     // do nothing for this object
+}
+
+#pragma mark - StateDelegate
+
+- (void) onGetStateMessage:(NSString *)message sender:(id)sender
+{
+    if ( ! _delegate )
+        return;
+    
+    if ( sender == _stateDriveCar )
+    {
+        if ( [message isEqualToString:@"win"] )
+        {
+            [_delegate onWin:self];
+        }
+        else if ( [message isEqualToString:@"lost"] )
+        {
+            [_delegate onLost:self];
+        }
+    }
 }
 
 @end

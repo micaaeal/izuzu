@@ -9,8 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
+@protocol StateDelegate <NSObject>
+
+- (void) onGetStateMessage: (NSString*) message sender: (id) sender;
+
+@end
+
 @protocol StateProtocol <NSObject>
 
+@property (retain) id<StateDelegate> delegate;
 @property (assign) CCLayer* layer;
 
 - (void) onStart;

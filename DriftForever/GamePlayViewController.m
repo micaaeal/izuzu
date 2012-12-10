@@ -49,12 +49,14 @@
     [_pauseMenuViewController release];
     [_btnPause release];
     [_restartMenuViewController release];
+    [_winMenuViewController release];
     [super dealloc];
 }
 - (void)viewDidUnload {
     [self setPauseMenuViewController:nil];
     [self setBtnPause:nil];
     [self setRestartMenuViewController:nil];
+    [self setWinMenuViewController:nil];
     [super viewDidUnload];
 }
 - (IBAction)onPause:(id)sender {
@@ -65,6 +67,19 @@
     
     [[CCDirector sharedDirector] pause];
     
+}
+
+- (IBAction) onWin: (id) sender
+{
+    [self.view addSubview:_winMenuViewController.view];
+    [_winMenuViewController initDataByHand:self isWin:YES];
+    _winMenuViewController.delegate = self;
+}
+- (IBAction) onLost: (id) sender
+{
+    [self.view addSubview:_winMenuViewController.view];
+    [_winMenuViewController initDataByHand:self isWin:NO];
+    _winMenuViewController.delegate = self;
 }
 
 #pragma mark - PauseMenuViewDelegate + RestartMenuViewDelegate
@@ -115,11 +130,20 @@
     }
 }
 
-#pragma mark - RestartMenuViewDelegate
+#pragma mark - RestartMenuViewDelegate & WinMenuViewDelegate
 
 - (void) onRestart: (id) sender
 {
-    [_restartMenuViewController.view removeFromSuperview];
+    if ( sender == _restartMenuViewController )
+    {
+        [_restartMenuViewController.view removeFromSuperview];
+    }
+    else if ( sender == _winMenuViewController )
+    {
+        [_winMenuViewController.view removeFromSuperview];
+        [self onNewPath:self];
+        return;
+    }
     
     if ( _playDriftLayer )
     {
@@ -130,6 +154,9 @@
         }
     }
 }
+
+#pragma mark - RestartMenuViewDelegate
+
 - (void) onNewPath: (id) sender
 {
     [_restartMenuViewController.view removeFromSuperview];
@@ -139,6 +166,18 @@
         [[CCDirector sharedDirector] resume];
         [_playDriftLayer onRestart:self];
     }
+}
+
+#pragma mark - WinMenuViewDelegate
+
+- (void) onNext:(id)sender
+{
+    
+}
+
+- (void) onShare:(id)sender
+{
+    
 }
 
 @end
