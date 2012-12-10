@@ -10,16 +10,22 @@
 #import "Event.h"
 #import "cocos2d.h"
 
+// --------------------------------------------------------
+@interface MissionProfile : NSObject
+@property (assign) int  startVertexCode;
+@property (assign) int  endVertexCode;
+@end
+
+@implementation MissionProfile
+@end
+
+// --------------------------------------------------------
 static Mission* _s_mission  = nil;
 
 @interface Mission()
 
-@property (assign) int  _code;
-@property (assign) int  _vertexStart;
-@property (assign) int  _vertexEnd;
-
-@property (assign) int  _missionCode;
-@property (retain) NSMutableDictionary* _missionCacheDict;
+@property (assign) int _currentMissionCode;
+@property (retain) NSMutableArray* _missionArray;
 
 @property (retain) CCSprite*    _winFlag;
 @property (retain) CCSprite*    _startSign;
@@ -27,12 +33,8 @@ static Mission* _s_mission  = nil;
 @end
 
 @implementation Mission
-@synthesize _code;
-@synthesize _vertexStart;
-@synthesize _vertexEnd;
-
-@synthesize _missionCode;
-@synthesize _missionCacheDict;
+@synthesize _currentMissionCode;
+@synthesize _missionArray;
 
 @synthesize _winFlag;
 @synthesize _startSign;
@@ -49,13 +51,76 @@ static Mission* _s_mission  = nil;
     return _s_mission;
 }
 
+#pragma mark - Memory management methods
+
+- (id) init
+{
+    self    = [super init];
+    if (self)
+    {
+        _missionArray   = [[NSMutableArray alloc] init];
+    }
+    return self;
+}
+
+- (void) dealloc
+{
+    [_missionArray release];
+    _missionArray   = nil;
+    
+    [super dealloc];
+}
+
 - (void) loadData
 {
+    // image
     _winFlag    = [CCSprite spriteWithFile:@"win_flag.png"];
     _startSign  = [CCSprite spriteWithFile:@"start_sign.png"];
     
     [_winFlag retain];
     [_startSign retain];
+    
+    // mission data
+    {
+        MissionProfile* cMissionProfile = [[MissionProfile alloc] init];
+        cMissionProfile.startVertexCode = 21;
+        cMissionProfile.endVertexCode   = 23;
+        [_missionArray addObject:cMissionProfile];
+        [cMissionProfile release];
+        cMissionProfile = nil;
+    }
+    {
+        MissionProfile* cMissionProfile = [[MissionProfile alloc] init];
+        cMissionProfile.startVertexCode = 1;
+        cMissionProfile.endVertexCode   = 10;
+        [_missionArray addObject:cMissionProfile];
+        [cMissionProfile release];
+        cMissionProfile = nil;
+    }
+    {
+        MissionProfile* cMissionProfile = [[MissionProfile alloc] init];
+        cMissionProfile.startVertexCode = 10;
+        cMissionProfile.endVertexCode   = 20;
+        [_missionArray addObject:cMissionProfile];
+        [cMissionProfile release];
+        cMissionProfile = nil;
+    }
+    {
+        MissionProfile* cMissionProfile = [[MissionProfile alloc] init];
+        cMissionProfile.startVertexCode = 30;
+        cMissionProfile.endVertexCode   = 0;
+        [_missionArray addObject:cMissionProfile];
+        [cMissionProfile release];
+        cMissionProfile = nil;
+    }
+    {
+        MissionProfile* cMissionProfile = [[MissionProfile alloc] init];
+        cMissionProfile.startVertexCode = 2;
+        cMissionProfile.endVertexCode   = 15;
+        [_missionArray addObject:cMissionProfile];
+        [cMissionProfile release];
+        cMissionProfile = nil;
+    }
 }
 
 - (void) unloadData
@@ -81,85 +146,29 @@ static Mission* _s_mission  = nil;
 
 - (void) setCurrentMissionCode: (int) missionCode
 {
-    _missionCode  = 0;
+    _currentMissionCode  = missionCode;
 }
 
 - (int) getCurrentMissionCode
 {
-    return _missionCode;
+    return _currentMissionCode;
 }
 
-- (Mission*) GetMissionFromCode: (int) missionCode
+- (int) getMissionCount
 {
-    if ( ! _missionCacheDict )
-    {
-        _missionCacheDict   = [[NSMutableDictionary alloc] init];
-    }
-    
-    // search by mission id
-    int cMissionCode    = 0;
-    if ( cMissionCode == missionCode )
-    {
-        // get mission from cache
-        NSString* missionCodeStr    = [[NSString alloc] initWithFormat:@"%d", cMissionCode];
-        Mission* missionFromCache   = [_missionCacheDict objectForKey:missionCodeStr];
-        if ( missionFromCache )
-        {
-            return missionFromCache;
-        }
-        
-        // create new mission
-        Mission* cMission   = [[Mission alloc] init];
-        cMission._code      = cMissionCode;
-        cMission._vertexStart   = 21; // config this line !
-        cMission._vertexEnd     = 23; // config this line !
-
-        [_missionCacheDict setObject:cMission forKey:missionCodeStr];
-        
-        [cMission release];
-        cMission    = nil;
-        
-        return [_missionCacheDict objectForKey:missionCodeStr];
-    }
-    ++cMissionCode;
-    
-    return nil;
+    return _missionArray.count;
 }
 
-- (void) removeAllMissionCache
+- (int) GetStartVertexFromMissionCode: (int) missionCode
 {
-    [_missionCacheDict removeAllObjects];
-    [_missionCacheDict release];
-    _missionCacheDict = nil;
+    MissionProfile* cMissionProfile = [_missionArray objectAtIndex:missionCode];
+    return cMissionProfile.startVertexCode;
 }
 
-- (int) GetStartVertex
+- (int) GetEndVertexFromMissionCode: (int) missionCode
 {
-    return _vertexStart;
-}
-
-- (int) GetEndVertex
-{
-    return _vertexEnd;
-}
-
-#pragma mark - Memory management methods
-
-- (id) init
-{
-    self    = [super init];
-    if (self)
-    {
-        _vertexStart    = 0;
-        _vertexEnd      = 0;
-    }
-    return self;
-}
-
-- (void) dealloc
-{
-    
-    [super dealloc];
+    MissionProfile* cMissionProfile = [_missionArray objectAtIndex:missionCode];
+    return cMissionProfile.endVertexCode;
 }
 
 @end

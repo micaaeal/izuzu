@@ -17,6 +17,9 @@
 
 @protocol PlayDriftLayerDelegate <NSObject>
 
+- (void) onRestart: (id) sender;
+- (void) onReadyToDrive: (id) sender;
+- (void) onPathNotReady: (id) sender;
 - (void) onWin: (id) sender;
 - (void) onLost: (id) sender;
 
@@ -37,4 +40,10 @@
 - (void) onRestart: (id) sender;
 - (void) onBackToMenu: (id) sender;
 
+- (void) setReadyToDrive: (id) sender;
+
+- (void) onErase: (id) sender;
+- (void) onDraw: (id) sender;
+- (void) onZoomIn: (id) sender;
+- (void) onZoomOut: (id) sender;
 @end

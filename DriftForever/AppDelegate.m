@@ -227,29 +227,29 @@
     navController_.view.frame   = _gamePlayViewController.view.bounds;
     [_gamePlayViewController.view sendSubviewToBack:navController_.view];
     [window_ setRootViewController:_gamePlayViewController];
+    _gamePlayViewController.delegate    = self;
+    [_gamePlayViewController initDataByHand:self];
 }
 
 - (void) _unloadCocosDirector
 {
-    
+    // do nothing
 }
 
 - (void) _resumeCocosDirector
 {
     _isOnResume = YES;
     
-    //[director_ pushScene: [IntroLayer scene]];
-    
     [window_ setRootViewController:navController_];
     
-    [[GameFlowSignal getObject] startPlayDrifLayer:self];
+    [[GameFlowSignal getObject] finishedLoadingLayer:self];
 }
 
 #pragma mark - GameFlowSignalDelegate
 
 - (void) onStartLoadingLayer:(id)sender
 {
-    
+    // do nothing
 }
 
 - (void) onFinishLoadingLayer:(id)sender
@@ -271,6 +271,7 @@
     
     [[GameFlowSignal getObject] unSetLoadingLayer];
     [[GameFlowSignal getObject] startPlayDrifLayer:self];
+    [_gamePlayViewController initDataByHand:self];
     
     _isOnResume = NO;
 }
@@ -296,6 +297,53 @@
 - (void) onLost:(id)sender
 {
     [_gamePlayViewController onLost:self];
+}
+
+- (void) onReadyToDrive:(id)sender
+{
+    [_gamePlayViewController onReadyToDrive:self];
+}
+
+- (void) onPathNotReady: (id) sender
+{
+    [_gamePlayViewController onPathNotFinishYet:self];
+}
+
+- (void) onRestart:(id)sender
+{
+    [_gamePlayViewController onRestart:self];
+}
+
+#pragma mark - GamePlayViewDelegate
+
+- (void) onGoDrive:(id)sender
+{
+    [_gamePlayViewController.playDriftLayer setReadyToDrive:self];
+}
+
+- (void) onBack: (id) sender
+{
+    [_gamePlayViewController.playDriftLayer onBackToMenu:self];
+}
+
+- (void) onErase: (id) sender
+{
+    [_gamePlayViewController.playDriftLayer onErase:self];
+}
+
+- (void) onDraw: (id) sender
+{
+    [_gamePlayViewController.playDriftLayer onDraw:self];
+}
+
+- (void) onZoomIn:(id)sender
+{
+    [_gamePlayViewController.playDriftLayer onZoomIn:self];
+}
+
+- (void) onZoomOut:(id)sender
+{
+    [_gamePlayViewController.playDriftLayer onZoomOut:self];
 }
 
 @end

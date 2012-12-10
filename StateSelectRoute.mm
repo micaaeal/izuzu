@@ -47,7 +47,6 @@ enum STATE_SELECT_ROUTE
 @property (assign) BOOL                _hasSelectedRouteThisPoint;
 @property (assign) STATE_SELECT_ROUTE  _currentState;
 
-@property (retain) Mission*            _currentMission;
 @property (assign) CGPoint             _currentCamPoint;
 
 @property (assign) CGPoint              _touchAtBegin;
@@ -66,7 +65,6 @@ enum STATE_SELECT_ROUTE
 @synthesize _currentConnectedVertices;
 @synthesize _hasSelectedRouteThisPoint;
 @synthesize _currentState;
-@synthesize _currentMission;
 @synthesize _currentCamPoint;
 @synthesize _touchAtBegin;
 @synthesize _touchDeltaLastFrame;
@@ -123,14 +121,15 @@ enum STATE_SELECT_ROUTE
             
             // set currentVertexPtr from the @Mission
             int cMissionCode    = [[Mission getObject] getCurrentMissionCode];
-            Mission* cMission   = [[Mission getObject] GetMissionFromCode:cMissionCode];
-            _currentMission = cMission;
             
             // all about route graph
             RouteGraph& routeGraph  = [[World getObject] GetRouteGraph];
             vector<TrVertex> allVertices    = routeGraph.GetAllVertices();
-            _startVertex    = allVertices[[_currentMission GetStartVertex]];
-            _finishVertex   = allVertices[[_currentMission GetEndVertex]];
+            
+            int startVertex = [[Mission getObject] GetStartVertexFromMissionCode:cMissionCode];
+            int endVertex   = [[Mission getObject] GetEndVertexFromMissionCode:cMissionCode];
+            _startVertex    = allVertices[startVertex];
+            _finishVertex   = allVertices[endVertex];
             
             // set mission start sign & win flag
             [[Mission getObject] setStarSignPoint:_startVertex.point];

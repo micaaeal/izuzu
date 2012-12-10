@@ -20,9 +20,11 @@
 
 @property (assign) id<WinLostMenuViewDelegate> delegate;
 
+@property (retain, nonatomic) IBOutlet UIImageView *imgBg;
 @property (retain, nonatomic) IBOutlet UIImageView *imgCharacter;
 @property (retain, nonatomic) IBOutlet UIImageView *imgWinLabel;
 @property (retain, nonatomic) IBOutlet UIImageView *imgScoreBg;
+
 @property (retain, nonatomic) IBOutlet UIButton *btnRestart;
 
 @property (retain, nonatomic) IBOutlet UIButton *btnNext;

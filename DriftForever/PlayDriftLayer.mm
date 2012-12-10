@@ -38,10 +38,11 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
 
 @property (assign) BOOL     _isDebug;
 
+@property (assign) BOOL     _isReadyToDrive;
+@property (assign) BOOL     _isNotFinishedYet;
+
 - (void) _onToggleDebugMode: (id) sender;
 
-- (void) _onZoomIn: (id) sender;
-- (void) _onZoomOut: (id) sender;
 - (void) _onRemoveBackRoute: (id) sender;
 
 @end
@@ -55,6 +56,9 @@ static CCMenuItemFont*  _s_restartBtn   = NULL;
 
 @synthesize _debugButtons;
 @synthesize _rootDebugButton;
+
+@synthesize _isReadyToDrive;
+@synthesize _isNotFinishedYet;
 
 CCScene*        _s_playDriftScene   = nil;
 PlayDriftLayer* _s_playDriftLayer   = nil;
@@ -92,6 +96,8 @@ PlayDriftLayer* _s_playDriftLayer   = nil;
     {
         // set flags
         _isDebug    = NO;
+        _isReadyToDrive = NO;
+        _isNotFinishedYet   = YES;
      
         // init all sub layers
         CCLayer* actionLayer = [[[CCLayer alloc] init] autorelease];
@@ -198,7 +204,7 @@ PlayDriftLayer* _s_playDriftLayer   = nil;
             [mWindow addSubview:btn];
             [mWindow bringSubviewToFront:btn];
             [btn addTarget:self
-                    action:@selector(_onZoomIn:)
+                    action:@selector(onZoomIn:)
           forControlEvents:UIControlEventTouchDown];
             [_debugButtons addObject:btn];
         }
@@ -214,7 +220,7 @@ PlayDriftLayer* _s_playDriftLayer   = nil;
             [mWindow addSubview:btn];
             [mWindow bringSubviewToFront:btn];
             [btn addTarget:self
-                    action:@selector(_onZoomOut:)
+                    action:@selector(onZoomOut:)
           forControlEvents:UIControlEventTouchDown];
             [_debugButtons addObject:btn];
         }
@@ -276,24 +282,35 @@ PlayDriftLayer* _s_playDriftLayer   = nil;
 
 - (void) onRstartDrive: (id) sender
 {
-    
+    _s_currentZoomLevel = 0;
+    [[Camera getObject] zoomTo:_s_zoomLevel[_s_currentZoomLevel]];
 }
 
 - (void) onRestart: (id) sender
 {
+    _isNotFinishedYet   = YES;
+    _isReadyToDrive = NO;
+    
     _currentState   = _stateSelectRoute;
     [_currentState onFinish];
     [_currentState onStart];
     
     [[Console getObject] hideConsole];
+    
+    _s_currentZoomLevel = 0;
+    [[Camera getObject] zoomTo:_s_zoomLevel[_s_currentZoomLevel]];
+    
+    if ( _delegate )
+    {
+        [_delegate onRestart:self];
+    }
 }
 
-static int _s_currentZoomLevel    = 0;
-static float _s_zoomLevel[]         = {0.19f, 0.23f, 0.25f, 0.45f, 0.6f, 1.0f};
-//static float _s_zoomLevel[]         = {0.1f, 0.023f, 0.025f, 0.045f, 0.06f, 0.10f};
-static int   _s_zoomLevelSize       = 6;
+static int _s_currentZoomLevel  = 0;
+static float _s_zoomLevel[]     = {0.19f, 0.31f, 0.6f};
+static int   _s_zoomLevelSize   = 3;
 
-- (void) _onZoomIn: (id) sender
+- (void) onZoomIn: (id) sender
 {
     if ( ! ( _s_currentZoomLevel < (_s_zoomLevelSize-1) ) )
         return;
@@ -303,7 +320,7 @@ static int   _s_zoomLevelSize       = 6;
     [[Camera getObject] zoomTo:_s_zoomLevel[_s_currentZoomLevel]];
 }
 
-- (void) _onZoomOut: (id) sender
+- (void) onZoomOut: (id) sender
 {
     if ( _s_currentZoomLevel <= 0 )
         return;
@@ -350,6 +367,21 @@ static int   _s_zoomLevelSize       = 6;
 	[super dealloc];
 }
 
+- (void) setReadyToDrive: (id) sender
+{
+    _isReadyToDrive = YES;
+}
+
+- (void) onErase: (id) sender
+{
+    [self _onRemoveBackRoute:self];
+}
+
+- (void) onDraw: (id) sender
+{
+    // do nothing
+}
+
 #pragma mark - frame-by-frame reutines
 
 - (void) onUpdate:(ccTime)dt
@@ -359,8 +391,23 @@ static int   _s_zoomLevelSize       = 6;
     
     // update state
     BOOL isNotFinishedYet  = [_currentState onUpdate:dt];
+    
+    if ( ( ! isNotFinishedYet ) && ( _isNotFinishedYet ))
+    {
+        if ( _delegate )
+        {
+            [_delegate onReadyToDrive:self];
+        }
+    }
+    
+    _isNotFinishedYet   = isNotFinishedYet;
     if ( isNotFinishedYet )
         return;
+    
+    if ( ! _isReadyToDrive )
+    {
+        return;
+    }
     
     // start new state
     if ( _currentState == _stateSelectRoute )

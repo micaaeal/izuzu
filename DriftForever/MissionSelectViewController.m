@@ -7,6 +7,7 @@
 //
 
 #import "MissionSelectViewController.h"
+#import "Mission.h"
 
 @interface MissionSelectViewController ()
 
@@ -30,12 +31,6 @@
     // Do any additional setup after loading the view from its nib.
     
     [_btnBack setImage:[UIImage imageNamed:@"backButton02"] forState:UIControlStateHighlighted];
-    
-    // Manual set
-    [_btnMission02 setEnabled:NO];
-    [_btnMission03 setEnabled:NO];
-    [_btnMission04 setEnabled:NO];
-    [_btnMission05 setEnabled:NO];
 }
 
 - (void)didReceiveMemoryWarning
@@ -66,6 +61,31 @@
 
 - (IBAction)onSelectMission:(id)sender
 {
+    // set button by clicking at button
+    int cMissionCode   = 0;
+    if ( sender == _btnMission01 )
+    {
+        cMissionCode   = 0;
+    }
+    else if ( sender == _btnMission02 )
+    {
+        cMissionCode   = 1;
+    }
+    else if ( sender == _btnMission03 )
+    {
+        cMissionCode   = 2;
+    }
+    else if ( sender == _btnMission04 )
+    {
+        cMissionCode   = 3;
+    }
+    else if ( sender == _btnMission05 )
+    {
+        cMissionCode   = 4;
+    }
+    [[Mission getObject] setCurrentMissionCode:cMissionCode];
+    
+    // delegate callback
     if ( delegate )
     {
         [delegate onSelectMission:self];

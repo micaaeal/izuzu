@@ -8,8 +8,12 @@
 
 #import "GamePlayViewController.h"
 #import "PlayDriftLayer.h"
+#import "Mission.h"
 
 @interface GamePlayViewController ()
+
+- (void) _showSelectRouteUI;
+- (void) _showDrivingCarUI;
 
 @end
 
@@ -31,6 +35,12 @@
     
     // Set button highlighted state
     [_btnPause setImage:[UIImage imageNamed:@"pauseButton02.png"] forState:UIControlStateHighlighted];
+    
+    // UI.
+    [_btnDrawPath setImage:[UIImage imageNamed:@"drawPathButton02.png"] forState:UIControlStateHighlighted];
+    [_btnErasePath setImage:[UIImage imageNamed:@"erasePathButton02.png"] forState:UIControlStateHighlighted];
+    [_btnBack setImage:[UIImage imageNamed:@"backButton02.png"] forState:UIControlStateHighlighted];
+    [_btnOK setImage:[UIImage imageNamed:@"okButton02.png"] forState:UIControlStateHighlighted];
 }
 
 - (void)didReceiveMemoryWarning
@@ -50,6 +60,12 @@
     [_btnPause release];
     [_restartMenuViewController release];
     [_winMenuViewController release];
+    [_btnOK release];
+    [_btnBack release];
+    [_btnErasePath release];
+    [_btnDrawPath release];
+    [_btnZoomIn release];
+    [_btnZoomOut release];
     [super dealloc];
 }
 - (void)viewDidUnload {
@@ -57,8 +73,20 @@
     [self setBtnPause:nil];
     [self setRestartMenuViewController:nil];
     [self setWinMenuViewController:nil];
+    [self setBtnOK:nil];
+    [self setBtnBack:nil];
+    [self setBtnErasePath:nil];
+    [self setBtnDrawPath:nil];
+    [self setBtnZoomIn:nil];
+    [self setBtnZoomOut:nil];
     [super viewDidUnload];
 }
+
+- (void) initDataByHand: (id) sender
+{
+    [self _showSelectRouteUI];
+}
+
 - (IBAction)onPause:(id)sender {
     
     [self.view addSubview:_pauseMenuViewController.view];
@@ -84,6 +112,60 @@
     _winMenuViewController.delegate = self;
     
     [[CCDirector sharedDirector] pause];
+}
+
+- (IBAction)onOk:(id)sender {
+    
+    [self _showDrivingCarUI];
+    
+    if ( _delegate )
+    {
+        [_delegate onGoDrive:self];
+    }
+}
+
+- (IBAction)onBack:(id)sender {
+    if ( _delegate )
+    {
+        [_delegate onBack:self];
+    }
+}
+
+- (IBAction)onErase:(id)sender {
+    if ( _delegate )
+    {
+        [_delegate onErase:self];
+    }
+}
+
+- (IBAction)onDraw:(id)sender {
+    if ( _delegate )
+    {
+        [_delegate onDraw:self];
+    }
+}
+
+- (IBAction)onZoomIn:(id)sender {
+    if (_delegate)
+    {
+        [_delegate onZoomIn:self];
+    }
+}
+
+- (IBAction)onZoomOut:(id)sender {
+    if ( _delegate )
+    {
+        [_delegate onZoomOut:self];
+    }
+}
+
+- (void) onReadyToDrive: (id) sender
+{
+    [_btnOK setEnabled:YES];
+}
+- (void) onPathNotFinishYet: (id) sender
+{
+    [_btnOK setEnabled:NO];
 }
 
 #pragma mark - PauseMenuViewDelegate + RestartMenuViewDelegate
@@ -153,8 +235,14 @@
     {
         if ( _playDriftLayer.currentState == _playDriftLayer.stateDriveCar )
         {
+            [self _showDrivingCarUI];
             [[CCDirector sharedDirector] resume];
             [_playDriftLayer.currentState onRestart];
+        }
+        else
+        {
+            [self _showSelectRouteUI];
+            
         }
     }
 }
@@ -176,12 +264,53 @@
 
 - (void) onNext:(id)sender
 {
+    int cMissionCode    = [[Mission getObject] getCurrentMissionCode];
+    int missionCount    = [[Mission getObject] getMissionCount];
     
+    if ( cMissionCode < (missionCount-1) )
+    {
+        ++cMissionCode;
+        [[Mission getObject] setCurrentMissionCode:cMissionCode];
+        
+        if ( _playDriftLayer )
+        {
+            [[CCDirector sharedDirector] resume];
+            [_playDriftLayer onRestart:self];
+        }
+    }
 }
 
 - (void) onShare:(id)sender
 {
     
+}
+
+#pragma mark - PIMPL
+
+- (void) _showSelectRouteUI
+{
+    [_btnBack setHidden:NO];
+    [_btnOK setHidden:NO];
+    [_btnOK setEnabled:NO];
+    [_btnDrawPath setHidden:NO];
+    [_btnErasePath setHidden:NO];
+    [_btnZoomIn setHidden:NO];
+    [_btnZoomOut setHidden:NO];
+    
+    [_btnPause setHidden:YES];
+}
+
+- (void) _showDrivingCarUI
+{
+    [_btnBack setHidden:YES];
+    [_btnOK setHidden:YES];
+    [_btnOK setEnabled:NO];
+    [_btnDrawPath setHidden:YES];
+    [_btnErasePath setHidden:YES];
+    [_btnZoomIn setHidden:YES];
+    [_btnZoomOut setHidden:YES];
+    
+    [_btnPause setHidden:NO];
 }
 
 @end

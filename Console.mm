@@ -88,8 +88,8 @@ static Console*    _s_console = nil;
     _spriteFuel     = [CCSprite spriteWithFile:@"fuel_gauge.png"];
     _spriteFuelGaugeNeedle  = [CCSprite spriteWithFile:@"fuel_gauge_needle.png"];
     
-    _accelSprite    = [CCSprite spriteWithFile:@"accel_padel.png"];
-    _breakSprite    = [CCSprite spriteWithFile:@"break_padel.png"];
+    _accelSprite    = [CCSprite spriteWithFile:@"AcceleratorButton.png"];
+    _breakSprite    = [CCSprite spriteWithFile:@"breakButton.png"];
     
     _spriteSpeedMeter   = [CCSprite spriteWithFile:@"speed_meter.png"];
     
@@ -114,44 +114,47 @@ static Console*    _s_console = nil;
     CGSize winSize          = [CCDirector sharedDirector].winSize;
     
     // meter
-    CGPoint fuelGaugePoint  = CGPointMake(winSize.width - 40,
-                                          winSize.height - 40);
+    CGPoint fuelGaugePoint  = CGPointMake(winSize.width - 65,
+                                          winSize.height - 65);
     
     [_spriteFuel setPosition:fuelGaugePoint];
+    [_spriteFuel setScale:0.5f];
     [_spriteFuel setScale:[UtilVec convertScaleIfRetina:_spriteFuel.scale]];
 
     [_spriteFuelGaugeNeedle setAnchorPoint:CGPointMake(0.5f,
-                                                       0.2f)];
+                                                       0.1f)];
 
     [_spriteFuelGaugeNeedle setPosition:CGPointMake(fuelGaugePoint.x - 0.2,
                                                     fuelGaugePoint.y + 2.0f )];
-    
+    [_spriteFuelGaugeNeedle setScale:0.5f];
     [_spriteFuelGaugeNeedle setScale:[UtilVec convertScaleIfRetina:_spriteFuelGaugeNeedle.scale]];
 
     // text speed
     [layer addChild:_spriteSpeedMeter];
     [layer addChild:_txtSpeed];
-    [_spriteSpeedMeter setPosition:CGPointMake(80.0f, winSize.height - 77)];
+    [_spriteSpeedMeter setPosition:CGPointMake(61.0f, winSize.height - 90)];
     [_spriteSpeedMeter setScale:[UtilVec convertScaleIfRetina:_spriteSpeedMeter.scale]];
-    [_txtSpeed setPosition:CGPointMake(0.0f, winSize.height - 105)];
+    [_txtSpeed setPosition:CGPointMake(-20.0f, winSize.height - 118)];
     [_txtSpeed setScale:[UtilVec convertScaleIfRetina:_txtSpeed.scale]];
     
     // padel
     CGFloat accelPadelX     = winSize.width - 40.0f;
-    CGFloat accelPadelY     = 80.0f;
-    CGFloat breakPadelX     = winSize.width - 100.0f;
-    CGFloat breakPadelY     = 60.0f;
+    CGFloat accelPadelY     = 50.0f;
+    CGFloat breakPadelX     = winSize.width - 120.0f;
+    CGFloat breakPadelY     = 40.0f;
     
     if ( _accelSprite )
     {
-        [layer addChild:_accelSprite];      
+        [layer addChild:_accelSprite];
+        [_accelSprite setScale:0.5f];
         [_accelSprite setPosition:CGPointMake(accelPadelX, accelPadelY)];
         [_accelSprite setScale:[UtilVec convertScaleIfRetina:_accelSprite.scale]];
     }
     
     if ( _breakSprite )
     {
-        [layer addChild:_breakSprite];        
+        [layer addChild:_breakSprite];
+        [_breakSprite setScale:0.5f];
         [_breakSprite setPosition:CGPointMake(breakPadelX, breakPadelY)];
         [_breakSprite setScale:[UtilVec convertScaleIfRetina:_breakSprite.scale]];
     }
@@ -162,8 +165,10 @@ static Console*    _s_console = nil;
     // update fuel
     if ( _spriteFuel && _spriteFuelGaugeNeedle )
     {
-        float angleMax      = 90;
-        float angleMin      = -180;
+        //float angleMax      = 90;
+        //float angleMin      = -180;
+        float angleMax      = -180;
+        float angleMin      = 90;
         float angleDelta    = angleMax - angleMin;
         
         float angle         = (angleDelta * _fuelNorm) + angleMin;

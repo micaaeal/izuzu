@@ -8,6 +8,7 @@
 
 #import "WinLostMenuViewController.h"
 #import "MenuStates.h"
+#import "Mission.h"
 
 @interface WinLostMenuViewController ()
 
@@ -68,10 +69,12 @@
         if ( genderCode == GENDER_MALE )
         {
             [_imgCharacter setImage:[UIImage imageNamed:@"man02.png"]];
+            [_imgBg setImage:[UIImage imageNamed:@"resultBG01.png"]];
         }
         else
         {
             [_imgCharacter setImage:[UIImage imageNamed:@"woman02.png"]];
+            [_imgBg setImage:[UIImage imageNamed:@"resultBG02.png"]];
         }
     }
     else
@@ -86,6 +89,25 @@
         {
             [_imgCharacter setImage:[UIImage imageNamed:@"woman03.png"]];
         }
+        
+        [_imgBg setImage:[UIImage imageNamed:@"resultBG03.png"]];
+    }
+
+    if ( ! isWin )
+    {
+        [_btnNext setEnabled:NO];
+        return;
+    }
+
+    int cMissionCode    = [[Mission getObject] getCurrentMissionCode];
+    int maxMissionCode  = [[Mission getObject] getMissionCount];
+    if ( cMissionCode < (maxMissionCode-1) )
+    {
+        [_btnNext setEnabled:YES];
+    }
+    else
+    {
+        [_btnNext setEnabled:NO];
     }
 }
 
@@ -95,6 +117,7 @@
     [_imgScoreBg release];
     [_btnRestart release];
     [_btnNext release];
+    [_imgBg release];
     [super dealloc];
 }
 - (void)viewDidUnload {
@@ -103,6 +126,8 @@
     [self setImgScoreBg:nil];
     [self setBtnRestart:nil];
     [self setBtnNext:nil];
+    [self setImgBg:nil];
     [super viewDidUnload];
 }
+
 @end

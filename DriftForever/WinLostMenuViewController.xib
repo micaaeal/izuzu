@@ -33,9 +33,24 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUIView" id="425142490">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<array class="NSMutableArray" key="NSSubviews">
+					<object class="IBUIImageView" id="217434891">
+						<reference key="NSNextResponder" ref="425142490"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrameSize">{480, 320}</string>
+						<reference key="NSSuperview" ref="425142490"/>
+						<reference key="NSNextKeyView" ref="795711746"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<int key="IBUIContentMode">2</int>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<object class="NSCustomResource" key="IBUIImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">resultBG01.png</string>
+						</object>
+					</object>
 					<object class="IBUIImageView" id="795711746">
 						<reference key="NSNextResponder" ref="425142490"/>
 						<int key="NSvFlags">274</int>
@@ -56,7 +71,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{-20, 54}, {205, 246}}</string>
 						<reference key="NSSuperview" ref="425142490"/>
-						<reference key="NSNextKeyView" ref="795711746"/>
+						<reference key="NSNextKeyView" ref="217434891"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<int key="IBUIContentMode">1</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -170,6 +185,7 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{480, 320}</string>
+				<reference key="NSSuperview"/>
 				<reference key="NSNextKeyView" ref="944383959"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">1</int>
@@ -250,6 +266,14 @@
 					<int key="connectionID">37</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">imgBg</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="217434891"/>
+					</object>
+					<int key="connectionID">43</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">onNext:</string>
 						<reference key="source" ref="843728109"/>
@@ -306,6 +330,7 @@
 							<reference ref="843728109"/>
 							<reference ref="444697181"/>
 							<reference ref="220444730"/>
+							<reference ref="217434891"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -339,6 +364,11 @@
 						<reference key="object" ref="220444730"/>
 						<reference key="parent" ref="425142490"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">42</int>
+						<reference key="object" ref="217434891"/>
+						<reference key="parent" ref="425142490"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -353,12 +383,13 @@
 				<string key="30.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="31.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="42.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">41</int>
+			<int key="maxID">43</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
@@ -370,6 +401,7 @@
 			<string key="man02.png">{1592, 2048}</string>
 			<string key="nextButton01.png">{242, 104}</string>
 			<string key="restartButton01.png">{242, 104}</string>
+			<string key="resultBG01.png">{960, 640}</string>
 			<string key="score.png">{673, 94}</string>
 			<string key="shareButton01.png">{242, 104}</string>
 		</dictionary>

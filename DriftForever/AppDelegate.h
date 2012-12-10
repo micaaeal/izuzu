@@ -13,7 +13,7 @@
 #import "GamePlayViewController.h"
 #import "PlayDriftLayer.h"
 
-@interface AppController : NSObject <UIApplicationDelegate, CCDirectorDelegate, StartMenuViewDelegate, GameFlowSignalDelegate, PlayDriftLayerDelegate>
+@interface AppController : NSObject <UIApplicationDelegate, CCDirectorDelegate, StartMenuViewDelegate, GameFlowSignalDelegate, PlayDriftLayerDelegate, GamePlayViewDelegate>
 
 @property (nonatomic, retain) UIWindow *window;
 @property (retain) UIViewController* rootViewController;

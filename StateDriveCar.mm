@@ -54,8 +54,6 @@ enum STATE_DRIVE_CAR
 @property (assign) float            _cDistanceToMoveNextFrame;
 @property (assign) long double      _carMovedDistance;
 
-@property (retain) Mission*         _currentMission;
-
 @property (assign) BOOL _isInWaterEvent;
 @property (assign) BOOL _isInRoughEvent;
 @property (assign) BOOL _isInWaterEventLastFrame;
@@ -140,8 +138,6 @@ vector<TrVertex>    _allVertices;
 vector<TrVertex>    _vertexRoute;
 vector<TrEdge>      _edgeRoute;
 
-@synthesize _currentMission;
-
 - (void) onStart
 {
     _carAcceleration            = 120.0f;
@@ -193,8 +189,6 @@ vector<TrEdge>      _edgeRoute;
     // set init state
     _currentState   = STATE_DRIVE_CAR_NONE;
     
-    // start drive
-    _currentMission = [[Mission getObject] GetMissionFromCode:[[Mission getObject] getCurrentMissionCode]];
 }
 
 - (void) onFinish

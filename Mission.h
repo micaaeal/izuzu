@@ -20,14 +20,11 @@
 - (void) setWinFlagPoint: (CGPoint) point;
 - (void) setStarSignPoint: (CGPoint) point;
 
-// Global methods
 - (void) setCurrentMissionCode: (int) missionCode;
 - (int) getCurrentMissionCode;
-- (Mission*) GetMissionFromCode: (int) missionCode;
-- (void) removeAllMissionCache;
+- (int) getMissionCount;
 
-// Class methods
-- (int) GetStartVertex;
-- (int) GetEndVertex;
+- (int) GetStartVertexFromMissionCode: (int) missionCode;
+- (int) GetEndVertexFromMissionCode: (int) missionCode;
 
 @end
