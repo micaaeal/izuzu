@@ -6,19 +6,12 @@
 		<key>point</key>
 		<dict>
 			<key>x</key>
-			<string>7814</string>
+			<string>5799.517090</string>
 			<key>y</key>
-			<string>-4769.666992</string>
+			<string>-4760.403809</string>
 		</dict>
 		<key>eventName</key>
 		<string>water</string>
-		<key>comboList</key>
-		<array>
-			<string>B</string>
-			<string>B</string>
-			<string>C</string>
-			<string>D</string>
-		</array>
 		<key>comboTime</key>
 		<string>2</string>
 	</dict>
@@ -26,19 +19,12 @@
 		<key>point</key>
 		<dict>
 			<key>x</key>
-			<string>6031.833496</string>
+			<string>8181.517578</string>
 			<key>y</key>
-			<string>-4753.666992</string>
+			<string>-4755.140625</string>
 		</dict>
 		<key>eventName</key>
-		<string>water</string>
-		<key>comboList</key>
-		<array>
-			<string>A</string>
-			<string>A</string>
-			<string>C</string>
-			<string>D</string>
-		</array>
+		<string>rough</string>
 		<key>comboTime</key>
 		<string>2</string>
 	</dict>

@@ -16,6 +16,7 @@ using namespace std;
 #import "Utils.h"
 #import "Mission.h"
 #import "Car.h"
+#import "WindShield.h"
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 enum STATE_SELECT_ROUTE
@@ -81,6 +82,8 @@ enum STATE_SELECT_ROUTE
     // clear routeGraph
     RouteGraph& routeGraph  = [[World getObject] GetRouteGraph];
     routeGraph.ClearRoute();
+    
+    [[WindShield getObject] clearAllVisionBarrier];
 }
 
 - (void) onFinish

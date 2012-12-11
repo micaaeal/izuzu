@@ -74,7 +74,7 @@ WindShield* _s_object   = nil;
     [layer addChild:cSprite];
     [cSprite setPosition:CGPointMake(winSize.width * 0.5f,
                                      winSize.height * 0.5f)];
-    [cSprite setScale:5.0f];
+    [cSprite setScale:0.5f];
     [cSprite setScale:[UtilVec convertScaleIfRetina:cSprite.scale]];
     [cSprite setOpacity:0];
     _waterSprite    = cSprite;

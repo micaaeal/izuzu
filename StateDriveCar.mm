@@ -186,9 +186,10 @@ vector<TrEdge>      _edgeRoute;
     printf ("route length: %lf", routeLength);
     printf ("\n");
     
+    [[WindShield getObject] clearAllVisionBarrier];
+    
     // set init state
     _currentState   = STATE_DRIVE_CAR_NONE;
-    
 }
 
 - (void) onFinish
@@ -529,7 +530,7 @@ vector<TrEdge>      _edgeRoute;
         }
         else if ( [event.eventName isEqualToString:@"rough"] )
         {
-            
+            [Car playRoughAnim];
         }
     }
     

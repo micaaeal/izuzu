@@ -325,6 +325,7 @@
 		BDD49305167504E500F7B9B8 /* score.png in Resources */ = {isa = PBXBuildFile; fileRef = BDD492F7167504E500F7B9B8 /* score.png */; };
 		BDD49306167504E500F7B9B8 /* shareButton01.png in Resources */ = {isa = PBXBuildFile; fileRef = BDD492F8167504E500F7B9B8 /* shareButton01.png */; };
 		BDD49307167504E500F7B9B8 /* shareButton02.png in Resources */ = {isa = PBXBuildFile; fileRef = BDD492F9167504E500F7B9B8 /* shareButton02.png */; };
+		BDD76AF21676AE0600A268F1 /* water_windshield.png in Resources */ = {isa = PBXBuildFile; fileRef = BDD76AF11676AE0600A268F1 /* water_windshield.png */; };
 		BDDA0DD9162F854900854B96 /* EventHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDDA0DD8162F854900854B96 /* EventHandler.mm */; };
 		BDE318EF1666D52300DBDE3D /* MissionSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE318ED1666D52300DBDE3D /* MissionSelectViewController.m */; };
 		BDE318F01666D52300DBDE3D /* MissionSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDE318EE1666D52300DBDE3D /* MissionSelectViewController.xib */; };
@@ -809,6 +810,7 @@
 		BDD492F7167504E500F7B9B8 /* score.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = score.png; sourceTree = "<group>"; };
 		BDD492F8167504E500F7B9B8 /* shareButton01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shareButton01.png; sourceTree = "<group>"; };
 		BDD492F9167504E500F7B9B8 /* shareButton02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shareButton02.png; sourceTree = "<group>"; };
+		BDD76AF11676AE0600A268F1 /* water_windshield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = water_windshield.png; path = Resources/water_windshield.png; sourceTree = "<group>"; };
 		BDDA0DD7162F854900854B96 /* EventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventHandler.h; sourceTree = "<group>"; };
 		BDDA0DD8162F854900854B96 /* EventHandler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EventHandler.mm; sourceTree = "<group>"; };
 		BDE318EC1666D52300DBDE3D /* MissionSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MissionSelectViewController.h; sourceTree = "<group>"; };
@@ -955,6 +957,7 @@
 		BD9AF9A6166B9FAE009988F9 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				BDD76AF11676AE0600A268F1 /* water_windshield.png */,
 				BDB4F97A1675E55D00F4DB5D /* drawPathButton01.png */,
 				BDB4F97B1675E55D00F4DB5D /* drawPathButton02.png */,
 				BDB4F97C1675E55D00F4DB5D /* erasePathButton01.png */,
@@ -1865,6 +1868,7 @@
 				BDB4F9811675E55D00F4DB5D /* erasePathButton02.png in Resources */,
 				BDC8C888167657390059F50F /* AcceleratorButton.png in Resources */,
 				BDC8C889167657390059F50F /* breakButton.png in Resources */,
+				BDD76AF21676AE0600A268F1 /* water_windshield.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
