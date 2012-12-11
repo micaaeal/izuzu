@@ -65,7 +65,6 @@
 		BD9AFA2A166B9FC6009988F9 /* combo_c.png in Resources */ = {isa = PBXBuildFile; fileRef = BD9AF9C4166B9FC6009988F9 /* combo_c.png */; };
 		BD9AFA2B166B9FC6009988F9 /* combo_d.png in Resources */ = {isa = PBXBuildFile; fileRef = BD9AF9C5166B9FC6009988F9 /* combo_d.png */; };
 		BD9AFA2E166B9FC6009988F9 /* event_rough.png in Resources */ = {isa = PBXBuildFile; fileRef = BD9AF9C8166B9FC6009988F9 /* event_rough.png */; };
-		BD9AFA2F166B9FC6009988F9 /* event_trigger.png in Resources */ = {isa = PBXBuildFile; fileRef = BD9AF9C9166B9FC6009988F9 /* event_trigger.png */; };
 		BD9AFA30166B9FC6009988F9 /* event_water.png in Resources */ = {isa = PBXBuildFile; fileRef = BD9AF9CA166B9FC6009988F9 /* event_water.png */; };
 		BD9AFA31166B9FC6009988F9 /* femaleButton01.png in Resources */ = {isa = PBXBuildFile; fileRef = BD9AF9CB166B9FC6009988F9 /* femaleButton01.png */; };
 		BD9AFA32166B9FC6009988F9 /* femaleButton02.png in Resources */ = {isa = PBXBuildFile; fileRef = BD9AF9CC166B9FC6009988F9 /* femaleButton02.png */; };
@@ -307,6 +306,7 @@
 		BDBA34F0160E253100593FFC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BDBA34EF160E253100593FFC /* main.m */; };
 		BDBD3F57161BB48B00488689 /* UtilVec.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDBD3F56161BB48B00488689 /* UtilVec.mm */; };
 		BDBD3F5A161BC4AE00488689 /* MenuSelectRoute.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDBD3F59161BC4AE00488689 /* MenuSelectRoute.mm */; };
+		BDC2C1CA1677F3D40099C632 /* event_oil.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC2C1C91677F3D40099C632 /* event_oil.png */; };
 		BDC8C888167657390059F50F /* AcceleratorButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC8C886167657380059F50F /* AcceleratorButton.png */; };
 		BDC8C889167657390059F50F /* breakButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC8C887167657380059F50F /* breakButton.png */; };
 		BDD492E91675011900F7B9B8 /* WinLostMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDD492E71675011900F7B9B8 /* WinLostMenuViewController.m */; };
@@ -410,7 +410,6 @@
 		BD9AF9C4166B9FC6009988F9 /* combo_c.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = combo_c.png; path = Resources/combo_c.png; sourceTree = "<group>"; };
 		BD9AF9C5166B9FC6009988F9 /* combo_d.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = combo_d.png; path = Resources/combo_d.png; sourceTree = "<group>"; };
 		BD9AF9C8166B9FC6009988F9 /* event_rough.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = event_rough.png; path = Resources/event_rough.png; sourceTree = "<group>"; };
-		BD9AF9C9166B9FC6009988F9 /* event_trigger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = event_trigger.png; path = Resources/event_trigger.png; sourceTree = "<group>"; };
 		BD9AF9CA166B9FC6009988F9 /* event_water.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = event_water.png; path = Resources/event_water.png; sourceTree = "<group>"; };
 		BD9AF9CB166B9FC6009988F9 /* femaleButton01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = femaleButton01.png; path = Resources/femaleButton01.png; sourceTree = "<group>"; };
 		BD9AF9CC166B9FC6009988F9 /* femaleButton02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = femaleButton02.png; path = Resources/femaleButton02.png; sourceTree = "<group>"; };
@@ -795,6 +794,7 @@
 		BDBD3F56161BB48B00488689 /* UtilVec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = UtilVec.mm; sourceTree = "<group>"; };
 		BDBD3F58161BB58E00488689 /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		BDBD3F59161BC4AE00488689 /* MenuSelectRoute.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MenuSelectRoute.mm; sourceTree = "<group>"; };
+		BDC2C1C91677F3D40099C632 /* event_oil.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = event_oil.png; path = Resources/event_oil.png; sourceTree = "<group>"; };
 		BDC8C886167657380059F50F /* AcceleratorButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AcceleratorButton.png; path = Resources/AcceleratorButton.png; sourceTree = "<group>"; };
 		BDC8C887167657380059F50F /* breakButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = breakButton.png; path = Resources/breakButton.png; sourceTree = "<group>"; };
 		BDD492E61675011900F7B9B8 /* WinLostMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WinLostMenuViewController.h; sourceTree = "<group>"; };
@@ -1075,7 +1075,7 @@
 				BD9AF9C5166B9FC6009988F9 /* combo_d.png */,
 				BDE145F316778439002AF040 /* event_turtle.png */,
 				BD9AF9C8166B9FC6009988F9 /* event_rough.png */,
-				BD9AF9C9166B9FC6009988F9 /* event_trigger.png */,
+				BDC2C1C91677F3D40099C632 /* event_oil.png */,
 				BD9AF9CA166B9FC6009988F9 /* event_water.png */,
 				BD9AF9CB166B9FC6009988F9 /* femaleButton01.png */,
 				BD9AF9CC166B9FC6009988F9 /* femaleButton02.png */,
@@ -1741,7 +1741,6 @@
 				BD9AFA2A166B9FC6009988F9 /* combo_c.png in Resources */,
 				BD9AFA2B166B9FC6009988F9 /* combo_d.png in Resources */,
 				BD9AFA2E166B9FC6009988F9 /* event_rough.png in Resources */,
-				BD9AFA2F166B9FC6009988F9 /* event_trigger.png in Resources */,
 				BD9AFA30166B9FC6009988F9 /* event_water.png in Resources */,
 				BD9AFA31166B9FC6009988F9 /* femaleButton01.png in Resources */,
 				BD9AFA32166B9FC6009988F9 /* femaleButton02.png in Resources */,
@@ -1885,6 +1884,7 @@
 				BDE145F416778439002AF040 /* event_turtle.png in Resources */,
 				BDE145F616778E43002AF040 /* speedline_048.png in Resources */,
 				BDF29C5D16779475000FE289 /* speedline_effect.png in Resources */,
+				BDC2C1CA1677F3D40099C632 /* event_oil.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
