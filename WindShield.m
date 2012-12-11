@@ -19,14 +19,19 @@ WindShield* _s_object   = nil;
 @property (retain) CCSprite*    _waterSprite;
 @property (assign) BOOL         _isShowingWater;
 
+@property (retain) CCSprite*    _dustSprite;
+@property (assign) BOOL         _isShowingDust;
+
 - (void) _checkHasAnythingOnWindshield;
 
 @end
 
 @implementation WindShield
-@synthesize _waterSprite;
 @synthesize _hasAnythingOnWindshield;
+@synthesize _waterSprite;
 @synthesize _isShowingWater;
+@synthesize _dustSprite;
+@synthesize _isShowingDust;
 
 + (WindShield*) getObject
 {
@@ -43,9 +48,11 @@ WindShield* _s_object   = nil;
     self    = [super init];
     if (self)
     {
-        _waterSprite                = nil;
         _hasAnythingOnWindshield    = NO;
+        _waterSprite                = nil;
         _isShowingWater             = NO;
+        _dustSprite                 = nil;
+        _isShowingDust              = NO;
     }
     return self;
 }
@@ -70,14 +77,26 @@ WindShield* _s_object   = nil;
 {
     CGSize winSize          = [CCDirector sharedDirector].winSize;
     
-    CCSprite* cSprite   = [CCSprite spriteWithFile:@"water_windshield.png"];
-    [layer addChild:cSprite];
-    [cSprite setPosition:CGPointMake(winSize.width * 0.5f,
-                                     winSize.height * 0.5f)];
-    [cSprite setScale:0.5f];
-    [cSprite setScale:[UtilVec convertScaleIfRetina:cSprite.scale]];
-    [cSprite setOpacity:0];
-    _waterSprite    = cSprite;
+    {
+        CCSprite* cSprite   = [CCSprite spriteWithFile:@"water_windshield.png"];
+        [layer addChild:cSprite];
+        [cSprite setPosition:CGPointMake(winSize.width * 0.5f,
+                                         winSize.height * 0.5f)];
+        [cSprite setScale:0.5f];
+        [cSprite setScale:[UtilVec convertScaleIfRetina:cSprite.scale]];
+        [cSprite setOpacity:0];
+        _waterSprite    = cSprite;
+    }
+    {
+        CCSprite* cSprite   = [CCSprite spriteWithFile:@"oil_windshield.png"];
+        [layer addChild:cSprite];
+        [cSprite setPosition:CGPointMake(winSize.width * 0.5f,
+                                         winSize.height * 0.5f)];
+        [cSprite setScale:0.5f];
+        [cSprite setScale:[UtilVec convertScaleIfRetina:cSprite.scale]];
+        [cSprite setOpacity:0];
+        _dustSprite    = cSprite;
+    }
 }
 
 - (void) onUpdate: (float) deltaTime
@@ -94,8 +113,10 @@ WindShield* _s_object   = nil;
 - (void) clearAllVisionBarrier
 {
     [self clearWater];
+    [self clearDust];
 }
 
+// water
 - (void) showWater
 {
     [_waterSprite setOpacity:255];
@@ -112,6 +133,26 @@ WindShield* _s_object   = nil;
 {
     [_waterSprite setOpacity:0];
     self._isShowingWater    = NO;
+    [self _checkHasAnythingOnWindshield];
+}
+
+// rough
+- (void) showDust
+{
+    [_dustSprite setOpacity:255];
+    self._isShowingDust             = YES;
+    self._hasAnythingOnWindshield   = YES;
+}
+
+- (BOOL) getIsShowingDust
+{
+    return _isShowingDust;
+}
+
+- (void) clearDust
+{
+    [_dustSprite setOpacity:0];
+    self._isShowingDust    = NO;
     [self _checkHasAnythingOnWindshield];
 }
 

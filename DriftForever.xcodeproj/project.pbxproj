@@ -327,10 +327,14 @@
 		BDD49307167504E500F7B9B8 /* shareButton02.png in Resources */ = {isa = PBXBuildFile; fileRef = BDD492F9167504E500F7B9B8 /* shareButton02.png */; };
 		BDD76AF21676AE0600A268F1 /* water_windshield.png in Resources */ = {isa = PBXBuildFile; fileRef = BDD76AF11676AE0600A268F1 /* water_windshield.png */; };
 		BDDA0DD9162F854900854B96 /* EventHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDDA0DD8162F854900854B96 /* EventHandler.mm */; };
+		BDE145F216778263002AF040 /* oil_windshield.png in Resources */ = {isa = PBXBuildFile; fileRef = BDE145F116778263002AF040 /* oil_windshield.png */; };
+		BDE145F416778439002AF040 /* event_turtle.png in Resources */ = {isa = PBXBuildFile; fileRef = BDE145F316778439002AF040 /* event_turtle.png */; };
+		BDE145F616778E43002AF040 /* speedline_048.png in Resources */ = {isa = PBXBuildFile; fileRef = BDE145F516778E43002AF040 /* speedline_048.png */; };
 		BDE318EF1666D52300DBDE3D /* MissionSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE318ED1666D52300DBDE3D /* MissionSelectViewController.m */; };
 		BDE318F01666D52300DBDE3D /* MissionSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDE318EE1666D52300DBDE3D /* MissionSelectViewController.xib */; };
 		BDE549F21616FDA0005B6BD5 /* StateSelectRoute.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDE549F11616FDA0005B6BD5 /* StateSelectRoute.mm */; };
 		BDE549F51616FDB3005B6BD5 /* StateDriveCar.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDE549F41616FDB3005B6BD5 /* StateDriveCar.mm */; };
+		BDF29C5D16779475000FE289 /* speedline_effect.png in Resources */ = {isa = PBXBuildFile; fileRef = BDF29C5C16779475000FE289 /* speedline_effect.png */; };
 		BDF75DD1161903DE00BEAFD1 /* Car.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDF75DD0161903DE00BEAFD1 /* Car.mm */; };
 		BDF75DD5161933C000BEAFD1 /* Camera.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDF75DD4161933C000BEAFD1 /* Camera.mm */; };
 		BDFE1EFA1615273C00EF134B /* RouteGraph.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDFE1EF71615273C00EF134B /* RouteGraph.mm */; };
@@ -813,6 +817,9 @@
 		BDD76AF11676AE0600A268F1 /* water_windshield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = water_windshield.png; path = Resources/water_windshield.png; sourceTree = "<group>"; };
 		BDDA0DD7162F854900854B96 /* EventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventHandler.h; sourceTree = "<group>"; };
 		BDDA0DD8162F854900854B96 /* EventHandler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EventHandler.mm; sourceTree = "<group>"; };
+		BDE145F116778263002AF040 /* oil_windshield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = oil_windshield.png; sourceTree = "<group>"; };
+		BDE145F316778439002AF040 /* event_turtle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = event_turtle.png; sourceTree = "<group>"; };
+		BDE145F516778E43002AF040 /* speedline_048.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speedline_048.png; sourceTree = "<group>"; };
 		BDE318EC1666D52300DBDE3D /* MissionSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MissionSelectViewController.h; sourceTree = "<group>"; };
 		BDE318ED1666D52300DBDE3D /* MissionSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MissionSelectViewController.m; sourceTree = "<group>"; };
 		BDE318EE1666D52300DBDE3D /* MissionSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MissionSelectViewController.xib; sourceTree = "<group>"; };
@@ -821,6 +828,7 @@
 		BDE549F11616FDA0005B6BD5 /* StateSelectRoute.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = StateSelectRoute.mm; sourceTree = "<group>"; };
 		BDE549F31616FDB3005B6BD5 /* StateDriveCar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateDriveCar.h; sourceTree = "<group>"; };
 		BDE549F41616FDB3005B6BD5 /* StateDriveCar.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = StateDriveCar.mm; sourceTree = "<group>"; };
+		BDF29C5C16779475000FE289 /* speedline_effect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speedline_effect.png; sourceTree = "<group>"; };
 		BDF75DCF161903DE00BEAFD1 /* Car.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Car.h; sourceTree = "<group>"; };
 		BDF75DD0161903DE00BEAFD1 /* Car.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Car.mm; sourceTree = "<group>"; };
 		BDF75DD3161933C000BEAFD1 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
@@ -957,6 +965,9 @@
 		BD9AF9A6166B9FAE009988F9 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				BDF29C5C16779475000FE289 /* speedline_effect.png */,
+				BDE145F516778E43002AF040 /* speedline_048.png */,
+				BDE145F116778263002AF040 /* oil_windshield.png */,
 				BDD76AF11676AE0600A268F1 /* water_windshield.png */,
 				BDB4F97A1675E55D00F4DB5D /* drawPathButton01.png */,
 				BDB4F97B1675E55D00F4DB5D /* drawPathButton02.png */,
@@ -1062,6 +1073,7 @@
 				BD9AF9C3166B9FC6009988F9 /* combo_b.png */,
 				BD9AF9C4166B9FC6009988F9 /* combo_c.png */,
 				BD9AF9C5166B9FC6009988F9 /* combo_d.png */,
+				BDE145F316778439002AF040 /* event_turtle.png */,
 				BD9AF9C8166B9FC6009988F9 /* event_rough.png */,
 				BD9AF9C9166B9FC6009988F9 /* event_trigger.png */,
 				BD9AF9CA166B9FC6009988F9 /* event_water.png */,
@@ -1869,6 +1881,10 @@
 				BDC8C888167657390059F50F /* AcceleratorButton.png in Resources */,
 				BDC8C889167657390059F50F /* breakButton.png in Resources */,
 				BDD76AF21676AE0600A268F1 /* water_windshield.png in Resources */,
+				BDE145F216778263002AF040 /* oil_windshield.png in Resources */,
+				BDE145F416778439002AF040 /* event_turtle.png in Resources */,
+				BDE145F616778E43002AF040 /* speedline_048.png in Resources */,
+				BDF29C5D16779475000FE289 /* speedline_effect.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -111,6 +111,10 @@ EventHandler* _s_eventHandler   = nil;
         {
             cSprite = [CCSprite spriteWithFile:@"event_rough.png"];
         }
+        else if ( [cEvent.eventName isEqualToString:@"turtle"] )
+        {
+            cSprite = [CCSprite spriteWithFile:@"event_turtle.png"];            
+        }
         
         cSprite.position    = CGPointMake(cEvent.point.x,
                                           cEvent.point.y);

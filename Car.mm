@@ -13,6 +13,12 @@
 @interface CarCache: NSObject
 
 @property (retain) CCSprite*    carSprite;
+@property (retain) CCSprite*    speedLineSprite;
+@property (retain) CCSprite*    speedLineEffect01;
+@property (retain) CCSprite*    speedLineEffect02;
+@property (retain) CCSprite*    speedLineEffect03;
+@property (retain) CCSprite*    speedLineEffect04;
+
 @property (assign) CGPoint      position;
 @property (assign) CGFloat      rotation;
 @property (assign) CGPoint      target;
@@ -28,10 +34,15 @@
 @property (assign) BOOL     isPlayingAnyAnimLastFrame;
 @property (assign) BOOL     isPlayingOvershootAnim;
 @property (assign) BOOL     isPlayingOvershootAnimLastFrame;
+@property (assign) BOOL     isPlayingTurtleEffect;
+@property (assign) BOOL     isPlayingTurtleEffectLastFrame;
+@property (assign) BOOL     isPlayingSpeedLine;
+@property (assign) BOOL     isPlayingSpeedLineLastFrame;
 
 @property (assign) float    animSwervePlayTime;
 @property (assign) float    animRoughPlayTime;
 @property (assign) float    animOvershootPlayTime;
+@property (assign) float    animTurtleEffectPlayTime;
 
 @property (assign) CGPoint  animPointStamp;
 @property (assign) float    animRotationStamp;
@@ -42,6 +53,12 @@
 @end
 @implementation CarCache
 @synthesize carSprite;
+@synthesize speedLineSprite;
+@synthesize speedLineEffect01;
+@synthesize speedLineEffect02;
+@synthesize speedLineEffect03;
+@synthesize speedLineEffect04;
+
 @synthesize position;
 @synthesize rotation;
 @synthesize target;
@@ -56,10 +73,15 @@
 @synthesize isPlayingAnyAnimLastFrame;
 @synthesize isPlayingOvershootAnim;
 @synthesize isPlayingOvershootAnimLastFrame;
+@synthesize isPlayingTurtleEffect;
+@synthesize isPlayingTurtleEffectLastFrame;
+@synthesize isPlayingSpeedLine;
+@synthesize isPlayingSpeedLineLastFrame;
 
 @synthesize animSwervePlayTime;
 @synthesize animRoughPlayTime;
 @synthesize animOvershootPlayTime;
+@synthesize animTurtleEffectPlayTime;
 
 @synthesize animPointStamp;
 @synthesize animRotationStamp;
@@ -73,6 +95,12 @@
     if (self)
     {
         carSprite   = NULL;
+        speedLineSprite = NULL;
+        speedLineEffect01   = NULL;
+        speedLineEffect02   = NULL;
+        speedLineEffect03   = NULL;
+        speedLineEffect04   = NULL;
+        
         position    = CGPointMake(0.0f, 0.0f);
         rotation    = 0.0f;
         target      = CGPointMake(0.0f, 0.0f);
@@ -87,10 +115,15 @@
         isPlayingAnyAnimLastFrame       = NO;
         isPlayingOvershootAnim          = NO;
         isPlayingOvershootAnimLastFrame = NO;
+        isPlayingTurtleEffect           = NO;
+        isPlayingTurtleEffectLastFrame  = NO;
+        isPlayingSpeedLine              = NO;
+        isPlayingSpeedLineLastFrame     = NO;
         
         animSwervePlayTime      = 0.0f;
         animRoughPlayTime       = 0.0f;
         animOvershootPlayTime   = 0.0f;
+        animTurtleEffectPlayTime    = 0.0f;
         
         animPointStamp  = CGPointMake(0.0f, 0.0f);
         animRotationStamp   = 0.0f;
@@ -117,12 +150,62 @@ CarCache* _carCache = nil;
     _carCache   = [[CarCache alloc] init];
     
     // init car sprite
-    _carCache.carSprite   = [CCSprite spriteWithFile:@"car_01_01_Run001.png"];
-    [_carCache.carSprite setRotation:0.0f];
+    {
+        _carCache.carSprite   = [CCSprite spriteWithFile:@"car_01_01_Run001.png"];
+        [_carCache.carSprite setRotation:0.0f];
+        
+        CGFloat carScale    = _carCache.carSprite.scale;
+        carScale    = [UtilVec convertScaleIfRetina:carScale];
+        [_carCache.carSprite setScale:carScale];
+    }
     
-    CGFloat carScale    = _carCache.carSprite.scale;
-    carScale    = [UtilVec convertScaleIfRetina:carScale];
-    [_carCache.carSprite setScale:carScale];
+    {
+        _carCache.speedLineSprite   = [CCSprite spriteWithFile:@"speedline_048.png"];
+        [_carCache.speedLineSprite setRotation:0.0f];
+        
+        [_carCache.speedLineSprite setScale:3.0f];
+        CGFloat speedLineScale    = _carCache.speedLineSprite.scale;
+        speedLineScale    = [UtilVec convertScaleIfRetina:speedLineScale];
+        [_carCache.speedLineSprite setScale:speedLineScale];
+    }
+    
+    {
+        _carCache.speedLineEffect01   = [CCSprite spriteWithFile:@"speedline_effect.png"];
+        [_carCache.speedLineEffect01 setRotation:0.0f];
+        
+        [_carCache.speedLineEffect01 setScale:1.0f];
+        CGFloat speedLineScale    = _carCache.speedLineEffect01.scale;
+        speedLineScale    = [UtilVec convertScaleIfRetina:speedLineScale];
+        [_carCache.speedLineEffect01 setScale:speedLineScale];
+    }
+    {
+        _carCache.speedLineEffect02   = [CCSprite spriteWithFile:@"speedline_effect.png"];
+        [_carCache.speedLineEffect02 setRotation:0.0f];
+        
+        [_carCache.speedLineEffect02 setScale:1.0f];
+        CGFloat speedLineScale    = _carCache.speedLineEffect02.scale;
+        speedLineScale    = [UtilVec convertScaleIfRetina:speedLineScale];
+        [_carCache.speedLineEffect02 setScale:speedLineScale];
+    }
+    {
+        _carCache.speedLineEffect03   = [CCSprite spriteWithFile:@"speedline_effect.png"];
+        [_carCache.speedLineEffect03 setRotation:0.0f];
+        
+        [_carCache.speedLineEffect03 setScale:1.0f];
+        CGFloat speedLineScale    = _carCache.speedLineEffect03.scale;
+        speedLineScale    = [UtilVec convertScaleIfRetina:speedLineScale];
+        [_carCache.speedLineEffect03 setScale:speedLineScale];
+    }
+    {
+        _carCache.speedLineEffect04   = [CCSprite spriteWithFile:@"speedline_effect.png"];
+        [_carCache.speedLineEffect04 setRotation:0.0f];
+        
+        [_carCache.speedLineEffect04 setScale:1.0f];
+        CGFloat speedLineScale    = _carCache.speedLineEffect04.scale;
+        speedLineScale    = [UtilVec convertScaleIfRetina:speedLineScale];
+        [_carCache.speedLineEffect04 setScale:speedLineScale];
+    }
+    
     
     return YES;
 }
@@ -139,8 +222,31 @@ CarCache* _carCache = nil;
 
 + (BOOL) AssignDataToLayer: (CCLayer*) layer withMission: (Mission*) mission
 {
-    [layer addChild:_carCache.carSprite];
-    _carCache.carSprite.zOrder  = 10;
+    {
+        [layer addChild:_carCache.speedLineSprite];
+        _carCache.speedLineSprite.zOrder    = 8;
+    }
+    {
+        [layer addChild:_carCache.speedLineEffect01];
+        _carCache.speedLineEffect01.zOrder    = 9;
+    }
+    {
+        [layer addChild:_carCache.speedLineEffect02];
+        _carCache.speedLineEffect02.zOrder    = 9;
+    }
+    {
+        [layer addChild:_carCache.speedLineEffect03];
+        _carCache.speedLineEffect03.zOrder    = 9;
+    }
+    {
+        [layer addChild:_carCache.speedLineEffect04];
+        _carCache.speedLineEffect04.zOrder    = 9;
+    }
+    {
+        [layer addChild:_carCache.carSprite];
+        _carCache.carSprite.zOrder  = 10;
+    }
+    
     return YES;
 }
 
@@ -153,20 +259,26 @@ CarCache* _carCache = nil;
 + (void) Update: (float) deltaTime
 {
     BOOL isPlayingAnyAnim   = NO;
-    
-    /*
-    if ( _carCache.isPlayingRoughAnim != _carCache.isPlayingRoughAnimLastFrame )
+
+    // count time to make turtle animation stop
+    if ( _carCache.isPlayingTurtleEffect )
     {
-        if ( _carCache.isPlayingRoughAnim )
+        _carCache.animTurtleEffectPlayTime += deltaTime;
+        if ( _carCache.animTurtleEffectPlayTime >= 2.0f )
         {
-            _carCache.animRoughPlayTime  = 0.0f;
-        }
-        else if ( ! _carCache.isPlayingRoughAnim )
-        {
-            _carCache.animRoughPlayTime  = 0.0f;
+            [Car stopAllAnim];
         }
     }
-    */
+    
+    // count time to make rough animation stop
+    if ( _carCache.isPlayingRoughAnim )
+    {
+        _carCache.animRoughPlayTime += deltaTime;
+        if ( _carCache.animRoughPlayTime >= 2.0f )
+        {
+            [Car stopAllAnim];
+        }
+    }
     
     // count time to make swerve animation stop
     if ( _carCache.isPlayingSwerveAnim )
@@ -185,6 +297,45 @@ CarCache* _carCache = nil;
         if ( _carCache.animOvershootPlayTime >= 2.0f )
         {
             [Car stopAllAnim];
+        }
+    }
+    
+    // start & stop turtle animation events
+    if ( _carCache.isPlayingTurtleEffect != _carCache.isPlayingTurtleEffectLastFrame )
+    {
+        if ( _carCache.isPlayingTurtleEffect )
+        {
+            _carCache.animTurtleEffectPlayTime    = 0.0f;
+            _carCache.animPointStamp        = _carCache.position;
+            _carCache.animRotationStamp     = _carCache.rotation;
+        }
+        
+        else if ( ! _carCache.isPlayingTurtleEffect )
+        {
+            _carCache.animTurtleEffectPlayTime    = 0.0f;
+            [Car setPosition:_carCache.animPointStamp];
+            [_carCache setRotation:_carCache.animRotationStamp];
+            [Car setSpeed:0.0f];
+        }
+    }
+    
+    // start & stop rough animation events
+    if ( _carCache.isPlayingRoughAnim != _carCache.isPlayingRoughAnimLastFrame )
+    {
+        if ( _carCache.isPlayingRoughAnim )
+        {
+            _carCache.animRoughPlayTime    = 0.0f;
+            _carCache.animPointStamp        = _carCache.position;
+            _carCache.animRotationStamp     = _carCache.rotation;
+        }
+        
+        else if ( ! _carCache.isPlayingRoughAnim )
+        {
+            _carCache.animRoughPlayTime    = 0.0f;
+            [Car setPosition:_carCache.animPointStamp];
+            [_carCache setRotation:_carCache.animRotationStamp];
+            [Car setSpeed:0.0f];
+            [Car unsetRandomColor];
         }
     }
     
@@ -217,13 +368,47 @@ CarCache* _carCache = nil;
             _carCache.animRotationStamp     = _carCache.rotation;
         }
         
-        else if ( ! _carCache.isPlayingSwerveAnim )
+        else if ( ! _carCache.isPlayingOvershootAnim )
         {
             _carCache.animOvershootPlayTime    = 0.0f;
             [Car setPosition:_carCache.animPointStamp];
             [_carCache setRotation:_carCache.animRotationStamp];
             [Car setSpeed:0.0f];
         }
+    }
+    
+    // while playing turtle animation
+    if ( _carCache.isPlayingTurtleEffect )
+    {
+        isPlayingAnyAnim    = YES;
+        
+        // set car sprite
+        CGPoint position    = _carCache.position;
+        position.y += (deltaTime*40.0f);
+        position.x += (deltaTime*40.0f);
+        [_carCache setPosition:position];
+        
+        [_carCache.carSprite setPosition:_carCache.position];
+        
+        _carCache.rotation += 80.0 * deltaTime;
+        [_carCache.carSprite setRotation:_carCache.rotation];
+    }
+    
+    // while playing rough animation
+    if ( _carCache.isPlayingRoughAnim )
+    {
+        isPlayingAnyAnim    = YES;
+        
+        // set car sprite
+        CGPoint position    = _carCache.position;
+        position.y += (deltaTime*40.0f);
+        position.x += (deltaTime*40.0f);
+        [_carCache setPosition:position];
+        
+        [_carCache.carSprite setPosition:_carCache.position];
+        
+        _carCache.rotation += 80.0 * deltaTime;
+        [_carCache.carSprite setRotation:_carCache.rotation];
     }
     
     // while playing swerve animation
@@ -259,12 +444,6 @@ CarCache* _carCache = nil;
         _carCache.rotation -= 80.0 * deltaTime;
         [_carCache.carSprite setRotation:_carCache.rotation];
     }
-    
-    // update anim status
-    _carCache.isPlayingSwerveAnimLastFrame      = _carCache.isPlayingSwerveAnim;
-    _carCache.isPlayingRoughAnimLastFrame       = _carCache.isPlayingRoughAnim;
-    _carCache.isPlayingOvershootAnimLastFrame   = _carCache.isPlayingOvershootAnim;
-    _carCache.isPlayingAnyAnimLastFrame         = _carCache.isPlayingAnyAnim;
     
     if ( ! isPlayingAnyAnim )
     {
@@ -302,6 +481,97 @@ CarCache* _carCache = nil;
             _carCache.blinkTimeRemained = 0.0f;
         }
     }
+    
+
+    if ( _carCache.isPlayingSpeedLine && ( ! _carCache.isPlayingSpeedLineLastFrame ) )
+    {
+        
+        
+    }
+    
+    // speed line
+    if ( _carCache.isPlayingSpeedLine )
+    {
+        [_carCache.speedLineSprite setOpacity:255];
+        [_carCache.speedLineEffect01 setOpacity:255];
+        [_carCache.speedLineEffect02 setOpacity:255];
+        [_carCache.speedLineEffect03 setOpacity:255];
+        [_carCache.speedLineEffect04 setOpacity:255];
+        
+        [_carCache.speedLineSprite setPosition:_carCache.position];
+        [_carCache.speedLineSprite setRotation:_carCache.rotation];
+
+        float far    = 300.0f;
+        CGPoint refPoint    = _carCache.position;
+        
+        float speed01     = 100.0f;
+        float speed02     = 80.0f;
+        float speed03     = 180.0f;
+        float speed04     = 70.0f;
+        
+        float rotation  = _carCache.rotation;
+        float radian    = rotation * M_PI / 180.0f;
+        float dirX      = sinf(radian);
+        float dirY      = cosf(radian);
+        
+        if ( ! _carCache.isPlayingSpeedLineLastFrame )
+        {
+            [_carCache.speedLineEffect01 setPosition:CGPointMake(refPoint.x + (dirX * far) - (dirY * 250.0f),
+                                                                 refPoint.y + (dirY * far) - (dirX * 250.0f)
+                                                                 )];
+            [_carCache.speedLineEffect02 setPosition:CGPointMake(refPoint.x + (dirX * far) - (dirY * 80.0f),
+                                                                 refPoint.y + (dirY * far) - (dirX * 80.0f)
+                                                                 )];
+            [_carCache.speedLineEffect03 setPosition:CGPointMake(refPoint.x + (dirX * far) + (dirY * 110.0f),
+                                                                 refPoint.y + (dirY * far) + (dirX * 110.0f)
+                                                                 )];
+            [_carCache.speedLineEffect04 setPosition:CGPointMake(refPoint.x + (dirX * far) + (dirY * 280.0f),
+                                                                 refPoint.y + (dirY * far) + (dirX * 280.0f)
+                                                                 )];
+        }
+        
+        {
+            CGPoint positionLastFrame   = _carCache.speedLineEffect01.position;
+            [_carCache.speedLineEffect01 setPosition:CGPointMake(positionLastFrame.x + (-dirX*speed01),
+                                                                 positionLastFrame.y + (-dirY*speed01) )];
+            [_carCache.speedLineEffect01 setRotation:_carCache.rotation];
+        }
+        {
+            CGPoint positionLastFrame   = _carCache.speedLineEffect02.position;
+            [_carCache.speedLineEffect02 setPosition:CGPointMake(positionLastFrame.x + (-dirX*speed02),
+                                                                 positionLastFrame.y + (-dirY*speed02) )];
+            [_carCache.speedLineEffect02 setRotation:_carCache.rotation];
+        }
+        {
+            CGPoint positionLastFrame   = _carCache.speedLineEffect03.position;
+            [_carCache.speedLineEffect03 setPosition:CGPointMake(positionLastFrame.x + (-dirX*speed03),
+                                                                 positionLastFrame.y + (-dirY*speed03) )];
+            [_carCache.speedLineEffect03 setRotation:_carCache.rotation];
+        }
+        {
+            CGPoint positionLastFrame   = _carCache.speedLineEffect04.position;
+            [_carCache.speedLineEffect04 setPosition:CGPointMake(positionLastFrame.x + (-dirX*speed04),
+                                                                 positionLastFrame.y + (-dirY*speed04) )];
+            [_carCache.speedLineEffect04 setRotation:_carCache.rotation];
+        }
+
+    }
+    else
+    {
+        [_carCache.speedLineSprite setOpacity:0];
+        [_carCache.speedLineEffect01 setOpacity:0];
+        [_carCache.speedLineEffect02 setOpacity:0];
+        [_carCache.speedLineEffect03 setOpacity:0];
+        [_carCache.speedLineEffect04 setOpacity:0];
+    }
+    
+    // update anim status
+    _carCache.isPlayingSwerveAnimLastFrame      = _carCache.isPlayingSwerveAnim;
+    _carCache.isPlayingRoughAnimLastFrame       = _carCache.isPlayingRoughAnim;
+    _carCache.isPlayingOvershootAnimLastFrame   = _carCache.isPlayingOvershootAnim;
+    _carCache.isPlayingAnyAnimLastFrame         = _carCache.isPlayingAnyAnim;
+    _carCache.isPlayingTurtleEffectLastFrame    = _carCache.isPlayingTurtleEffect;
+    _carCache.isPlayingSpeedLineLastFrame       = _carCache.isPlayingSpeedLine;
 }
 
 #pragma mark - Reutines
@@ -404,6 +674,7 @@ CarCache* _carCache = nil;
     [Car stopSwerveAnim];
     [Car stopRoughAnim];
     [Car stopOvershootAnim];
+    [Car stopTutleEffect];
     _carCache.isPlayingAnyAnim      = NO;
 }
 
@@ -463,6 +734,38 @@ CarCache* _carCache = nil;
 {
     _carCache.isPlayingRoughAnim    = NO;
     [Car playBlinkWithTime:1.8f];
+}
+
++ (void) playTutleEffect
+{
+    _carCache.isPlayingTurtleEffect = YES;
+    _carCache.isPlayingAnyAnim      = YES;
+}
+
++ (BOOL) isPlayTutleEffect
+{
+    return _carCache.isPlayingTurtleEffect;
+}
+
++ (void) stopTutleEffect
+{
+    _carCache.isPlayingTurtleEffect    = NO;
+    [Car playBlinkWithTime:1.8f];
+}
+
++ (void) playSpeedLine
+{
+    _carCache.isPlayingSpeedLine    = YES;
+}
+
++ (BOOL) isPlayingSpeedLine
+{
+    return _carCache.isPlayingSpeedLine;
+}
+
++ (void) stopSpeedLine
+{
+    _carCache.isPlayingSpeedLine    = NO;
 }
 
 + (void) playBlinkWithTime: (float) blinkTime

@@ -57,6 +57,14 @@
 + (BOOL) isPlayingRoughAnim;
 + (void) stopRoughAnim;
 
++ (void) playTutleEffect;
++ (BOOL) isPlayTutleEffect;
++ (void) stopTutleEffect;
+
++ (void) playSpeedLine;
++ (BOOL) isPlayingSpeedLine;
++ (void) stopSpeedLine;
+
 + (void) playBlinkWithTime: (float) blinkTime;
 
 @end

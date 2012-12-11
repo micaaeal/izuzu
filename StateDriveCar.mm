@@ -514,6 +514,11 @@ vector<TrEdge>      _edgeRoute;
     [[ComboPlayer getObject] startEvent:event];
     
     [self _startSlowMotion];
+    
+    if ( [event.eventName isEqualToString:@"turtle"] )
+    {
+        [Car playSpeedLine];
+    }
 }
 
 - (void) onEventFinished:(Event *)event isSuccess:(BOOL)isSuccess
@@ -531,8 +536,15 @@ vector<TrEdge>      _edgeRoute;
         else if ( [event.eventName isEqualToString:@"rough"] )
         {
             [Car playRoughAnim];
+            [[WindShield getObject] showDust];
+        }
+        else if ( [event.eventName isEqualToString:@"turtle"] )
+        {
+            [Car playTutleEffect];
         }
     }
+    
+    [Car stopSpeedLine];
     
     // Finish events
     [[EventHandler getObject] finishAllEvents];

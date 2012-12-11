@@ -28,4 +28,8 @@
 - (BOOL) getIsShowingWater;
 - (void) clearWater;
 
+- (void) showDust;
+- (BOOL) getIsShowingDust;
+- (void) clearDust;
+
 @end
