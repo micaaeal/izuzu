@@ -150,9 +150,44 @@ CarCache* _carCache = nil;
     _carCache   = [[CarCache alloc] init];
     
     // init car sprite
-    {
+    /*{
         _carCache.carSprite   = [CCSprite spriteWithFile:@"car_01_01_Run001.png"];
         [_carCache.carSprite setRotation:0.0f];
+        
+        CGFloat carScale    = _carCache.carSprite.scale;
+        carScale    = [UtilVec convertScaleIfRetina:carScale];
+        [_carCache.carSprite setScale:carScale];
+    }*/
+    
+    // init car sprite using texture atlas
+    {
+        CCSpriteFrameCache* frameCache  = [CCSpriteFrameCache sharedSpriteFrameCache];
+        [frameCache addSpriteFramesWithFile:@"car01_01.plist"];
+        
+        _carCache.carSprite = [CCSprite spriteWithSpriteFrameName:@"car01_01_EmptyAct01_000.png"];
+        
+        if ( _carCache.carSprite )
+        {
+            int frameCount          = 15;
+            NSMutableArray* frames  = [NSMutableArray arrayWithCapacity:frameCount];
+            for ( int i=0; i<frameCount; ++i )
+            {
+                NSString* file  = nil;
+                if ( i < 10 )
+                    file    = [NSString stringWithFormat:@"car01_01_EmptyAct01_00%d.png", i];
+                else
+                    file    = [NSString stringWithFormat:@"car01_01_EmptyAct01_0%d.png", i];
+                
+                CCSpriteFrame* frame    = [frameCache spriteFrameByName:file];
+                [frames addObject:frame];
+            }
+            
+            CCAnimation* anim   = [CCAnimation animationWithSpriteFrames:frames delay:0.08f];
+            
+            CCAnimate* animate  = [CCAnimate actionWithAnimation:anim];
+            CCRepeatForever* repeat = [CCRepeatForever actionWithAction:animate];
+            [_carCache.carSprite runAction:repeat];
+        }
         
         CGFloat carScale    = _carCache.carSprite.scale;
         carScale    = [UtilVec convertScaleIfRetina:carScale];
@@ -205,7 +240,6 @@ CarCache* _carCache = nil;
         speedLineScale    = [UtilVec convertScaleIfRetina:speedLineScale];
         [_carCache.speedLineEffect04 setScale:speedLineScale];
     }
-    
     
     return YES;
 }
@@ -572,6 +606,10 @@ CarCache* _carCache = nil;
     _carCache.isPlayingAnyAnimLastFrame         = _carCache.isPlayingAnyAnim;
     _carCache.isPlayingTurtleEffectLastFrame    = _carCache.isPlayingTurtleEffect;
     _carCache.isPlayingSpeedLineLastFrame       = _carCache.isPlayingSpeedLine;
+    
+    int nos = _carCache.carSprite.numberOfRunningActions;
+    printf ("numberOfRunningActions: %d", nos);
+    printf ("\n");
 }
 
 #pragma mark - Reutines
