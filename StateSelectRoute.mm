@@ -316,7 +316,7 @@ enum STATE_SELECT_ROUTE
             }
             else
             {
-                _currentState   = STATE_SELECT_ROUTE_LOAD_ROUTE;   
+                _currentState   = STATE_SELECT_ROUTE_LOAD_ROUTE;
             }
         }
             break;
@@ -353,7 +353,11 @@ enum STATE_SELECT_ROUTE
 
 - (BOOL) onTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
 {
-    if ( _currentState != STATE_SELECT_ROUTE_SELECT_ROUTE )
+    if ( !
+        (_currentState == STATE_SELECT_ROUTE_SELECT_ROUTE ||
+         _currentState == STATE_SELECT_ROUTE_FINISH
+         )
+        )
         return NO;
     
     CGPoint location    = [touch locationInView:[touch view]];
@@ -377,6 +381,9 @@ enum STATE_SELECT_ROUTE
     printf ("touch point: (%f,%f)", absPoint.x, absPoint.y);
     printf ("\n");
 
+    if ( _currentState == STATE_SELECT_ROUTE_FINISH )
+        return NO;
+    
     MenuSelectRoute* cMenuSelectRoute   = _menuSelectRouteArray.lastObject;
     [cMenuSelectRoute checkActionByPoint:absPoint];
     
@@ -389,7 +396,11 @@ enum STATE_SELECT_ROUTE
 
 - (void) onTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event
 {
-    if ( _currentState != STATE_SELECT_ROUTE_SELECT_ROUTE )
+    if ( !
+        (_currentState == STATE_SELECT_ROUTE_SELECT_ROUTE ||
+         _currentState == STATE_SELECT_ROUTE_FINISH
+         )
+        )
         return;
     
     CGFloat zoomX   = [[Camera getObject] getZoomX];
@@ -409,7 +420,11 @@ enum STATE_SELECT_ROUTE
 
 - (void) onTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
 {
-    if ( _currentState != STATE_SELECT_ROUTE_SELECT_ROUTE )
+    if ( !
+        (_currentState == STATE_SELECT_ROUTE_SELECT_ROUTE ||
+         _currentState == STATE_SELECT_ROUTE_FINISH
+         )
+        )
         return;
 }
 
@@ -418,16 +433,18 @@ enum STATE_SELECT_ROUTE
     // cancel route message
     if ( [message isEqualToString:@"remove_back"] )
     {
-        if ( _menuSelectRouteArray.count <= 1 )
-            return;
-        
         // remove last route
         RouteGraph& routeGraph  = [[World getObject] GetRouteGraph];
+        if ( routeGraph.GetVertexRoute().size() <= 1 )
+            return;
         routeGraph.RemoveBackRoute();
         routeGraph.GetConnectedVertices(_currentConnectedVertices);
         
         // remove last menu
-        [_menuSelectRouteArray removeLastObject];
+        if ( ! _menuSelectRouteArray.count <= 1 )
+        {
+            [_menuSelectRouteArray removeLastObject];
+        }
         MenuSelectRoute* cMenuSelectRoute   = _menuSelectRouteArray.lastObject;
         
         // reset button
@@ -458,6 +475,11 @@ enum STATE_SELECT_ROUTE
             {
                 [cMenuSelectRoute setButtonStateToGreen:i];
             }
+        }
+        
+        if ( _currentState == STATE_SELECT_ROUTE_FINISH )
+        {
+            _currentState   = STATE_SELECT_ROUTE_LOAD_ROUTE;
         }
     }
 }

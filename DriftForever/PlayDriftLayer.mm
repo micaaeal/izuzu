@@ -396,11 +396,18 @@ static int   _s_zoomLevelSize   = 3;
     // update state
     BOOL isNotFinishedYet  = [_currentState onUpdate:dt];
     
-    if ( ( ! isNotFinishedYet ) && ( _isNotFinishedYet ))
+    if ( ( ! isNotFinishedYet ) && ( _isNotFinishedYet ) )
     {
         if ( _delegate )
         {
             [_delegate onReadyToDrive:self];
+        }
+    }
+    else if ( (isNotFinishedYet) && ( ! _isNotFinishedYet) )
+    {
+        if ( _delegate )
+        {
+            [_delegate onPathNotReady:self];
         }
     }
     

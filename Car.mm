@@ -150,15 +150,16 @@ CarCache* _carCache = nil;
     _carCache   = [[CarCache alloc] init];
     
     // init car sprite
-    /*{
+    /*
+     {
         _carCache.carSprite   = [CCSprite spriteWithFile:@"car_01_01_Run001.png"];
         [_carCache.carSprite setRotation:0.0f];
         
         CGFloat carScale    = _carCache.carSprite.scale;
         carScale    = [UtilVec convertScaleIfRetina:carScale];
         [_carCache.carSprite setScale:carScale];
-    }*/
-    
+    }
+    /*/
     // init car sprite using texture atlas
     {
         CCSpriteFrameCache* frameCache  = [CCSpriteFrameCache sharedSpriteFrameCache];
@@ -193,6 +194,7 @@ CarCache* _carCache = nil;
         carScale    = [UtilVec convertScaleIfRetina:carScale];
         [_carCache.carSprite setScale:carScale];
     }
+    /**/
     
     {
         _carCache.speedLineSprite   = [CCSprite spriteWithFile:@"speedline_048.png"];
