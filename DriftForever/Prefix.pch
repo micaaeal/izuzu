@@ -17,7 +17,8 @@
 #define _GAME_MODE_MAINSTREAM_      0
 #define _GAME_MODE_DEBUG_           1
 
-#define _IS_SET_GAME_MODE_DEBUG_
+//#define _IS_SET_GAME_MODE_DEBUG_
+//#define _IS_ENABLE_DEBUG_PANEL_
 
 #define _GAME_MODE_     _GAME_MODE_MAINSTREAM_
 #if defined ( _IS_SET_GAME_MODE_DEBUG_ )

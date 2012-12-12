@@ -151,12 +151,13 @@ PlayDriftLayer* _s_playDriftLayer   = nil;
         // camera
         [[Camera getObject] initCameraWithLayer:actionLayer];
         [[Camera getObject] zoomTo:_s_zoomLevel[_s_currentZoomLevel]];
-        
+
         // set debug buttons
         _debugButtons   = [[NSMutableArray alloc] init];
         
         UIWindow* mWindow = [[UIApplication sharedApplication] keyWindow];
 
+#ifdef _IS_ENABLE_DEBUG_PANEL_
         float buttonOffset  = 80.0f;
         float buttonSpace   = 40.0f;
         int debugButtonIndex    = 0;
@@ -176,6 +177,7 @@ PlayDriftLayer* _s_playDriftLayer   = nil;
           forControlEvents:UIControlEventTouchDown];
             _rootDebugButton    = btn;
         }
+        
         // restart button
         {
             UIButton* btn    = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -255,12 +257,14 @@ PlayDriftLayer* _s_playDriftLayer   = nil;
           forControlEvents:UIControlEventTouchDown];
             [_debugButtons addObject:btn];
         }
-    }
-    
-    // hide all debug buttons
-    for ( UIView* cView in _debugButtons )
-    {
-        [cView setHidden:YES];
+         
+         // hide all debug buttons
+         for ( UIView* cView in _debugButtons )
+         {
+         [cView setHidden:YES];
+         }
+         
+#endif // _IS_ENABLE_DEBUG_PANEL_
     }
     
 	return self;
