@@ -29,6 +29,8 @@
 
 @property (retain, nonatomic) IBOutlet UIButton *btnNext;
 
+@property (retain, nonatomic) IBOutlet UILabel *txtScore;
+
 - (IBAction)onShare:(id)sender;
 - (IBAction)onRestart:(id)sender;
 - (IBAction)onNext:(id)sender;

@@ -22,6 +22,7 @@ using namespace std;
 #import "Order.h"
 
 #import "WindShield.h"
+#import "Score.h"
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 enum STATE_DRIVE_CAR
@@ -82,6 +83,8 @@ enum STATE_DRIVE_CAR
 @property (assign) float    _camZoomInMax;
 @property (assign) float    _camZoomOutMax;
 
+@property (assign) double   _driveTime;
+
 - (void) _startSlowMotion;
 - (void) _stopSlowMotion;
 
@@ -134,12 +137,16 @@ enum STATE_DRIVE_CAR
 @synthesize _camZoomInMax;
 @synthesize _camZoomOutMax;
 
+@synthesize _driveTime;
+
 vector<TrVertex>    _allVertices;
 vector<TrVertex>    _vertexRoute;
 vector<TrEdge>      _edgeRoute;
 
 - (void) onStart
 {
+    _driveTime      = 0.0f;
+    
     _carAcceleration            = 120.0f;
     _carBreakDeAcceleration     = -300.0f;
     _carNormalDeAcceleration    = -10.0f;
@@ -217,7 +224,22 @@ vector<TrEdge>      _edgeRoute;
             break;
         case STATE_DRIVE_CAR_START:
         {
+            _driveTime  = 0.0f;
             [Mission getObject].delegate    = self;
+            
+            // Mission box
+            int missionCode = [[Mission getObject] getCurrentMissionCode];
+            double missionTime  = [[Mission getObject] GetMissionTimeFromMissionCode:missionCode];
+            [[Score getObject] setMissionTime:missionTime];
+            Order* cOrder       = [[Mission getObject] GetORderFromMissionCode:missionCode];
+            [cOrder getOrderCount];
+            
+            int cTotalOrder = [[Mission getObject] getCurrentTotalOrder];
+            int cGotOrder   = [[Mission getObject] getCurrentGotOrder];
+            
+            [[Score getObject] setTotalOrder:cTotalOrder];
+            [[Score getObject] setGotOrder:cGotOrder];
+            
             _currentState   = STATE_DRIVE_CAR_LOAD_ROUTE;
         }
             break;
@@ -301,6 +323,8 @@ vector<TrEdge>      _edgeRoute;
             break;
         case STATE_DRIVE_CAR_DRIVE_CAR_LERP:
         {
+            _driveTime += deltaTime;
+            
             //---------------------------------------------------------
             // calculate car speed
             BOOL isAccel    = [[Console getObject] getIsTouchingAccel];
@@ -424,6 +448,10 @@ vector<TrEdge>      _edgeRoute;
             printf ( "car is reaching the target!!!\n" );
             if ( delegate )
             {
+                [Score getObject].fuelNormRemained  = [[Console getObject] GetFuelNorm];
+                int missionCode = [[Mission getObject] getCurrentMissionCode];
+                [Score getObject].missionTime       = [[Mission getObject] GetMissionTimeFromMissionCode:missionCode];
+                [Score getObject].driveTime         = _driveTime;
                 [delegate onGetStateMessage:@"win" sender:self];
             }
             
@@ -719,6 +747,9 @@ vector<TrEdge>      _edgeRoute;
 {
     printf ("on getting order! %d/%d", gotOrder, total);
     printf ("\n");
+    
+    [Score getObject].totalOrder    = total;
+    [Score getObject].gotOrder      = gotOrder;
 }
 
 @end

@@ -10,6 +10,8 @@
 #import "MenuStates.h"
 #import "Mission.h"
 
+#import "Score.h"
+
 @interface WinLostMenuViewController ()
 
 @end
@@ -64,6 +66,12 @@
     
     if ( isWin )
     {
+        long score  = [[Score getObject] calculateScore];
+        NSString* scoreStr  = [[NSString alloc] initWithFormat:@"%ld", score];
+        _txtScore.text      = scoreStr;
+        [scoreStr release];
+        scoreStr    = nil;
+        
         [_imgWinLabel setImage:[UIImage imageNamed:@"headWord01.png"]];
         
         if ( genderCode == GENDER_MALE )
@@ -79,6 +87,8 @@
     }
     else
     {
+        _txtScore.text  = @"0";
+        
         [_imgWinLabel setImage:[UIImage imageNamed:@"headWord02.png"]];
         
         if ( genderCode == GENDER_MALE )
@@ -118,6 +128,7 @@
     [_btnRestart release];
     [_btnNext release];
     [_imgBg release];
+    [_txtScore release];
     [super dealloc];
 }
 - (void)viewDidUnload {
@@ -127,6 +138,7 @@
     [self setBtnRestart:nil];
     [self setBtnNext:nil];
     [self setImgBg:nil];
+    [self setTxtScore:nil];
     [super viewDidUnload];
 }
 

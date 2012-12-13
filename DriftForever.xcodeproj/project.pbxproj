@@ -329,6 +329,7 @@
 		BDD49305167504E500F7B9B8 /* score.png in Resources */ = {isa = PBXBuildFile; fileRef = BDD492F7167504E500F7B9B8 /* score.png */; };
 		BDD49306167504E500F7B9B8 /* shareButton01.png in Resources */ = {isa = PBXBuildFile; fileRef = BDD492F8167504E500F7B9B8 /* shareButton01.png */; };
 		BDD49307167504E500F7B9B8 /* shareButton02.png in Resources */ = {isa = PBXBuildFile; fileRef = BDD492F9167504E500F7B9B8 /* shareButton02.png */; };
+		BDD71E12167A7EC70066EA66 /* Score.m in Sources */ = {isa = PBXBuildFile; fileRef = BDD71E11167A7EC70066EA66 /* Score.m */; };
 		BDD76AF21676AE0600A268F1 /* water_windshield.png in Resources */ = {isa = PBXBuildFile; fileRef = BDD76AF11676AE0600A268F1 /* water_windshield.png */; };
 		BDDA0DD9162F854900854B96 /* EventHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDDA0DD8162F854900854B96 /* EventHandler.mm */; };
 		BDE145F216778263002AF040 /* oil_windshield.png in Resources */ = {isa = PBXBuildFile; fileRef = BDE145F116778263002AF040 /* oil_windshield.png */; };
@@ -823,6 +824,8 @@
 		BDD492F7167504E500F7B9B8 /* score.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = score.png; sourceTree = "<group>"; };
 		BDD492F8167504E500F7B9B8 /* shareButton01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shareButton01.png; sourceTree = "<group>"; };
 		BDD492F9167504E500F7B9B8 /* shareButton02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shareButton02.png; sourceTree = "<group>"; };
+		BDD71E10167A7EC70066EA66 /* Score.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Score.h; sourceTree = "<group>"; };
+		BDD71E11167A7EC70066EA66 /* Score.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Score.m; sourceTree = "<group>"; };
 		BDD76AF11676AE0600A268F1 /* water_windshield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = water_windshield.png; path = Resources/water_windshield.png; sourceTree = "<group>"; };
 		BDDA0DD7162F854900854B96 /* EventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventHandler.h; sourceTree = "<group>"; };
 		BDDA0DD8162F854900854B96 /* EventHandler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EventHandler.mm; sourceTree = "<group>"; };
@@ -1195,6 +1198,7 @@
 				BD49BD4816135A8600C401BF /* Mission */,
 				BDBA3364160E252D00593FFC /* Products */,
 				BDBA337A160E252D00593FFC /* Resources */,
+				BDD71E0F167A7EAE0066EA66 /* Score */,
 				BDE549ED1616FD72005B6BD5 /* State */,
 				BDBD3F53161BB47400488689 /* Utils */,
 				BD49BD3D161356E600C401BF /* World */,
@@ -1605,6 +1609,15 @@
 				BDBD3F58161BB58E00488689 /* Utils.h */,
 			);
 			name = Utils;
+			sourceTree = "<group>";
+		};
+		BDD71E0F167A7EAE0066EA66 /* Score */ = {
+			isa = PBXGroup;
+			children = (
+				BDD71E10167A7EC70066EA66 /* Score.h */,
+				BDD71E11167A7EC70066EA66 /* Score.m */,
+			);
+			name = Score;
 			sourceTree = "<group>";
 		};
 		BDDA0DD6162F7FD700854B96 /* Event and Combo */ = {
@@ -2050,6 +2063,7 @@
 				BD8CB7D81674AAB900210980 /* RestartMenuViewController.m in Sources */,
 				BDD492E91675011900F7B9B8 /* WinLostMenuViewController.m in Sources */,
 				BD2BEA6B167A54C5003371D4 /* Order.mm in Sources */,
+				BDD71E12167A7EC70066EA66 /* Score.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

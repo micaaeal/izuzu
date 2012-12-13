@@ -18,6 +18,7 @@
 @property (assign) int  startVertexCode;
 @property (assign) int  endVertexCode;
 @property (retain) Order*   order;
+@property (assign) double   missionTime;
 @end
 
 @implementation MissionProfile
@@ -29,6 +30,7 @@
         _startVertexCode    = 0;
         _endVertexCode      = 0;
         _order              = 0;
+        _missionTime        = 0.0;
     }
     return self;
 }
@@ -123,6 +125,7 @@ static Mission* _s_mission  = nil;
         cMissionProfile.order   = cOrder;
         [cOrder release];
         cOrder  = nil;
+        cMissionProfile.missionTime = 10.0;
         [cMissionProfile release];
         cMissionProfile = nil;
     }
@@ -215,6 +218,12 @@ static Mission* _s_mission  = nil;
     return cMissionProfile.order;
 }
 
+- (double) GetMissionTimeFromMissionCode: (int) missionCode
+{
+    MissionProfile* cMissionProfile = [_missionArray objectAtIndex:missionCode];
+    return cMissionProfile.missionTime;
+}
+
 - (void) SetMapLayer: (CCLayer*) mapLayer
 {
     _currentLayer   = mapLayer;
@@ -290,17 +299,10 @@ static Mission* _s_mission  = nil;
             {
                 if ( _delegate )
                 {
-                    int totalOrder  = _orderSpriteArray.count;
-                    int gotCount    = 0;
+                    int totalOrder  = [self getCurrentTotalOrder];
+                    
+                    int gotCount    = [self getCurrentGotOrder];
                     [cSprite setOpacity:0];
-                    for (int i=0; i<_orderSpriteArray.count; ++i)
-                    {
-                        CCSprite* cOrderSprite  = [_orderSpriteArray objectAtIndex:i];
-                        if ( cOrderSprite.opacity == 0 )
-                        {
-                            ++gotCount;
-                        }
-                    }
                     
                     [_delegate onGettingOrder:self totalOrder:totalOrder gottOrder:gotCount];
                 }
@@ -308,6 +310,25 @@ static Mission* _s_mission  = nil;
             }
         }
     }
+}
+
+- (int) getCurrentTotalOrder
+{
+    int totalOrder  = _orderSpriteArray.count;
+    return totalOrder;
+}
+- (int) getCurrentGotOrder
+{
+    int gotCount    = 0;
+    for (int i=0; i<_orderSpriteArray.count; ++i)
+    {
+        CCSprite* cOrderSprite  = [_orderSpriteArray objectAtIndex:i];
+        if ( cOrderSprite.opacity == 0 )
+        {
+            ++gotCount;
+        }
+    }
+    return gotCount;
 }
 
 @end

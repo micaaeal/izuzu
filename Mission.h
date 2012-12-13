@@ -40,11 +40,16 @@
 
 - (Order*) GetORderFromMissionCode: (int) missionCode;
 
+- (double) GetMissionTimeFromMissionCode: (int) missionCode;
+
 - (void) SetMapLayer: (CCLayer*) mapLayer;
 - (void) AddBoxSpriteToMapLayerAtPosition: (CGPoint) position;
 - (void) ClearAllBoxSpritesFromMapLayer;
 - (void) HideBoxSpriteFromMapLayerByPosition: (CGPoint) position;
 
 - (void) Update: (float) dt;
+
+- (int) getCurrentTotalOrder;
+- (int) getCurrentGotOrder;
 
 @end
