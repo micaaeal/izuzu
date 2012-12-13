@@ -15,6 +15,7 @@
 using namespace std;
 #import "Utils.h"
 #import "Mission.h"
+#import "Order.h"
 #import "Car.h"
 #import "WindShield.h"
 
@@ -118,6 +119,17 @@ enum STATE_SELECT_ROUTE
             break;
         case STATE_SELECT_ROUTE_START:
         {
+            // Mission box
+            int missionCode = [[Mission getObject] getCurrentMissionCode];
+            Order* order    = [[Mission getObject] GetORderFromMissionCode:missionCode];
+            CGPoint* pointArray = [order getOrderPositionArray];
+            int orderCount  = [order getOrderCount];
+            [[Mission getObject] ClearAllBoxSpritesFromMapLayer];
+            for ( int i=0; i<orderCount; ++i)
+            {
+                [[Mission getObject] AddBoxSpriteToMapLayerAtPosition:pointArray[i]];
+            }
+            
             // Car
             [Car hideCar];
             

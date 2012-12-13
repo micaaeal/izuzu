@@ -610,8 +610,6 @@ CarCache* _carCache = nil;
     _carCache.isPlayingSpeedLineLastFrame       = _carCache.isPlayingSpeedLine;
     
     int nos = _carCache.carSprite.numberOfRunningActions;
-    printf ("numberOfRunningActions: %d", nos);
-    printf ("\n");
 }
 
 #pragma mark - Reutines

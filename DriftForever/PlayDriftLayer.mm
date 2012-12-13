@@ -138,6 +138,9 @@ PlayDriftLayer* _s_playDriftLayer   = nil;
         [[WindShield getObject] onStart];
         [[WindShield getObject] assignDataToLayer:self];
         
+        // Mission
+        [[Mission getObject] SetMapLayer:actionLayer];
+        
         // set touch enable
         self.isTouchEnabled = YES;
         

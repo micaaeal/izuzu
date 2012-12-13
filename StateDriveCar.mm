@@ -19,7 +19,7 @@ using namespace std;
 #import "Camera.h"
 
 #import "Utils.h"
-#import "Mission.h"
+#import "Order.h"
 
 #import "WindShield.h"
 
@@ -217,6 +217,7 @@ vector<TrEdge>      _edgeRoute;
             break;
         case STATE_DRIVE_CAR_START:
         {
+            [Mission getObject].delegate    = self;
             _currentState   = STATE_DRIVE_CAR_LOAD_ROUTE;
         }
             break;
@@ -249,8 +250,6 @@ vector<TrEdge>      _edgeRoute;
             }
             
             [Car setTarget:carTarget];
-            //[Car setSpeed:300.0f];
-            //[Car setSpeed:30.0f];
             [Car setSpeed:0.0f];
             [Car Update:deltaTime];
             
@@ -292,6 +291,7 @@ vector<TrEdge>      _edgeRoute;
             
             // Init fuel
             [[Console getObject] SetFuelNorm:1.0f];
+            
         }
             break;
         case STATE_DRIVE_CAR_DRIVE_CAR_SET_CHECKPOINT:
@@ -401,6 +401,9 @@ vector<TrEdge>      _edgeRoute;
             
             // update car
             [Car Update:deltaTime];
+            
+            // update mission
+            [[Mission getObject] Update:deltaTime];
             
             // camera to the car
             CGPoint camPoint    = [Car getPosition];
@@ -706,6 +709,16 @@ vector<TrEdge>      _edgeRoute;
     }
     
     return NO;
+}
+
+#pragma mark - MissionDelegate
+
+- (void) onGettingOrder:(id)sender
+             totalOrder:(int)total
+              gottOrder:(int)gotOrder
+{
+    printf ("on getting order! %d/%d", gotOrder, total);
+    printf ("\n");
 }
 
 @end
