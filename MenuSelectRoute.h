@@ -11,7 +11,7 @@
 
 @protocol MenuSelectRoute <NSObject>
 
-- (void) onTouchButtonAtId: (int) buttonId isGreen: (BOOL) isGreen;
+- (void) onTouchButtonAtId: (int) buttonId;
 
 @end
 
@@ -27,13 +27,10 @@
 - (void) setActionObject: (id<MenuSelectRoute>) sender;
 - (void) checkActionByPoint: (CGPoint) point;
 
-- (void) setButtonStateToRed: (int) buttonIndex;
-- (void) setButtonStateToGreen: (int) buttonIndex;
-
 - (void) hideButtonAtIndex: (int) buttonIndex;
 - (void) showButtonAtIndex: (int) buttonIndex;
 
-- (BOOL) isThisButtonGreen: (int) buttonIndex;
-- (BOOL) isThisButtonRed: (int) buttonIndex;
+- (void) hideAllButtons;
+- (void) showAllButtons;
 
 @end

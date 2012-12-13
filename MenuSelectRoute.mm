@@ -16,8 +16,9 @@ static float _s_routeButtonRadius   = 100;
 @property (retain) NSMutableArray*      _routeButtonArray;
 @property (retain) id<MenuSelectRoute>  _actionObject;
 @property (assign) CGPoint              _anchor;
-@property (retain) NSMutableArray*      _routeButtonArrayRed;
 @property (retain) CCLayer*             _rootLayer;
+
+@property (assign) BOOL     _hasLoaded;
 
 @end
 
@@ -26,8 +27,8 @@ static float _s_routeButtonRadius   = 100;
 @synthesize _routeButtonArray;
 @synthesize _actionObject;
 @synthesize _anchor;
-@synthesize _routeButtonArrayRed;
 @synthesize _rootLayer;
+@synthesize _hasLoaded;
 
 - (id) init
 {
@@ -35,10 +36,10 @@ static float _s_routeButtonRadius   = 100;
     if ( self )
     {
         _routeCount  = 0;
+        _hasLoaded          = NO;
         _routeButtonArray   = [[NSMutableArray alloc] init];
         _actionObject       = nil;
         _anchor             = CGPointMake(0.0f, 0.0f);
-        _routeButtonArrayRed    = [[NSMutableArray alloc] init];
         _rootLayer          = nil;
     }
     return self;
@@ -46,14 +47,6 @@ static float _s_routeButtonRadius   = 100;
 
 - (void) dealloc
 {
-    for ( CCSprite* cButton in _routeButtonArrayRed )
-    {
-        [_rootLayer removeChild:cButton cleanup:YES];
-    }
-    
-    [_routeButtonArrayRed release];
-    _routeButtonArrayRed    = nil;
-    
     for ( CCSprite* cButton in _routeButtonArray )
     {
         [_rootLayer removeChild:cButton cleanup:YES];
@@ -71,33 +64,24 @@ static float _s_routeButtonRadius   = 100;
     _anchor     = point;
     _rootLayer  = rootLayer;
     
-    for (int i=0; i<_routeCount; ++i)
+    if ( ! _hasLoaded )
     {
-        // load select buttons
+        for (int i=0; i<5; ++i)
         {
-            CCSprite* button = [CCSprite spriteWithFile: @"route_select_img.png"];
-            button.position = point;
-            [rootLayer addChild:button];
-            
-            CGFloat buttonScale = [UtilVec convertScaleIfRetina:button.scale];
-            [button setScale:buttonScale];
-            
-            [_routeButtonArray addObject:button];
+            // load select buttons
+            {
+                CCSprite* button = [CCSprite spriteWithFile: @"route_select_img.png"];
+                button.position = point;
+                [rootLayer addChild:button];
+                
+                CGFloat buttonScale = [UtilVec convertScaleIfRetina:button.scale];
+                [button setScale:buttonScale];
+                
+                [_routeButtonArray addObject:button];
+            }
         }
-        
-        // load desselect buttons
-        {
-            CCSprite* button    = [CCSprite spriteWithFile: @"route_disselect_img.png"];
-            button.position     = point;
-            [rootLayer addChild:button];
-            
-            CGFloat buttonScale = [UtilVec convertScaleIfRetina:button.scale];
-            [button setScale:buttonScale];
-            
-            [_routeButtonArrayRed addObject:button];
-        }
+        _hasLoaded  = YES;
     }
-
 }
 
 - (void) setButtonAtPoint: (CGPoint) point
@@ -110,13 +94,6 @@ static float _s_routeButtonRadius   = 100;
         // for green buttons
         {
             CCSprite* cButtonSprite = [_routeButtonArray objectAtIndex:i];
-            CGPoint spritePosition  = cButtonSprite.position;
-            cButtonSprite.position  = CGPointMake(spritePosition.x+deltaPoint.x,
-                                                  spritePosition.y+deltaPoint.y);
-        }
-        // for red buttons
-        {
-            CCSprite* cButtonSprite = [_routeButtonArrayRed objectAtIndex:i];
             CGPoint spritePosition  = cButtonSprite.position;
             cButtonSprite.position  = CGPointMake(spritePosition.x+deltaPoint.x,
                                                   spritePosition.y+deltaPoint.y);
@@ -147,15 +124,6 @@ static float _s_routeButtonRadius   = 100;
         cButtonSprite.position  = CGPointMake(_anchor.x + deltaXAtRadius,
                                               _anchor.y + deltaYAtRadius);
     }
-    // for red butttons
-    {
-        CCSprite* cButtonSprite = [_routeButtonArrayRed objectAtIndex:buttonIndex];
-        cButtonSprite.position  = CGPointMake(_anchor.x + deltaXAtRadius,
-                                              _anchor.y + deltaYAtRadius);
-    }
-    
-    // init state
-    [self setButtonStateToGreen:buttonIndex];
 }
 
 - (void) setActionObject: (id<MenuSelectRoute>) sender
@@ -178,65 +146,40 @@ static float _s_routeButtonRadius   = 100;
                 &&
                 point.y <= cButtonSpriteRect.origin.y + cButtonSpriteRect.size.height )
             {
-                BOOL isGreen    = [self isThisButtonGreen:i];
-                [_actionObject onTouchButtonAtId:i isGreen:isGreen];
+                [_actionObject onTouchButtonAtId:i];
             }
         }
     }
 }
 
-- (void) setButtonStateToRed: (int) buttonIndex
-{
-    CCSprite* redButton     = [_routeButtonArrayRed objectAtIndex:buttonIndex];
-    CCSprite* greenButton   = [_routeButtonArray objectAtIndex:buttonIndex];
-    
-    [greenButton setOpacity:0];
-    [redButton setOpacity:255];
-}
-
-- (void) setButtonStateToGreen: (int) buttonIndex
-{
-    CCSprite* redButton     = [_routeButtonArrayRed objectAtIndex:buttonIndex];
-    CCSprite* greenButton   = [_routeButtonArray objectAtIndex:buttonIndex];
-
-    [greenButton setOpacity:255];
-    [redButton setOpacity:0];
-}
-
 - (void) hideButtonAtIndex: (int) buttonIndex
 {
-    CCSprite* redButton     = [_routeButtonArrayRed objectAtIndex:buttonIndex];
     CCSprite* greenButton   = [_routeButtonArray objectAtIndex:buttonIndex];
-    
     [greenButton setOpacity:0];
-    [redButton setOpacity:0];
 }
 
 - (void) showButtonAtIndex: (int) buttonIndex
 {
-    CCSprite* redButton     = [_routeButtonArrayRed objectAtIndex:buttonIndex];
     CCSprite* greenButton   = [_routeButtonArray objectAtIndex:buttonIndex];
-    
     [greenButton setOpacity:255];
-    [redButton setOpacity:255];
 }
 
-- (BOOL) isThisButtonGreen: (int) buttonIndex
+- (void) hideAllButtons
 {
-    CCSprite* greenButton   = [_routeButtonArray objectAtIndex:buttonIndex];
-    
-    if ( greenButton.opacity )
-        return YES;
-    return NO;
+    for ( int i=0; i<_routeButtonArray.count; ++i )
+    {
+        CCSprite* greenButton   = [_routeButtonArray objectAtIndex:i];
+        [greenButton setOpacity:0];
+    }
 }
 
-- (BOOL) isThisButtonRed: (int) buttonIndex
+- (void) showAllButtons
 {
-    CCSprite* redButton     = [_routeButtonArrayRed objectAtIndex:buttonIndex];
-    
-    if ( redButton.opacity )
-        return YES;
-    return NO;
+    for ( int i=0; i<_routeButtonArray.count; ++i )
+    {
+        CCSprite* greenButton   = [_routeButtonArray objectAtIndex:i];
+        [greenButton setOpacity:255];
+    }
 }
 
 @end

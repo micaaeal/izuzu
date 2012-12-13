@@ -154,10 +154,10 @@ PlayDriftLayer* _s_playDriftLayer   = nil;
 
         // set debug buttons
         _debugButtons   = [[NSMutableArray alloc] init];
-        
-        UIWindow* mWindow = [[UIApplication sharedApplication] keyWindow];
 
 #ifdef _IS_ENABLE_DEBUG_PANEL_
+        UIWindow* mWindow = [[UIApplication sharedApplication] keyWindow];
+        
         float buttonOffset  = 80.0f;
         float buttonSpace   = 40.0f;
         int debugButtonIndex    = 0;
