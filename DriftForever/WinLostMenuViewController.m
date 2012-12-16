@@ -12,7 +12,11 @@
 
 #import "Score.h"
 
-@interface WinLostMenuViewController ()
+#import <FacebookSDK/FacebookSDK.h>
+#import "social/Social.h"
+#import "accounts/Accounts.h"
+
+@interface WinLostMenuViewController () <FBLoginViewDelegate>
 
 @end
 
@@ -39,7 +43,73 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark -
+
+// Convenience method to perform some action that requires the "publish_actions" permissions.
+- (void) performPublishAction:(void (^)(void)) action {
+    // we defer request for permission to post to the moment of post, then we check for the permission
+    if ([FBSession.activeSession.permissions indexOfObject:@"publish_actions"] == NSNotFound) {
+        // if we don't already have the permission, then we request it now
+        [FBSession.activeSession reauthorizeWithPublishPermissions:[NSArray arrayWithObject:@"publish_actions"]
+                                                   defaultAudience:FBSessionDefaultAudienceFriends
+                                                 completionHandler:^(FBSession *session, NSError *error) {
+                                                     if (!error) {
+                                                         action();
+                                                     }
+                                                     //For this example, ignore errors (such as if user cancels).
+                                                 }];
+    } else {
+        action();
+    }
+    
+}
+
 - (IBAction)onShare:(id)sender {
+    
+    // Facebook onShare
+    NSString* missionCode   = [[NSString alloc] initWithFormat:@"%d", [[Mission getObject] getCurrentMissionCode]];
+    NSString* missionScore  = [[NSString alloc] initWithFormat:@"%ld", [[Score getObject] calculateScore]];
+    NSString *message = [NSString stringWithFormat:@"I got %@ for mission %@", missionScore, missionCode];
+    
+    // post wall for iOS 6
+    if ( [[UIDevice currentDevice].systemVersion floatValue] >= 5.99999 )
+    {
+        if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
+            
+            SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+            
+            SLComposeViewControllerCompletionHandler myBlock = ^(SLComposeViewControllerResult result){
+                if (result == SLComposeViewControllerResultCancelled) {
+                    
+                    NSLog(@"Cancelled");
+                    
+                } else
+                    
+                {
+                    NSLog(@"Done");
+                }
+                
+                [controller dismissViewControllerAnimated:YES completion:Nil];
+            };
+            controller.completionHandler =myBlock;
+            
+            [controller setInitialText:message];
+            [controller addURL:[NSURL URLWithString:@"http://www.mobile.safilsunny.com"]];
+            [controller addImage:[UIImage imageNamed:@"startMenuPart01.png"]];
+            
+            [self presentViewController:controller animated:YES completion:Nil];
+            
+        }
+        else{
+            NSLog(@"UnAvailable");
+        }
+    }
+    else // posted wall for iOS 5
+    {
+        
+    }
+    
+    // delegate
     if ( _delegate )
     {
         [_delegate onShare:self];

@@ -27,6 +27,14 @@
 		BD426857166FC09500D5789D /* pauseTab.png in Resources */ = {isa = PBXBuildFile; fileRef = BD426850166FC09500D5789D /* pauseTab.png */; };
 		BD49BD441613576E00C401BF /* World.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD49BD431613576E00C401BF /* World.mm */; };
 		BD56AC561629218C00941DC1 /* road_config.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD56AC551629218B00941DC1 /* road_config.plist */; };
+		BD58F030167D610400415FC3 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD58F02F167D610400415FC3 /* FacebookSDK.framework */; };
+		BD58F033167D615A00415FC3 /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BD58F032167D615A00415FC3 /* FacebookSDKResources.bundle */; };
+		BD58F035167D618E00415FC3 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD58F034167D618E00415FC3 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		BD58F037167D619C00415FC3 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD58F036167D619C00415FC3 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		BD58F039167D61FD00415FC3 /* FBUserSettingsViewResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BD58F038167D61FD00415FC3 /* FBUserSettingsViewResources.bundle */; };
+		BD58F03B167D623500415FC3 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD58F03A167D623500415FC3 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		BD58F03D167D650600415FC3 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BD58F03C167D650600415FC3 /* libsqlite3.0.dylib */; };
+		BD58F03F167D651800415FC3 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BD58F03E167D651800415FC3 /* libsqlite3.dylib */; };
 		BD6CA9CE1636996900131027 /* event_config.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD6CA9CD1636996900131027 /* event_config.plist */; };
 		BD6CA9D11636D1F200131027 /* ComboPlayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD6CA9D01636D1F200131027 /* ComboPlayer.mm */; };
 		BD8CB7CE1674AA9500210980 /* restartMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = BD8CB7C71674AA9300210980 /* restartMenu.png */; };
@@ -340,6 +348,7 @@
 		BDE549F21616FDA0005B6BD5 /* StateSelectRoute.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDE549F11616FDA0005B6BD5 /* StateSelectRoute.mm */; };
 		BDE549F51616FDB3005B6BD5 /* StateDriveCar.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDE549F41616FDB3005B6BD5 /* StateDriveCar.mm */; };
 		BDF29C5D16779475000FE289 /* speedline_effect.png in Resources */ = {isa = PBXBuildFile; fileRef = BDF29C5C16779475000FE289 /* speedline_effect.png */; };
+		BDF53A9D167D72AC0055F401 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDF53A9C167D72AC0055F401 /* CoreLocation.framework */; };
 		BDF75DD1161903DE00BEAFD1 /* Car.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDF75DD0161903DE00BEAFD1 /* Car.mm */; };
 		BDF75DD5161933C000BEAFD1 /* Camera.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDF75DD4161933C000BEAFD1 /* Camera.mm */; };
 		BDFE1EFA1615273C00EF134B /* RouteGraph.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDFE1EF71615273C00EF134B /* RouteGraph.mm */; };
@@ -375,6 +384,14 @@
 		BD49BD431613576E00C401BF /* World.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = World.mm; sourceTree = "<group>"; };
 		BD4ABB0F1630DA1900694676 /* Console.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Console.h; sourceTree = "<group>"; };
 		BD56AC551629218B00941DC1 /* road_config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = road_config.plist; sourceTree = "<group>"; };
+		BD58F02F167D610400415FC3 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		BD58F032167D615A00415FC3 /* FacebookSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FacebookSDKResources.bundle; path = FacebookSDK.framework/Versions/A/Resources/FacebookSDKResources.bundle; sourceTree = "<group>"; };
+		BD58F034167D618E00415FC3 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		BD58F036167D619C00415FC3 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		BD58F038167D61FD00415FC3 /* FBUserSettingsViewResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FBUserSettingsViewResources.bundle; path = FacebookSDK.framework/Versions/A/Resources/FBUserSettingsViewResources.bundle; sourceTree = "<group>"; };
+		BD58F03A167D623500415FC3 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		BD58F03C167D650600415FC3 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		BD58F03E167D651800415FC3 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		BD6922A41617561A0045538D /* MenuSelectRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuSelectRoute.h; sourceTree = "<group>"; };
 		BD6CA9CD1636996900131027 /* event_config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = event_config.plist; sourceTree = "<group>"; };
 		BD6CA9CF1636D1F200131027 /* ComboPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComboPlayer.h; sourceTree = "<group>"; };
@@ -841,6 +858,7 @@
 		BDE549F31616FDB3005B6BD5 /* StateDriveCar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateDriveCar.h; sourceTree = "<group>"; };
 		BDE549F41616FDB3005B6BD5 /* StateDriveCar.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = StateDriveCar.mm; sourceTree = "<group>"; };
 		BDF29C5C16779475000FE289 /* speedline_effect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speedline_effect.png; sourceTree = "<group>"; };
+		BDF53A9C167D72AC0055F401 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		BDF75DCF161903DE00BEAFD1 /* Car.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Car.h; sourceTree = "<group>"; };
 		BDF75DD0161903DE00BEAFD1 /* Car.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Car.mm; sourceTree = "<group>"; };
 		BDF75DD3161933C000BEAFD1 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
@@ -856,6 +874,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDF53A9D167D72AC0055F401 /* CoreLocation.framework in Frameworks */,
+				BD58F03F167D651800415FC3 /* libsqlite3.dylib in Frameworks */,
+				BD58F03D167D650600415FC3 /* libsqlite3.0.dylib in Frameworks */,
+				BD58F03B167D623500415FC3 /* Social.framework in Frameworks */,
+				BD58F037167D619C00415FC3 /* AdSupport.framework in Frameworks */,
+				BD58F035167D618E00415FC3 /* Accounts.framework in Frameworks */,
 				BDBA3368160E252D00593FFC /* QuartzCore.framework in Frameworks */,
 				BDBA336A160E252D00593FFC /* OpenGLES.framework in Frameworks */,
 				BDBA336C160E252D00593FFC /* OpenAL.framework in Frameworks */,
@@ -865,6 +889,7 @@
 				BDBA3374160E252D00593FFC /* Foundation.framework in Frameworks */,
 				BDBA3376160E252D00593FFC /* CoreGraphics.framework in Frameworks */,
 				BDBA3378160E252D00593FFC /* GameKit.framework in Frameworks */,
+				BD58F030167D610400415FC3 /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1185,6 +1210,7 @@
 		BDBA3358160E252C00593FFC = {
 			isa = PBXGroup;
 			children = (
+				BDF53A9C167D72AC0055F401 /* CoreLocation.framework */,
 				BD9673151667FC8500B0C9CD /* Data */,
 				BDF75DD2161933A700BEAFD1 /* Camera */,
 				BDF75DCE161903C500BEAFD1 /* Car */,
@@ -1216,6 +1242,14 @@
 		BDBA3366160E252D00593FFC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BD58F03E167D651800415FC3 /* libsqlite3.dylib */,
+				BD58F03A167D623500415FC3 /* Social.framework */,
+				BD58F036167D619C00415FC3 /* AdSupport.framework */,
+				BD58F034167D618E00415FC3 /* Accounts.framework */,
+				BD58F03C167D650600415FC3 /* libsqlite3.0.dylib */,
+				BD58F02F167D610400415FC3 /* FacebookSDK.framework */,
+				BD58F032167D615A00415FC3 /* FacebookSDKResources.bundle */,
+				BD58F038167D61FD00415FC3 /* FBUserSettingsViewResources.bundle */,
 				BDBA3367160E252D00593FFC /* QuartzCore.framework */,
 				BDBA3369160E252D00593FFC /* OpenGLES.framework */,
 				BDBA336B160E252D00593FFC /* OpenAL.framework */,
@@ -1923,6 +1957,8 @@
 				BDC2C1CE1677F6710099C632 /* car01_01.plist in Resources */,
 				BDC2C1CF1677F6710099C632 /* car01_01.png in Resources */,
 				BD2BEA6D167A5B41003371D4 /* box.png in Resources */,
+				BD58F033167D615A00415FC3 /* FacebookSDKResources.bundle in Resources */,
+				BD58F039167D61FD00415FC3 /* FBUserSettingsViewResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2116,6 +2152,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = DriftForever/Prefix.pch;
@@ -2139,6 +2179,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Code Gears Co., Ltd.";
 				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = DriftForever/Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"DriftForever/libs/kazmath/include\"";

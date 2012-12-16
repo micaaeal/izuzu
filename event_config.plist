@@ -28,31 +28,5 @@
 		<key>comboTime</key>
 		<string>2</string>
 	</dict>
-	<dict>
-		<key>point</key>
-		<dict>
-			<key>x</key>
-			<string>6792.043457</string>
-			<key>y</key>
-			<string>-4755.141602</string>
-		</dict>
-		<key>eventName</key>
-		<string>turtle</string>
-		<key>comboTime</key>
-		<string>2</string>
-	</dict>
-	<dict>
-		<key>point</key>
-		<dict>
-			<key>x</key>
-			<string>6502.570312</string>
-			<key>y</key>
-			<string>-5195.771973</string>
-		</dict>
-		<key>eventName</key>
-		<string>turtle</string>
-		<key>comboTime</key>
-		<string>2</string>
-	</dict>
 </array>
 </plist>
