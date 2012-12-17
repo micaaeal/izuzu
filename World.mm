@@ -15,8 +15,12 @@
 #import <vector>
 using namespace std;
 
+World* _s_world = nil;
+
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-@interface WorldCache: NSObject
+@interface World()
+
+@property (assign) World*           world;
 
 @property (retain) NSMutableArray*  roadArray;
 @property (retain) NSMutableArray*  treeArray;
@@ -103,7 +107,7 @@ using namespace std;
 
 @end
 
-@implementation WorldCache
+@implementation World
 @synthesize roadArray;
 @synthesize treeArray;
 @synthesize buildingArray;
@@ -155,10 +159,20 @@ using namespace std;
 
 @synthesize isLoadingFloor;
 
++ (World*) getObject
+{
+    if ( ! _s_world )
+    {
+        _s_world    = [[World alloc] init];
+        _s_world.world  = _s_world;
+    }
+    return _s_world.world;
+}
+
 - (id) init
 {
     self    = [super init];
-    if (self)
+    if ( self )
     {
         roadArray   = [[NSMutableArray alloc] init];
         treeArray   = [[NSMutableArray alloc] init];
@@ -174,6 +188,7 @@ using namespace std;
     }
     return self;
 }
+
 - (void) dealloc
 {
     screenBounds  = CGRectMake(0.0f, 0.0f, 0.0f, 0.0f);
@@ -190,6 +205,989 @@ using namespace std;
     roadArray   = nil;
     [super dealloc];
 }
+
+- (BOOL) LoadData
+{
+    // ----------------------------------------------------------------
+    // load road config file
+    NSString* roadConfigFullPath    = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:@"road_config.plist"];
+    NSArray* roadConfigArray    = [[NSArray alloc] initWithContentsOfFile:roadConfigFullPath];
+    
+    // load road to memory
+    for ( int i=roadConfigArray.count-1; i>=0; --i )
+    {
+        NSDictionary* cRoadDict = [roadConfigArray objectAtIndex:i];
+        
+        NSString* file_name = [cRoadDict objectForKey:@"file_name"];
+        NSString* x         = [cRoadDict objectForKey:@"x"];
+        NSString* y         = [cRoadDict objectForKey:@"y"];
+        NSString* rotation  = [cRoadDict objectForKey:@"rotation"];
+        
+        CCSprite* cSprite   = [CCSprite spriteWithFile:file_name];
+        if ( ! cSprite )
+        {
+            printf ("null image with name: %s", [file_name UTF8String]);
+            printf ("\n");
+        }
+        else
+        {
+            cSprite.position    = ccp( x.floatValue, y.floatValue );
+            [cSprite setRotation:rotation.floatValue];
+            [roadArray addObject:cSprite];   
+        }
+    }
+    
+    [roadConfigArray release];
+    roadConfigArray = nil;
+    
+    // adjustment
+    for (CCSprite* cSprite in roadArray)
+    {
+        // position
+        float actualX   = cSprite.position.x;
+        float actualY   = cSprite.position.y;
+        CGPoint spritePoint = CGPointMake(actualX, -actualY);
+        spritePoint = [UtilVec convertVecIfRetina:spritePoint];
+        [cSprite setPosition:spritePoint];
+        
+        // scale ...
+        CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:cSprite.scale];
+        [cSprite setScale:cSpriteScale];
+    }
+    
+    // ----------------------------------------------------------------
+    // load trees
+    CGPoint treePoints[]    = {
+        CGPointMake(	3036	,	-	548	),
+        CGPointMake(	3448	,	-	670	),
+        CGPointMake(	4791	,	-	1239	),
+        CGPointMake(	6904	,	-	1060	),
+        CGPointMake(	6724	,	-	1321	),
+        CGPointMake(	7663	,	-	1008	),
+        CGPointMake(	8209	,	-	1159	),
+        CGPointMake(	2457	,	-	2870	),
+        CGPointMake(	3319	,	-	3572	),
+        CGPointMake(	3502	,	-	1654	),
+        CGPointMake(	3757	,	-	2339	),
+        CGPointMake(	3124	,	-	3569	),
+        CGPointMake(	3728	,	-	3167	),
+        CGPointMake(	4384	,	-	3271	),
+        CGPointMake(	4204	,	-	3671	),
+        CGPointMake(	4819	,	-	3404	),
+        CGPointMake(	4807	,	-	3920	),
+        CGPointMake(	4337	,	-	4257	),
+        CGPointMake(	4326	,	-	5619	),
+        CGPointMake(	4767	,	-	5596	),
+        CGPointMake(	4519	,	-	2001	),
+        CGPointMake(	5069	,	-	1792	),
+        CGPointMake(	5340	,	-	2622	),
+        CGPointMake(	5685	,	-	3204	),
+        CGPointMake(	7279	,	-	2396	),
+        CGPointMake(	7630	,	-	2143	),
+        CGPointMake(	8227	,	-	1946	),
+        CGPointMake(	8641	,	-	2543	),
+        CGPointMake(	8555	,	-	2684	)
+    };
+    int treePointsCount     = 29;
+    for ( int i=0; i<treePointsCount; ++i )
+    {
+        CGPoint treePoint       = treePoints[i];
+        treePoint.x += 50.0f;
+        treePoint.y -= 200.0f;
+        treePoint               = [UtilVec convertVecIfRetina:treePoint];
+        CCSprite* treeSprite    = [CCSprite spriteWithFile:@"tree.png"];
+        [treeArray addObject:treeSprite];
+        [treeSprite setPosition:treePoint];
+        CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:treeSprite.scale];
+        [treeSprite setScale:cSpriteScale];
+    }
+    
+    // ----------------------------------------------------------------
+    // load buildings
+    CGPoint buildingOffset  = CGPointMake(-135, 0.0f);
+    {
+        CGPoint buildingPoint  = CGPointMake(5838.0f, -4817.0f);
+        buildingPoint.x += buildingOffset.x;
+        buildingPoint.y += buildingOffset.y;
+        buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
+        CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build01.png"];
+        [buildingArray addObject:buildingSprite];
+        CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+        [buildingSprite setScale:cSpriteScale];
+        buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+        buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
+        [buildingSprite setPosition:buildingPoint];
+    }
+    {
+        CGPoint buildingPoint  = CGPointMake(6721.0f, -5052.0f);
+        buildingPoint.x += buildingOffset.x;
+        buildingPoint.y += buildingOffset.y;
+        buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
+        CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build02.png"];
+        [buildingArray addObject:buildingSprite];
+        CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+        [buildingSprite setScale:cSpriteScale];
+        buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+        buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
+        [buildingSprite setPosition:buildingPoint];
+    }
+    {
+        CGPoint buildingPoint  = CGPointMake(8077.0f, -4846.0f);
+        buildingPoint.x += buildingOffset.x;
+        buildingPoint.y += buildingOffset.y;
+        buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
+        CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build03.png"];
+        [buildingArray addObject:buildingSprite];
+        CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+        [buildingSprite setScale:cSpriteScale];
+        buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+        buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
+        [buildingSprite setPosition:buildingPoint];
+    }
+    {
+        CGPoint buildingPoint  = CGPointMake(7928.0f, -4172.0f);
+        buildingPoint.x += buildingOffset.x;
+        buildingPoint.y += buildingOffset.y;
+        buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
+        CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build04.png"];
+        [buildingArray addObject:buildingSprite];
+        CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+        [buildingSprite setScale:cSpriteScale];
+        buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+        buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
+        [buildingSprite setPosition:buildingPoint];
+    }
+    {
+        vector<CGPoint> points;
+        points.push_back(CGPointMake(	5871	,	-3943	));
+        points.push_back(CGPointMake(	6129	,	-3943	));
+        points.push_back(CGPointMake(	6391	,	-3943	));
+        points.push_back(CGPointMake(	6638	,	-3943	));
+        points.push_back(CGPointMake(	5871	,	-4229	));
+        points.push_back(CGPointMake(	6129	,	-4229	));
+        points.push_back(CGPointMake(	6391	,	-4229	));
+        points.push_back(CGPointMake(	6638	,	-4229	));
+        points.push_back(CGPointMake(	5871	,	-4405	));
+        points.push_back(CGPointMake(	6129	,	-4405	));
+        points.push_back(CGPointMake(	6391	,	-4405	));
+        points.push_back(CGPointMake(	6638	,	-4405	));
+        for (int i=0; i<points.size(); ++i)
+        {
+            CGPoint buildingPoint  = points[i];
+            buildingPoint.x += buildingOffset.x;
+            buildingPoint.y += buildingOffset.y;
+            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
+            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build05.png"];
+            [buildingArray addObject:buildingSprite];
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
+            [buildingSprite setPosition:buildingPoint];
+        }
+    }
+    {
+        vector<CGPoint> points;
+        points.push_back(CGPointMake(	6836	,	-3433	));
+        points.push_back(CGPointMake(	8010	,	-3433	));
+        points.push_back(CGPointMake(	8827	,	-3433	));
+        for (int i=0; i<points.size(); ++i)
+        {
+            CGPoint buildingPoint  = points[i];
+            buildingPoint.x += buildingOffset.x;
+            buildingPoint.y += buildingOffset.y;
+            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
+            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build06.png"];
+            [buildingArray addObject:buildingSprite];
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
+            [buildingSprite setPosition:buildingPoint];
+        }
+    }
+    {
+        vector<CGPoint> points;
+        points.push_back(CGPointMake(	9354	,	-2460	));
+        points.push_back(CGPointMake(	9354	,	-1694	));
+        for (int i=0; i<points.size(); ++i)
+        {
+            CGPoint buildingPoint  = points[i];
+            buildingPoint.x += buildingOffset.x;
+            buildingPoint.y += buildingOffset.y;
+            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
+            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build07.png"];
+            [buildingArray addObject:buildingSprite];
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
+            [buildingSprite setPosition:buildingPoint];
+        }
+    }
+    {
+        vector<CGPoint> points;
+        points.push_back(CGPointMake(	8835	,	-1094	));
+        for (int i=0; i<points.size(); ++i)
+        {
+            CGPoint buildingPoint  = points[i];
+            buildingPoint.x += buildingOffset.x;
+            buildingPoint.y += buildingOffset.y;
+            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
+            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build08.png"];
+            [buildingArray addObject:buildingSprite];
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
+            [buildingSprite setPosition:buildingPoint];
+        }
+    }
+    {
+        vector<CGPoint> points;
+        points.push_back(CGPointMake(	5838	,	-1328	));
+        points.push_back(CGPointMake(	2926	,	-1397	));
+        points.push_back(CGPointMake(	4243	,	-4817	));
+        points.push_back(CGPointMake(	7254	,	-4793	));
+        for (int i=0; i<points.size(); ++i)
+        {
+            CGPoint buildingPoint  = points[i];
+            buildingPoint.x += buildingOffset.x;
+            buildingPoint.y += buildingOffset.y;
+            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
+            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build09.png"];
+            [buildingArray addObject:buildingSprite];
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
+            [buildingSprite setPosition:buildingPoint];
+        }
+    }
+    {
+        vector<CGPoint> points;
+        points.push_back(CGPointMake(	7126	,	-2738	));
+        for (int i=0; i<points.size(); ++i)
+        {
+            CGPoint buildingPoint  = points[i];
+            buildingPoint.x += buildingOffset.x;
+            buildingPoint.y += buildingOffset.y;
+            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
+            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build10.png"];
+            [buildingArray addObject:buildingSprite];
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
+            [buildingSprite setPosition:buildingPoint];
+        }
+    }
+    {
+        vector<CGPoint> points;
+        points.push_back(CGPointMake(	7329	,	-4405	));
+        points.push_back(CGPointMake(	7785	,	-1285	));
+        for (int i=0; i<points.size(); ++i)
+        {
+            CGPoint buildingPoint  = points[i];
+            buildingPoint.x += buildingOffset.x;
+            buildingPoint.y += buildingOffset.y;
+            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
+            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build11.png"];
+            [buildingArray addObject:buildingSprite];
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
+            [buildingSprite setPosition:buildingPoint];
+        }
+    }
+    {
+        vector<CGPoint> points;
+        points.push_back(CGPointMake(	2474	,	-2297	));
+        for (int i=0; i<points.size(); ++i)
+        {
+            CGPoint buildingPoint  = points[i];
+            buildingPoint.x += buildingOffset.x;
+            buildingPoint.y += buildingOffset.y;
+            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
+            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build12.png"];
+            [buildingArray addObject:buildingSprite];
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
+            [buildingSprite setPosition:buildingPoint];
+        }
+    }
+    {
+        vector<CGPoint> points;
+        points.push_back(CGPointMake(	3932	,	-874	));
+        points.push_back(CGPointMake(	4251	,	-874	));
+        for (int i=0; i<points.size(); ++i)
+        {
+            CGPoint buildingPoint  = points[i];
+            buildingPoint.x += buildingOffset.x;
+            buildingPoint.y += buildingOffset.y;
+            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
+            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build13.png"];
+            [buildingArray addObject:buildingSprite];
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
+            [buildingSprite setPosition:buildingPoint];
+        }
+    }
+    {
+        vector<CGPoint> points;
+        points.push_back(CGPointMake(	8156	,	-2231	));
+        for (int i=0; i<points.size(); ++i)
+        {
+            CGPoint buildingPoint  = points[i];
+            buildingPoint.x += buildingOffset.x;
+            buildingPoint.y += buildingOffset.y;
+            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
+            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build14.png"];
+            [buildingArray addObject:buildingSprite];
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
+            [buildingSprite setPosition:buildingPoint];
+        }
+    }
+    {
+        vector<CGPoint> points;
+        points.push_back(CGPointMake(	4285	,	-2751	));
+        for (int i=0; i<points.size(); ++i)
+        {
+            CGPoint buildingPoint  = points[i];
+            buildingPoint.x += buildingOffset.x;
+            buildingPoint.y += buildingOffset.y;
+            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
+            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build15.png"];
+            [buildingArray addObject:buildingSprite];
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
+            [buildingSprite setPosition:buildingPoint];
+        }
+    }
+    {
+        vector<CGPoint> points;
+        points.push_back(CGPointMake(	2575	,	-3811	));
+        for (int i=0; i<points.size(); ++i)
+        {
+            CGPoint buildingPoint  = points[i];
+            buildingPoint.x += buildingOffset.x;
+            buildingPoint.y += buildingOffset.y;
+            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
+            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build16.png"];
+            [buildingArray addObject:buildingSprite];
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
+            [buildingSprite setPosition:buildingPoint];
+        }
+    }
+    {
+        vector<CGPoint> points;
+        points.push_back(CGPointMake(	5731	,	-1784	));
+        for (int i=0; i<points.size(); ++i)
+        {
+            CGPoint buildingPoint  = points[i];
+            buildingPoint.x += buildingOffset.x;
+            buildingPoint.y += buildingOffset.y;
+            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
+            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build17.png"];
+            [buildingArray addObject:buildingSprite];
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
+            [buildingSprite setPosition:buildingPoint];
+        }
+    }
+    
+    // ----------------------------------------------------------------
+    // load prop
+    {
+        vector<CGPoint> points;
+        points.push_back(CGPointMake(	4526	,	-	969	));
+        points.push_back(CGPointMake(	6116	,	-	846	));
+        points.push_back(CGPointMake(	9044	,	-	846	));
+        points.push_back(CGPointMake(	4259	,	-	5018	));
+        points.push_back(CGPointMake(	7697	,	-	3597	));
+        points.push_back(CGPointMake(	7394	,	-	5429	));
+        points.push_back(CGPointMake(	8420	,	-	5429	));
+        points.push_back(CGPointMake(	8930	,	-	4551	));
+        for (int i=0; i<points.size(); ++i)
+        {
+            CGPoint buildingPoint  = points[i];
+            buildingPoint.x += buildingOffset.x;
+            buildingPoint.y += buildingOffset.y;
+            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
+            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"prob01.png"];
+            [probArray addObject:buildingSprite];
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
+            [buildingSprite setPosition:buildingPoint];
+        }
+    }
+    {
+        vector<CGPoint> points;
+        points.push_back(CGPointMake(	3711	,	-	939	));
+        points.push_back(CGPointMake(	5261	,	-	3556	));
+        points.push_back(CGPointMake(	7801	,	-	2979	));
+        points.push_back(CGPointMake(	7537	,	-	3546	));
+        points.push_back(CGPointMake(	6719	,	-	4804	));
+        points.push_back(CGPointMake(	9353	,	-	5378	));
+        for (int i=0; i<points.size(); ++i)
+        {
+            CGPoint buildingPoint  = points[i];
+            buildingPoint.x += buildingOffset.x;
+            buildingPoint.y += buildingOffset.y;
+            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
+            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"prob02.png"];
+            [probArray addObject:buildingSprite];
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
+            [buildingSprite setPosition:buildingPoint];
+        }
+    }
+    // prob03 is ommited
+    {
+        vector<CGPoint> points;
+        points.push_back(CGPointMake(	6408	,	-	1169	));
+        points.push_back(CGPointMake(	4250	,	-	4559	));
+        points.push_back(CGPointMake(	4584	,	-	4559	));
+        points.push_back(CGPointMake(	4948	,	-	4559	));
+        for (int i=0; i<points.size(); ++i)
+        {
+            CGPoint buildingPoint  = points[i];
+            buildingPoint.x += buildingOffset.x;
+            buildingPoint.y += buildingOffset.y;
+            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
+            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"prob04.png"];
+            [probArray addObject:buildingSprite];
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
+            [buildingSprite setPosition:buildingPoint];
+        }
+    }
+    {
+        vector<CGPoint> points;
+        points.push_back(CGPointMake(	2943	,	-	2003	));
+        points.push_back(CGPointMake(	2627	,	-	3188	));
+        points.push_back(CGPointMake(	3940	,	-	2889	));
+        points.push_back(CGPointMake(	5103	,	-	2423	));
+        points.push_back(CGPointMake(	5402	,	-	1792	));
+        points.push_back(CGPointMake(	5518	,	-	3204	));
+        points.push_back(CGPointMake(	5618	,	-	3541	));
+        points.push_back(CGPointMake(	6504	,	-	1155	));
+        points.push_back(CGPointMake(	6859	,	-	1986	));
+        points.push_back(CGPointMake(	7142	,	-	2445	));
+        points.push_back(CGPointMake(	6727	,	-	2888	));
+        points.push_back(CGPointMake(	7514	,	-	2977	));
+        points.push_back(CGPointMake(	8129	,	-	1676	));
+        points.push_back(CGPointMake(	8556	,	-	1676	));
+        points.push_back(CGPointMake(	8218	,	-	2900	));
+        points.push_back(CGPointMake(	4572	,	-	4013	));
+        points.push_back(CGPointMake(	3929	,	-	5403	));
+        points.push_back(CGPointMake(	4849	,	-	4526	));
+        points.push_back(CGPointMake(	5365	,	-	4080	));
+        points.push_back(CGPointMake(	5365	,	-	4554	));
+        points.push_back(CGPointMake(	5365	,	-	4949	));
+        points.push_back(CGPointMake(	5365	,	-	5265	));
+        for (int i=0; i<points.size(); ++i)
+        {
+            CGPoint buildingPoint  = points[i];
+            buildingPoint.x += buildingOffset.x;
+            buildingPoint.y += buildingOffset.y;
+            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
+            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"prob05.png"];
+            [probArray addObject:buildingSprite];
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
+            [buildingSprite setPosition:buildingPoint];
+        }
+    }
+    {
+        vector<CGPoint> points;
+        points.push_back(CGPointMake(	3505	,	-	2618	));
+        for (int i=0; i<points.size(); ++i)
+        {
+            CGPoint buildingPoint  = points[i];
+            buildingPoint.x += buildingOffset.x;
+            buildingPoint.y += buildingOffset.y;
+            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
+            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"prob06.png"];
+            [probArray addObject:buildingSprite];
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
+            [buildingSprite setPosition:buildingPoint];
+        }
+    }
+    {
+        vector<CGPoint> points;
+        points.push_back(CGPointMake(	3234	,	-	737	));
+        for (int i=0; i<points.size(); ++i)
+        {
+            CGPoint buildingPoint  = points[i];
+            buildingPoint.x += buildingOffset.x;
+            buildingPoint.y += buildingOffset.y;
+            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
+            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"prob07.png"];
+            [probArray addObject:buildingSprite];
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
+            [buildingSprite setPosition:buildingPoint];
+        }
+    }
+    // prob08 is ommited
+    // prob09 is ommited
+    {
+        vector<CGPoint> points;
+        points.push_back(CGPointMake(	9156	,	-	4339	));
+        for (int i=0; i<points.size(); ++i)
+        {
+            CGPoint buildingPoint  = points[i];
+            buildingPoint.x += buildingOffset.x;
+            buildingPoint.y += buildingOffset.y;
+            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
+            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"rail.png"];
+            [probArray addObject:buildingSprite];
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
+            [buildingSprite setPosition:buildingPoint];
+        }
+    }
+    {
+        vector<CGPoint> points;
+        points.push_back(CGPointMake(	2967	,	-	3245	));
+        for (int i=0; i<points.size(); ++i)
+        {
+            CGPoint buildingPoint  = points[i];
+            buildingPoint.x += buildingOffset.x;
+            buildingPoint.y += buildingOffset.y;
+            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
+            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"targetA.png"];
+            [probArray addObject:buildingSprite];
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
+            [buildingSprite setPosition:buildingPoint];
+        }
+    }
+    {
+        vector<CGPoint> points;
+        points.push_back(CGPointMake(	8754	,	-	1727	));
+        for (int i=0; i<points.size(); ++i)
+        {
+            CGPoint buildingPoint  = points[i];
+            buildingPoint.x += buildingOffset.x;
+            buildingPoint.y += buildingOffset.y;
+            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
+            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"targetB.png"];
+            [probArray addObject:buildingSprite];
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
+            [buildingSprite setPosition:buildingPoint];
+        }
+    }
+    {
+        vector<CGPoint> points;
+        points.push_back(CGPointMake(	9006	,	-	5288	));
+        for (int i=0; i<points.size(); ++i)
+        {
+            CGPoint buildingPoint  = points[i];
+            buildingPoint.x += buildingOffset.x;
+            buildingPoint.y += buildingOffset.y;
+            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
+            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"targetC.png"];
+            [probArray addObject:buildingSprite];
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
+            [buildingSprite setPosition:buildingPoint];
+        }
+    }
+    {
+        vector<CGPoint> points;
+        points.push_back(CGPointMake(	3930	,	-	1250	));
+        for (int i=0; i<points.size(); ++i)
+        {
+            CGPoint buildingPoint  = points[i];
+            buildingPoint.x += buildingOffset.x;
+            buildingPoint.y += buildingOffset.y;
+            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
+            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"targetD.png"];
+            [probArray addObject:buildingSprite];
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
+            [buildingSprite setPosition:buildingPoint];
+        }
+    }
+    {
+        vector<CGPoint> points;
+        points.push_back(CGPointMake(	6897	,	-	2123	));
+        for (int i=0; i<points.size(); ++i)
+        {
+            CGPoint buildingPoint  = points[i];
+            buildingPoint.x += buildingOffset.x;
+            buildingPoint.y += buildingOffset.y;
+            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
+            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"targetE.png"];
+            [probArray addObject:buildingSprite];
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
+            [buildingSprite setPosition:buildingPoint];
+        }
+    }
+    {
+        vector<CGPoint> points;
+        points.push_back(CGPointMake(	7991	,	-	3921	));
+        points.push_back(CGPointMake(	8127	,	-	3921	));
+        points.push_back(CGPointMake(	8271	,	-	3921	));
+        points.push_back(CGPointMake(	8420	,	-	3921	));
+        points.push_back(CGPointMake(	8567	,	-	3921	));
+        points.push_back(CGPointMake(	8710	,	-	3921	));
+        points.push_back(CGPointMake(	7991	,	-	4070	));
+        points.push_back(CGPointMake(	8127	,	-	4070	));
+        points.push_back(CGPointMake(	8271	,	-	4070	));
+        points.push_back(CGPointMake(	8420	,	-	4070	));
+        points.push_back(CGPointMake(	8567	,	-	4070	));
+        points.push_back(CGPointMake(	8710	,	-	4070	));
+        for (int i=0; i<points.size(); ++i)
+        {
+            CGPoint buildingPoint  = points[i];
+            buildingPoint.x += buildingOffset.x;
+            buildingPoint.y += buildingOffset.y;
+            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
+            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"tent01.png"];
+            [probArray addObject:buildingSprite];
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
+            [buildingSprite setPosition:buildingPoint];
+        }
+    }
+    {
+        vector<CGPoint> points;
+        points.push_back(CGPointMake(	7354	,	-	3938	));
+        points.push_back(CGPointMake(	7354	,	-	4083	));
+        points.push_back(CGPointMake(	7354	,	-	4232	));
+        points.push_back(CGPointMake(	7490	,	-	3938	));
+        points.push_back(CGPointMake(	7490	,	-	4083	));
+        points.push_back(CGPointMake(	7490	,	-	4232	));
+        for (int i=0; i<points.size(); ++i)
+        {
+            CGPoint buildingPoint  = points[i];
+            buildingPoint.x += buildingOffset.x;
+            buildingPoint.y += buildingOffset.y;
+            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
+            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"tent02.png"];
+            [probArray addObject:buildingSprite];
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
+            [buildingSprite setPosition:buildingPoint];
+        }
+    }
+    {
+        vector<CGPoint> points;
+        points.push_back(CGPointMake(	7411	,	-	5052	));
+        points.push_back(CGPointMake(	7411	,	-	5189	));
+        points.push_back(CGPointMake(	7411	,	-	5335	));
+        points.push_back(CGPointMake(	7536	,	-	5052	));
+        points.push_back(CGPointMake(	7536	,	-	5189	));
+        points.push_back(CGPointMake(	7536	,	-	5335	));
+        for (int i=0; i<points.size(); ++i)
+        {
+            CGPoint buildingPoint  = points[i];
+            buildingPoint.x += buildingOffset.x;
+            buildingPoint.y += buildingOffset.y;
+            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
+            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"tent03.png"];
+            [probArray addObject:buildingSprite];
+            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
+            [buildingSprite setScale:cSpriteScale];
+            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
+            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
+            [buildingSprite setPosition:buildingPoint];
+        }
+    }
+    
+    return YES;
+}
+
+- (BOOL) UnloadData
+{
+    if ( self )
+    {
+        [self release];
+        self = nil;
+    }
+    
+    // @TODO Next
+    
+    return YES;
+}
+
+- (BOOL) AssignDataToLayer: (CCLayer*) layer withMission: (Mission*) mission
+{
+    if ( ! self )
+        return NO;
+    
+    // road
+    for ( CCSprite* cSprite in roadArray )
+    {
+        [layer addChild:cSprite];
+    }
+    
+    // trees
+    for ( CCSprite* cSprite in treeArray )
+    {
+        [layer addChild:cSprite];
+    }
+    
+    // buildings
+    for ( CCSprite* cSprite in buildingArray )
+    {
+        [layer addChild:cSprite];
+    }
+    
+    // prob
+    for ( CCSprite* cSprite in probArray )
+    {
+        [layer addChild:cSprite];
+    }
+    
+    // set layer ref
+    layer   = layer;
+    
+    return YES;
+}
+
+- (BOOL) UnSssignDataFromLayer: (CCLayer*) layer
+{
+    return YES;
+}
+
+- (RouteGraph&) GetRouteGraph
+{
+    return *routeGraph;
+}
+
+- (void) Draw
+{
+    if ( isLoadingFloor )
+        return;
+    
+    Camera* camera      = [Camera getObject];
+    CGPoint camPoint    = [camera getPoint];
+    CGFloat camZoomX    = [camera getZoomX];
+    CGSize camSize  = [[CCDirector sharedDirector] winSize];
+    
+    CGPoint camCenter       = CGPointMake((camPoint.x-125.0f) - camSize.width*0.5f,
+                                          camPoint.y - camSize.height*0.5f);
+    
+    CGPoint viewPortPoint   = CGPointMake(camCenter.x + camSize.width*0.5f/camZoomX,
+                                          camCenter.y + camSize.height*0.5f/camZoomX );
+    
+    // water
+    [self _PaintR:22.0f/255.0f
+                       g:153.0f/255.0f
+                       b:168.0f/255.0f
+                       a:1.0
+            sourcePoints:&[self getWater][0]
+            bufferPoints:water_buffer
+                    size:[self getWater].size()
+           viewPortPoint:viewPortPoint camZoom:camZoomX];
+    
+    // floor
+    [self _PaintR:195.0f/255.0f
+                       g:181.0f/255.0f
+                       b:155.0f/255.0f
+                       a:1.0
+            sourcePoints:&[self getFloor01][0]
+            bufferPoints:floor01_buffer
+                    size:[self getFloor01].size()
+           viewPortPoint:viewPortPoint camZoom:camZoomX];
+    
+    [self _PaintR:195.0f/255.0f
+                       g:181.0f/255.0f
+                       b:155.0f/255.0f
+                       a:1.0
+            sourcePoints:&[self getFloor02][0]
+            bufferPoints:floor02_buffer
+                    size:[self getFloor02].size()
+           viewPortPoint:viewPortPoint camZoom:camZoomX];
+    
+    [self _PaintR:195.0f/255.0f
+                       g:181.0f/255.0f
+                       b:155.0f/255.0f
+                       a:1.0
+            sourcePoints:&[self getFloor03][0]
+            bufferPoints:floor03_buffer
+                    size:[self getFloor03].size()
+           viewPortPoint:viewPortPoint camZoom:camZoomX];
+    
+    [self _PaintR:195.0f/255.0f
+                       g:181.0f/255.0f
+                       b:155.0f/255.0f
+                       a:1.0
+            sourcePoints:&[self getFloor04][0]
+            bufferPoints:floor04_buffer
+                    size:[self getFloor04].size()
+           viewPortPoint:viewPortPoint camZoom:camZoomX];
+    
+    [self _PaintR:195.0f/255.0f
+                       g:181.0f/255.0f
+                       b:155.0f/255.0f
+                       a:1.0
+            sourcePoints:&[self getFloor05][0]
+            bufferPoints:floor05_buffer
+                    size:[self getFloor05].size()
+           viewPortPoint:viewPortPoint camZoom:camZoomX];
+    
+    [self _PaintR:195.0f/255.0f
+                       g:181.0f/255.0f
+                       b:155.0f/255.0f
+                       a:1.0
+            sourcePoints:&[self getFloor06][0]
+            bufferPoints:floor06_buffer
+                    size:[self getFloor06].size()
+           viewPortPoint:viewPortPoint camZoom:camZoomX];
+    
+    [self _PaintR:195.0f/255.0f
+                       g:181.0f/255.0f
+                       b:155.0f/255.0f
+                       a:1.0
+            sourcePoints:&[self getFloor07][0]
+            bufferPoints:floor07_buffer
+                    size:[self getFloor07].size()
+           viewPortPoint:viewPortPoint camZoom:camZoomX];
+    
+    // floor up
+    [self _PaintR:149.0f/255.0f
+                       g:140.0f/255.0f
+                       b:122.0f/255.0f
+                       a:1.0
+            sourcePoints:&[self getFloor_up01][0]
+            bufferPoints:floor_up01_buffer
+                    size:[self getFloor_up01].size()
+           viewPortPoint:viewPortPoint camZoom:camZoomX];
+    
+    [self _PaintR:149.0f/255.0f
+                       g:140.0f/255.0f
+                       b:122.0f/255.0f
+                       a:1.0
+            sourcePoints:&[self getFloor_up02][0]
+            bufferPoints:floor_up02_buffer
+                    size:[self getFloor_up02].size()
+           viewPortPoint:viewPortPoint camZoom:camZoomX];
+    
+    [self _PaintR:149.0f/255.0f
+                       g:140.0f/255.0f
+                       b:122.0f/255.0f
+                       a:1.0
+            sourcePoints:&[self getFloor_up03][0]
+            bufferPoints:floor_up03_buffer
+                    size:[self getFloor_up03].size()
+           viewPortPoint:viewPortPoint camZoom:camZoomX];
+    
+    // grass
+    [self _PaintR:135.0f/255.0f
+                       g:156.0f/255.0f
+                       b:10.0f/255.0f
+                       a:1.0
+            sourcePoints:&[self getFloorGrass][0]
+            bufferPoints:floor_grass_buffer
+                    size:[self getFloorGrass].size()
+           viewPortPoint:viewPortPoint camZoom:camZoomX];
+    
+    // floor high
+    [self _PaintR:196.0f/255.0f
+                       g:188.0f/255.0f
+                       b:171.0f/255.0f
+                       a:1.0
+            sourcePoints:&[self getFloor_high01][0]
+            bufferPoints:floor_high01_buffer
+                    size:[self getFloor_high01].size()
+           viewPortPoint:viewPortPoint camZoom:camZoomX];
+    
+    // floor etc
+    [self _PaintR:196.0f/255.0f
+                       g:188.0f/255.0f
+                       b:171.0f/255.0f
+                       a:1.0
+            sourcePoints:&[self getFloor_etc01][0]
+            bufferPoints:floor_etc01_buffer
+                    size:[self getFloor_etc01].size()
+           viewPortPoint:viewPortPoint camZoom:camZoomX];
+    [self _PaintR:196.0f/255.0f
+                       g:188.0f/255.0f
+                       b:171.0f/255.0f
+                       a:1.0
+            sourcePoints:&[self getFloor_etc02][0]
+            bufferPoints:floor_etc02_buffer
+                    size:[self getFloor_etc02].size()
+           viewPortPoint:viewPortPoint camZoom:camZoomX];
+    [self _PaintR:149.0f/255.0f
+                       g:140.0f/255.0f
+                       b:122.0f/255.0f
+                       a:1.0
+            sourcePoints:&[self getFloor_etc03][0]
+            bufferPoints:floor_etc03_buffer
+                    size:[self getFloor_etc03].size()
+           viewPortPoint:viewPortPoint camZoom:camZoomX];
+    [self _PaintR:149.0f/255.0f
+                       g:140.0f/255.0f
+                       b:122.0f/255.0f
+                       a:1.0
+            sourcePoints:&[self getFloor_etc04][0]
+            bufferPoints:floor_etc04_buffer
+                    size:[self getFloor_etc04].size()
+           viewPortPoint:viewPortPoint camZoom:camZoomX];
+    [self _PaintR:149.0f/255.0f
+                       g:140.0f/255.0f
+                       b:122.0f/255.0f
+                       a:1.0
+            sourcePoints:&[self getFloor_etc05][0]
+            bufferPoints:floor_etc05_buffer
+                    size:[self getFloor_etc05].size()
+           viewPortPoint:viewPortPoint camZoom:camZoomX];
+}
+
+#pragma mark - PIMPL
+
 
 - (void) loadFloor
 {
@@ -278,7 +1276,7 @@ using namespace std;
     floor_up01.push_back(CGPointMake(	-	6384	,	6133	));
     floor_up01.push_back(CGPointMake(	-	9600	,	6133	));
     [self _CreateBufferPoints:&floor_up01_buffer fromSourcePointsSize:floor_up01.size()];
-
+    
     floor_up02.clear();
     floor_up02.push_back(CGPointMake(	-	5487	,	576	));
     floor_up02.push_back(CGPointMake(	-	6436	,	576	));
@@ -359,7 +1357,7 @@ using namespace std;
     floor_etc04.push_back(CGPointMake(	-	4600	,	1100	));
     floor_etc04.push_back(CGPointMake(	-	3753	,	1100	));
     [self _CreateBufferPoints:&floor_etc04_buffer fromSourcePointsSize:floor_etc04.size()];
-
+    
     floor_etc05.clear();
     floor_etc05.push_back(CGPointMake(	-	5606	,	6010	));
     floor_etc05.push_back(CGPointMake(	-	5606	,	5600	));
@@ -495,1018 +1493,6 @@ using namespace std;
     ccDrawSolidPoly(bufferPoints,
                     size,
                     ccc4f(r, g, b, a));
-}
-
-@end
-
-World* _s_world = nil;
-
-// ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-@interface World()
-
-@property (retain) WorldCache* _worldCache;
-
-@end
-
-@implementation World
-@synthesize _worldCache;
-
-+ (World*) getObject
-{
-    if ( ! _s_world )
-    {
-        _s_world    = [[World alloc] init];
-    }
-    return _s_world;
-}
-
-- (BOOL) LoadData
-{
-    if ( ! _worldCache )
-    {
-        _worldCache = [[WorldCache alloc] init];
-    }
-
-    // ----------------------------------------------------------------
-    // load road config file
-    NSString* roadConfigFullPath    = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:@"road_config.plist"];
-    NSArray* roadConfigArray    = [[NSArray alloc] initWithContentsOfFile:roadConfigFullPath];
-    
-    // load road to memory
-    for ( int i=roadConfigArray.count-1; i>=0; --i )
-    {
-        NSDictionary* cRoadDict = [roadConfigArray objectAtIndex:i];
-        
-        NSString* file_name = [cRoadDict objectForKey:@"file_name"];
-        NSString* x         = [cRoadDict objectForKey:@"x"];
-        NSString* y         = [cRoadDict objectForKey:@"y"];
-        NSString* rotation  = [cRoadDict objectForKey:@"rotation"];
-        
-        CCSprite* cSprite   = [CCSprite spriteWithFile:file_name];
-        if ( ! cSprite )
-        {
-            printf ("null image with name: %s", [file_name UTF8String]);
-            printf ("\n");
-        }
-        else
-        {
-            cSprite.position    = ccp( x.floatValue, y.floatValue );
-            [cSprite setRotation:rotation.floatValue];
-            [_worldCache.roadArray addObject:cSprite];   
-        }
-    }
-    
-    [roadConfigArray release];
-    roadConfigArray = nil;
-    
-    // adjustment
-    for (CCSprite* cSprite in _worldCache.roadArray)
-    {
-        // position
-        float actualX   = cSprite.position.x;
-        float actualY   = cSprite.position.y;
-        CGPoint spritePoint = CGPointMake(actualX, -actualY);
-        spritePoint = [UtilVec convertVecIfRetina:spritePoint];
-        [cSprite setPosition:spritePoint];
-        
-        // scale ...
-        CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:cSprite.scale];
-        [cSprite setScale:cSpriteScale];
-    }
-    
-    // ----------------------------------------------------------------
-    // load trees
-    CGPoint treePoints[]    = {
-        CGPointMake(	3036	,	-	548	),
-        CGPointMake(	3448	,	-	670	),
-        CGPointMake(	4791	,	-	1239	),
-        CGPointMake(	6904	,	-	1060	),
-        CGPointMake(	6724	,	-	1321	),
-        CGPointMake(	7663	,	-	1008	),
-        CGPointMake(	8209	,	-	1159	),
-        CGPointMake(	2457	,	-	2870	),
-        CGPointMake(	3319	,	-	3572	),
-        CGPointMake(	3502	,	-	1654	),
-        CGPointMake(	3757	,	-	2339	),
-        CGPointMake(	3124	,	-	3569	),
-        CGPointMake(	3728	,	-	3167	),
-        CGPointMake(	4384	,	-	3271	),
-        CGPointMake(	4204	,	-	3671	),
-        CGPointMake(	4819	,	-	3404	),
-        CGPointMake(	4807	,	-	3920	),
-        CGPointMake(	4337	,	-	4257	),
-        CGPointMake(	4326	,	-	5619	),
-        CGPointMake(	4767	,	-	5596	),
-        CGPointMake(	4519	,	-	2001	),
-        CGPointMake(	5069	,	-	1792	),
-        CGPointMake(	5340	,	-	2622	),
-        CGPointMake(	5685	,	-	3204	),
-        CGPointMake(	7279	,	-	2396	),
-        CGPointMake(	7630	,	-	2143	),
-        CGPointMake(	8227	,	-	1946	),
-        CGPointMake(	8641	,	-	2543	),
-        CGPointMake(	8555	,	-	2684	)
-    };
-    int treePointsCount     = 29;
-    for ( int i=0; i<treePointsCount; ++i )
-    {
-        CGPoint treePoint       = treePoints[i];
-        treePoint.x += 50.0f;
-        treePoint.y -= 200.0f;
-        treePoint               = [UtilVec convertVecIfRetina:treePoint];
-        CCSprite* treeSprite    = [CCSprite spriteWithFile:@"tree.png"];
-        [_worldCache.treeArray addObject:treeSprite];
-        [treeSprite setPosition:treePoint];
-        CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:treeSprite.scale];
-        [treeSprite setScale:cSpriteScale];
-    }
-    
-    // ----------------------------------------------------------------
-    // load buildings
-    CGPoint buildingOffset  = CGPointMake(-135, 0.0f);
-    {
-        CGPoint buildingPoint  = CGPointMake(5838.0f, -4817.0f);
-        buildingPoint.x += buildingOffset.x;
-        buildingPoint.y += buildingOffset.y;
-        buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-        CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build01.png"];
-        [_worldCache.buildingArray addObject:buildingSprite];
-        CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
-        [buildingSprite setScale:cSpriteScale];
-        buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
-        buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
-        [buildingSprite setPosition:buildingPoint];
-    }
-    {
-        CGPoint buildingPoint  = CGPointMake(6721.0f, -5052.0f);
-        buildingPoint.x += buildingOffset.x;
-        buildingPoint.y += buildingOffset.y;
-        buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-        CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build02.png"];
-        [_worldCache.buildingArray addObject:buildingSprite];
-        CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
-        [buildingSprite setScale:cSpriteScale];
-        buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
-        buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
-        [buildingSprite setPosition:buildingPoint];
-    }
-    {
-        CGPoint buildingPoint  = CGPointMake(8077.0f, -4846.0f);
-        buildingPoint.x += buildingOffset.x;
-        buildingPoint.y += buildingOffset.y;
-        buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-        CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build03.png"];
-        [_worldCache.buildingArray addObject:buildingSprite];
-        CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
-        [buildingSprite setScale:cSpriteScale];
-        buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
-        buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
-        [buildingSprite setPosition:buildingPoint];
-    }
-    {
-        CGPoint buildingPoint  = CGPointMake(7928.0f, -4172.0f);
-        buildingPoint.x += buildingOffset.x;
-        buildingPoint.y += buildingOffset.y;
-        buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-        CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build04.png"];
-        [_worldCache.buildingArray addObject:buildingSprite];
-        CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
-        [buildingSprite setScale:cSpriteScale];
-        buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
-        buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
-        [buildingSprite setPosition:buildingPoint];
-    }
-    {
-        vector<CGPoint> points;
-        points.push_back(CGPointMake(	5871	,	-3943	));
-        points.push_back(CGPointMake(	6129	,	-3943	));
-        points.push_back(CGPointMake(	6391	,	-3943	));
-        points.push_back(CGPointMake(	6638	,	-3943	));
-        points.push_back(CGPointMake(	5871	,	-4229	));
-        points.push_back(CGPointMake(	6129	,	-4229	));
-        points.push_back(CGPointMake(	6391	,	-4229	));
-        points.push_back(CGPointMake(	6638	,	-4229	));
-        points.push_back(CGPointMake(	5871	,	-4405	));
-        points.push_back(CGPointMake(	6129	,	-4405	));
-        points.push_back(CGPointMake(	6391	,	-4405	));
-        points.push_back(CGPointMake(	6638	,	-4405	));
-        for (int i=0; i<points.size(); ++i)
-        {
-            CGPoint buildingPoint  = points[i];
-            buildingPoint.x += buildingOffset.x;
-            buildingPoint.y += buildingOffset.y;
-            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build05.png"];
-            [_worldCache.buildingArray addObject:buildingSprite];
-            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
-            [buildingSprite setScale:cSpriteScale];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
-            [buildingSprite setPosition:buildingPoint];
-        }
-    }
-    {
-        vector<CGPoint> points;
-        points.push_back(CGPointMake(	6836	,	-3433	));
-        points.push_back(CGPointMake(	8010	,	-3433	));
-        points.push_back(CGPointMake(	8827	,	-3433	));
-        for (int i=0; i<points.size(); ++i)
-        {
-            CGPoint buildingPoint  = points[i];
-            buildingPoint.x += buildingOffset.x;
-            buildingPoint.y += buildingOffset.y;
-            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build06.png"];
-            [_worldCache.buildingArray addObject:buildingSprite];
-            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
-            [buildingSprite setScale:cSpriteScale];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
-            [buildingSprite setPosition:buildingPoint];
-        }
-    }
-    {
-        vector<CGPoint> points;
-        points.push_back(CGPointMake(	9354	,	-2460	));
-        points.push_back(CGPointMake(	9354	,	-1694	));
-        for (int i=0; i<points.size(); ++i)
-        {
-            CGPoint buildingPoint  = points[i];
-            buildingPoint.x += buildingOffset.x;
-            buildingPoint.y += buildingOffset.y;
-            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build07.png"];
-            [_worldCache.buildingArray addObject:buildingSprite];
-            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
-            [buildingSprite setScale:cSpriteScale];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
-            [buildingSprite setPosition:buildingPoint];
-        }
-    }
-    {
-        vector<CGPoint> points;
-        points.push_back(CGPointMake(	8835	,	-1094	));
-        for (int i=0; i<points.size(); ++i)
-        {
-            CGPoint buildingPoint  = points[i];
-            buildingPoint.x += buildingOffset.x;
-            buildingPoint.y += buildingOffset.y;
-            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build08.png"];
-            [_worldCache.buildingArray addObject:buildingSprite];
-            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
-            [buildingSprite setScale:cSpriteScale];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
-            [buildingSprite setPosition:buildingPoint];
-        }
-    }
-    {
-        vector<CGPoint> points;
-        points.push_back(CGPointMake(	5838	,	-1328	));
-        points.push_back(CGPointMake(	2926	,	-1397	));
-        points.push_back(CGPointMake(	4243	,	-4817	));
-        points.push_back(CGPointMake(	7254	,	-4793	));
-        for (int i=0; i<points.size(); ++i)
-        {
-            CGPoint buildingPoint  = points[i];
-            buildingPoint.x += buildingOffset.x;
-            buildingPoint.y += buildingOffset.y;
-            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build09.png"];
-            [_worldCache.buildingArray addObject:buildingSprite];
-            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
-            [buildingSprite setScale:cSpriteScale];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
-            [buildingSprite setPosition:buildingPoint];
-        }
-    }
-    {
-        vector<CGPoint> points;
-        points.push_back(CGPointMake(	7126	,	-2738	));
-        for (int i=0; i<points.size(); ++i)
-        {
-            CGPoint buildingPoint  = points[i];
-            buildingPoint.x += buildingOffset.x;
-            buildingPoint.y += buildingOffset.y;
-            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build10.png"];
-            [_worldCache.buildingArray addObject:buildingSprite];
-            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
-            [buildingSprite setScale:cSpriteScale];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
-            [buildingSprite setPosition:buildingPoint];
-        }
-    }
-    {
-        vector<CGPoint> points;
-        points.push_back(CGPointMake(	7329	,	-4405	));
-        points.push_back(CGPointMake(	7785	,	-1285	));
-        for (int i=0; i<points.size(); ++i)
-        {
-            CGPoint buildingPoint  = points[i];
-            buildingPoint.x += buildingOffset.x;
-            buildingPoint.y += buildingOffset.y;
-            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build11.png"];
-            [_worldCache.buildingArray addObject:buildingSprite];
-            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
-            [buildingSprite setScale:cSpriteScale];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
-            [buildingSprite setPosition:buildingPoint];
-        }
-    }
-    {
-        vector<CGPoint> points;
-        points.push_back(CGPointMake(	2474	,	-2297	));
-        for (int i=0; i<points.size(); ++i)
-        {
-            CGPoint buildingPoint  = points[i];
-            buildingPoint.x += buildingOffset.x;
-            buildingPoint.y += buildingOffset.y;
-            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build12.png"];
-            [_worldCache.buildingArray addObject:buildingSprite];
-            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
-            [buildingSprite setScale:cSpriteScale];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
-            [buildingSprite setPosition:buildingPoint];
-        }
-    }
-    {
-        vector<CGPoint> points;
-        points.push_back(CGPointMake(	3932	,	-874	));
-        points.push_back(CGPointMake(	4251	,	-874	));
-        for (int i=0; i<points.size(); ++i)
-        {
-            CGPoint buildingPoint  = points[i];
-            buildingPoint.x += buildingOffset.x;
-            buildingPoint.y += buildingOffset.y;
-            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build13.png"];
-            [_worldCache.buildingArray addObject:buildingSprite];
-            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
-            [buildingSprite setScale:cSpriteScale];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
-            [buildingSprite setPosition:buildingPoint];
-        }
-    }
-    {
-        vector<CGPoint> points;
-        points.push_back(CGPointMake(	8156	,	-2231	));
-        for (int i=0; i<points.size(); ++i)
-        {
-            CGPoint buildingPoint  = points[i];
-            buildingPoint.x += buildingOffset.x;
-            buildingPoint.y += buildingOffset.y;
-            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build14.png"];
-            [_worldCache.buildingArray addObject:buildingSprite];
-            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
-            [buildingSprite setScale:cSpriteScale];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
-            [buildingSprite setPosition:buildingPoint];
-        }
-    }
-    {
-        vector<CGPoint> points;
-        points.push_back(CGPointMake(	4285	,	-2751	));
-        for (int i=0; i<points.size(); ++i)
-        {
-            CGPoint buildingPoint  = points[i];
-            buildingPoint.x += buildingOffset.x;
-            buildingPoint.y += buildingOffset.y;
-            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build15.png"];
-            [_worldCache.buildingArray addObject:buildingSprite];
-            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
-            [buildingSprite setScale:cSpriteScale];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
-            [buildingSprite setPosition:buildingPoint];
-        }
-    }
-    {
-        vector<CGPoint> points;
-        points.push_back(CGPointMake(	2575	,	-3811	));
-        for (int i=0; i<points.size(); ++i)
-        {
-            CGPoint buildingPoint  = points[i];
-            buildingPoint.x += buildingOffset.x;
-            buildingPoint.y += buildingOffset.y;
-            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build16.png"];
-            [_worldCache.buildingArray addObject:buildingSprite];
-            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
-            [buildingSprite setScale:cSpriteScale];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
-            [buildingSprite setPosition:buildingPoint];
-        }
-    }
-    {
-        vector<CGPoint> points;
-        points.push_back(CGPointMake(	5731	,	-1784	));
-        for (int i=0; i<points.size(); ++i)
-        {
-            CGPoint buildingPoint  = points[i];
-            buildingPoint.x += buildingOffset.x;
-            buildingPoint.y += buildingOffset.y;
-            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build17.png"];
-            [_worldCache.buildingArray addObject:buildingSprite];
-            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
-            [buildingSprite setScale:cSpriteScale];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
-            [buildingSprite setPosition:buildingPoint];
-        }
-    }
-    
-    // ----------------------------------------------------------------
-    // load prop
-    {
-        vector<CGPoint> points;
-        points.push_back(CGPointMake(	4526	,	-	969	));
-        points.push_back(CGPointMake(	6116	,	-	846	));
-        points.push_back(CGPointMake(	9044	,	-	846	));
-        points.push_back(CGPointMake(	4259	,	-	5018	));
-        points.push_back(CGPointMake(	7697	,	-	3597	));
-        points.push_back(CGPointMake(	7394	,	-	5429	));
-        points.push_back(CGPointMake(	8420	,	-	5429	));
-        points.push_back(CGPointMake(	8930	,	-	4551	));
-        for (int i=0; i<points.size(); ++i)
-        {
-            CGPoint buildingPoint  = points[i];
-            buildingPoint.x += buildingOffset.x;
-            buildingPoint.y += buildingOffset.y;
-            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"prob01.png"];
-            [_worldCache.probArray addObject:buildingSprite];
-            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
-            [buildingSprite setScale:cSpriteScale];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
-            [buildingSprite setPosition:buildingPoint];
-        }
-    }
-    {
-        vector<CGPoint> points;
-        points.push_back(CGPointMake(	3711	,	-	939	));
-        points.push_back(CGPointMake(	5261	,	-	3556	));
-        points.push_back(CGPointMake(	7801	,	-	2979	));
-        points.push_back(CGPointMake(	7537	,	-	3546	));
-        points.push_back(CGPointMake(	6719	,	-	4804	));
-        points.push_back(CGPointMake(	9353	,	-	5378	));
-        for (int i=0; i<points.size(); ++i)
-        {
-            CGPoint buildingPoint  = points[i];
-            buildingPoint.x += buildingOffset.x;
-            buildingPoint.y += buildingOffset.y;
-            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"prob02.png"];
-            [_worldCache.probArray addObject:buildingSprite];
-            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
-            [buildingSprite setScale:cSpriteScale];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
-            [buildingSprite setPosition:buildingPoint];
-        }
-    }
-    // prob03 is ommited
-    {
-        vector<CGPoint> points;
-        points.push_back(CGPointMake(	6408	,	-	1169	));
-        points.push_back(CGPointMake(	4250	,	-	4559	));
-        points.push_back(CGPointMake(	4584	,	-	4559	));
-        points.push_back(CGPointMake(	4948	,	-	4559	));
-        for (int i=0; i<points.size(); ++i)
-        {
-            CGPoint buildingPoint  = points[i];
-            buildingPoint.x += buildingOffset.x;
-            buildingPoint.y += buildingOffset.y;
-            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"prob04.png"];
-            [_worldCache.probArray addObject:buildingSprite];
-            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
-            [buildingSprite setScale:cSpriteScale];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
-            [buildingSprite setPosition:buildingPoint];
-        }
-    }
-    {
-        vector<CGPoint> points;
-        points.push_back(CGPointMake(	2943	,	-	2003	));
-        points.push_back(CGPointMake(	2627	,	-	3188	));
-        points.push_back(CGPointMake(	3940	,	-	2889	));
-        points.push_back(CGPointMake(	5103	,	-	2423	));
-        points.push_back(CGPointMake(	5402	,	-	1792	));
-        points.push_back(CGPointMake(	5518	,	-	3204	));
-        points.push_back(CGPointMake(	5618	,	-	3541	));
-        points.push_back(CGPointMake(	6504	,	-	1155	));
-        points.push_back(CGPointMake(	6859	,	-	1986	));
-        points.push_back(CGPointMake(	7142	,	-	2445	));
-        points.push_back(CGPointMake(	6727	,	-	2888	));
-        points.push_back(CGPointMake(	7514	,	-	2977	));
-        points.push_back(CGPointMake(	8129	,	-	1676	));
-        points.push_back(CGPointMake(	8556	,	-	1676	));
-        points.push_back(CGPointMake(	8218	,	-	2900	));
-        points.push_back(CGPointMake(	4572	,	-	4013	));
-        points.push_back(CGPointMake(	3929	,	-	5403	));
-        points.push_back(CGPointMake(	4849	,	-	4526	));
-        points.push_back(CGPointMake(	5365	,	-	4080	));
-        points.push_back(CGPointMake(	5365	,	-	4554	));
-        points.push_back(CGPointMake(	5365	,	-	4949	));
-        points.push_back(CGPointMake(	5365	,	-	5265	));
-        for (int i=0; i<points.size(); ++i)
-        {
-            CGPoint buildingPoint  = points[i];
-            buildingPoint.x += buildingOffset.x;
-            buildingPoint.y += buildingOffset.y;
-            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"prob05.png"];
-            [_worldCache.probArray addObject:buildingSprite];
-            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
-            [buildingSprite setScale:cSpriteScale];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
-            [buildingSprite setPosition:buildingPoint];
-        }
-    }
-    {
-        vector<CGPoint> points;
-        points.push_back(CGPointMake(	3505	,	-	2618	));
-        for (int i=0; i<points.size(); ++i)
-        {
-            CGPoint buildingPoint  = points[i];
-            buildingPoint.x += buildingOffset.x;
-            buildingPoint.y += buildingOffset.y;
-            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"prob06.png"];
-            [_worldCache.probArray addObject:buildingSprite];
-            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
-            [buildingSprite setScale:cSpriteScale];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
-            [buildingSprite setPosition:buildingPoint];
-        }
-    }
-    {
-        vector<CGPoint> points;
-        points.push_back(CGPointMake(	3234	,	-	737	));
-        for (int i=0; i<points.size(); ++i)
-        {
-            CGPoint buildingPoint  = points[i];
-            buildingPoint.x += buildingOffset.x;
-            buildingPoint.y += buildingOffset.y;
-            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"prob07.png"];
-            [_worldCache.probArray addObject:buildingSprite];
-            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
-            [buildingSprite setScale:cSpriteScale];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
-            [buildingSprite setPosition:buildingPoint];
-        }
-    }
-    // prob08 is ommited
-    // prob09 is ommited
-    {
-        vector<CGPoint> points;
-        points.push_back(CGPointMake(	9156	,	-	4339	));
-        for (int i=0; i<points.size(); ++i)
-        {
-            CGPoint buildingPoint  = points[i];
-            buildingPoint.x += buildingOffset.x;
-            buildingPoint.y += buildingOffset.y;
-            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"rail.png"];
-            [_worldCache.probArray addObject:buildingSprite];
-            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
-            [buildingSprite setScale:cSpriteScale];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
-            [buildingSprite setPosition:buildingPoint];
-        }
-    }
-    {
-        vector<CGPoint> points;
-        points.push_back(CGPointMake(	2967	,	-	3245	));
-        for (int i=0; i<points.size(); ++i)
-        {
-            CGPoint buildingPoint  = points[i];
-            buildingPoint.x += buildingOffset.x;
-            buildingPoint.y += buildingOffset.y;
-            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"targetA.png"];
-            [_worldCache.probArray addObject:buildingSprite];
-            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
-            [buildingSprite setScale:cSpriteScale];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
-            [buildingSprite setPosition:buildingPoint];
-        }
-    }
-    {
-        vector<CGPoint> points;
-        points.push_back(CGPointMake(	8754	,	-	1727	));
-        for (int i=0; i<points.size(); ++i)
-        {
-            CGPoint buildingPoint  = points[i];
-            buildingPoint.x += buildingOffset.x;
-            buildingPoint.y += buildingOffset.y;
-            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"targetB.png"];
-            [_worldCache.probArray addObject:buildingSprite];
-            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
-            [buildingSprite setScale:cSpriteScale];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
-            [buildingSprite setPosition:buildingPoint];
-        }
-    }
-    {
-        vector<CGPoint> points;
-        points.push_back(CGPointMake(	9006	,	-	5288	));
-        for (int i=0; i<points.size(); ++i)
-        {
-            CGPoint buildingPoint  = points[i];
-            buildingPoint.x += buildingOffset.x;
-            buildingPoint.y += buildingOffset.y;
-            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"targetC.png"];
-            [_worldCache.probArray addObject:buildingSprite];
-            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
-            [buildingSprite setScale:cSpriteScale];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
-            [buildingSprite setPosition:buildingPoint];
-        }
-    }
-    {
-        vector<CGPoint> points;
-        points.push_back(CGPointMake(	3930	,	-	1250	));
-        for (int i=0; i<points.size(); ++i)
-        {
-            CGPoint buildingPoint  = points[i];
-            buildingPoint.x += buildingOffset.x;
-            buildingPoint.y += buildingOffset.y;
-            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"targetD.png"];
-            [_worldCache.probArray addObject:buildingSprite];
-            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
-            [buildingSprite setScale:cSpriteScale];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
-            [buildingSprite setPosition:buildingPoint];
-        }
-    }
-    {
-        vector<CGPoint> points;
-        points.push_back(CGPointMake(	6897	,	-	2123	));
-        for (int i=0; i<points.size(); ++i)
-        {
-            CGPoint buildingPoint  = points[i];
-            buildingPoint.x += buildingOffset.x;
-            buildingPoint.y += buildingOffset.y;
-            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"targetE.png"];
-            [_worldCache.probArray addObject:buildingSprite];
-            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
-            [buildingSprite setScale:cSpriteScale];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
-            [buildingSprite setPosition:buildingPoint];
-        }
-    }
-    {
-        vector<CGPoint> points;
-        points.push_back(CGPointMake(	7991	,	-	3921	));
-        points.push_back(CGPointMake(	8127	,	-	3921	));
-        points.push_back(CGPointMake(	8271	,	-	3921	));
-        points.push_back(CGPointMake(	8420	,	-	3921	));
-        points.push_back(CGPointMake(	8567	,	-	3921	));
-        points.push_back(CGPointMake(	8710	,	-	3921	));
-        points.push_back(CGPointMake(	7991	,	-	4070	));
-        points.push_back(CGPointMake(	8127	,	-	4070	));
-        points.push_back(CGPointMake(	8271	,	-	4070	));
-        points.push_back(CGPointMake(	8420	,	-	4070	));
-        points.push_back(CGPointMake(	8567	,	-	4070	));
-        points.push_back(CGPointMake(	8710	,	-	4070	));
-        for (int i=0; i<points.size(); ++i)
-        {
-            CGPoint buildingPoint  = points[i];
-            buildingPoint.x += buildingOffset.x;
-            buildingPoint.y += buildingOffset.y;
-            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"tent01.png"];
-            [_worldCache.probArray addObject:buildingSprite];
-            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
-            [buildingSprite setScale:cSpriteScale];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
-            [buildingSprite setPosition:buildingPoint];
-        }
-    }
-    {
-        vector<CGPoint> points;
-        points.push_back(CGPointMake(	7354	,	-	3938	));
-        points.push_back(CGPointMake(	7354	,	-	4083	));
-        points.push_back(CGPointMake(	7354	,	-	4232	));
-        points.push_back(CGPointMake(	7490	,	-	3938	));
-        points.push_back(CGPointMake(	7490	,	-	4083	));
-        points.push_back(CGPointMake(	7490	,	-	4232	));
-        for (int i=0; i<points.size(); ++i)
-        {
-            CGPoint buildingPoint  = points[i];
-            buildingPoint.x += buildingOffset.x;
-            buildingPoint.y += buildingOffset.y;
-            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"tent02.png"];
-            [_worldCache.probArray addObject:buildingSprite];
-            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
-            [buildingSprite setScale:cSpriteScale];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
-            [buildingSprite setPosition:buildingPoint];
-        }
-    }
-    {
-        vector<CGPoint> points;
-        points.push_back(CGPointMake(	7411	,	-	5052	));
-        points.push_back(CGPointMake(	7411	,	-	5189	));
-        points.push_back(CGPointMake(	7411	,	-	5335	));
-        points.push_back(CGPointMake(	7536	,	-	5052	));
-        points.push_back(CGPointMake(	7536	,	-	5189	));
-        points.push_back(CGPointMake(	7536	,	-	5335	));
-        for (int i=0; i<points.size(); ++i)
-        {
-            CGPoint buildingPoint  = points[i];
-            buildingPoint.x += buildingOffset.x;
-            buildingPoint.y += buildingOffset.y;
-            buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"tent03.png"];
-            [_worldCache.probArray addObject:buildingSprite];
-            CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
-            [buildingSprite setScale:cSpriteScale];
-            buildingPoint.x += buildingSprite.textureRect.size.width*0.5f*cSpriteScale;
-            buildingPoint.y -= buildingSprite.textureRect.size.height*0.5f*cSpriteScale;
-            [buildingSprite setPosition:buildingPoint];
-        }
-    }
-    
-    return YES;
-}
-
-- (BOOL) UnloadData
-{
-    if ( _worldCache )
-    {
-        [_worldCache release];
-        _worldCache = nil;
-    }
-    
-    // @TODO Next
-    
-    return YES;
-}
-
-- (BOOL) AssignDataToLayer: (CCLayer*) layer withMission: (Mission*) mission
-{
-    if ( ! _worldCache )
-        return NO;
-    
-    // road
-    for ( CCSprite* cSprite in _worldCache.roadArray )
-    {
-        [layer addChild:cSprite];
-    }
-    
-    // trees
-    for ( CCSprite* cSprite in _worldCache.treeArray )
-    {
-        [layer addChild:cSprite];
-    }
-    
-    // buildings
-    for ( CCSprite* cSprite in _worldCache.buildingArray )
-    {
-        [layer addChild:cSprite];
-    }
-    
-    // prob
-    for ( CCSprite* cSprite in _worldCache.probArray )
-    {
-        [layer addChild:cSprite];
-    }
-    
-    // set layer ref
-    _worldCache.layer   = layer;
-    
-    return YES;
-}
-
-- (BOOL) UnSssignDataFromLayer: (CCLayer*) layer
-{
-    if ( ! _worldCache )
-        return NO;
-    
-    return YES;
-}
-
-- (RouteGraph&) GetRouteGraph
-{
-    return *_worldCache.routeGraph;
-}
-
-- (void) Draw
-{
-    if ( _worldCache.isLoadingFloor )
-        return;
-    
-    Camera* camera      = [Camera getObject];
-    CGPoint camPoint    = [camera getPoint];
-    CGFloat camZoomX    = [camera getZoomX];
-    CGSize camSize  = [[CCDirector sharedDirector] winSize];
-
-    CGPoint camCenter       = CGPointMake((camPoint.x-125.0f) - camSize.width*0.5f,
-                                          camPoint.y - camSize.height*0.5f);
-    
-    CGPoint viewPortPoint   = CGPointMake(camCenter.x + camSize.width*0.5f/camZoomX,
-                                          camCenter.y + camSize.height*0.5f/camZoomX );
-    
-    // water
-    [_worldCache _PaintR:22.0f/255.0f
-                       g:153.0f/255.0f
-                       b:168.0f/255.0f
-                       a:1.0
-            sourcePoints:&[_worldCache getWater][0]
-            bufferPoints:_worldCache.water_buffer
-                    size:[_worldCache getWater].size()
-           viewPortPoint:viewPortPoint camZoom:camZoomX];
-    
-    // floor
-    [_worldCache _PaintR:195.0f/255.0f
-                       g:181.0f/255.0f
-                       b:155.0f/255.0f
-                       a:1.0
-            sourcePoints:&[_worldCache getFloor01][0]
-            bufferPoints:_worldCache.floor01_buffer
-                    size:[_worldCache getFloor01].size()
-           viewPortPoint:viewPortPoint camZoom:camZoomX];
-
-    [_worldCache _PaintR:195.0f/255.0f
-                       g:181.0f/255.0f
-                       b:155.0f/255.0f
-                       a:1.0
-            sourcePoints:&[_worldCache getFloor02][0]
-            bufferPoints:_worldCache.floor02_buffer
-                    size:[_worldCache getFloor02].size()
-           viewPortPoint:viewPortPoint camZoom:camZoomX];
-    
-    [_worldCache _PaintR:195.0f/255.0f
-                       g:181.0f/255.0f
-                       b:155.0f/255.0f
-                       a:1.0
-            sourcePoints:&[_worldCache getFloor03][0]
-            bufferPoints:_worldCache.floor03_buffer
-                    size:[_worldCache getFloor03].size()
-           viewPortPoint:viewPortPoint camZoom:camZoomX];
-    
-    [_worldCache _PaintR:195.0f/255.0f
-                       g:181.0f/255.0f
-                       b:155.0f/255.0f
-                       a:1.0
-            sourcePoints:&[_worldCache getFloor04][0]
-            bufferPoints:_worldCache.floor04_buffer
-                    size:[_worldCache getFloor04].size()
-           viewPortPoint:viewPortPoint camZoom:camZoomX];
-    
-    [_worldCache _PaintR:195.0f/255.0f
-                       g:181.0f/255.0f
-                       b:155.0f/255.0f
-                       a:1.0
-            sourcePoints:&[_worldCache getFloor05][0]
-            bufferPoints:_worldCache.floor05_buffer
-                    size:[_worldCache getFloor05].size()
-           viewPortPoint:viewPortPoint camZoom:camZoomX];
-    
-    [_worldCache _PaintR:195.0f/255.0f
-                       g:181.0f/255.0f
-                       b:155.0f/255.0f
-                       a:1.0
-            sourcePoints:&[_worldCache getFloor06][0]
-            bufferPoints:_worldCache.floor06_buffer
-                    size:[_worldCache getFloor06].size()
-           viewPortPoint:viewPortPoint camZoom:camZoomX];
-    
-    [_worldCache _PaintR:195.0f/255.0f
-                       g:181.0f/255.0f
-                       b:155.0f/255.0f
-                       a:1.0
-            sourcePoints:&[_worldCache getFloor07][0]
-            bufferPoints:_worldCache.floor07_buffer
-                    size:[_worldCache getFloor07].size()
-           viewPortPoint:viewPortPoint camZoom:camZoomX];
-    
-    // floor up
-    [_worldCache _PaintR:149.0f/255.0f
-                       g:140.0f/255.0f
-                       b:122.0f/255.0f
-                       a:1.0
-            sourcePoints:&[_worldCache getFloor_up01][0]
-            bufferPoints:_worldCache.floor_up01_buffer
-                    size:[_worldCache getFloor_up01].size()
-           viewPortPoint:viewPortPoint camZoom:camZoomX];
-    
-    [_worldCache _PaintR:149.0f/255.0f
-                       g:140.0f/255.0f
-                       b:122.0f/255.0f
-                       a:1.0
-            sourcePoints:&[_worldCache getFloor_up02][0]
-            bufferPoints:_worldCache.floor_up02_buffer
-                    size:[_worldCache getFloor_up02].size()
-           viewPortPoint:viewPortPoint camZoom:camZoomX];
-    
-    [_worldCache _PaintR:149.0f/255.0f
-                       g:140.0f/255.0f
-                       b:122.0f/255.0f
-                       a:1.0
-            sourcePoints:&[_worldCache getFloor_up03][0]
-            bufferPoints:_worldCache.floor_up03_buffer
-                    size:[_worldCache getFloor_up03].size()
-           viewPortPoint:viewPortPoint camZoom:camZoomX];
-    
-    // grass
-    [_worldCache _PaintR:135.0f/255.0f
-                       g:156.0f/255.0f
-                       b:10.0f/255.0f
-                       a:1.0
-            sourcePoints:&[_worldCache getFloorGrass][0]
-            bufferPoints:_worldCache.floor_grass_buffer
-                    size:[_worldCache getFloorGrass].size()
-           viewPortPoint:viewPortPoint camZoom:camZoomX];
-    
-    // floor high
-    [_worldCache _PaintR:196.0f/255.0f
-                       g:188.0f/255.0f
-                       b:171.0f/255.0f
-                       a:1.0
-            sourcePoints:&[_worldCache getFloor_high01][0]
-            bufferPoints:_worldCache.floor_high01_buffer
-                    size:[_worldCache getFloor_high01].size()
-           viewPortPoint:viewPortPoint camZoom:camZoomX];
-    
-    // floor etc
-    [_worldCache _PaintR:196.0f/255.0f
-                       g:188.0f/255.0f
-                       b:171.0f/255.0f
-                       a:1.0
-            sourcePoints:&[_worldCache getFloor_etc01][0]
-            bufferPoints:_worldCache.floor_etc01_buffer
-                    size:[_worldCache getFloor_etc01].size()
-           viewPortPoint:viewPortPoint camZoom:camZoomX];
-    [_worldCache _PaintR:196.0f/255.0f
-                       g:188.0f/255.0f
-                       b:171.0f/255.0f
-                       a:1.0
-            sourcePoints:&[_worldCache getFloor_etc02][0]
-            bufferPoints:_worldCache.floor_etc02_buffer
-                    size:[_worldCache getFloor_etc02].size()
-           viewPortPoint:viewPortPoint camZoom:camZoomX];
-    [_worldCache _PaintR:149.0f/255.0f
-                       g:140.0f/255.0f
-                       b:122.0f/255.0f
-                       a:1.0
-            sourcePoints:&[_worldCache getFloor_etc03][0]
-            bufferPoints:_worldCache.floor_etc03_buffer
-                    size:[_worldCache getFloor_etc03].size()
-           viewPortPoint:viewPortPoint camZoom:camZoomX];
-    [_worldCache _PaintR:149.0f/255.0f
-                       g:140.0f/255.0f
-                       b:122.0f/255.0f
-                       a:1.0
-            sourcePoints:&[_worldCache getFloor_etc04][0]
-            bufferPoints:_worldCache.floor_etc04_buffer
-                    size:[_worldCache getFloor_etc04].size()
-           viewPortPoint:viewPortPoint camZoom:camZoomX];
-    [_worldCache _PaintR:149.0f/255.0f
-                       g:140.0f/255.0f
-                       b:122.0f/255.0f
-                       a:1.0
-            sourcePoints:&[_worldCache getFloor_etc05][0]
-            bufferPoints:_worldCache.floor_etc05_buffer
-                    size:[_worldCache getFloor_etc05].size()
-           viewPortPoint:viewPortPoint camZoom:camZoomX];
-    
 }
 
 @end
