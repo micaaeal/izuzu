@@ -24,6 +24,8 @@ using namespace std;
 #import "WindShield.h"
 #import "Score.h"
 
+#import "FocusZoom.h"
+
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 enum STATE_DRIVE_CAR
 {
@@ -429,12 +431,51 @@ vector<TrEdge>      _edgeRoute;
             // update mission
             [[Mission getObject] Update:deltaTime];
             
-            // camera to the car
-            CGPoint camPoint    = [Car getPosition];
-            CGSize winSize  = [[CCDirector sharedDirector] winSize];
-            camPoint.x -= (winSize.width * 0.5f);
-            camPoint.y -= (winSize.height * 0.5f);
-            [[Camera getObject] setCameraToPoint:camPoint];
+            // get is focusing
+            [[FocusZoom getObject] update:deltaTime];
+            BOOL isFocusing = [[FocusZoom getObject] getIsFocusing];
+            
+            if ( ! isFocusing )
+            {
+                // camera to the car
+                CGPoint camPoint    = [Car getPosition];
+                CGSize winSize  = [[CCDirector sharedDirector] winSize];
+                camPoint.x -= (winSize.width * 0.5f);
+                camPoint.y -= (winSize.height * 0.5f);
+                [[Camera getObject] setCameraToPoint:camPoint];
+            }
+            else
+            {
+                CGPoint cCarPoint   = [Car getPosition];
+//                CGPoint cCamPoint   = [[Camera getObject] getPoint];
+//                CGSize winSize  = [CCDirector sharedDirector].winSize;
+//                cCamPoint.x = -cCamPoint.x;
+//                cCamPoint.y = -cCamPoint.y;
+//                cCamPoint.x = cCamPoint.x + winSize.width*0.5f;
+//                cCamPoint.y = cCamPoint.y + winSize.height*0.5f;
+
+                CGPoint cFocusPoint = [[FocusZoom getObject] getFocusingPoint];
+                
+                float camSpeed  = 2.0f;
+                
+                CGPoint focusToCarVec   = CGPointMake(cCarPoint.x-cFocusPoint.x,
+                                                      cCarPoint.y-cFocusPoint.y);
+                float focusToCarLength    = sqrtf(focusToCarVec.x*focusToCarVec.x+
+                                                  focusToCarVec.y*focusToCarVec.y);
+                CGPoint camToCarNormal  = CGPointMake(focusToCarVec.x/focusToCarLength,
+                                                      focusToCarVec.y/focusToCarLength);
+                
+                CGPoint focusToCarExpectPoint   = CGPointMake(camToCarNormal.x*focusToCarLength*0.8,
+                                                              camToCarNormal.y*focusToCarLength*0.8);
+                focusToCarExpectPoint   = CGPointMake(focusToCarExpectPoint.x+cFocusPoint.x,
+                                                      focusToCarExpectPoint.y+cFocusPoint.y);
+                
+                [[Camera getObject] setCameraToPoint:focusToCarExpectPoint];
+                
+                //printf ("%f,%f", focusToCarExpectPoint.x, focusToCarExpectPoint.y);
+                printf ("%f,%f", focusToCarExpectPoint.x, focusToCarExpectPoint.y);
+                printf ("\n");
+            }
             
             // Draging and time
             if ( _isDragging )
