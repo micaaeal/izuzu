@@ -55,6 +55,11 @@ FocusZoom*  _s_focusZoom    = nil;
     return _isFocusing;
 }
 
+- (int) getFocusPointIndex
+{
+    return _cFocusingIndex;
+}
+
 - (CGPoint) getFocusingPoint
 {
     if ( ! _isFocusing )

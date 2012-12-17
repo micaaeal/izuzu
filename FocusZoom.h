@@ -14,7 +14,6 @@
 
 - (int) getFocusPointIndex;
 - (BOOL) getIsFocusing;
-- (BOOL) getIsStartFocusing;
 - (CGPoint) getFocusingPoint;
 - (void) update: (float) dt;
 
