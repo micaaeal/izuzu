@@ -17,7 +17,10 @@ EventHandler* _s_eventHandler   = nil;
 @property (retain) NSMutableArray*  _eventArray;
 
 @property (assign) CGPoint          _labelPoint;
-@property (retain) CCSprite*        _labelWater;
+
+@property (retain) CCSprite*        _signWater;
+@property (retain) CCSprite*        _signRough;
+@property (retain) CCSprite*        _signSpeedLimit;
 
 @end
 
@@ -25,7 +28,10 @@ EventHandler* _s_eventHandler   = nil;
 @synthesize delegate;
 @synthesize _eventArray;
 @synthesize _labelPoint;
-@synthesize _labelWater;
+
+@synthesize _signWater;
+@synthesize _signRough;
+@synthesize _signSpeedLimit;
 
 + (EventHandler*) getObject
 {
@@ -89,7 +95,12 @@ EventHandler* _s_eventHandler   = nil;
     }
     
     // load sprite
-    _labelWater = [CCSprite spriteWithFile:@"sign_car_water.png"];
+    _signWater = [CCSprite spriteWithFile:@"cuationSign03.png"];
+    [_signWater setScale:0.5];
+    _signRough  = [CCSprite spriteWithFile:@"cuationSign02.png"];
+    [_signRough setScale:0.5];
+    _signSpeedLimit = [CCSprite spriteWithFile:@"speed_limit_sign.png"];
+    [_signSpeedLimit setScale:0.5];
 }
 
 - (void) onFinish
@@ -132,11 +143,17 @@ EventHandler* _s_eventHandler   = nil;
     _labelPoint  = CGPointMake(winSize.width - 40,
                                winSize.height - 120);
     // sprites
-    [uiLayer addChild:_labelWater];
-    _labelWater.position    = _labelPoint;
-    _labelWater.scale       = [UtilVec convertScaleIfRetina:_labelWater.scale];
+    [uiLayer addChild:_signWater];
+    _signWater.position    = CGPointMake(_labelPoint.x - 20,
+                                         _labelPoint.y - 40);
+    _signWater.scale       = [UtilVec convertScaleIfRetina:_signWater.scale];
+    _signWater.opacity = 0;
     
-    _labelWater.opacity = 0;
+    [uiLayer addChild:_signSpeedLimit];
+    _signSpeedLimit.position    = CGPointMake(_signWater.position.x,
+                                              _signWater.position.y);
+    _signSpeedLimit.scale   = [UtilVec convertScaleIfRetina:_signSpeedLimit.scale];
+    _signSpeedLimit.opacity = 0;
 }
 
 - (void) onUpdate: (float) deltaTime
@@ -190,11 +207,11 @@ EventHandler* _s_eventHandler   = nil;
                 {
                     if ( [cEvent.eventName isEqualToString:@"water"] )
                     {
-                        _labelWater.opacity = 255;
+                        _signWater.opacity  = 255;
                     }
                     else if ( [cEvent.eventName isEqualToString:@"rough"] )
                     {
-                        // need doing something
+                        _signRough.opacity  = 255;
                     }
                         
                     [delegate onStartEvent:cEvent];                    
@@ -210,9 +227,34 @@ EventHandler* _s_eventHandler   = nil;
     }
 }
 
+- (BOOL) getIsShowAnyEvent
+{
+    BOOL isShowing  = NO;
+    
+    if ( _signWater.opacity == 255 )
+        isShowing   = YES;
+    if ( _signRough.opacity == 255 )
+        isShowing   = YES;
+    
+    return isShowing;
+}
+
 - (void) finishAllEvents
 {
-    _labelWater.opacity = 0;
+    _signWater.opacity  = 0;
+    _signRough.opacity  = 0;
+}
+
+#pragma mark - Customed Sign
+
+- (void) showSpeedLimitSign
+{
+    [_signSpeedLimit setOpacity:255];
+}
+
+- (void) hideSpeedLimitSign
+{
+    [_signSpeedLimit setOpacity:0];
 }
 
 @end

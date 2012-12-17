@@ -28,10 +28,21 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    NSMutableString* nibName    = [[NSMutableString alloc] initWithString:nibNameOrNil];
+    if ([UIDevice instancesRespondToSelector:@selector(userInterfaceIdiom)]) {
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+            [nibName appendString:@"_iPad"];
+        }
+    }
+    
+    self = [super initWithNibName:nibName bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
     }
+    
+    [nibName release];
+    nibName = nil;
+    
     return self;
 }
 

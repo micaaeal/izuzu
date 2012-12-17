@@ -30,4 +30,9 @@
 - (void) onUpdate: (float) deltaTime;
 - (void) finishAllEvents;
 
+- (void) showSpeedLimitSign;
+- (void) hideSpeedLimitSign;
+
+- (BOOL) getIsShowAnyEvent;
+
 @end

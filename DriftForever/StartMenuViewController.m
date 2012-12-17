@@ -17,10 +17,24 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    NSMutableString* nibName    = [[NSMutableString alloc] initWithString:nibNameOrNil];
+    if ([UIDevice instancesRespondToSelector:@selector(userInterfaceIdiom)]) {
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+            [nibName appendString:@"_iPad"];
+        }
+    }
+    
+    self = [super initWithNibName:nibName bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        _carAndCharacterViewController  = [[CarAndCharViewController alloc] initWithNibName:@"CarAndCharViewController" bundle:nil];
+        _worldSelectViewController      = [[WorldSelectViewController alloc] initWithNibName:@"WorldSelectViewController" bundle:nil];
+        _missionViewController          = [[MissionSelectViewController alloc] initWithNibName:@"MissionSelectViewController" bundle:nil];
     }
+    
+    [nibName release];
+    nibName = nil;
+    
     return self;
 }
 
@@ -46,6 +60,7 @@
 {
     [self.view addSubview:_carAndCharacterViewController.view];
     _carAndCharacterViewController.delegate = self;
+    [self.view bringSubviewToFront:_carAndCharacterViewController.view];
 }
 
 - (void)dealloc {
@@ -70,6 +85,7 @@
         // load WorldSelectView
         [self.view addSubview:_worldSelectViewController.view];
         _worldSelectViewController.delegate = self;
+        [self.view bringSubviewToFront:_worldSelectViewController.view];
     }
 }
 
@@ -80,12 +96,14 @@
         // load CarAndCharView
         [self.view addSubview:_carAndCharacterViewController.view];
         _carAndCharacterViewController.delegate = self;
+        [self.view bringSubviewToFront:_carAndCharacterViewController.view];
     }
     else if ( sender == _missionViewController )
     {
         // load WorldSelectView
         [self.view addSubview:_worldSelectViewController.view];
         _worldSelectViewController.delegate = self;
+        [self.view bringSubviewToFront:_worldSelectViewController.view];
     }
 }
 
@@ -95,6 +113,7 @@
 {
     [self.view addSubview:_missionViewController.view];
     _missionViewController.delegate = self;
+    [self.view bringSubviewToFront:_missionViewController.view];
 }
 
 #pragma mark - MissionSelectViewDelegate

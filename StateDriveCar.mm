@@ -361,6 +361,22 @@ vector<TrEdge>      _edgeRoute;
             
             [Car setSpeed:netCarSpeed];
             
+            // check speed limit
+            float carSpeed = [Car getSpeed];
+            
+            // check0
+            if ( carSpeed > _carSpeedLimit )
+            {
+                if ( ! [[EventHandler getObject] getIsShowAnyEvent] )
+                {
+                    [[EventHandler getObject] showSpeedLimitSign];
+                }
+            }
+            else
+            {
+                [[EventHandler getObject] hideSpeedLimitSign];
+            }
+            
             // set camera zooming
             float zoomCurrent   = [[Camera getObject] getZoomX];
             
@@ -461,37 +477,8 @@ vector<TrEdge>      _edgeRoute;
                                                               focusToCarNormal.y*focusToCarLength*0.8);
                 focusToCarExpectPoint   = CGPointMake(focusToCarExpectPoint.x+cFocusPoint.x,
                                                       focusToCarExpectPoint.y+cFocusPoint.y);
-                
-                CGPoint cCamPoint   = [[Camera getObject] getPoint];
             
                 [[Camera getObject] setCameraToPoint:focusToCarExpectPoint];
-                
-                /*
-                CGPoint camToExpectPoint    = CGPointMake(focusToCarExpectPoint.x-cCamPoint.x,
-                                                          focusToCarExpectPoint.y-cCamPoint.y);
-                
-                float camToExpectLength     = sqrtf(camToExpectPoint.x*camToExpectPoint.x +
-                                                    camToExpectPoint.y*camToExpectPoint.y);
-                float camSpeed  = 50.0f * deltaTime;
-                float camMoveLength = camToExpectLength;
-                if ( camToExpectLength > camSpeed )
-                {
-                    camMoveLength   = camSpeed;
-                }
-                
-                CGPoint camToExpectNormal   = CGPointMake(camToExpectPoint.x / camToExpectLength,
-                                                          camToExpectPoint.y / camToExpectLength);
-                printf ("%f,%f", camToExpectNormal.x, camToExpectNormal.y);
-                printf ("\n");
-                
-                CGPoint camMove = CGPointMake(-camToExpectNormal.x*camMoveLength,
-                                              -camToExpectNormal.y*camMoveLength);
-
-                [[Camera getObject] moveCameraByPoint:camMove];
-                
-                //printf ("camMove: (%f,%f)", camMove.x, camMove.y);
-                //printf ("\n");
-                /**/
             }
             
             // Draging and time
