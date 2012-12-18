@@ -170,6 +170,10 @@
 		BD9AFA8E166BA326009988F9 /* Console.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD9AFA8D166BA326009988F9 /* Console.mm */; };
 		BD9AFA90166BA3FD009988F9 /* combo_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = BD9AFA8F166BA3FD009988F9 /* combo_arrow.png */; };
 		BD9B0A46167E74B200CF8F49 /* FocusZoom.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD9B0A45167E74B200CF8F49 /* FocusZoom.mm */; };
+		BD9D09601680F633006A73A8 /* GamePlayViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD9D095F1680F633006A73A8 /* GamePlayViewController~ipad.xib */; };
+		BD9D09621680F647006A73A8 /* PauseMenuViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD9D09611680F647006A73A8 /* PauseMenuViewController~ipad.xib */; };
+		BD9D09641680F822006A73A8 /* RestartMenuViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD9D09631680F822006A73A8 /* RestartMenuViewController~ipad.xib */; };
+		BD9D09661680F83C006A73A8 /* WinLostMenuViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD9D09651680F83B006A73A8 /* WinLostMenuViewController~ipad.xib */; };
 		BDA5BD5A162737FD00EAD767 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA5BD59162737FD00EAD767 /* Event.m */; };
 		BDAE9C981666C31600FCC9D2 /* WorldSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDAE9C961666C31600FCC9D2 /* WorldSelectViewController.xib */; };
 		BDAF161F1614BF9200C50EC4 /* adjacency_matrix_config.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDAF161E1614BF9200C50EC4 /* adjacency_matrix_config.plist */; };
@@ -344,8 +348,8 @@
 		BDC2C1CE1677F6710099C632 /* car01_01.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDC2C1CC1677F6710099C632 /* car01_01.plist */; };
 		BDC8C888167657390059F50F /* AcceleratorButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC8C886167657380059F50F /* AcceleratorButton.png */; };
 		BDC8C889167657390059F50F /* breakButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC8C887167657380059F50F /* breakButton.png */; };
-		BDCD1FE6167FADAC000D90CF /* StartMenuViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDCD1FE5167FADAC000D90CF /* StartMenuViewController_iPad.xib */; };
-		BDCD1FE8167FBC8B000D90CF /* CarAndCharViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDCD1FE7167FBC8B000D90CF /* CarAndCharViewController_iPad.xib */; };
+		BDCD1FE6167FADAC000D90CF /* StartMenuViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDCD1FE5167FADAC000D90CF /* StartMenuViewController~ipad.xib */; };
+		BDCD1FE8167FBC8B000D90CF /* CarAndCharViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDCD1FE7167FBC8B000D90CF /* CarAndCharViewController~ipad.xib */; };
 		BDD492E91675011900F7B9B8 /* WinLostMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDD492E71675011900F7B9B8 /* WinLostMenuViewController.m */; };
 		BDD492EA1675011A00F7B9B8 /* WinLostMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDD492E81675011900F7B9B8 /* WinLostMenuViewController.xib */; };
 		BDD49300167504E500F7B9B8 /* restartButton01.png in Resources */ = {isa = PBXBuildFile; fileRef = BDD492F2167504E500F7B9B8 /* restartButton01.png */; };
@@ -353,8 +357,8 @@
 		BDD71E12167A7EC70066EA66 /* Score.m in Sources */ = {isa = PBXBuildFile; fileRef = BDD71E11167A7EC70066EA66 /* Score.m */; };
 		BDD76AF21676AE0600A268F1 /* water_windshield.png in Resources */ = {isa = PBXBuildFile; fileRef = BDD76AF11676AE0600A268F1 /* water_windshield.png */; };
 		BDDA0DD9162F854900854B96 /* EventHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDDA0DD8162F854900854B96 /* EventHandler.mm */; };
-		BDDFCE90167FD0C800535AE5 /* WorldSelectViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDDFCE8F167FD0C800535AE5 /* WorldSelectViewController_iPad.xib */; };
-		BDDFCE93167FD0DF00535AE5 /* MissionSelectViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDDFCE92167FD0DF00535AE5 /* MissionSelectViewController_iPad.xib */; };
+		BDDFCE90167FD0C800535AE5 /* WorldSelectViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDDFCE8F167FD0C800535AE5 /* WorldSelectViewController~ipad.xib */; };
+		BDDFCE93167FD0DF00535AE5 /* MissionSelectViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDDFCE92167FD0DF00535AE5 /* MissionSelectViewController~ipad.xib */; };
 		BDE318EF1666D52300DBDE3D /* MissionSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE318ED1666D52300DBDE3D /* MissionSelectViewController.m */; };
 		BDE318F01666D52300DBDE3D /* MissionSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDE318EE1666D52300DBDE3D /* MissionSelectViewController.xib */; };
 		BDE549F21616FDA0005B6BD5 /* StateSelectRoute.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDE549F11616FDA0005B6BD5 /* StateSelectRoute.mm */; };
@@ -548,6 +552,10 @@
 		BD9AFA8F166BA3FD009988F9 /* combo_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = combo_arrow.png; path = Resources/combo_arrow.png; sourceTree = "<group>"; };
 		BD9B0A44167E74B200CF8F49 /* FocusZoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FocusZoom.h; sourceTree = "<group>"; };
 		BD9B0A45167E74B200CF8F49 /* FocusZoom.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FocusZoom.mm; sourceTree = "<group>"; };
+		BD9D095F1680F633006A73A8 /* GamePlayViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "GamePlayViewController~ipad.xib"; sourceTree = "<group>"; };
+		BD9D09611680F647006A73A8 /* PauseMenuViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "PauseMenuViewController~ipad.xib"; sourceTree = "<group>"; };
+		BD9D09631680F822006A73A8 /* RestartMenuViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "RestartMenuViewController~ipad.xib"; sourceTree = "<group>"; };
+		BD9D09651680F83B006A73A8 /* WinLostMenuViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "WinLostMenuViewController~ipad.xib"; sourceTree = "<group>"; };
 		BDA5BD58162737FD00EAD767 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
 		BDA5BD59162737FD00EAD767 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
 		BDAE9C941666C31600FCC9D2 /* WorldSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorldSelectViewController.h; sourceTree = "<group>"; };
@@ -859,8 +867,8 @@
 		BDC2C1CC1677F6710099C632 /* car01_01.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = car01_01.plist; sourceTree = "<group>"; };
 		BDC8C886167657380059F50F /* AcceleratorButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AcceleratorButton.png; path = Resources/AcceleratorButton.png; sourceTree = "<group>"; };
 		BDC8C887167657380059F50F /* breakButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = breakButton.png; path = Resources/breakButton.png; sourceTree = "<group>"; };
-		BDCD1FE5167FADAC000D90CF /* StartMenuViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StartMenuViewController_iPad.xib; sourceTree = "<group>"; };
-		BDCD1FE7167FBC8B000D90CF /* CarAndCharViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CarAndCharViewController_iPad.xib; sourceTree = "<group>"; };
+		BDCD1FE5167FADAC000D90CF /* StartMenuViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "StartMenuViewController~ipad.xib"; sourceTree = "<group>"; };
+		BDCD1FE7167FBC8B000D90CF /* CarAndCharViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "CarAndCharViewController~ipad.xib"; sourceTree = "<group>"; };
 		BDD492E61675011900F7B9B8 /* WinLostMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WinLostMenuViewController.h; sourceTree = "<group>"; };
 		BDD492E71675011900F7B9B8 /* WinLostMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WinLostMenuViewController.m; sourceTree = "<group>"; };
 		BDD492E81675011900F7B9B8 /* WinLostMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WinLostMenuViewController.xib; sourceTree = "<group>"; };
@@ -871,8 +879,8 @@
 		BDD76AF11676AE0600A268F1 /* water_windshield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = water_windshield.png; path = Resources/water_windshield.png; sourceTree = "<group>"; };
 		BDDA0DD7162F854900854B96 /* EventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventHandler.h; sourceTree = "<group>"; };
 		BDDA0DD8162F854900854B96 /* EventHandler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EventHandler.mm; sourceTree = "<group>"; };
-		BDDFCE8F167FD0C800535AE5 /* WorldSelectViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WorldSelectViewController_iPad.xib; sourceTree = "<group>"; };
-		BDDFCE92167FD0DF00535AE5 /* MissionSelectViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MissionSelectViewController_iPad.xib; sourceTree = "<group>"; };
+		BDDFCE8F167FD0C800535AE5 /* WorldSelectViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "WorldSelectViewController~ipad.xib"; sourceTree = "<group>"; };
+		BDDFCE92167FD0DF00535AE5 /* MissionSelectViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MissionSelectViewController~ipad.xib"; sourceTree = "<group>"; };
 		BDE318EC1666D52300DBDE3D /* MissionSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MissionSelectViewController.h; sourceTree = "<group>"; };
 		BDE318ED1666D52300DBDE3D /* MissionSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MissionSelectViewController.m; sourceTree = "<group>"; };
 		BDE318EE1666D52300DBDE3D /* MissionSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MissionSelectViewController.xib; sourceTree = "<group>"; };
@@ -925,19 +933,19 @@
 				BDE318EC1666D52300DBDE3D /* MissionSelectViewController.h */,
 				BDE318ED1666D52300DBDE3D /* MissionSelectViewController.m */,
 				BDE318EE1666D52300DBDE3D /* MissionSelectViewController.xib */,
-				BDDFCE92167FD0DF00535AE5 /* MissionSelectViewController_iPad.xib */,
+				BDDFCE92167FD0DF00535AE5 /* MissionSelectViewController~ipad.xib */,
 				BDAE9C941666C31600FCC9D2 /* WorldSelectViewController.h */,
 				BD9AFA7A166BA138009988F9 /* WorldSelectViewController.m */,
 				BDAE9C961666C31600FCC9D2 /* WorldSelectViewController.xib */,
-				BDDFCE8F167FD0C800535AE5 /* WorldSelectViewController_iPad.xib */,
+				BDDFCE8F167FD0C800535AE5 /* WorldSelectViewController~ipad.xib */,
 				BD0E18FB1665950100971528 /* CarAndCharViewController.h */,
 				BD9AFA7B166BA138009988F9 /* CarAndCharViewController.m */,
 				BD0E18FD1665950100971528 /* CarAndCharViewController.xib */,
-				BDCD1FE7167FBC8B000D90CF /* CarAndCharViewController_iPad.xib */,
+				BDCD1FE7167FBC8B000D90CF /* CarAndCharViewController~ipad.xib */,
 				BD0E1917166597DB00971528 /* StartMenuViewController.h */,
 				BD0E1918166597DB00971528 /* StartMenuViewController.m */,
 				BDB75792166F8EB500912496 /* StartMenuViewController.xib */,
-				BDCD1FE5167FADAC000D90CF /* StartMenuViewController_iPad.xib */,
+				BDCD1FE5167FADAC000D90CF /* StartMenuViewController~ipad.xib */,
 			);
 			name = MenuView;
 			sourceTree = "<group>";
@@ -957,15 +965,19 @@
 				BDD492E61675011900F7B9B8 /* WinLostMenuViewController.h */,
 				BDD492E71675011900F7B9B8 /* WinLostMenuViewController.m */,
 				BDD492E81675011900F7B9B8 /* WinLostMenuViewController.xib */,
+				BD9D09651680F83B006A73A8 /* WinLostMenuViewController~ipad.xib */,
 				BD8CB7D51674AAB800210980 /* RestartMenuViewController.h */,
 				BD8CB7D61674AAB800210980 /* RestartMenuViewController.m */,
 				BD8CB7D71674AAB900210980 /* RestartMenuViewController.xib */,
+				BD9D09631680F822006A73A8 /* RestartMenuViewController~ipad.xib */,
 				BD426841166FBCBA00D5789D /* PauseMenuViewController.h */,
 				BD426842166FBCBA00D5789D /* PauseMenuViewController.m */,
 				BD426843166FBCBA00D5789D /* PauseMenuViewController.xib */,
+				BD9D09611680F647006A73A8 /* PauseMenuViewController~ipad.xib */,
 				BD42683C166FB5CC00D5789D /* GamePlayViewController.h */,
 				BD42683D166FB5CC00D5789D /* GamePlayViewController.m */,
 				BD42683E166FB5CC00D5789D /* GamePlayViewController.xib */,
+				BD9D095F1680F633006A73A8 /* GamePlayViewController~ipad.xib */,
 			);
 			name = GamePlayMenu;
 			sourceTree = "<group>";
@@ -2008,10 +2020,14 @@
 				BD48E8E9167FA044009142FE /* cuationSign03.png in Resources */,
 				BD48E8EA167FA044009142FE /* cuationSign04.png in Resources */,
 				BD48E8EE167FA4DB009142FE /* speed_limit_sign.png in Resources */,
-				BDCD1FE6167FADAC000D90CF /* StartMenuViewController_iPad.xib in Resources */,
-				BDCD1FE8167FBC8B000D90CF /* CarAndCharViewController_iPad.xib in Resources */,
-				BDDFCE90167FD0C800535AE5 /* WorldSelectViewController_iPad.xib in Resources */,
-				BDDFCE93167FD0DF00535AE5 /* MissionSelectViewController_iPad.xib in Resources */,
+				BDCD1FE6167FADAC000D90CF /* StartMenuViewController~ipad.xib in Resources */,
+				BDCD1FE8167FBC8B000D90CF /* CarAndCharViewController~ipad.xib in Resources */,
+				BDDFCE90167FD0C800535AE5 /* WorldSelectViewController~ipad.xib in Resources */,
+				BDDFCE93167FD0DF00535AE5 /* MissionSelectViewController~ipad.xib in Resources */,
+				BD9D09601680F633006A73A8 /* GamePlayViewController~ipad.xib in Resources */,
+				BD9D09621680F647006A73A8 /* PauseMenuViewController~ipad.xib in Resources */,
+				BD9D09641680F822006A73A8 /* RestartMenuViewController~ipad.xib in Resources */,
+				BD9D09661680F83C006A73A8 /* WinLostMenuViewController~ipad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

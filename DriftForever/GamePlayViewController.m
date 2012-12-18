@@ -297,7 +297,7 @@
     [_btnZoomIn setHidden:NO];
     [_btnZoomOut setHidden:NO];
     
-    [_btnPause setHidden:YES];
+    [_btnPause setHidden:NO];
 }
 
 - (void) _showDrivingCarUI

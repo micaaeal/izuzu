@@ -29,6 +29,7 @@ static Console*    _s_console = nil;
 @property (assign) BOOL         _isTouchedAccel;
 @property (assign) BOOL         _isTouchedBreak;
 
+@property (assign) BOOL         _hasAddResourcesToLayer;
 @end
 
 @implementation Console
@@ -44,6 +45,7 @@ static Console*    _s_console = nil;
 @synthesize _isTouchingBreak;
 @synthesize _isTouchedAccel;
 @synthesize _isTouchedBreak;
+@synthesize _hasAddResourcesToLayer;
 
 + (Console*) getObject
 {
@@ -79,6 +81,8 @@ static Console*    _s_console = nil;
         
         _isTouchedAccel     = NO;
         _isTouchedBreak     = NO;
+        
+        _hasAddResourcesToLayer = NO;
     }
     return self;
 }
@@ -107,9 +111,12 @@ static Console*    _s_console = nil;
 
 - (void) AssignDataToLayer: (CCLayer*) layer
 {
-    [layer addChild:_spriteFuel];
-    [layer addChild:_spriteFuelGaugeNeedle];
-
+    if ( ! _hasAddResourcesToLayer )
+    {
+        [layer addChild:_spriteFuel];
+        [layer addChild:_spriteFuelGaugeNeedle];
+    }
+    
     // win size
     CGSize winSize          = [CCDirector sharedDirector].winSize;
     
@@ -130,8 +137,11 @@ static Console*    _s_console = nil;
     [_spriteFuelGaugeNeedle setScale:[UtilVec convertScaleIfRetina:_spriteFuelGaugeNeedle.scale]];
 
     // text speed
-    [layer addChild:_spriteSpeedMeter];
-    [layer addChild:_txtSpeed];
+    if ( ! _hasAddResourcesToLayer )
+    {
+        [layer addChild:_spriteSpeedMeter];
+        [layer addChild:_txtSpeed];
+    }
     [_spriteSpeedMeter setPosition:CGPointMake(61.0f, winSize.height - 90)];
     [_spriteSpeedMeter setScale:[UtilVec convertScaleIfRetina:_spriteSpeedMeter.scale]];
     [_txtSpeed setPosition:CGPointMake(-20.0f, winSize.height - 118)];
@@ -145,7 +155,10 @@ static Console*    _s_console = nil;
     
     if ( _accelSprite )
     {
-        [layer addChild:_accelSprite];
+        if ( ! _hasAddResourcesToLayer )
+        {
+            [layer addChild:_accelSprite];
+        }
         [_accelSprite setScale:0.5f];
         [_accelSprite setPosition:CGPointMake(accelPadelX, accelPadelY)];
         [_accelSprite setScale:[UtilVec convertScaleIfRetina:_accelSprite.scale]];
@@ -153,11 +166,16 @@ static Console*    _s_console = nil;
     
     if ( _breakSprite )
     {
-        [layer addChild:_breakSprite];
+        if ( ! _hasAddResourcesToLayer )
+        {
+            [layer addChild:_breakSprite];
+        }
         [_breakSprite setScale:0.5f];
         [_breakSprite setPosition:CGPointMake(breakPadelX, breakPadelY)];
         [_breakSprite setScale:[UtilVec convertScaleIfRetina:_breakSprite.scale]];
     }
+    
+    _hasAddResourcesToLayer = YES;
 }
 
 - (void) Update: (float) deltaTime

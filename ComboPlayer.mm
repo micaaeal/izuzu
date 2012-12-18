@@ -28,6 +28,8 @@ CGPoint buttonPointArray[4];
 @property (retain) NSMutableArray*  comboNumberArray;
 @property (retain) CCSprite*    comboArrowSprite;
 
+@property (assign) BOOL hasAddResourcesToLayer;
+
 @end
 
 @implementation ComboPlayer
@@ -42,6 +44,7 @@ CGPoint buttonPointArray[4];
 @synthesize comboNumberArray;
 @synthesize comboArrowSprite;
 @synthesize delegate;
+@synthesize hasAddResourcesToLayer;
 
 + (ComboPlayer*) getObject
 {
@@ -69,6 +72,8 @@ CGPoint buttonPointArray[4];
         _s_object.buttonSpriteArray = [[NSMutableArray alloc] init];
         _s_object.comboButtonDict   = [[NSMutableDictionary alloc] init];
         _s_object.delegate          = nil;
+        
+        _s_object.hasAddResourcesToLayer    = NO;
     }
     
     return _s_object;
@@ -152,7 +157,9 @@ CGPoint buttonPointArray[4];
     for (NSString* cKey in resDict)
     {
         CCSprite* cSprite   = [resDict objectForKey:cKey];
-        [layer addChild:cSprite];
+        
+        if ( ! hasAddResourcesToLayer )
+            [layer addChild:cSprite];
         
         CGPoint buttonCenter    = CGPointMake(90.0f, 90.0f);
         CGFloat space01 = 50.0f;
@@ -204,7 +211,8 @@ CGPoint buttonPointArray[4];
     // combos
     for (CCSprite* cSprite in comboSpriteArray)
     {
-        [layer addChild:cSprite];
+        if ( ! hasAddResourcesToLayer )
+            [layer addChild:cSprite];
         
         [cSprite setPosition:CGPointMake(0,
                                          0)];
@@ -212,6 +220,7 @@ CGPoint buttonPointArray[4];
         [cSprite setOpacity:0];
     }
     
+    hasAddResourcesToLayer  = YES;
 }
 
 - (void) startEvent:(Event *)event

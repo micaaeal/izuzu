@@ -73,6 +73,7 @@ World* _s_world = nil;
 @property (assign) CGPoint*         floor_etc05_buffer;
 
 @property (assign) BOOL             isLoadingFloor;
+@property (assign) BOOL             hasAddResourcesToLayer;
 
 - (void) loadFloor;
 
@@ -158,6 +159,7 @@ World* _s_world = nil;
 @synthesize floor_etc05_buffer;
 
 @synthesize isLoadingFloor;
+@synthesize hasAddResourcesToLayer;
 
 + (World*) getObject
 {
@@ -183,6 +185,7 @@ World* _s_world = nil;
         routeGraph->Start();
         screenBounds  = [[UIScreen mainScreen] bounds];
         isLoadingFloor  = NO;
+        hasAddResourcesToLayer  = NO;
         
         [self loadFloor];
     }
@@ -965,6 +968,9 @@ World* _s_world = nil;
     if ( ! self )
         return NO;
     
+    if ( hasAddResourcesToLayer )
+        return NO;
+    
     // road
     for ( CCSprite* cSprite in roadArray )
     {
@@ -991,6 +997,8 @@ World* _s_world = nil;
     
     // set layer ref
     layer   = layer;
+    
+    hasAddResourcesToLayer  = YES;
     
     return YES;
 }

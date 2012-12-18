@@ -17,23 +17,13 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    NSMutableString* nibName    = [[NSMutableString alloc] initWithString:nibNameOrNil];
-    if ([UIDevice instancesRespondToSelector:@selector(userInterfaceIdiom)]) {
-        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
-            [nibName appendString:@"_iPad"];
-        }
-    }
-    
-    self = [super initWithNibName:nibName bundle:nibBundleOrNil];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
         _carAndCharacterViewController  = [[CarAndCharViewController alloc] initWithNibName:@"CarAndCharViewController" bundle:nil];
         _worldSelectViewController      = [[WorldSelectViewController alloc] initWithNibName:@"WorldSelectViewController" bundle:nil];
         _missionViewController          = [[MissionSelectViewController alloc] initWithNibName:@"MissionSelectViewController" bundle:nil];
     }
-    
-    [nibName release];
-    nibName = nil;
     
     return self;
 }
