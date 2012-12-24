@@ -33,6 +33,7 @@ IntroLayer* _s_introLayer   = nil;
     
     // 'layer' is an autorelease object.
     IntroLayer *layer = [IntroLayer node];
+    layer.tag   = 101;
     
     // add layer as a child to scene
     [_s_introScene addChild: layer];
@@ -62,27 +63,28 @@ IntroLayer* _s_introLayer   = nil;
 		background = [CCSprite spriteWithFile:@"Default-Landscape~ipad.png"];
 	}
 	background.position = ccp(size.width/2, size.height/2);
+    
+    [self addChild: background];
+}
 
-	// add the label as a child to this Layer
-    if ( background.parent != self )
-    {
-        [self addChild: background];
-        
-        // In one second transition to the new scene
-        [self scheduleOnce:@selector(makeTransition:) delay:1];
-        
-        // Load ...
-        [[World getObject] LoadData];
-        [Car LoadData];
-        [[Mission getObject] loadData];
-        [[Console getObject] LoadData];
-        [[ComboPlayer getObject] LoadData];
-    }
+- (void) loadResources
+{
+    // In one second transition to the new scene
+    [self scheduleOnce:@selector(makeTransition:) delay:1];
+    
+    // Load ...
+    [[World getObject] LoadData];
+    [Car LoadData];
+    [[Mission getObject] loadData];
+    [[Console getObject] LoadData];
+    [[ComboPlayer getObject] LoadData];
+    
+    [[GameFlowSignal getObject] finishedLoadingLayer:self];
 }
 
 -(void) makeTransition:(ccTime)dt
 {
-    [[GameFlowSignal getObject] finishedLoadingLayer:self];
+    
 }
 
 #pragma mark - GameFlowSignalDelegate

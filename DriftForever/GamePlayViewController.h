@@ -29,7 +29,7 @@
 
 @property (assign) id<GamePlayViewDelegate> delegate;
 
-@property (assign) PlayDriftLayer*  playDriftLayer;
+@property (retain) PlayDriftLayer*  playDriftLayer;
 @property (retain, nonatomic) IBOutlet PauseMenuViewController *pauseMenuViewController;
 @property (retain, nonatomic) IBOutlet RestartMenuViewController *restartMenuViewController;
 @property (retain, nonatomic) IBOutlet WinLostMenuViewController *winMenuViewController;
@@ -56,5 +56,6 @@
 
 - (void) onReadyToDrive: (id) sender;
 - (void) onPathNotFinishYet: (id) sender;
+- (void) bringUIViewToFront;
 
 @end

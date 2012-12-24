@@ -11,6 +11,8 @@
 		BD0E191A166597DB00971528 /* StartMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD0E1918166597DB00971528 /* StartMenuViewController.m */; };
 		BD1B83AA164B2469005950CB /* WindShield.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1B83A9164B2469005950CB /* WindShield.m */; };
 		BD2BEA6B167A54C5003371D4 /* Order.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD2BEA6A167A54C5003371D4 /* Order.mm */; };
+		BD42286F168803280024027C /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD42286D168803280024027C /* RootViewController.m */; };
+		BD422870168803280024027C /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD42286E168803280024027C /* RootViewController.xib */; };
 		BD42683F166FB5CC00D5789D /* GamePlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD42683D166FB5CC00D5789D /* GamePlayViewController.m */; };
 		BD426840166FB5CC00D5789D /* GamePlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD42683E166FB5CC00D5789D /* GamePlayViewController.xib */; };
 		BD426844166FBCBA00D5789D /* PauseMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD426842166FBCBA00D5789D /* PauseMenuViewController.m */; };
@@ -359,6 +361,13 @@
 		BDDA0DD9162F854900854B96 /* EventHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDDA0DD8162F854900854B96 /* EventHandler.mm */; };
 		BDDFCE90167FD0C800535AE5 /* WorldSelectViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDDFCE8F167FD0C800535AE5 /* WorldSelectViewController~ipad.xib */; };
 		BDDFCE93167FD0DF00535AE5 /* MissionSelectViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDDFCE92167FD0DF00535AE5 /* MissionSelectViewController~ipad.xib */; };
+		BDE2873B16881F5500A20434 /* LoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE2873916881F5500A20434 /* LoadingViewController.m */; };
+		BDE2873C16881F5500A20434 /* LoadingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDE2873A16881F5500A20434 /* LoadingViewController.xib */; };
+		BDE2874316886D6100A20434 /* iconGo_57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = BDE2874216886D6000A20434 /* iconGo_57x57.png */; };
+		BDE2874516886D6E00A20434 /* iconGo_114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = BDE2874416886D6E00A20434 /* iconGo_114x114.png */; };
+		BDE2874716886D9000A20434 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = BDE2874616886D9000A20434 /* Default.png */; };
+		BDE2874916886DB800A20434 /* iconGo_144x144.png in Resources */ = {isa = PBXBuildFile; fileRef = BDE2874816886DB800A20434 /* iconGo_144x144.png */; };
+		BDE2874B16886DC100A20434 /* iconGo_72x72.png in Resources */ = {isa = PBXBuildFile; fileRef = BDE2874A16886DC100A20434 /* iconGo_72x72.png */; };
 		BDE318EF1666D52300DBDE3D /* MissionSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE318ED1666D52300DBDE3D /* MissionSelectViewController.m */; };
 		BDE318F01666D52300DBDE3D /* MissionSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDE318EE1666D52300DBDE3D /* MissionSelectViewController.xib */; };
 		BDE549F21616FDA0005B6BD5 /* StateSelectRoute.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDE549F11616FDA0005B6BD5 /* StateSelectRoute.mm */; };
@@ -379,6 +388,9 @@
 		BD1B83A9164B2469005950CB /* WindShield.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WindShield.m; sourceTree = "<group>"; };
 		BD2BEA69167A54C5003371D4 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
 		BD2BEA6A167A54C5003371D4 /* Order.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Order.mm; sourceTree = "<group>"; };
+		BD42286C168803280024027C /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		BD42286D168803280024027C /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		BD42286E168803280024027C /* RootViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RootViewController.xib; sourceTree = "<group>"; };
 		BD42683C166FB5CC00D5789D /* GamePlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePlayViewController.h; sourceTree = "<group>"; };
 		BD42683D166FB5CC00D5789D /* GamePlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePlayViewController.m; sourceTree = "<group>"; };
 		BD42683E166FB5CC00D5789D /* GamePlayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GamePlayViewController.xib; sourceTree = "<group>"; };
@@ -881,6 +893,14 @@
 		BDDA0DD8162F854900854B96 /* EventHandler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EventHandler.mm; sourceTree = "<group>"; };
 		BDDFCE8F167FD0C800535AE5 /* WorldSelectViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "WorldSelectViewController~ipad.xib"; sourceTree = "<group>"; };
 		BDDFCE92167FD0DF00535AE5 /* MissionSelectViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MissionSelectViewController~ipad.xib"; sourceTree = "<group>"; };
+		BDE2873816881F5500A20434 /* LoadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingViewController.h; sourceTree = "<group>"; };
+		BDE2873916881F5500A20434 /* LoadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingViewController.m; sourceTree = "<group>"; };
+		BDE2873A16881F5500A20434 /* LoadingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingViewController.xib; sourceTree = "<group>"; };
+		BDE2874216886D6000A20434 /* iconGo_57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconGo_57x57.png; sourceTree = "<group>"; };
+		BDE2874416886D6E00A20434 /* iconGo_114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconGo_114x114.png; sourceTree = "<group>"; };
+		BDE2874616886D9000A20434 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		BDE2874816886DB800A20434 /* iconGo_144x144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconGo_144x144.png; sourceTree = "<group>"; };
+		BDE2874A16886DC100A20434 /* iconGo_72x72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconGo_72x72.png; sourceTree = "<group>"; };
 		BDE318EC1666D52300DBDE3D /* MissionSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MissionSelectViewController.h; sourceTree = "<group>"; };
 		BDE318ED1666D52300DBDE3D /* MissionSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MissionSelectViewController.m; sourceTree = "<group>"; };
 		BDE318EE1666D52300DBDE3D /* MissionSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MissionSelectViewController.xib; sourceTree = "<group>"; };
@@ -1264,6 +1284,11 @@
 		BDBA3358160E252C00593FFC = {
 			isa = PBXGroup;
 			children = (
+				BDE2874A16886DC100A20434 /* iconGo_72x72.png */,
+				BDE2874816886DB800A20434 /* iconGo_144x144.png */,
+				BDE2874616886D9000A20434 /* Default.png */,
+				BDE2874416886D6E00A20434 /* iconGo_114x114.png */,
+				BDE2874216886D6000A20434 /* iconGo_57x57.png */,
 				BD9673151667FC8500B0C9CD /* Data */,
 				BDF75DD2161933A700BEAFD1 /* Camera */,
 				BDF75DCE161903C500BEAFD1 /* Car */,
@@ -1323,6 +1348,12 @@
 			children = (
 				BD9AFA7E166BA158009988F9 /* GameFlowSignal.h */,
 				BD9AFA7F166BA158009988F9 /* GameFlowSignal.m */,
+				BD42286C168803280024027C /* RootViewController.h */,
+				BD42286D168803280024027C /* RootViewController.m */,
+				BD42286E168803280024027C /* RootViewController.xib */,
+				BDE2873816881F5500A20434 /* LoadingViewController.h */,
+				BDE2873916881F5500A20434 /* LoadingViewController.m */,
+				BDE2873A16881F5500A20434 /* LoadingViewController.xib */,
 				BD0E18FA166594CB00971528 /* MenuView */,
 				BD426835166FB4E500D5789D /* GamePlayMenu */,
 				BD9AFA84166BA1E7009988F9 /* AppDelegate.h */,
@@ -2028,6 +2059,13 @@
 				BD9D09621680F647006A73A8 /* PauseMenuViewController~ipad.xib in Resources */,
 				BD9D09641680F822006A73A8 /* RestartMenuViewController~ipad.xib in Resources */,
 				BD9D09661680F83C006A73A8 /* WinLostMenuViewController~ipad.xib in Resources */,
+				BD422870168803280024027C /* RootViewController.xib in Resources */,
+				BDE2873C16881F5500A20434 /* LoadingViewController.xib in Resources */,
+				BDE2874316886D6100A20434 /* iconGo_57x57.png in Resources */,
+				BDE2874516886D6E00A20434 /* iconGo_114x114.png in Resources */,
+				BDE2874716886D9000A20434 /* Default.png in Resources */,
+				BDE2874916886DB800A20434 /* iconGo_144x144.png in Resources */,
+				BDE2874B16886DC100A20434 /* iconGo_72x72.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2170,6 +2208,8 @@
 				BD2BEA6B167A54C5003371D4 /* Order.mm in Sources */,
 				BDD71E12167A7EC70066EA66 /* Score.m in Sources */,
 				BD9B0A46167E74B200CF8F49 /* FocusZoom.mm in Sources */,
+				BD42286F168803280024027C /* RootViewController.m in Sources */,
+				BDE2873B16881F5500A20434 /* LoadingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2247,7 +2287,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Code Gears Co., Ltd.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2264,6 +2304,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};

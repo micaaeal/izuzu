@@ -168,6 +168,17 @@
     [_btnOK setEnabled:NO];
 }
 
+- (void) bringUIViewToFront
+{
+    [self.view bringSubviewToFront:_btnPause];
+    [self.view bringSubviewToFront:_btnOK];
+    [self.view bringSubviewToFront:_btnBack];
+    [self.view bringSubviewToFront:_btnErasePath];
+    [self.view bringSubviewToFront:_btnDrawPath];
+    [self.view bringSubviewToFront:_btnZoomIn];
+    [self.view bringSubviewToFront:_btnZoomOut];
+}
+
 #pragma mark - PauseMenuViewDelegate + RestartMenuViewDelegate
 
 - (void) onResume: (id) sender
