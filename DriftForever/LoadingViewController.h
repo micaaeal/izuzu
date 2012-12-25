@@ -10,4 +10,6 @@
 
 @interface LoadingViewController : UIViewController
 
+- (void) initDataByHandWithOption: (BOOL) isResume;
+
 @end

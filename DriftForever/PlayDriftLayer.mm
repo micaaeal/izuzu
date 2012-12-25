@@ -87,13 +87,6 @@ PlayDriftLayer* _s_playDriftLayer   = nil;
 // on "init" you need to initialize your instance
 -(id) init
 {
-    // Load resources
-    [[World getObject] LoadData];
-    [Car LoadData];
-    [[Mission getObject] loadData];
-    [[Console getObject] LoadData];
-    [[ComboPlayer getObject] LoadData];
-    
     // Register to GameFlowSignal
     [[GameFlowSignal getObject] setDriftLayer:self];
     
@@ -102,8 +95,8 @@ PlayDriftLayer* _s_playDriftLayer   = nil;
 	if( (self=[super init]) )
     {
         // set flags
-        _isDebug    = NO;
-        _isReadyToDrive = NO;
+        _isDebug            = NO;
+        _isReadyToDrive     = NO;
         _isNotFinishedYet   = YES;
      
         // init all sub layers

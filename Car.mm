@@ -8,6 +8,8 @@
 
 #import "Car.h"
 #import "Utils.h"
+#import "Mission.h"
+#import "MenuStates.h"
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 @interface CarCache: NSObject
@@ -50,6 +52,9 @@
 @property (assign) float    blinkPeriod;
 @property (assign) float    blinkTimeRemained;
 
+// car array
+@property (retain) NSArray* carNameArray;
+
 @end
 @implementation CarCache
 @synthesize carSprite;
@@ -88,6 +93,8 @@
 
 @synthesize blinkPeriod;
 @synthesize blinkTimeRemained;
+
+@synthesize carNameArray;
 
 - (id) init
 {
@@ -130,6 +137,15 @@
         
         blinkPeriod         = 0.3f;
         blinkTimeRemained   = 0.0f;
+        
+        carNameArray = [[NSArray alloc] initWithObjects:
+                        @"car01_01",
+                        @"car01_03",
+                        @"car01_02",
+                        @"car02_02",
+                        @"car02_01",
+                        @"car02_03",
+                        nil];
     }
     return self;
 }
@@ -149,23 +165,20 @@ CarCache* _carCache = nil;
     // init cache
     _carCache   = [[CarCache alloc] init];
     
-    // init car sprite
-    /*
-     {
-        _carCache.carSprite   = [CCSprite spriteWithFile:@"car_01_01_Run001.png"];
-        [_carCache.carSprite setRotation:0.0f];
-        
-        CGFloat carScale    = _carCache.carSprite.scale;
-        carScale    = [UtilVec convertScaleIfRetina:carScale];
-        [_carCache.carSprite setScale:carScale];
-    }
-    /*/
     // init car sprite using texture atlas
     {
-        CCSpriteFrameCache* frameCache  = [CCSpriteFrameCache sharedSpriteFrameCache];
-        [frameCache addSpriteFramesWithFile:@"car01_01.plist"];
+        int cCarCode    = [MenuStates getObject].carCode;
+        NSString* cCarName  = [_carCache.carNameArray objectAtIndex:cCarCode];
         
-        _carCache.carSprite = [CCSprite spriteWithSpriteFrameName:@"car01_01_EmptyAct01_000.png"];
+        CCSpriteFrameCache* frameCache  = [CCSpriteFrameCache sharedSpriteFrameCache];
+        NSString* pListStr  = [[NSString alloc] initWithFormat:@"%@.plist", cCarName];
+        [frameCache addSpriteFramesWithFile:pListStr];
+        [pListStr release]; pListStr    = nil;
+        
+        NSString* spriteStr = [[NSString alloc] initWithFormat:@"%@_EmptyAct01_000.png", cCarName];
+        //NSString* spriteStr = [[NSString alloc] initWithFormat:@"car01_01_EmptyAct01_000.png", cCarName];
+        _carCache.carSprite = [CCSprite spriteWithSpriteFrameName:spriteStr];
+        [spriteStr release]; spriteStr  = nil;
         
         if ( _carCache.carSprite )
         {
@@ -175,9 +188,9 @@ CarCache* _carCache = nil;
             {
                 NSString* file  = nil;
                 if ( i < 10 )
-                    file    = [NSString stringWithFormat:@"car01_01_EmptyAct01_00%d.png", i];
+                    file    = [NSString stringWithFormat:@"%@_EmptyAct01_00%d.png", cCarName, i];
                 else
-                    file    = [NSString stringWithFormat:@"car01_01_EmptyAct01_0%d.png", i];
+                    file    = [NSString stringWithFormat:@"%@_EmptyAct01_0%d.png", cCarName, i];
                 
                 CCSpriteFrame* frame    = [frameCache spriteFrameByName:file];
                 [frames addObject:frame];
@@ -194,7 +207,6 @@ CarCache* _carCache = nil;
         carScale    = [UtilVec convertScaleIfRetina:carScale];
         [_carCache.carSprite setScale:carScale];
     }
-    /**/
     
     {
         _carCache.speedLineSprite   = [CCSprite spriteWithFile:@"speedline_048.png"];

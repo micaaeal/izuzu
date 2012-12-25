@@ -13,6 +13,7 @@
 #import "GamePlayViewController.h"
 #import "PlayDriftLayer.h"
 #import "RootViewController.h"
+#import "LoadingViewController.h"
 
 @interface AppController : NSObject <UIApplicationDelegate, CCDirectorDelegate, StartMenuViewDelegate, GameFlowSignalDelegate, PlayDriftLayerDelegate, GamePlayViewDelegate>
 

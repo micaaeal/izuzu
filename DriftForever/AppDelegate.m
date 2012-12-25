@@ -9,7 +9,7 @@
 #import "cocos2d.h"
 
 #import "AppDelegate.h"
-#import "IntroLayer.h"
+#import "LoadingViewController.h"
 
 @interface AppController()
 {
@@ -20,6 +20,7 @@
 @property (retain) UIViewController* _rootViewController;
 @property (retain) UINavigationController *navController_;
 @property (retain) GamePlayViewController* _gamePlayViewController;
+@property (retain) LoadingViewController* _loadingViewController;
 @property (assign) BOOL _hasLoadedPlayDriftLayer;
 @property (assign) BOOL _isOnResume;
 @property (retain) CCScene* _playDriftScene;
@@ -37,6 +38,7 @@
 @synthesize _rootViewController;
 @synthesize window=window_, navController=navController_, director=director_;
 @synthesize _gamePlayViewController;
+@synthesize _loadingViewController;
 
 @synthesize _hasLoadedPlayDriftLayer;
 @synthesize _isOnResume;
@@ -242,57 +244,72 @@
     _gamePlayViewController.delegate    = self;
     [_gamePlayViewController initDataByHand:self];
     
-    // ....
-    [_rootViewController.view addSubview:_gamePlayViewController.view];
-    [_rootViewController.view bringSubviewToFront:_gamePlayViewController.view];
-    [_gamePlayViewController bringUIViewToFront];
-    
-    _playDriftScene  = [PlayDriftLayer scene];
-    [director_ pushScene:[CCTransitionFade transitionWithDuration:1.0
-                                                                              scene:_playDriftScene
-                                                                          withColor:ccWHITE]];
-    PlayDriftLayer* playDriftLayer  = (PlayDriftLayer*)[_playDriftScene getChildByTag:101];
-    playDriftLayer.delegate = self;
-    _gamePlayViewController.playDriftLayer  = playDriftLayer;
-    
-    [[GameFlowSignal getObject] unSetLoadingLayer];
-    [[GameFlowSignal getObject] startPlayDrifLayer:self];
-    [_gamePlayViewController initDataByHand:self];
-    // ....
+    _isOnResume = NO;
+    [[GameFlowSignal getObject] startLoadingLayer:self];
 }
 
 - (void) _resumeCocosDirector
 {
-    // ....
-    [_rootViewController.view addSubview:_gamePlayViewController.view];
-    [_rootViewController.view bringSubviewToFront:_gamePlayViewController.view];
-    [_gamePlayViewController bringUIViewToFront];
-    
-    PlayDriftLayer* playDriftLayer  = (PlayDriftLayer*)[_playDriftScene getChildByTag:101];
-    playDriftLayer.delegate = self;
-    _gamePlayViewController.playDriftLayer  = playDriftLayer;
-    
-    [[GameFlowSignal getObject] unSetLoadingLayer];
-    [[GameFlowSignal getObject] startPlayDrifLayer:self];
-    [_gamePlayViewController initDataByHand:self];
-    // ....
+    _isOnResume = YES;
+    [[GameFlowSignal getObject] startLoadingLayer:self];
 }
 
 #pragma mark - GameFlowSignalDelegate
 
 - (void) onStartLoadingLayer:(id)sender
 {
-    // do nothing
+    // create loadingViewController
+    if ( ! _loadingViewController )
+    {
+        _loadingViewController  = [[[LoadingViewController alloc] initWithNibName:@"LoadingViewController" bundle:nil] retain];
+    }
+    [_rootViewController.view addSubview:_loadingViewController.view];
+    [_rootViewController.view bringSubviewToFront:_loadingViewController.view];
+    [_loadingViewController initDataByHandWithOption:_isOnResume];
 }
 
 - (void) onFinishLoadingLayer:(id)sender
 {
-
+    [[GameFlowSignal getObject] startPlayDrifLayer:self];
 }
 
 - (void) onStartPlayDriftLayer:(id)sender
 {
-    // do nothing
+    if ( ! _isOnResume )
+    {
+        // ....
+        [_rootViewController.view addSubview:_gamePlayViewController.view];
+        [_rootViewController.view bringSubviewToFront:_gamePlayViewController.view];
+        [_gamePlayViewController bringUIViewToFront];
+        
+        _playDriftScene  = [PlayDriftLayer scene];
+        /*
+        [director_ pushScene:[CCTransitionFade transitionWithDuration:1.0
+                                                                scene:_playDriftScene
+                                                            withColor:ccWHITE]];
+        */
+        [director_ pushScene:_playDriftScene];
+        PlayDriftLayer* playDriftLayer  = (PlayDriftLayer*)[_playDriftScene getChildByTag:101];
+        playDriftLayer.delegate = self;
+        _gamePlayViewController.playDriftLayer  = playDriftLayer;
+        
+        [_gamePlayViewController initDataByHand:self];
+        // ....
+    }
+    else
+    {
+        // ....
+        [_rootViewController.view addSubview:_gamePlayViewController.view];
+        [_rootViewController.view bringSubviewToFront:_gamePlayViewController.view];
+        [_gamePlayViewController bringUIViewToFront];
+        
+        PlayDriftLayer* playDriftLayer  = (PlayDriftLayer*)[_playDriftScene getChildByTag:101];
+        playDriftLayer.delegate = self;
+        _gamePlayViewController.playDriftLayer  = playDriftLayer;
+        
+        [_gamePlayViewController initDataByHand:self];
+        // ....
+    }
 }
 
 - (void) onFinishPlayDriftLayer:(id)sender
