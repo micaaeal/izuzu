@@ -14,6 +14,7 @@
 
 - (void) _showSelectRouteUI;
 - (void) _showDrivingCarUI;
+- (void) _hideAllMenu;
 
 @end
 
@@ -85,6 +86,7 @@
 - (void) initDataByHand: (id) sender
 {
     [self _showSelectRouteUI];
+    [self _hideAllMenu];
 }
 
 - (IBAction)onPause:(id)sender {
@@ -322,6 +324,13 @@
     [_btnZoomOut setHidden:YES];
     
     [_btnPause setHidden:NO];
+}
+
+- (void) _hideAllMenu
+{
+    [_pauseMenuViewController.view removeFromSuperview];
+    [_restartMenuViewController.view removeFromSuperview];
+    [_winMenuViewController.view removeFromSuperview];
 }
 
 @end

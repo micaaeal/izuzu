@@ -6,9 +6,9 @@
 		<key>point</key>
 		<dict>
 			<key>x</key>
-			<string>5799.517090</string>
+			<string>3641.096680</string>
 			<key>y</key>
-			<string>-4760.403809</string>
+			<string>-3172.403564</string>
 		</dict>
 		<key>eventName</key>
 		<string>water</string>
@@ -19,9 +19,35 @@
 		<key>point</key>
 		<dict>
 			<key>x</key>
-			<string>8181.517578</string>
+			<string>4598.991211</string>
 			<key>y</key>
-			<string>-4755.140625</string>
+			<string>-3172.403564</string>
+		</dict>
+		<key>eventName</key>
+		<string>water</string>
+		<key>comboTime</key>
+		<string>2</string>
+	</dict>
+	<dict>
+		<key>point</key>
+		<dict>
+			<key>x</key>
+			<string>6366.605469</string>
+			<key>y</key>
+			<string>-1065.824829</string>
+		</dict>
+		<key>eventName</key>
+		<string>rough</string>
+		<key>comboTime</key>
+		<string>2</string>
+	</dict>
+	<dict>
+		<key>point</key>
+		<dict>
+			<key>x</key>
+			<string>7435.026367</string>
+			<key>y</key>
+			<string>-1497.403809</string>
 		</dict>
 		<key>eventName</key>
 		<string>rough</string>

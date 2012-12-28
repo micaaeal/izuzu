@@ -19,6 +19,7 @@ using namespace std;
 #import "Car.h"
 #import "WindShield.h"
 #import "Score.h"
+#import "EventHandler.h"
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 enum STATE_SELECT_ROUTE
@@ -176,6 +177,10 @@ enum STATE_SELECT_ROUTE
             // set camera first post
             [[Camera getObject] setCameraToPoint:_finishVertex.point];
             _currentCamPoint    = _finishVertex.point;
+            
+            // reset event sign
+            [[EventHandler getObject] finishAllEvents];
+            [[EventHandler getObject] hideSpeedLimitSign];
             
             // set state
             _currentState   = STATE_SELECT_ROUTE_START_MOVE_CAMERA;

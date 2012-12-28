@@ -310,6 +310,8 @@
         [_gamePlayViewController initDataByHand:self];
         // ....
     }
+    
+    // clear playing screen
 }
 
 - (void) onFinishPlayDriftLayer:(id)sender

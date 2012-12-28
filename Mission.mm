@@ -119,9 +119,11 @@ static Mission* _s_mission  = nil;
         cMissionProfile.endVertexCode   = 23;
         [_missionArray addObject:cMissionProfile];
         Order* cOrder   = [[Order alloc] init];
+        /*
         [cOrder addOrderAtPosition:CGPointMake(5570.991211,-4197.246094)];
         [cOrder addOrderAtPosition:CGPointMake(6386.780762,-3797.246094)];
         [cOrder addOrderAtPosition:CGPointMake(7086.780762,-4255.140625)];
+        */
         cMissionProfile.order   = cOrder;
         [cOrder release];
         cOrder  = nil;
@@ -132,7 +134,7 @@ static Mission* _s_mission  = nil;
     {
         MissionProfile* cMissionProfile = [[MissionProfile alloc] init];
         cMissionProfile.startVertexCode = 1;
-        cMissionProfile.endVertexCode   = 10;
+        cMissionProfile.endVertexCode   = 3;
         [_missionArray addObject:cMissionProfile];
         [cMissionProfile release];
         cMissionProfile = nil;
@@ -140,7 +142,7 @@ static Mission* _s_mission  = nil;
     {
         MissionProfile* cMissionProfile = [[MissionProfile alloc] init];
         cMissionProfile.startVertexCode = 10;
-        cMissionProfile.endVertexCode   = 20;
+        cMissionProfile.endVertexCode   = 11;
         [_missionArray addObject:cMissionProfile];
         [cMissionProfile release];
         cMissionProfile = nil;

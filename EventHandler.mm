@@ -22,6 +22,12 @@ EventHandler* _s_eventHandler   = nil;
 @property (retain) CCSprite*        _signRough;
 @property (retain) CCSprite*        _signSpeedLimit;
 
+@property (assign) Event*   _currentActivatingEvent;
+
+- (void) _activateEvent: (Event*) event;
+- (BOOL) _couldDeactivateCurrentEvent;
+- (void) _deactivateCurrentEvent;
+
 @end
 
 @implementation EventHandler
@@ -32,6 +38,8 @@ EventHandler* _s_eventHandler   = nil;
 @synthesize _signWater;
 @synthesize _signRough;
 @synthesize _signSpeedLimit;
+
+@synthesize _currentActivatingEvent;
 
 + (EventHandler*) getObject
 {
@@ -95,11 +103,17 @@ EventHandler* _s_eventHandler   = nil;
     }
     
     // load sprite
-    _signWater = [CCSprite spriteWithFile:@"cuationSign03.png"];
+    CCSprite* signWater     = [CCSprite spriteWithFile:@"cuationSign03.png"];
+    _signWater  = signWater;
+    [signWater retain];
     [_signWater setScale:0.5];
-    _signRough  = [CCSprite spriteWithFile:@"cuationSign02.png"];
+    CCSprite* signRough     = [CCSprite spriteWithFile:@"cuationSign02.png"];
+    _signRough  = signRough;
+    [signRough retain];
     [_signRough setScale:0.5];
-    _signSpeedLimit = [CCSprite spriteWithFile:@"speed_limit_sign.png"];
+    CCSprite* signSpeedLimit    = [CCSprite spriteWithFile:@"speed_limit_sign.png"];
+    _signSpeedLimit = signSpeedLimit;
+    [signSpeedLimit retain];
     [_signSpeedLimit setScale:0.5];
 }
 
@@ -144,10 +158,15 @@ EventHandler* _s_eventHandler   = nil;
                                winSize.height - 120);
     // sprites
     [uiLayer addChild:_signWater];
-    _signWater.position    = CGPointMake(_labelPoint.x - 20,
+    _signWater.position     = CGPointMake(_labelPoint.x - 20,
                                          _labelPoint.y - 40);
-    _signWater.scale       = [UtilVec convertScaleIfRetina:_signWater.scale];
+    _signWater.scale        = [UtilVec convertScaleIfRetina:_signWater.scale];
     _signWater.opacity = 0;
+    
+    [uiLayer addChild:_signRough];
+    _signRough.position     = _signWater.position;
+    _signRough.scale        = _signWater.scale;
+    _signRough.opacity      = 0;
     
     [uiLayer addChild:_signSpeedLimit];
     _signSpeedLimit.position    = CGPointMake(_signWater.position.x,
@@ -199,32 +218,26 @@ EventHandler* _s_eventHandler   = nil;
             }
         }
         
+        // check to activate the event
         if ( isThisEventTouchTheCar )
         {
-            if ( cEvent.isTouching == NO )
-            {
-                if ( delegate )
-                {
-                    if ( [cEvent.eventName isEqualToString:@"water"] )
-                    {
-                        _signWater.opacity  = 255;
-                    }
-                    else if ( [cEvent.eventName isEqualToString:@"rough"] )
-                    {
-                        _signRough.opacity  = 255;
-                    }
-                        
-                    [delegate onStartEvent:cEvent];                    
-                }
-            }
-            
             cEvent.isTouching   = YES;
+            
+            if ( ! _currentActivatingEvent )
+            {
+                [self _activateEvent:cEvent];
+            }
         }
         else
         {
             cEvent.isTouching   = NO;
         }
     }
+
+    // check to deactivate the event
+    if ( _currentActivatingEvent )
+        if ( [self _couldDeactivateCurrentEvent] )
+            [self _deactivateCurrentEvent];
 }
 
 - (BOOL) getIsShowAnyEvent
@@ -255,6 +268,52 @@ EventHandler* _s_eventHandler   = nil;
 - (void) hideSpeedLimitSign
 {
     [_signSpeedLimit setOpacity:0];
+}
+
+#pragma mark - PIMPL
+
+- (void) _activateEvent: (Event*) event
+{
+    _currentActivatingEvent = event;
+    
+    // play event
+    if ( delegate )
+    {
+        if ( [event.eventName isEqualToString:@"water"] )
+        {
+            _signWater.opacity  = 255;
+        }
+        else if ( [event.eventName isEqualToString:@"rough"] )
+        {
+            _signRough.opacity  = 255;
+        }
+        
+        [delegate onStartEvent:event];
+    }
+}
+
+- (BOOL) _couldDeactivateCurrentEvent
+{
+    if ( ! _currentActivatingEvent )
+        return NO;
+    
+    CGPoint cEventPoint = _currentActivatingEvent.point;
+    CGPoint cCarPoint   = [Car getPosition];
+    
+    float closeEnoughDistance   = 350.0f;
+    
+    float dx    = ABS( cCarPoint.x - cEventPoint.x );
+    float dy    = ABS( cCarPoint.y - cEventPoint.y );
+    
+    if ( dx + dy < closeEnoughDistance )
+        return NO;
+    
+    return YES;
+}
+
+- (void) _deactivateCurrentEvent
+{
+    _currentActivatingEvent = nil;
 }
 
 @end
