@@ -57,6 +57,8 @@ Car* _car   = nil;
 // car array
 @property (retain) NSArray* carNameArray;
 
+- (void) _loadCarResource;
+
 @end
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -137,50 +139,7 @@ Car* _car   = nil;
 
 - (BOOL) LoadData
 { 
-    // init car sprite using texture atlas
-    {
-        int cCarCode    = [MenuStates getObject].carCode;
-        NSString* cCarName  = [_carNameArray objectAtIndex:cCarCode];
-        
-        CCSpriteFrameCache* frameCache  = [CCSpriteFrameCache sharedSpriteFrameCache];
-        NSString* pListStr  = [[NSString alloc] initWithFormat:@"%@.plist", cCarName];
-        [frameCache addSpriteFramesWithFile:pListStr];
-        [pListStr release]; pListStr    = nil;
-        
-        NSString* spriteStr = [[NSString alloc] initWithFormat:@"%@_EmptyAct01_000.png", cCarName];
-        //NSString* spriteStr = [[NSString alloc] initWithFormat:@"car01_01_EmptyAct01_000.png", cCarName];
-        _carSprite = [CCSprite spriteWithSpriteFrameName:spriteStr];
-        [spriteStr release]; spriteStr  = nil;
-        
-        if ( _carSprite )
-        {
-            int frameCount          = 15;
-            NSMutableArray* frames  = [NSMutableArray arrayWithCapacity:frameCount];
-            for ( int i=0; i<frameCount; ++i )
-            {
-                NSString* file  = nil;
-                if ( i < 10 )
-                    file    = [NSString stringWithFormat:@"%@_EmptyAct01_00%d.png", cCarName, i];
-                else
-                    file    = [NSString stringWithFormat:@"%@_EmptyAct01_0%d.png", cCarName, i];
-                
-                CCSpriteFrame* frame    = [frameCache spriteFrameByName:file];
-                [frames addObject:frame];
-            }
-            
-            CCAnimation* anim   = [CCAnimation animationWithSpriteFrames:frames delay:0.08f];
-            
-            CCAnimate* animate  = [CCAnimate actionWithAnimation:anim];
-            CCRepeatForever* repeat = [CCRepeatForever actionWithAction:animate];
-            [_carSprite runAction:repeat];
-        }
-        
-        CGFloat carScale    = _carSprite.scale;
-        carScale    = [UtilVec convertScaleIfRetina:carScale];
-        [_carSprite setScale:carScale];
-        
-        [_carSprite retain];
-    }
+    [self _loadCarResource];
     
     {
         _speedLineSprite   = [CCSprite spriteWithFile:@"speedline_048.png"];
@@ -762,6 +721,54 @@ Car* _car   = nil;
 - (void) playBlinkWithTime: (float) blinkTime
 {
     _blinkTimeRemained     = blinkTime;
+}
+
+#pragma mark - PIMPL
+
+- (void) _loadCarResource
+{
+    // init car sprite using texture atlas
+    int cCarCode    = [MenuStates getObject].carCode;
+    NSString* cCarName  = [_carNameArray objectAtIndex:cCarCode];
+    
+    CCSpriteFrameCache* frameCache  = [CCSpriteFrameCache sharedSpriteFrameCache];
+    NSString* pListStr  = [[NSString alloc] initWithFormat:@"%@.plist", cCarName];
+    [frameCache addSpriteFramesWithFile:pListStr];
+    [pListStr release]; pListStr    = nil;
+    
+    NSString* spriteStr = [[NSString alloc] initWithFormat:@"%@_EmptyAct01_000.png", cCarName];
+
+    _carSprite = [CCSprite spriteWithSpriteFrameName:spriteStr];
+    [spriteStr release]; spriteStr  = nil;
+    
+    if ( _carSprite )
+    {
+        int frameCount          = 15;
+        NSMutableArray* frames  = [NSMutableArray arrayWithCapacity:frameCount];
+        for ( int i=0; i<frameCount; ++i )
+        {
+            NSString* file  = nil;
+            if ( i < 10 )
+                file    = [NSString stringWithFormat:@"%@_EmptyAct01_00%d.png", cCarName, i];
+            else
+                file    = [NSString stringWithFormat:@"%@_EmptyAct01_0%d.png", cCarName, i];
+            
+            CCSpriteFrame* frame    = [frameCache spriteFrameByName:file];
+            [frames addObject:frame];
+        }
+        
+        CCAnimation* anim   = [CCAnimation animationWithSpriteFrames:frames delay:0.08f];
+        
+        CCAnimate* animate  = [CCAnimate actionWithAnimation:anim];
+        CCRepeatForever* repeat = [CCRepeatForever actionWithAction:animate];
+        [_carSprite runAction:repeat];
+    }
+    
+    CGFloat carScale    = _carSprite.scale;
+    carScale    = [UtilVec convertScaleIfRetina:carScale];
+    [_carSprite setScale:carScale];
+    
+    [_carSprite retain];
 }
 
 @end
