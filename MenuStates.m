@@ -25,6 +25,7 @@ static MenuStates*    _s_missionState = nil;
 - (void) resetAllStates
 {
     _playerName     = @"";
+    _carCount       = 0;
     _genderCode     = 0;
     _carCode        = 0;
     _worldCode      = 0;

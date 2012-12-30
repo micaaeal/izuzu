@@ -60,7 +60,7 @@
     {
         // Load resources
         [[World getObject] LoadData];
-        [Car LoadData];
+        [[Car getObject] LoadData];
         [[Mission getObject] loadData];
         [[Console getObject] LoadData];
         [[ComboPlayer getObject] LoadData];

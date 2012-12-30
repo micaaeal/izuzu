@@ -73,7 +73,7 @@ FocusZoom*  _s_focusZoom    = nil;
     BOOL isFocusing = NO;
     BOOL isCarInBound   = YES;
     
-    CGPoint cCarPoint   = [Car getPosition];
+    CGPoint cCarPoint   = [[Car getObject] getPosition];
     CGPoint cCamPoint   = [[Camera getObject] getPoint];
     CGSize winSize  = [CCDirector sharedDirector].winSize;
     cCamPoint.x = -cCamPoint.x;

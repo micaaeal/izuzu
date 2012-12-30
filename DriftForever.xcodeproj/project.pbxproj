@@ -51,7 +51,6 @@
 		BD48E8DD167F9AE4009142FE /* shareButton02.png in Resources */ = {isa = PBXBuildFile; fileRef = BD48E8BB167F9AE4009142FE /* shareButton02.png */; };
 		BD48E8DE167F9AE4009142FE /* speedline_048.png in Resources */ = {isa = PBXBuildFile; fileRef = BD48E8BC167F9AE4009142FE /* speedline_048.png */; };
 		BD48E8DF167F9AE4009142FE /* speedline_effect.png in Resources */ = {isa = PBXBuildFile; fileRef = BD48E8BD167F9AE4009142FE /* speedline_effect.png */; };
-		BD48E8E2167F9CAF009142FE /* event_turtle.png in Resources */ = {isa = PBXBuildFile; fileRef = BD48E8E1167F9CAF009142FE /* event_turtle.png */; };
 		BD48E8E7167FA044009142FE /* cuationSign01.png in Resources */ = {isa = PBXBuildFile; fileRef = BD48E8E3167FA044009142FE /* cuationSign01.png */; };
 		BD48E8E8167FA044009142FE /* cuationSign02.png in Resources */ = {isa = PBXBuildFile; fileRef = BD48E8E4167FA044009142FE /* cuationSign02.png */; };
 		BD48E8E9167FA044009142FE /* cuationSign03.png in Resources */ = {isa = PBXBuildFile; fileRef = BD48E8E5167FA044009142FE /* cuationSign03.png */; };
@@ -218,7 +217,6 @@
 		BDB7578D166F8D0C00912496 /* build16.png in Resources */ = {isa = PBXBuildFile; fileRef = BDB7577A166F8D0C00912496 /* build16.png */; };
 		BDB7578E166F8D0C00912496 /* build17.png in Resources */ = {isa = PBXBuildFile; fileRef = BDB7577B166F8D0C00912496 /* build17.png */; };
 		BDB7578F166F8D0C00912496 /* debug.png in Resources */ = {isa = PBXBuildFile; fileRef = BDB7577C166F8D0C00912496 /* debug.png */; };
-		BDB75791166F8D2F00912496 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = BDB75790166F8D2F00912496 /* back.png */; };
 		BDB75793166F8EB500912496 /* StartMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDB75792166F8EB500912496 /* StartMenuViewController.xib */; };
 		BDBA3368160E252D00593FFC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDBA3367160E252D00593FFC /* QuartzCore.framework */; };
 		BDBA336A160E252D00593FFC /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDBA3369160E252D00593FFC /* OpenGLES.framework */; };
@@ -354,7 +352,6 @@
 		BDD49300167504E500F7B9B8 /* restartButton01.png in Resources */ = {isa = PBXBuildFile; fileRef = BDD492F2167504E500F7B9B8 /* restartButton01.png */; };
 		BDD49301167504E500F7B9B8 /* restartButton02.png in Resources */ = {isa = PBXBuildFile; fileRef = BDD492F3167504E500F7B9B8 /* restartButton02.png */; };
 		BDD71E12167A7EC70066EA66 /* Score.m in Sources */ = {isa = PBXBuildFile; fileRef = BDD71E11167A7EC70066EA66 /* Score.m */; };
-		BDD76AF21676AE0600A268F1 /* water_windshield.png in Resources */ = {isa = PBXBuildFile; fileRef = BDD76AF11676AE0600A268F1 /* water_windshield.png */; };
 		BDDA0DD9162F854900854B96 /* EventHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDDA0DD8162F854900854B96 /* EventHandler.mm */; };
 		BDDFCE90167FD0C800535AE5 /* WorldSelectViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDDFCE8F167FD0C800535AE5 /* WorldSelectViewController~ipad.xib */; };
 		BDDFCE93167FD0DF00535AE5 /* MissionSelectViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDDFCE92167FD0DF00535AE5 /* MissionSelectViewController~ipad.xib */; };
@@ -1884,7 +1881,7 @@
 		BDBA335A160E252C00593FFC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0440;
+				LastUpgradeCheck = 0450;
 			};
 			buildConfigurationList = BDBA335D160E252C00593FFC /* Build configuration list for PBXProject "DriftForever" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -2052,7 +2049,6 @@
 				BDB7578D166F8D0C00912496 /* build16.png in Resources */,
 				BDB7578E166F8D0C00912496 /* build17.png in Resources */,
 				BDB7578F166F8D0C00912496 /* debug.png in Resources */,
-				BDB75791166F8D2F00912496 /* back.png in Resources */,
 				BDB75793166F8EB500912496 /* StartMenuViewController.xib in Resources */,
 				BD426840166FB5CC00D5789D /* GamePlayViewController.xib in Resources */,
 				BD426845166FBCBA00D5789D /* PauseMenuViewController.xib in Resources */,
@@ -2066,7 +2062,6 @@
 				BDD49301167504E500F7B9B8 /* restartButton02.png in Resources */,
 				BDC8C888167657390059F50F /* AcceleratorButton.png in Resources */,
 				BDC8C889167657390059F50F /* breakButton.png in Resources */,
-				BDD76AF21676AE0600A268F1 /* water_windshield.png in Resources */,
 				BDC2C1CA1677F3D40099C632 /* event_oil.png in Resources */,
 				BDC2C1CE1677F6710099C632 /* car01_01.plist in Resources */,
 				BD58F033167D615A00415FC3 /* FacebookSDKResources.bundle in Resources */,
@@ -2105,7 +2100,6 @@
 				BD48E8DD167F9AE4009142FE /* shareButton02.png in Resources */,
 				BD48E8DE167F9AE4009142FE /* speedline_048.png in Resources */,
 				BD48E8DF167F9AE4009142FE /* speedline_effect.png in Resources */,
-				BD48E8E2167F9CAF009142FE /* event_turtle.png in Resources */,
 				BD48E8E7167FA044009142FE /* cuationSign01.png in Resources */,
 				BD48E8E8167FA044009142FE /* cuationSign02.png in Resources */,
 				BD48E8E9167FA044009142FE /* cuationSign03.png in Resources */,

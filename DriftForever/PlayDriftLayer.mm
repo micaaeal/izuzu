@@ -124,7 +124,7 @@ PlayDriftLayer* _s_playDriftLayer   = nil;
         [[Mission getObject] AssignDataToLayer:actionLayer];
         
         // assign data from car
-        [Car AssignDataToLayer:actionLayer withMission:nil];
+        [[Car getObject] AssignDataToLayer:actionLayer withMission:nil];
         
         // assign data from Fuel
         [[Console getObject] AssignDataToLayer:self];

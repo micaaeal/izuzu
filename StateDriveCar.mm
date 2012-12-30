@@ -260,7 +260,7 @@ vector<TrEdge>      _edgeRoute;
             CCLOG(@"vertex point x: %f y: %f", firstVertexPoint.x, firstVertexPoint.y);
             
             CGPoint carPosition = [UtilVec convertVecIfRetina:firstVertexPoint];
-            [Car setPosition:carPosition];
+            [[Car getObject] setPosition:carPosition];
             
             CGPoint carTarget   = CGPointMake(0.0f, 0.0f);
             if ( _edgeRoute[0].subPoints.size() > 0 )
@@ -273,11 +273,11 @@ vector<TrEdge>      _edgeRoute;
                 carTarget   = [UtilVec convertVecIfRetina:_vertexRoute[vertexEndCode].point];
             }
             
-            [Car setTarget:carTarget];
-            [Car setSpeed:0.0f];
-            [Car Update:deltaTime];
+            [[Car getObject] setTarget:carTarget];
+            [[Car getObject] setSpeed:0.0f];
+            [[Car getObject] Update:deltaTime];
             
-            CGRect carBoundingBox   = [Car getBoundingBox];
+            CGRect carBoundingBox   = [[Car getObject] getBoundingBox];
             printf ("car bounding box: %f, %f, %f, %f",
                     carBoundingBox.origin.x,
                     carBoundingBox.origin.y,
@@ -311,7 +311,7 @@ vector<TrEdge>      _edgeRoute;
             _carMovedDistance   = 0.0f;
             
             // Car
-            [Car showCar];
+            [[Car getObject] showCar];
             
             // Init fuel
             [[Console getObject] SetFuelNorm:1.0f];
@@ -344,7 +344,7 @@ vector<TrEdge>      _edgeRoute;
             
             float deltaVelocity = a * deltaTime;
             
-            CGFloat currentSpeed    = [Car getSpeed];
+            CGFloat currentSpeed    = [[Car getObject] getSpeed];
             float netCarSpeed       = currentSpeed+deltaVelocity;
             if ( netCarSpeed > _carMaxSpeed )
                 netCarSpeed = _carMaxSpeed;
@@ -359,10 +359,10 @@ vector<TrEdge>      _edgeRoute;
                 netCarSpeed += deltaVelocity;
             }
             
-            [Car setSpeed:netCarSpeed];
+            [[Car getObject] setSpeed:netCarSpeed];
             
             // check speed limit
-            float carSpeed = [Car getSpeed];
+            float carSpeed = [[Car getObject] getSpeed];
             
             // check0
             if ( carSpeed > _carSpeedLimit )
@@ -430,7 +430,7 @@ vector<TrEdge>      _edgeRoute;
                 }
             }
             
-            if ( ! [Car isPlayingAnyAnim] )
+            if ( ! [Car getObject].isPlayingAnyAnim )
             {
                 [self _moveCarWithTime:deltaTime realTime:realTime];
             }
@@ -442,7 +442,7 @@ vector<TrEdge>      _edgeRoute;
             [[ComboPlayer getObject] Update:deltaTime realTime:realTime];
             
             // update car
-            [Car Update:deltaTime];
+            [[Car getObject] Update:deltaTime];
             
             // update mission
             [[Mission getObject] Update:deltaTime];
@@ -454,7 +454,7 @@ vector<TrEdge>      _edgeRoute;
             if ( ! isFocusing )
             {
                 // camera to the car
-                CGPoint camPoint    = [Car getPosition];
+                CGPoint camPoint    = [[Car getObject] getPosition];
                 CGSize winSize  = [[CCDirector sharedDirector] winSize];
                 camPoint.x -= (winSize.width * 0.5f);
                 camPoint.y -= (winSize.height * 0.5f);
@@ -462,7 +462,7 @@ vector<TrEdge>      _edgeRoute;
             }
             else
             {
-                CGPoint cCarPoint   = [Car getPosition];
+                CGPoint cCarPoint   = [[Car getObject] getPosition];
 
                 CGPoint cFocusPoint = [[FocusZoom getObject] getFocusingPoint];
                 
@@ -593,7 +593,7 @@ vector<TrEdge>      _edgeRoute;
     
     if ( [event.eventName isEqualToString:@"turtle"] )
     {
-        [Car playSpeedLine];
+        [[Car getObject] playSpeedLine];
     }
 }
 
@@ -606,21 +606,21 @@ vector<TrEdge>      _edgeRoute;
     {
         if ( [event.eventName isEqualToString:@"water"] )
         {
-            [Car playSwerveAnim];
+            [[Car getObject] playSwerveAnim];
             [[WindShield getObject] showWater];
         }
         else if ( [event.eventName isEqualToString:@"rough"] )
         {
-            [Car playRoughAnim];
+            [[Car getObject] playRoughAnim];
             [[WindShield getObject] showDust];
         }
         else if ( [event.eventName isEqualToString:@"turtle"] )
         {
-            [Car playTutleEffect];
+            [[Car getObject] playTutleEffect];
         }
     }
     
-    [Car stopSpeedLine];
+    [[Car getObject] stopSpeedLine];
     
     // Finish events
     [[EventHandler getObject] finishAllEvents];
@@ -637,8 +637,8 @@ vector<TrEdge>      _edgeRoute;
     int subPointsSize   = _cMovingPoints.size();
     CGPoint cSubPoint       = _cMovingPoints[_cSubPointId];
     CGPoint nextSubPoint    = _cMovingPoints[_cSubPointId+1];
-    CGPoint cCarPoint       = [Car getPosition];
-    CGFloat cCarSpeed       = [Car getSpeed];
+    CGPoint cCarPoint       = [[Car getObject] getPosition];
+    CGFloat cCarSpeed       = [[Car getObject] getSpeed];
     
     // get new position
     CGPoint p2pVec      = CGPointMake(nextSubPoint.x - cSubPoint.x,
@@ -726,20 +726,20 @@ vector<TrEdge>      _edgeRoute;
                                            point03:point_03] )
             {
                 // car speed
-                float speed = [Car getSpeed];
+                float speed = [[Car getObject] getSpeed];
                 
                 // check0
                 if ( speed > _carSpeedLimit )
                 {
-                    [Car playOvershootAnim];
+                    [[Car getObject] playOvershootAnim];
                 }
             }
         }
     }
     
     // update car properties from route
-    [Car setTarget:carNextPosition];
-    [Car setPosition:carNextPosition];
+    [[Car getObject] setTarget:carNextPosition];
+    [[Car getObject] setPosition:carNextPosition];
 }
 
 - (void) _startSlowMotion

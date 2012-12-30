@@ -147,7 +147,7 @@ enum STATE_SELECT_ROUTE
             [[Score getObject] setGotOrder:cGotOrder];
             
             // Car
-            [Car hideCar];
+            [[Car getObject] hideCar];
             
             // set currentVertexPtr from the @Mission
             int cMissionCode    = [[Mission getObject] getCurrentMissionCode];

@@ -21,6 +21,7 @@ enum GENDER_CODE {
 
 @property (copy)    NSString*   playerName;
 @property (assign)  int         genderCode;
+@property (assign)  int         carCount;
 @property (assign)  int         carCode;
 @property (assign)  int         worldCode;
 @property (assign)  int         missionCode;

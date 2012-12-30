@@ -11,6 +11,8 @@
 #import "UtilVec.h"
 
 EventHandler* _s_eventHandler   = nil;
+float _activateEventDistance    = 150.0f;
+float _deactivateEventDistance  = 350.0f;
 
 @interface EventHandler()
 
@@ -177,49 +179,19 @@ EventHandler* _s_eventHandler   = nil;
 
 - (void) onUpdate: (float) deltaTime
 {
-    CGRect carRect  = [Car getBoundingBox];
-    float carTop       = carRect.origin.y + carRect.size.height;
-    float carBottom    = carRect.origin.y;
-    float carLeft      = carRect.origin.x;
-    float carRight     = carRect.origin.x + carRect.size.width;
+    // check to activate event
+    CGPoint carPoint    = [[Car getObject] getPosition];
     for (Event* cEvent in _eventArray)
     {
-        CGRect cEventRect   = cEvent.sprite.boundingBox;
-        CGPoint eventPoints[4];
-
-        eventPoints[0]      = CGPointMake(cEventRect.origin.x,
-                                          cEventRect.origin.y
-                                          );
-        eventPoints[1]      = CGPointMake(cEventRect.origin.x,
-                                          cEventRect.origin.y + cEventRect.size.height
-                                          );
-        eventPoints[2]      = CGPointMake(cEventRect.origin.x + cEventRect.size.width,
-                                          cEventRect.origin.y
-                                          );
-        eventPoints[3]      = CGPointMake(cEventRect.origin.x + cEventRect.size.width,
-                                          cEventRect.origin.y + cEventRect.size.height
-                                          );
+        CGPoint cEventPoint = cEvent.point;
         
-        if ( [Car isPlayingAnyAnim] )
-            continue;
+        float dx    = ABS( cEventPoint.x - carPoint.x );
+        float dy    = ABS( cEventPoint.y - carPoint.y );
         
-        // check event touching
-        BOOL isThisEventTouchTheCar = NO;
-        for (int i=0; i<4; ++i)
-        {
-            CGPoint& cEventPoint    = eventPoints[i];
-            if ( cEventPoint.x >= carLeft && cEventPoint.x <= carRight )
-            {
-                if ( cEventPoint.y >= carBottom && cEventPoint.y <= carTop )
-                {
-                    isThisEventTouchTheCar  = YES;
-                    break;
-                }
-            }
-        }
+        float nearDistance  = _activateEventDistance;
+        BOOL isCloseEnough  = ( nearDistance > ( dx + dy ) );
         
-        // check to activate the event
-        if ( isThisEventTouchTheCar )
+        if ( isCloseEnough )
         {
             cEvent.isTouching   = YES;
             
@@ -233,11 +205,15 @@ EventHandler* _s_eventHandler   = nil;
             cEvent.isTouching   = NO;
         }
     }
-
+    
     // check to deactivate the event
     if ( _currentActivatingEvent )
+    {
         if ( [self _couldDeactivateCurrentEvent] )
+        {
             [self _deactivateCurrentEvent];
+        }
+    }
 }
 
 - (BOOL) getIsShowAnyEvent
@@ -274,7 +250,16 @@ EventHandler* _s_eventHandler   = nil;
 
 - (void) _activateEvent: (Event*) event
 {
+    printf ("c activating evt address: %d", (int)_currentActivatingEvent);
+    printf ("\n");
+    
     _currentActivatingEvent = event;
+ 
+    float px    = _currentActivatingEvent.point.x;
+    float py    = _currentActivatingEvent.point.y;
+    
+    printf ("deactivate event AT point: (%f,%f)", px, py);
+    printf ("\n");
     
     // play event
     if ( delegate )
@@ -298,9 +283,9 @@ EventHandler* _s_eventHandler   = nil;
         return NO;
     
     CGPoint cEventPoint = _currentActivatingEvent.point;
-    CGPoint cCarPoint   = [Car getPosition];
+    CGPoint cCarPoint   = [[Car getObject] getPosition];
     
-    float closeEnoughDistance   = 350.0f;
+    float closeEnoughDistance   = _deactivateEventDistance;
     
     float dx    = ABS( cCarPoint.x - cEventPoint.x );
     float dy    = ABS( cCarPoint.y - cEventPoint.y );

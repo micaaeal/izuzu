@@ -12,59 +12,57 @@
 
 @interface Car : NSObject
 
-+ (BOOL) LoadData;
-+ (BOOL) UnloadData;
+@property (assign) BOOL     isPlayingAnyAnim;
 
-+ (BOOL) AssignDataToLayer: (CCLayer*) layer withMission: (Mission*) mission;
-+ (BOOL) UnSssignDataFromLayer: (CCLayer*) layer;
++ (Car*) getObject;
 
-+ (void) Update: (float) deltaTime;
+- (BOOL) LoadData;
+- (BOOL) UnloadData;
+
+- (BOOL) AssignDataToLayer: (CCLayer*) layer withMission: (Mission*) mission;
+- (BOOL) UnSssignDataFromLayer: (CCLayer*) layer;
+
+- (void) Update: (float) deltaTime;
 
 // properties
-+ (float) getSpeed;
-+ (void) setSpeed: (float) speed;
+- (float) getSpeed;
+- (void) setSpeed: (float) speed;
 
-+ (void) setPosition: (CGPoint) position;
-+ (void) setTarget: (CGPoint) target;
-+ (const CGPoint) getPosition;
-+ (const CGFloat) getRotation;
-+ (const CGPoint) getTarget;
-+ (const CGPoint) getDirectionUnitVec;
+- (void) setPosition: (CGPoint) position;
+- (void) setTarget: (CGPoint) target;
+- (const CGPoint) getPosition;
+- (const CGFloat) getRotation;
+- (const CGPoint) getTarget;
+- (const CGPoint) getDirectionUnitVec;
 
-+ (CGRect) getBoundingBox;
+- (CGRect) getBoundingBox;
 
 // texture
-+ (void) hideCar;
-+ (void) showCar;
+- (void) hideCar;
+- (void) showCar;
 
 // events
-+ (void) setRandomColor;
-+ (void) unsetRandomColor;
+- (void) setRandomColor;
+- (void) unsetRandomColor;
 
 // animations
-+ (BOOL) isPlayingAnyAnim;
-+ (void) stopAllAnim;
+- (void) stopAllAnim;
 
-+ (void) playOvershootAnim;
-+ (BOOL) isPlayingOvershootAnim;
-+ (void) stopOvershootAnim;
+- (void) playOvershootAnim;
+- (void) stopOvershootAnim;
 
-+ (void) playSwerveAnim;
-+ (BOOL) isPlayingSwerveAnim;
-+ (void) stopSwerveAnim;
+- (void) playSwerveAnim;
+- (void) stopSwerveAnim;
 
-+ (void) playRoughAnim;
-+ (BOOL) isPlayingRoughAnim;
-+ (void) stopRoughAnim;
+- (void) playRoughAnim;
+- (void) stopRoughAnim;
 
-+ (void) playTutleEffect;
-+ (BOOL) isPlayTutleEffect;
-+ (void) stopTutleEffect;
+- (void) playTutleEffect;
+- (void) stopTutleEffect;
 
-+ (void) playSpeedLine;
-+ (BOOL) isPlayingSpeedLine;
-+ (void) stopSpeedLine;
+- (void) playSpeedLine;
+- (void) stopSpeedLine;
 
-+ (void) playBlinkWithTime: (float) blinkTime;
+- (void) playBlinkWithTime: (float) blinkTime;
 
 @end

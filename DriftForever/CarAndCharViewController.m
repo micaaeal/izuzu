@@ -179,6 +179,7 @@
 - (IBAction)onPressCarNext:(id)sender {
 
     int carCount    = _carImageNameArray.count;
+    [MenuStates getObject].carCount = carCount;
  
     ++_currentCarIndex;
     
@@ -205,6 +206,7 @@
 - (IBAction)onPressCarPrev:(id)sender {
     
     int carCount    = _carImageNameArray.count;
+    [MenuStates getObject].carCount = carCount;
     
     --_currentCarIndex;
     

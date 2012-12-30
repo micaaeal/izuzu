@@ -157,7 +157,7 @@ static Mission* _s_mission  = nil;
     }
     {
         MissionProfile* cMissionProfile = [[MissionProfile alloc] init];
-        cMissionProfile.startVertexCode = 2;
+        cMissionProfile.startVertexCode = 13;
         cMissionProfile.endVertexCode   = 15;
         [_missionArray addObject:cMissionProfile];
         [cMissionProfile release];
@@ -256,7 +256,7 @@ static Mission* _s_mission  = nil;
 
 - (void) Update: (float) dt
 {
-    CGRect carRect   = [Car getBoundingBox];
+    CGRect carRect   = [[Car getObject] getBoundingBox];
     float carTop       = carRect.origin.y + carRect.size.height;
     float carBottom    = carRect.origin.y;
     float carLeft      = carRect.origin.x;
