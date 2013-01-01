@@ -47,6 +47,12 @@
 - (void) setRandomColor;
 - (void) unsetRandomColor;
 
+// picked up functions
+- (void) pickUpNothing;
+- (void) pickUpBox;
+- (void) pickUpRefrigerator;
+- (void) pickUpSofa;
+
 // animations
 - (void) stopAllAnim;
 

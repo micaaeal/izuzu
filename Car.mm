@@ -14,12 +14,20 @@
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 Car* _car   = nil;
 
+enum PICK_UP_STATE {
+    PICK_UP_NOTHING = 0,
+    PICK_UP_BOX,
+    PICK_UP_REFRIGERATOR,
+    PICK_UP_SOFA,
+    };
+
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 @interface Car()
 
 @property (retain) CCSprite*    carSprite;
 @property (retain) NSMutableArray*  carSpriteArray;
 @property (retain) NSMutableArray*  carAnimArray;
+@property (retain) NSArray*     carAnimNameArray;
 @property (retain) CCSprite*    speedLineSprite;
 @property (retain) CCSprite*    speedLineEffect01;
 @property (retain) CCSprite*    speedLineEffect02;
@@ -56,6 +64,7 @@ Car* _car   = nil;
 @property (assign) float    blinkPeriod;
 @property (assign) float    blinkTimeRemained;
 
+@property (assign) PICK_UP_STATE    currentPickUpState;
 - (void) _loadCarResource;
 
 @end
@@ -122,6 +131,7 @@ Car* _car   = nil;
         _blinkPeriod         = 0.3f;
         _blinkTimeRemained   = 0.0f;
         
+        _currentPickUpState     = PICK_UP_NOTHING;
     }
     return self;
 }
@@ -250,12 +260,17 @@ Car* _car   = nil;
 - (void) selectCarByIndex: (int) carIndex
 {
     _carSprite  = [_carSpriteArray objectAtIndex:carIndex];
+    int cCarState   = _currentPickUpState * 4;
+    NSString* cCarAnimname  = [_carAnimNameArray objectAtIndex:(cCarState+0)];
     NSDictionary* cCarAnimDict  = [_carAnimArray objectAtIndex:carIndex];
-    CCAnimation* cAnim  = [cCarAnimDict objectForKey:@"EmptyAct01"];
-    
+    CCAnimation* cAnim  = [cCarAnimDict objectForKey:cCarAnimname];
     CCAnimate* animate  = [CCAnimate actionWithAnimation:cAnim];
     CCRepeatForever* repeat = [CCRepeatForever actionWithAction:animate];
+    
+    [_carSprite stopAllActions];
     [_carSprite runAction:repeat];
+    
+    _currentPickUpState = PICK_UP_NOTHING;
 }
 
 - (void) Update: (float) deltaTime
@@ -263,6 +278,7 @@ Car* _car   = nil;
     BOOL isPlayingAnyAnim   = NO;
 
     // count time to make turtle animation stop
+    /*
     if ( _isPlayingTurtleEffect )
     {
         _animTurtleEffectPlayTime += deltaTime;
@@ -300,6 +316,14 @@ Car* _car   = nil;
         {
             [self stopAllAnim];
         }
+    }
+    */
+    
+    // in case ending of any animations, play defaults
+    int isPlayingAnim    = [_carSprite numberOfRunningActions];
+    if ( ! isPlayingAnim )
+    {
+        [self stopAllAnim];
     }
     
     // start & stop turtle animation events
@@ -379,21 +403,22 @@ Car* _car   = nil;
         }
     }
     
+    // ---- ----
     // while playing turtle animation
     if ( _isPlayingTurtleEffect )
     {
         isPlayingAnyAnim    = YES;
         
         // set car sprite
+        float speed     = 20.0f;
+        float radian    = self.rotation * M_PI / 180.0f;
+        float dx        = speed * deltaTime * cosf(radian);
+        float dy        = speed * deltaTime * sinf(radian);
         CGPoint position    = self.position;
-        position.y += (deltaTime*40.0f);
-        position.x += (deltaTime*40.0f);
+        position.y += dx;
+        position.x += dy;
         [self setPosition:position];
-        
         [_carSprite setPosition:self.position];
-        
-        self.rotation += 80.0 * deltaTime;
-        [_carSprite setRotation:self.rotation];
     }
     
     // while playing rough animation
@@ -402,15 +427,15 @@ Car* _car   = nil;
         isPlayingAnyAnim    = YES;
         
         // set car sprite
+        float speed     = 20.0f;
+        float radian    = self.rotation * M_PI / 180.0f;
+        float dx        = speed * deltaTime * cosf(radian);
+        float dy        = speed * deltaTime * sinf(radian);
         CGPoint position    = self.position;
-        position.y += (deltaTime*40.0f);
-        position.x += (deltaTime*40.0f);
+        position.y += dx;
+        position.x += dy;
         [self setPosition:position];
-        
         [_carSprite setPosition:self.position];
-        
-        self.rotation += 80.0 * deltaTime;
-        [_carSprite setRotation:self.rotation];
     }
     
     // while playing swerve animation
@@ -419,15 +444,15 @@ Car* _car   = nil;
         isPlayingAnyAnim    = YES;
         
         // set car sprite
+        float speed     = 20.0f;
+        float radian    = self.rotation * M_PI / 180.0f;
+        float dx        = speed * deltaTime * cosf(radian);
+        float dy        = speed * deltaTime * sinf(radian);
         CGPoint position    = self.position;
-        position.y += (deltaTime*40.0f);
-        position.x += (deltaTime*40.0f);
+        position.y += dx;
+        position.x += dy;
         [self setPosition:position];
-        
         [_carSprite setPosition:self.position];
-        
-        self.rotation += 200.0 * deltaTime;
-        [_carSprite setRotation:self.rotation];
     }
     
     // while playing swerve animation
@@ -436,28 +461,23 @@ Car* _car   = nil;
         isPlayingAnyAnim    = YES;
         
         // set car sprite
+        float speed     = 20.0f;
+        float radian    = self.rotation * M_PI / 180.0f;
+        float dx        = speed * deltaTime * cosf(radian);
+        float dy        = speed * deltaTime * sinf(radian);
         CGPoint position    = self.position;
-        position.y += (deltaTime*20.0f);
-        position.x += (deltaTime*20.0f);
+        position.y += dx;
+        position.x += dy;
         [self setPosition:position];
-        
         [_carSprite setPosition:self.position];
-        
-        self.rotation -= 80.0 * deltaTime;
-        [_carSprite setRotation:self.rotation];
     }
+    // ---- ----
     
     if ( ! isPlayingAnyAnim )
     {
         // set car sprite
         [_carSprite setPosition:self.position];
         [_carSprite setRotation:self.rotation];
-    }
-    
-    if ( self.isPlayingRoughAnim )
-    {
-        [self setRandomColor];
-        isPlayingAnyAnim    = YES;
     }
     
     // car blink
@@ -651,6 +671,28 @@ Car* _car   = nil;
     [_carSprite setColor:carColor];
 }
 
+#pragma mark - picked up functions
+
+- (void) pickUpNothing
+{
+    _currentPickUpState = PICK_UP_NOTHING;
+}
+
+- (void) pickUpBox
+{
+    _currentPickUpState = PICK_UP_BOX;
+}
+
+- (void) pickUpRefrigerator
+{
+    _currentPickUpState = PICK_UP_REFRIGERATOR;
+}
+
+- (void) pickUpSofa
+{
+    _currentPickUpState = PICK_UP_SOFA;
+}
+
 #pragma mark - animations
 
 - (void) stopAllAnim
@@ -660,6 +702,17 @@ Car* _car   = nil;
     [self stopOvershootAnim];
     [self stopTutleEffect];
     _isPlayingAnyAnim      = NO;
+    
+    int cCarState   = _currentPickUpState * 4;
+    NSString* cCarAnimname  = [_carAnimNameArray objectAtIndex:(cCarState+0)];
+    int carIndex    = [MenuStates getObject].carCode;
+    NSDictionary* cCarAnimDict  = [_carAnimArray objectAtIndex:carIndex];
+    CCAnimation* cAnim  = [cCarAnimDict objectForKey:cCarAnimname];
+    CCAnimate* animate  = [CCAnimate actionWithAnimation:cAnim];
+    CCRepeatForever* repeat = [CCRepeatForever actionWithAction:animate];
+    
+    [_carSprite stopAllActions];
+    [_carSprite runAction:repeat];
 }
 
 // swerve animation
@@ -667,6 +720,16 @@ Car* _car   = nil;
 {
     _isPlayingSwerveAnim   = YES;
     _isPlayingAnyAnim      = YES;
+    
+    int cCarState   = _currentPickUpState * 4;
+    NSString* cCarAnimname  = [_carAnimNameArray objectAtIndex:(cCarState+1)];
+    int carIndex    = [MenuStates getObject].carCode;
+    NSDictionary* cCarAnimDict  = [_carAnimArray objectAtIndex:carIndex];
+    CCAnimation* cAnim  = [cCarAnimDict objectForKey:cCarAnimname];
+    CCAnimate* animate  = [CCAnimate actionWithAnimation:cAnim];
+    
+    [_carSprite stopAllActions];
+    [_carSprite runAction:animate];
 }
 
 - (void) stopSwerveAnim
@@ -680,6 +743,16 @@ Car* _car   = nil;
 {
     _isPlayingOvershootAnim    = YES;
     _isPlayingAnyAnim          = YES;
+    
+    int cCarState   = _currentPickUpState * 4;
+    NSString* cCarAnimname  = [_carAnimNameArray objectAtIndex:(cCarState+3)];
+    int carIndex    = [MenuStates getObject].carCode;
+    NSDictionary* cCarAnimDict  = [_carAnimArray objectAtIndex:carIndex];
+    CCAnimation* cAnim  = [cCarAnimDict objectForKey:cCarAnimname];
+    CCAnimate* animate  = [CCAnimate actionWithAnimation:cAnim];
+    
+    [_carSprite stopAllActions];
+    [_carSprite runAction:animate];
 }
 
 - (BOOL) isPlayingOvershootAnim
@@ -697,6 +770,16 @@ Car* _car   = nil;
 {
     _isPlayingRoughAnim    = YES;
     _isPlayingAnyAnim      = YES;
+    
+    int cCarState   = _currentPickUpState * 4;
+    NSString* cCarAnimname  = [_carAnimNameArray objectAtIndex:(cCarState+2)];
+    int carIndex    = [MenuStates getObject].carCode;
+    NSDictionary* cCarAnimDict  = [_carAnimArray objectAtIndex:carIndex];
+    CCAnimation* cAnim  = [cCarAnimDict objectForKey:cCarAnimname];
+    CCAnimate* animate  = [CCAnimate actionWithAnimation:cAnim];
+    
+    [_carSprite stopAllActions];
+    [_carSprite runAction:animate];
 }
 
 - (BOOL) isPlayingRoughAnim
@@ -756,7 +839,7 @@ Car* _car   = nil;
                                @"car02_03",
                                nil];
     
-    NSArray* carAnimArray   = [[NSArray alloc] initWithObjects:
+    _carAnimNameArray   = [[NSArray alloc] initWithObjects:
                                @"EmptyAct01", @"EmptyAct02", @"EmptyAct03", @"EmptyAct04",
                                @"BoxAct01", @"BoxAct02", @"BoxAct03", @"BoxAct04",
                                @"RefrigAct01", @"RefrigAct02", @"RefrigAct03", @"RefrigAct04",
@@ -785,7 +868,7 @@ Car* _car   = nil;
         [pListStr release]; pListStr    = nil;
         
         // car sprite
-        NSString* firstCarAnimStr   = [carAnimArray objectAtIndex:0];
+        NSString* firstCarAnimStr   = [_carAnimNameArray objectAtIndex:0];
         NSString* spriteStr         = [[NSString alloc] initWithFormat:@"%@_%@_000.png", cCarName, firstCarAnimStr];
         
         CCSprite* cCarSprite = [CCSprite spriteWithSpriteFrameName:spriteStr];
@@ -795,10 +878,10 @@ Car* _car   = nil;
         
         // load car anims
         NSMutableDictionary* cCarAnimDict   = [[NSMutableDictionary alloc] init];
-        for ( int j=0; j<carAnimArray.count; ++j )
+        for ( int j=0; j<_carAnimNameArray.count; ++j )
         {
             // load anim name
-            NSString* cCarAnimName  = [carAnimArray objectAtIndex:j];
+            NSString* cCarAnimName  = [_carAnimNameArray objectAtIndex:j];
             
             // load anim frame count
             int cFrameCount = animFrameCount[j];
@@ -818,7 +901,7 @@ Car* _car   = nil;
                 [frames addObject:frame];
             }
 
-            CCAnimation* anim   = [CCAnimation animationWithSpriteFrames:frames delay:0.08f];
+            CCAnimation* anim   = [CCAnimation animationWithSpriteFrames:frames delay:0.12f];
             [cCarAnimDict setObject:anim forKey:cCarAnimName];
         }
         
