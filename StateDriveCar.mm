@@ -26,6 +26,8 @@ using namespace std;
 
 #import "FocusZoom.h"
 
+#import "MenuStates.h"
+
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 enum STATE_DRIVE_CAR
 {
@@ -228,6 +230,10 @@ vector<TrEdge>      _edgeRoute;
         {
             _driveTime  = 0.0f;
             [Mission getObject].delegate    = self;
+            
+            // load car
+            int cCarCode    = [MenuStates getObject].carCode;
+            [[Car getObject] selectCarByIndex:cCarCode];
             
             // Mission box
             int missionCode = [[Mission getObject] getCurrentMissionCode];

@@ -18,6 +18,8 @@ Car* _car   = nil;
 @interface Car()
 
 @property (retain) CCSprite*    carSprite;
+@property (retain) NSMutableArray*  carSpriteArray;
+@property (retain) NSMutableArray*  carAnimArray;
 @property (retain) CCSprite*    speedLineSprite;
 @property (retain) CCSprite*    speedLineEffect01;
 @property (retain) CCSprite*    speedLineEffect02;
@@ -54,9 +56,6 @@ Car* _car   = nil;
 @property (assign) float    blinkPeriod;
 @property (assign) float    blinkTimeRemained;
 
-// car array
-@property (retain) NSArray* carNameArray;
-
 - (void) _loadCarResource;
 
 @end
@@ -85,6 +84,8 @@ Car* _car   = nil;
     if (self)
     {
         _carSprite   = NULL;
+        _carSpriteArray = [[NSMutableArray alloc] init];
+        _carAnimArray   = [[NSMutableArray alloc] init];
         _speedLineSprite = NULL;
         _speedLineEffect01   = NULL;
         _speedLineEffect02   = NULL;
@@ -121,19 +122,16 @@ Car* _car   = nil;
         _blinkPeriod         = 0.3f;
         _blinkTimeRemained   = 0.0f;
         
-        _carNameArray = [[NSArray alloc] initWithObjects:
-                        @"car01_01",
-                        @"car01_03",
-                        @"car01_02",
-                        @"car02_02",
-                        @"car02_01",
-                        @"car02_03",
-                        nil];
     }
     return self;
 }
 - (void) dealloc
 {
+    [_carAnimArray release];
+    _carAnimArray   = nil;
+    [_carSpriteArray release];
+    _carSpriteArray = nil;
+    
     [super dealloc];
 }
 
@@ -225,18 +223,39 @@ Car* _car   = nil;
         [layer addChild:_speedLineEffect04];
         _speedLineEffect04.zOrder    = 9;
     }
+    /*
     {
         [layer addChild:_carSprite];
-        _carSprite.zOrder  = 10;
+        _carSprite.zOrder   = 10;
     }
+    */
+    
+    for ( CCSprite* cCarSprite in _carSpriteArray )
+    {
+        [layer addChild:cCarSprite];
+        cCarSprite.zOrder   = 10;
+        CGFloat carScale    = [UtilVec convertScaleIfRetina:1.0f];
+        [cCarSprite setScale:carScale];
+    }
+    
     
     return YES;
 }
 
 - (BOOL) UnSssignDataFromLayer: (CCLayer*) layer
 {
-
     return YES;
+}
+
+- (void) selectCarByIndex: (int) carIndex
+{
+    _carSprite  = [_carSpriteArray objectAtIndex:carIndex];
+    NSDictionary* cCarAnimDict  = [_carAnimArray objectAtIndex:carIndex];
+    CCAnimation* cAnim  = [cCarAnimDict objectForKey:@"EmptyAct01"];
+    
+    CCAnimate* animate  = [CCAnimate actionWithAnimation:cAnim];
+    CCRepeatForever* repeat = [CCRepeatForever actionWithAction:animate];
+    [_carSprite runAction:repeat];
 }
 
 - (void) Update: (float) deltaTime
@@ -728,47 +747,84 @@ Car* _car   = nil;
 - (void) _loadCarResource
 {
     // init car sprite using texture atlas
-    int cCarCode    = [MenuStates getObject].carCode;
-    NSString* cCarName  = [_carNameArray objectAtIndex:cCarCode];
+    NSArray* carNameArray   = [[NSArray alloc] initWithObjects:
+                               @"car01_01",
+                               @"car01_03",
+                               @"car01_02",
+                               @"car02_02",
+                               @"car02_01",
+                               @"car02_03",
+                               nil];
     
-    CCSpriteFrameCache* frameCache  = [CCSpriteFrameCache sharedSpriteFrameCache];
-    NSString* pListStr  = [[NSString alloc] initWithFormat:@"%@.plist", cCarName];
-    [frameCache addSpriteFramesWithFile:pListStr];
-    [pListStr release]; pListStr    = nil;
+    NSArray* carAnimArray   = [[NSArray alloc] initWithObjects:
+                               @"EmptyAct01", @"EmptyAct02", @"EmptyAct03", @"EmptyAct04",
+                               @"BoxAct01", @"BoxAct02", @"BoxAct03", @"BoxAct04",
+                               @"RefrigAct01", @"RefrigAct02", @"RefrigAct03", @"RefrigAct04",
+                               @"SofaAct01", @"SofaAct02", @"SofaAct03", @"SofaAct04",
+                               nil];
     
-    NSString* spriteStr = [[NSString alloc] initWithFormat:@"%@_EmptyAct01_000.png", cCarName];
-
-    _carSprite = [CCSprite spriteWithSpriteFrameName:spriteStr];
-    [spriteStr release]; spriteStr  = nil;
+    int animFrameCount[]    = { 15, 16, 8, 22,
+                                15, 16, 8, 22,
+                                15, 16, 8, 22,
+                                15, 16, 8, 22
+                                };
     
-    if ( _carSprite )
+    // load all cars
+    for ( int i=0; i<carNameArray.count; ++i )
     {
-        int frameCount          = 15;
-        NSMutableArray* frames  = [NSMutableArray arrayWithCapacity:frameCount];
-        for ( int i=0; i<frameCount; ++i )
+        // car name
+        NSString* cCarName  = [carNameArray objectAtIndex:i];
+        
+        // car plist
+        CCSpriteFrameCache* frameCache  = [CCSpriteFrameCache sharedSpriteFrameCache];
+        NSString* pListStr  = [[NSString alloc] initWithFormat:@"%@.plist", cCarName];
+        NSString* textureStr    = [[NSString alloc] initWithFormat:@"%@.png", cCarName];
+        [frameCache addSpriteFramesWithFile:pListStr textureFilename:textureStr];
+        [textureStr release];
+        textureStr    = nil;
+        [pListStr release]; pListStr    = nil;
+        
+        // car sprite
+        NSString* firstCarAnimStr   = [carAnimArray objectAtIndex:0];
+        NSString* spriteStr         = [[NSString alloc] initWithFormat:@"%@_%@_000.png", cCarName, firstCarAnimStr];
+        
+        CCSprite* cCarSprite = [CCSprite spriteWithSpriteFrameName:spriteStr];
+        [_carSpriteArray addObject:cCarSprite];
+        
+        [spriteStr release]; spriteStr  = nil;
+        
+        // load car anims
+        NSMutableDictionary* cCarAnimDict   = [[NSMutableDictionary alloc] init];
+        for ( int j=0; j<carAnimArray.count; ++j )
         {
-            NSString* file  = nil;
-            if ( i < 10 )
-                file    = [NSString stringWithFormat:@"%@_EmptyAct01_00%d.png", cCarName, i];
-            else
-                file    = [NSString stringWithFormat:@"%@_EmptyAct01_0%d.png", cCarName, i];
+            // load anim name
+            NSString* cCarAnimName  = [carAnimArray objectAtIndex:j];
             
-            CCSpriteFrame* frame    = [frameCache spriteFrameByName:file];
-            [frames addObject:frame];
+            // load anim frame count
+            int cFrameCount = animFrameCount[j];
+            NSMutableArray* frames  = [[NSMutableArray alloc] initWithCapacity:cFrameCount];
+            
+            // load animation frames
+            for ( int k=0; k<cFrameCount; ++k )
+            //for ( int k=0; k<10; ++k )
+            {
+                NSString* file  = nil;
+                if ( k < 10 )
+                    file    = [NSString stringWithFormat:@"%@_%@_00%d.png", cCarName, cCarAnimName, k];
+                else
+                    file    = [NSString stringWithFormat:@"%@_%@_0%d.png", cCarName, cCarAnimName, k];
+
+                CCSpriteFrame* frame    = [frameCache spriteFrameByName:file];
+                [frames addObject:frame];
+            }
+
+            CCAnimation* anim   = [CCAnimation animationWithSpriteFrames:frames delay:0.08f];
+            [cCarAnimDict setObject:anim forKey:cCarAnimName];
         }
         
-        CCAnimation* anim   = [CCAnimation animationWithSpriteFrames:frames delay:0.08f];
-        
-        CCAnimate* animate  = [CCAnimate actionWithAnimation:anim];
-        CCRepeatForever* repeat = [CCRepeatForever actionWithAction:animate];
-        [_carSprite runAction:repeat];
+        // add car anim dict to array
+        [_carAnimArray addObject:cCarAnimDict];
     }
-    
-    CGFloat carScale    = _carSprite.scale;
-    carScale    = [UtilVec convertScaleIfRetina:carScale];
-    [_carSprite setScale:carScale];
-    
-    [_carSprite retain];
 }
 
 @end

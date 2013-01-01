@@ -22,6 +22,8 @@
 - (BOOL) AssignDataToLayer: (CCLayer*) layer withMission: (Mission*) mission;
 - (BOOL) UnSssignDataFromLayer: (CCLayer*) layer;
 
+- (void) selectCarByIndex: (int) carIndex;
+
 - (void) Update: (float) deltaTime;
 
 // properties
