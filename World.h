@@ -25,4 +25,10 @@ class RouteGraph;
 
 - (void) Draw;
 
+- (void) showAllPaths;
+- (void) hideAllPaths;
+
+- (void) generatePathsFromRoute;
+- (void) clearGeneratedPaths;
+
 @end

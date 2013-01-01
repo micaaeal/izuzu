@@ -75,6 +75,9 @@ World* _s_world = nil;
 @property (assign) BOOL             isLoadingFloor;
 @property (assign) BOOL             hasAddResourcesToLayer;
 
+@property (retain) NSMutableArray*  pathSpriteArray;
+@property (retain) NSMutableArray*  generatedPathSpriteArray;
+
 - (void) loadFloor;
 
 - (vector<CGPoint>) getWater;
@@ -105,6 +108,8 @@ World* _s_world = nil;
             size:(long)size
    viewPortPoint:(CGPoint)viewPortPoint
          camZoom:(float)camZoom;
+
+- (void) _loadPaths;
 
 @end
 
@@ -186,6 +191,8 @@ World* _s_world = nil;
         screenBounds  = [[UIScreen mainScreen] bounds];
         isLoadingFloor  = NO;
         hasAddResourcesToLayer  = NO;
+        _pathSpriteArray = [[NSMutableArray alloc] init];
+        _generatedPathSpriteArray = [[NSMutableArray alloc] init];
         
         [self loadFloor];
     }
@@ -194,6 +201,8 @@ World* _s_world = nil;
 
 - (void) dealloc
 {
+    [_pathSpriteArray release];
+    _pathSpriteArray    = nil;
     screenBounds  = CGRectMake(0.0f, 0.0f, 0.0f, 0.0f);
     routeGraph->Shutdown();
     delete routeGraph;
@@ -947,6 +956,8 @@ World* _s_world = nil;
         }
     }
     
+    [self _loadPaths];
+    
     return YES;
 }
 
@@ -995,10 +1006,16 @@ World* _s_world = nil;
         [layer addChild:cSprite];
     }
     
-    // set layer ref
-    layer   = layer;
-    
     hasAddResourcesToLayer  = YES;
+    
+    for ( CCSprite* cSprite in _pathSpriteArray )
+    {
+        [layer addChild:cSprite];
+    }
+    
+    
+    // set layer ref
+    _layer   = layer;
     
     return YES;
 }
@@ -1192,6 +1209,84 @@ World* _s_world = nil;
             bufferPoints:floor_etc05_buffer
                     size:[self getFloor_etc05].size()
            viewPortPoint:viewPortPoint camZoom:camZoomX];
+}
+
+- (void) showAllPaths
+{
+    for ( int i=0; i<_pathSpriteArray.count; ++i )
+    {
+        CCSprite* cPathSprite   = [_pathSpriteArray objectAtIndex:i];
+        [cPathSprite setOpacity:255];
+    }
+}
+
+- (void) hideAllPaths
+{
+    for ( int i=0; i<_pathSpriteArray.count; ++i )
+    {
+        CCSprite* cPathSprite   = [_pathSpriteArray objectAtIndex:i];
+        [cPathSprite setOpacity:0];
+    }
+}
+
+- (void) generatePathsFromRoute
+{
+    // remove layer
+    [self clearGeneratedPaths];
+    
+    // create sprites
+    RouteGraph& cRouteGraph     = [self GetRouteGraph];
+    
+    vector<TrVertex> vertices   = cRouteGraph.GetVertexRoute();
+    int vertexCount             = vertices.size();
+    for ( int i=0; i<vertexCount; ++i )
+    {
+        TrVertex cVertex    = vertices[i];
+        CGPoint cPoint      = cVertex.point;
+        
+        CCSprite* cPathSprite    = [CCSprite spriteWithFile:@"path.png"];
+        [cPathSprite setPosition:cPoint];
+        [cPathSprite setScale:2.0f];
+        [cPathSprite setOpacity:100];
+        CGFloat cScale    = [UtilVec convertScaleIfRetina:cPathSprite.scale];
+        cPathSprite.scale   = cScale;
+        [_generatedPathSpriteArray addObject:cPathSprite];
+    }
+    
+    vector<TrEdge> edges        = cRouteGraph.GetEdgeRoute();
+    for ( int i=0; i<edges.size(); ++i )
+    {
+        TrEdge cEdge    = edges[i];
+        vector<CGPoint> subPoints   = cEdge.subPoints;
+        for ( int j=0; j<subPoints.size(); ++j )
+        {
+            CGPoint cPoint  = subPoints[j];
+            
+            CCSprite* cPathSprite    = [CCSprite spriteWithFile:@"path.png"];
+            [cPathSprite setPosition:cPoint];
+            [cPathSprite setScale:2.0f];
+            [cPathSprite setOpacity:100];
+            CGFloat cScale    = [UtilVec convertScaleIfRetina:cPathSprite.scale];
+            cPathSprite.scale   = cScale;
+            [_generatedPathSpriteArray addObject:cPathSprite];
+        }
+    }
+    
+    // add to layer
+    for ( CCSprite* cSprite in _generatedPathSpriteArray )
+    {
+        [_layer addChild:cSprite];
+    }
+}
+
+- (void) clearGeneratedPaths
+{
+    for ( CCSprite* cSprite in _generatedPathSpriteArray )
+    {
+        [_layer removeChild:cSprite cleanup:YES];
+    }
+    
+    [_generatedPathSpriteArray removeAllObjects];
 }
 
 #pragma mark - PIMPL
@@ -1501,6 +1596,46 @@ World* _s_world = nil;
     ccDrawSolidPoly(bufferPoints,
                     size,
                     ccc4f(r, g, b, a));
+}
+
+- (void) _loadPaths
+{
+    /*
+    RouteGraph& cRouteGraph     = [self GetRouteGraph];
+    vector<TrVertex> vertices   = cRouteGraph.GetAllVertices();
+    int vertexCount             = vertices.size();
+
+    for ( int i=0; i<vertexCount; ++i )
+    {
+        TrVertex cVertex    = vertices[i];
+        CGPoint cPoint      = cVertex.point;
+        
+        CCSprite* cPathSprite    = [CCSprite spriteWithFile:@"path.png"];
+        [cPathSprite setPosition:cPoint];
+        [cPathSprite setScale:2.0f];
+        CGFloat cScale    = [UtilVec convertScaleIfRetina:cPathSprite.scale];
+        cPathSprite.scale   = cScale;
+        [_pathSpriteArray addObject:cPathSprite];
+    }
+    
+    vector<TrEdge> edges        = cRouteGraph.GetAllEdges();
+    for ( int i=0; i<edges.size(); ++i )
+    {
+        TrEdge cEdge    = edges[i];
+        vector<CGPoint> subPoints   = cEdge.subPoints;
+        for ( int j=0; j<subPoints.size(); ++j )
+        {
+            CGPoint cPoint  = subPoints[j];
+            
+            CCSprite* cPathSprite    = [CCSprite spriteWithFile:@"path.png"];
+            [cPathSprite setPosition:cPoint];
+            [cPathSprite setScale:2.0f];
+            CGFloat cScale    = [UtilVec convertScaleIfRetina:cPathSprite.scale];
+            cPathSprite.scale   = cScale;
+            [_pathSpriteArray addObject:cPathSprite];
+        }
+    }
+    */
 }
 
 @end

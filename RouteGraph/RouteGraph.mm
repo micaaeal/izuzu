@@ -125,6 +125,12 @@ void RouteGraph::PrintVertices(std::vector<TrVertex>& vertices)
 }
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+std::vector<TrEdge> RouteGraph::GetAllEdges()
+{
+    return _trGraphPtr->GetEdgesRef();
+}
+
+// ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 double RouteGraph::GetRouteLength()
 {
     vector<TrEdge> edgeRoute    = GetEdgeRoute();

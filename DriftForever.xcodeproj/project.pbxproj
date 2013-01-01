@@ -68,6 +68,7 @@
 		BD58F03F167D651800415FC3 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BD58F03E167D651800415FC3 /* libsqlite3.dylib */; };
 		BD6CA9CE1636996900131027 /* event_config.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD6CA9CD1636996900131027 /* event_config.plist */; };
 		BD6CA9D11636D1F200131027 /* ComboPlayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD6CA9D01636D1F200131027 /* ComboPlayer.mm */; };
+		BD71D9171693043C00CD1102 /* path.png in Resources */ = {isa = PBXBuildFile; fileRef = BD71D9161693043C00CD1102 /* path.png */; };
 		BD8CB7CE1674AA9500210980 /* restartMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = BD8CB7C71674AA9300210980 /* restartMenu.png */; };
 		BD8CB7CF1674AA9500210980 /* restartMenu01_01.png in Resources */ = {isa = PBXBuildFile; fileRef = BD8CB7C81674AA9400210980 /* restartMenu01_01.png */; };
 		BD8CB7D01674AA9500210980 /* restartMenu01_02.png in Resources */ = {isa = PBXBuildFile; fileRef = BD8CB7C91674AA9400210980 /* restartMenu01_02.png */; };
@@ -470,6 +471,7 @@
 		BD6CA9CD1636996900131027 /* event_config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = event_config.plist; sourceTree = "<group>"; };
 		BD6CA9CF1636D1F200131027 /* ComboPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComboPlayer.h; sourceTree = "<group>"; };
 		BD6CA9D01636D1F200131027 /* ComboPlayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ComboPlayer.mm; sourceTree = "<group>"; };
+		BD71D9161693043C00CD1102 /* path.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = path.png; sourceTree = "<group>"; };
 		BD8CB7C71674AA9300210980 /* restartMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = restartMenu.png; sourceTree = "<group>"; };
 		BD8CB7C81674AA9400210980 /* restartMenu01_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = restartMenu01_01.png; sourceTree = "<group>"; };
 		BD8CB7C91674AA9400210980 /* restartMenu01_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = restartMenu01_02.png; sourceTree = "<group>"; };
@@ -1109,6 +1111,7 @@
 		BD9AF9A6166B9FAE009988F9 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				BD71D9161693043C00CD1102 /* path.png */,
 				BDE9493716892F1800CFD3E3 /* bg_c.png */,
 				BDE9493816892F1800CFD3E3 /* bg_c@2x.png */,
 				BDE9493916892F1800CFD3E3 /* bg_c@2x~ipad.png */,
@@ -2143,6 +2146,7 @@
 				BDE9493D16892F1800CFD3E3 /* bg_c@2x~ipad.png in Resources */,
 				BDE9493E16892F1800CFD3E3 /* bg_c~ipad.png in Resources */,
 				BDE949401689303600CFD3E3 /* LoadingViewController~ipad.xib in Resources */,
+				BD71D9171693043C00CD1102 /* path.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

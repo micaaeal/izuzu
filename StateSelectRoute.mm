@@ -182,6 +182,9 @@ enum STATE_SELECT_ROUTE
             [[EventHandler getObject] finishAllEvents];
             [[EventHandler getObject] hideSpeedLimitSign];
             
+            // reset route
+            [[World getObject] clearGeneratedPaths];
+            
             // set state
             _currentState   = STATE_SELECT_ROUTE_START_MOVE_CAMERA;
         }
@@ -349,9 +352,6 @@ enum STATE_SELECT_ROUTE
     
     printf ("touch point: (%f,%f)", absPoint.x, absPoint.y);
     printf ("\n");
-
-    if ( _currentState == STATE_SELECT_ROUTE_FINISH )
-        return NO;
     
     MenuSelectRoute* cMenuSelectRoute   = _menuSelectRoute;
     [cMenuSelectRoute checkActionByPoint:absPoint];
@@ -410,6 +410,8 @@ enum STATE_SELECT_ROUTE
         routeGraph.RemoveBackRoute();
         routeGraph.GetConnectedVertices(_currentConnectedVertices);
     
+        [[World getObject] generatePathsFromRoute];
+        
         _currentState   = STATE_SELECT_ROUTE_LOAD_ROUTE;
     }
 }
@@ -425,6 +427,8 @@ enum STATE_SELECT_ROUTE
     routeGraph.PushVertex(nextVertex);
     
     _hasSelectedRouteThisPoint  = YES;
+    
+    [[World getObject] generatePathsFromRoute];
 }
 
 #pragma mark - PIMPL

@@ -32,6 +32,8 @@ public:
     std::vector<TrVertex> GetAllVertices();
     void PrintVertices(std::vector<TrVertex>& vertices);
     
+    std::vector<TrEdge> GetAllEdges();
+    
     double  GetRouteLength();
     CGPoint GetPointByNormalizeValue(double normValue, double& outExpectedDistance);
     
