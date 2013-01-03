@@ -10,6 +10,7 @@
 #import "Utils.h"
 #import "Mission.h"
 #import "MenuStates.h"
+#import "EventHandler.h"
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 Car* _car   = nil;
@@ -278,7 +279,7 @@ enum PICK_UP_STATE {
     BOOL isPlayingAnyAnim   = NO;
 
     // count time to make turtle animation stop
-    /*
+    
     if ( _isPlayingTurtleEffect )
     {
         _animTurtleEffectPlayTime += deltaTime;
@@ -288,6 +289,7 @@ enum PICK_UP_STATE {
         }
     }
     
+    /*
     // count time to make rough animation stop
     if ( self.isPlayingRoughAnim )
     {
@@ -587,6 +589,11 @@ enum PICK_UP_STATE {
     _isPlayingAnyAnimLastFrame         = isPlayingAnyAnim;
     _isPlayingTurtleEffectLastFrame    = _isPlayingTurtleEffect;
     _isPlayingSpeedLineLastFrame       = self._isPlayingSpeedLine;
+    
+    if ( _isPlayingTurtleEffect )
+    {
+        
+    }
 }
 
 #pragma mark - Reutines
@@ -681,6 +688,17 @@ enum PICK_UP_STATE {
 - (void) pickUpBox
 {
     _currentPickUpState = PICK_UP_BOX;
+    
+    int carIndex    = [_carSpriteArray indexOfObject:_carSprite];
+    int cCarState   = _currentPickUpState * 4;
+    NSString* cCarAnimname  = [_carAnimNameArray objectAtIndex:(cCarState+0)];
+    NSDictionary* cCarAnimDict  = [_carAnimArray objectAtIndex:carIndex];
+    CCAnimation* cAnim  = [cCarAnimDict objectForKey:cCarAnimname];
+    CCAnimate* animate  = [CCAnimate actionWithAnimation:cAnim];
+    CCRepeatForever* repeat = [CCRepeatForever actionWithAction:animate];
+    
+    [_carSprite stopAllActions];
+    [_carSprite runAction:repeat];
 }
 
 - (void) pickUpRefrigerator
@@ -797,6 +815,7 @@ enum PICK_UP_STATE {
 {
     _isPlayingTurtleEffect = YES;
     _isPlayingAnyAnim      = YES;
+
 }
 
 - (BOOL) isPlayTutleEffect
@@ -813,11 +832,13 @@ enum PICK_UP_STATE {
 - (void) playSpeedLine
 {
     _isPlayingSpeedLine    = YES;
+    [[EventHandler getObject] showTurtleWalk];
 }
 
 - (void) stopSpeedLine
 {
     _isPlayingSpeedLine    = NO;
+    [[EventHandler getObject] hideTurtleWalk];
 }
 
 - (void) playBlinkWithTime: (float) blinkTime
@@ -834,9 +855,9 @@ enum PICK_UP_STATE {
                                @"car01_01",
                                @"car01_03",
                                @"car01_02",
+                               @"car02_03",
                                @"car02_02",
                                @"car02_01",
-                               @"car02_03",
                                nil];
     
     _carAnimNameArray   = [[NSArray alloc] initWithObjects:

@@ -35,4 +35,10 @@
 
 - (BOOL) getIsShowAnyEvent;
 
+- (void) showTurtleOpen;
+- (void) hideTurtleOpen;
+
+- (void) showTurtleWalk;
+- (void) hideTurtleWalk;
+
 @end

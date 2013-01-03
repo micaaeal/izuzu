@@ -24,11 +24,16 @@ float _deactivateEventDistance  = 350.0f;
 @property (retain) CCSprite*        _signRough;
 @property (retain) CCSprite*        _signSpeedLimit;
 
+@property (retain) CCSprite*        _turtleSpritePlayOpen;
+@property (retain) CCSprite*        _turtleSpritePlayWalk1;
+@property (retain) CCSprite*        _turtleSpritePlayWalk2;
+
 @property (assign) Event*   _currentActivatingEvent;
 
 - (void) _activateEvent: (Event*) event;
 - (BOOL) _couldDeactivateCurrentEvent;
 - (void) _deactivateCurrentEvent;
+- (void) _loadTurtle;
 
 @end
 
@@ -40,6 +45,10 @@ float _deactivateEventDistance  = 350.0f;
 @synthesize _signWater;
 @synthesize _signRough;
 @synthesize _signSpeedLimit;
+
+@synthesize _turtleSpritePlayOpen;
+@synthesize _turtleSpritePlayWalk1;
+@synthesize _turtleSpritePlayWalk2;
 
 @synthesize _currentActivatingEvent;
 
@@ -117,6 +126,9 @@ float _deactivateEventDistance  = 350.0f;
     _signSpeedLimit = signSpeedLimit;
     [signSpeedLimit retain];
     [_signSpeedLimit setScale:0.5];
+    
+    // load turtle
+    [self _loadTurtle];
 }
 
 - (void) onFinish
@@ -175,6 +187,24 @@ float _deactivateEventDistance  = 350.0f;
                                               _signWater.position.y);
     _signSpeedLimit.scale   = [UtilVec convertScaleIfRetina:_signSpeedLimit.scale];
     _signSpeedLimit.opacity = 0;
+
+    // turtle
+    
+    [uiLayer addChild:_turtleSpritePlayOpen];
+    [_turtleSpritePlayOpen setPosition:CGPointMake(100.0f, 100.0f)];
+    [_turtleSpritePlayOpen setOpacity:0];
+    
+    [uiLayer addChild:_turtleSpritePlayWalk1];
+    [_turtleSpritePlayWalk1 setPosition:CGPointMake(100.0f, 100.0f)];
+    [_turtleSpritePlayWalk1 setOpacity:0];
+    
+    {
+        [uiLayer addChild:_turtleSpritePlayWalk2];
+        _turtleSpritePlayWalk2.scale    = [UtilVec convertScaleIfRetina:_turtleSpritePlayWalk2.scale];
+        [_turtleSpritePlayWalk2 setPosition:CGPointMake(winSize.width*0.5f,
+                                                        -50.0f)];
+        [_turtleSpritePlayWalk2 setOpacity:0];
+    }
 }
 
 - (void) onUpdate: (float) deltaTime
@@ -299,6 +329,140 @@ float _deactivateEventDistance  = 350.0f;
 - (void) _deactivateCurrentEvent
 {
     _currentActivatingEvent = nil;
+}
+
+- (void) _loadTurtle
+{
+    // load turtle open
+    {
+        // turtle plist
+        CCSpriteFrameCache* frameCache  = [CCSpriteFrameCache sharedSpriteFrameCache];
+        NSString* pListStr  = [[NSString alloc] initWithFormat:@"turtle_Open.plist"];
+        NSString* textureStr    = [[NSString alloc] initWithFormat:@"turtle_Open.png"];
+        [frameCache addSpriteFramesWithFile:pListStr textureFilename:textureStr];
+        [textureStr release];
+        textureStr    = nil;
+        [pListStr release]; pListStr    = nil;
+        
+        // turtle sprite
+        NSString* spriteStr = [[NSString alloc] initWithFormat:@"turtle_Open001.png"];
+        CCSprite* cSprite   = [CCSprite spriteWithSpriteFrameName:spriteStr];
+        _turtleSpritePlayOpen   = cSprite;
+        
+        // load anim
+        NSMutableArray* frames  = [[NSMutableArray alloc] init];
+        for ( int k=1; k<=84; ++k )
+        {
+            NSString* file  = nil;
+            if ( k < 10 )
+                file    = [NSString stringWithFormat:@"turtle_Open00%d.png", k];
+            else
+                file    = [NSString stringWithFormat:@"turtle_Open0%d.png", k];
+            
+            CCSpriteFrame* frame    = [frameCache spriteFrameByName:file];
+            [frames addObject:frame];
+        }
+        
+        CCAnimation* anim   = [CCAnimation animationWithSpriteFrames:frames delay:0.12f];
+        CCAnimate* animate  = [CCAnimate actionWithAnimation:anim];
+        CCRepeatForever* repeat = [CCRepeatForever actionWithAction:animate];
+        [_turtleSpritePlayOpen runAction:repeat];
+    }
+    
+    // load turtle walk1
+    {
+        // turtle plist
+        CCSpriteFrameCache* frameCache  = [CCSpriteFrameCache sharedSpriteFrameCache];
+        NSString* pListStr  = [[NSString alloc] initWithFormat:@"turtle_Walk1.plist"];
+        NSString* textureStr    = [[NSString alloc] initWithFormat:@"turtle_Walk1.png"];
+        [frameCache addSpriteFramesWithFile:pListStr textureFilename:textureStr];
+        [textureStr release];
+        textureStr    = nil;
+        [pListStr release]; pListStr    = nil;
+        
+        // turtle sprite
+        NSString* spriteStr = [[NSString alloc] initWithFormat:@"turtle_Walk001.png"];
+        CCSprite* cSprite   = [CCSprite spriteWithSpriteFrameName:spriteStr];
+        _turtleSpritePlayWalk1   = cSprite;
+        
+        // load anim
+        NSMutableArray* frames  = [[NSMutableArray alloc] init];
+        for ( int k=1; k<=50; ++k )
+        {
+            NSString* file  = nil;
+            if ( k < 10 )
+                file    = [NSString stringWithFormat:@"turtle_Walk00%d.png", k];
+            else
+                file    = [NSString stringWithFormat:@"turtle_Walk0%d.png", k];
+            
+            CCSpriteFrame* frame    = [frameCache spriteFrameByName:file];
+            [frames addObject:frame];
+        }
+        
+        CCAnimation* anim   = [CCAnimation animationWithSpriteFrames:frames delay:0.12f];
+        CCAnimate* animate  = [CCAnimate actionWithAnimation:anim];
+        CCRepeatForever* repeat = [CCRepeatForever actionWithAction:animate];
+        [_turtleSpritePlayWalk1 runAction:repeat];
+    }
+    
+    // load turtle walk2
+    {
+        // turtle plist
+        CCSpriteFrameCache* frameCache  = [CCSpriteFrameCache sharedSpriteFrameCache];
+        NSString* pListStr  = [[NSString alloc] initWithFormat:@"turtle_Walk2.plist"];
+        NSString* textureStr    = [[NSString alloc] initWithFormat:@"turtle_Walk2.png"];
+        [frameCache addSpriteFramesWithFile:pListStr textureFilename:textureStr];
+        [textureStr release];
+        textureStr    = nil;
+        [pListStr release]; pListStr    = nil;
+        
+        // turtle sprite
+        NSString* spriteStr = [[NSString alloc] initWithFormat:@"turtle_Walk001.png"];
+        CCSprite* cSprite   = [CCSprite spriteWithSpriteFrameName:spriteStr];
+        _turtleSpritePlayWalk2   = cSprite;
+        
+        // load anim
+        NSMutableArray* frames  = [[NSMutableArray alloc] init];
+        for ( int k=1; k<=100; ++k )
+        {
+            NSString* file  = nil;
+            if ( k < 10 )
+                file    = [NSString stringWithFormat:@"turtle_Walk00%d.png", k];
+            else if ( k < 100 )
+                file    = [NSString stringWithFormat:@"turtle_Walk0%d.png", k];
+            else
+                file    = [NSString stringWithFormat:@"turtle_Walk%d.png", k];
+            
+            CCSpriteFrame* frame    = [frameCache spriteFrameByName:file];
+            [frames addObject:frame];
+        }
+        
+        CCAnimation* anim   = [CCAnimation animationWithSpriteFrames:frames delay:0.12f];
+        CCAnimate* animate  = [CCAnimate actionWithAnimation:anim];
+        CCRepeatForever* repeat = [CCRepeatForever actionWithAction:animate];
+        [_turtleSpritePlayWalk2 runAction:repeat];
+    }
+}
+
+
+- (void) showTurtleOpen
+{
+    [_turtleSpritePlayOpen setOpacity:255];
+}
+
+- (void) hideTurtleOpen
+{
+    [_turtleSpritePlayOpen setOpacity:0];
+}
+
+- (void) showTurtleWalk
+{
+    [_turtleSpritePlayWalk2 setOpacity:255];
+}
+
+- (void) hideTurtleWalk
+{
+    [_turtleSpritePlayWalk2 setOpacity:0];
 }
 
 @end

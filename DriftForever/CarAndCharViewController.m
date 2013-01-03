@@ -60,6 +60,7 @@
                                @"car_01_01_Run001.png",
                                @"car_01_02_Run001.png",
                                @"car_01_03_Run001.png",
+                               @"car_02_01_Run001.png",
                                @"car_02_02_Run001.png",
                                @"car_02_03_Run001.png",
                                nil];

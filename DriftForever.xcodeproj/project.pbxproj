@@ -344,6 +344,13 @@
 		BDBD3F5A161BC4AE00488689 /* MenuSelectRoute.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDBD3F59161BC4AE00488689 /* MenuSelectRoute.mm */; };
 		BDC2C1CA1677F3D40099C632 /* event_oil.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC2C1C91677F3D40099C632 /* event_oil.png */; };
 		BDC2C1CE1677F6710099C632 /* car01_01.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDC2C1CC1677F6710099C632 /* car01_01.plist */; };
+		BDC765711695E41800388F57 /* car_02_01_Run001.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC765701695E41800388F57 /* car_02_01_Run001.png */; };
+		BDC7657D1695EA6100388F57 /* turtle_Open.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDC765771695EA6100388F57 /* turtle_Open.plist */; };
+		BDC7657E1695EA6100388F57 /* turtle_Open.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC765781695EA6100388F57 /* turtle_Open.png */; };
+		BDC7657F1695EA6100388F57 /* turtle_Walk1.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDC765791695EA6100388F57 /* turtle_Walk1.plist */; };
+		BDC765801695EA6100388F57 /* turtle_Walk1.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC7657A1695EA6100388F57 /* turtle_Walk1.png */; };
+		BDC765811695EA6100388F57 /* turtle_Walk2.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDC7657B1695EA6100388F57 /* turtle_Walk2.plist */; };
+		BDC765821695EA6100388F57 /* turtle_Walk2.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC7657C1695EA6100388F57 /* turtle_Walk2.png */; };
 		BDC8C888167657390059F50F /* AcceleratorButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC8C886167657380059F50F /* AcceleratorButton.png */; };
 		BDC8C889167657390059F50F /* breakButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC8C887167657380059F50F /* breakButton.png */; };
 		BDCD1FE6167FADAC000D90CF /* StartMenuViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDCD1FE5167FADAC000D90CF /* StartMenuViewController~ipad.xib */; };
@@ -894,6 +901,13 @@
 		BDBD3F59161BC4AE00488689 /* MenuSelectRoute.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MenuSelectRoute.mm; sourceTree = "<group>"; };
 		BDC2C1C91677F3D40099C632 /* event_oil.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = event_oil.png; path = Resources/event_oil.png; sourceTree = "<group>"; };
 		BDC2C1CC1677F6710099C632 /* car01_01.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = car01_01.plist; sourceTree = "<group>"; };
+		BDC765701695E41800388F57 /* car_02_01_Run001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = car_02_01_Run001.png; path = Resources/car_02_01_Run001.png; sourceTree = "<group>"; };
+		BDC765771695EA6100388F57 /* turtle_Open.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = turtle_Open.plist; sourceTree = "<group>"; };
+		BDC765781695EA6100388F57 /* turtle_Open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = turtle_Open.png; sourceTree = "<group>"; };
+		BDC765791695EA6100388F57 /* turtle_Walk1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = turtle_Walk1.plist; sourceTree = "<group>"; };
+		BDC7657A1695EA6100388F57 /* turtle_Walk1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = turtle_Walk1.png; sourceTree = "<group>"; };
+		BDC7657B1695EA6100388F57 /* turtle_Walk2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = turtle_Walk2.plist; sourceTree = "<group>"; };
+		BDC7657C1695EA6100388F57 /* turtle_Walk2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = turtle_Walk2.png; sourceTree = "<group>"; };
 		BDC8C886167657380059F50F /* AcceleratorButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AcceleratorButton.png; path = Resources/AcceleratorButton.png; sourceTree = "<group>"; };
 		BDC8C887167657380059F50F /* breakButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = breakButton.png; path = Resources/breakButton.png; sourceTree = "<group>"; };
 		BDCD1FE5167FADAC000D90CF /* StartMenuViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "StartMenuViewController~ipad.xib"; sourceTree = "<group>"; };
@@ -1111,6 +1125,12 @@
 		BD9AF9A6166B9FAE009988F9 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				BDC765771695EA6100388F57 /* turtle_Open.plist */,
+				BDC765781695EA6100388F57 /* turtle_Open.png */,
+				BDC765791695EA6100388F57 /* turtle_Walk1.plist */,
+				BDC7657A1695EA6100388F57 /* turtle_Walk1.png */,
+				BDC7657B1695EA6100388F57 /* turtle_Walk2.plist */,
+				BDC7657C1695EA6100388F57 /* turtle_Walk2.png */,
 				BD71D9161693043C00CD1102 /* path.png */,
 				BDE9493716892F1800CFD3E3 /* bg_c.png */,
 				BDE9493816892F1800CFD3E3 /* bg_c@2x.png */,
@@ -1238,6 +1258,7 @@
 				BD9AF9BC166B9FC6009988F9 /* car_01_01_Run001.png */,
 				BD9AF9BD166B9FC6009988F9 /* car_01_02_Run001.png */,
 				BD9AF9BE166B9FC6009988F9 /* car_01_03_Run001.png */,
+				BDC765701695E41800388F57 /* car_02_01_Run001.png */,
 				BD9AF9BF166B9FC6009988F9 /* car_02_02_Run001.png */,
 				BD9AF9C0166B9FC6009988F9 /* car_02_03_Run001.png */,
 				BD9AF9C1166B9FC6009988F9 /* combo_a.png */,
@@ -2147,6 +2168,13 @@
 				BDE9493E16892F1800CFD3E3 /* bg_c~ipad.png in Resources */,
 				BDE949401689303600CFD3E3 /* LoadingViewController~ipad.xib in Resources */,
 				BD71D9171693043C00CD1102 /* path.png in Resources */,
+				BDC765711695E41800388F57 /* car_02_01_Run001.png in Resources */,
+				BDC7657D1695EA6100388F57 /* turtle_Open.plist in Resources */,
+				BDC7657E1695EA6100388F57 /* turtle_Open.png in Resources */,
+				BDC7657F1695EA6100388F57 /* turtle_Walk1.plist in Resources */,
+				BDC765801695EA6100388F57 /* turtle_Walk1.png in Resources */,
+				BDC765811695EA6100388F57 /* turtle_Walk2.plist in Resources */,
+				BDC765821695EA6100388F57 /* turtle_Walk2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

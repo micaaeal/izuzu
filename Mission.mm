@@ -119,11 +119,11 @@ static Mission* _s_mission  = nil;
         cMissionProfile.endVertexCode   = 23;
         [_missionArray addObject:cMissionProfile];
         Order* cOrder   = [[Order alloc] init];
-        /*
+        
         [cOrder addOrderAtPosition:CGPointMake(5570.991211,-4197.246094)];
         [cOrder addOrderAtPosition:CGPointMake(6386.780762,-3797.246094)];
         [cOrder addOrderAtPosition:CGPointMake(7086.780762,-4255.140625)];
-        */
+        
         cMissionProfile.order   = cOrder;
         [cOrder release];
         cOrder  = nil;
@@ -256,60 +256,47 @@ static Mission* _s_mission  = nil;
 
 - (void) Update: (float) dt
 {
-    CGRect carRect   = [[Car getObject] getBoundingBox];
-    float carTop       = carRect.origin.y + carRect.size.height;
-    float carBottom    = carRect.origin.y;
-    float carLeft      = carRect.origin.x;
-    float carRight     = carRect.origin.x + carRect.size.width;
-    
+    CGPoint carPoint    = [[Car getObject] getPosition];
+
     for (CCSprite* cSprite in _orderSpriteArray)
     {
-        CGRect cEventRect   = cSprite.boundingBox;
-        CGPoint eventPoints[4];
+        if ( cSprite.opacity == 0 )
+            continue;
         
-        eventPoints[0]      = CGPointMake(cEventRect.origin.x,
-                                          cEventRect.origin.y
-                                          );
-        eventPoints[1]      = CGPointMake(cEventRect.origin.x,
-                                          cEventRect.origin.y + cEventRect.size.height
-                                          );
-        eventPoints[2]      = CGPointMake(cEventRect.origin.x + cEventRect.size.width,
-                                          cEventRect.origin.y
-                                          );
-        eventPoints[3]      = CGPointMake(cEventRect.origin.x + cEventRect.size.width,
-                                          cEventRect.origin.y + cEventRect.size.height
-                                          );
+        CGPoint cBoxPoint    = cSprite.position;
+        
+        // check slowmo
+        float slowmoLength  = 200.0f;
         
         // check event touching
-        BOOL isThisBoxTouchTheCar = NO;
-        for (int i=0; i<4; ++i)
+        float touchingLength    = 60.0f;
+        
+        float dx    = ABS( cBoxPoint.x - carPoint.x );
+        float dy    = ABS( cBoxPoint.y - carPoint.y );
+        float length    = dx + dy;
+        
+        if ( length < slowmoLength )
         {
-            CGPoint& cEventPoint    = eventPoints[i];
-            if ( cEventPoint.x >= carLeft && cEventPoint.x <= carRight )
-            {
-                if ( cEventPoint.y >= carBottom && cEventPoint.y <= carTop )
-                {
-                    isThisBoxTouchTheCar  = YES;
-                    break;
-                }
-            }
+            float pCarSpeed     = [[Car getObject] getSpeed];
+            float decelerator   = 550.0f;
+            float minSpeed      = 20.0f;
+            float newCarSpeed   = pCarSpeed - ( dt * decelerator );
+            if ( newCarSpeed < minSpeed )
+                newCarSpeed = minSpeed;
+            
+            [[Car getObject] setSpeed:newCarSpeed];
         }
         
-        if ( isThisBoxTouchTheCar )
+        if ( length < touchingLength )
         {
-            if ( cSprite.opacity != 0 )
+            if ( _delegate )
             {
-                if ( _delegate )
-                {
-                    int totalOrder  = [self getCurrentTotalOrder];
-                    
-                    int gotCount    = [self getCurrentGotOrder];
-                    [cSprite setOpacity:0];
-                    
-                    [_delegate onGettingOrder:self totalOrder:totalOrder gottOrder:gotCount];
-                }
-                [cSprite setOpacity:0];
+                int totalOrder  = [self getCurrentTotalOrder];
+                int gotCount    = [self getCurrentGotOrder];
+                [_delegate onGettingOrder:self totalOrder:totalOrder gottOrder:gotCount];
             }
+            [[Car getObject] pickUpBox];
+            [cSprite setOpacity:0];
         }
     }
 }
