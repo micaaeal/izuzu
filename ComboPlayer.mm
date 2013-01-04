@@ -162,9 +162,9 @@ CGPoint buttonPointArray[4];
             [layer addChild:cSprite];
         
         CGPoint buttonCenter    = CGPointMake(90.0f, 90.0f);
-        CGFloat space01 = 50.0f;
-        CGFloat space02 = 10.0f;
-        CGFloat space03 = 12.0f;
+        CGFloat space01 = 55.0f;
+        CGFloat space02 = 16.0f;
+        CGFloat space03 = 14.0f;
         
         if ( [cKey isEqualToString:@"button_a"] )
         {

@@ -57,7 +57,7 @@
     // create rootViewController
     _rootViewController = [[[RootViewController alloc] initWithNibName:@"RootViewController" bundle:nil] autorelease];
     [window_ setRootViewController:_rootViewController];
-
+    
     if ( _GAME_MODE_ == _GAME_MODE_MAINSTREAM_ )
     {
         [self _loadMenuView];
@@ -157,6 +157,7 @@
     StartMenuViewController* smvc = [[[StartMenuViewController alloc] initWithNibName:@"StartMenuViewController" bundle:nil] retain];
     [_rootViewController.view addSubview:smvc.view];
     [_rootViewController.view bringSubviewToFront:smvc.view];
+    smvc.wantsFullScreenLayout  = YES;
     smvc.delegate   = self;
 }
 

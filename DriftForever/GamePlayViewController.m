@@ -282,6 +282,10 @@
     
     if ( cMissionCode < (missionCount-1) )
     {
+        [_restartMenuViewController.view removeFromSuperview];
+        [_winMenuViewController.view removeFromSuperview];
+        [self onNewPath:self];
+        
         ++cMissionCode;
         [[Mission getObject] setCurrentMissionCode:cMissionCode];
         

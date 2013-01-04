@@ -351,6 +351,7 @@
 		BDC765801695EA6100388F57 /* turtle_Walk1.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC7657A1695EA6100388F57 /* turtle_Walk1.png */; };
 		BDC765811695EA6100388F57 /* turtle_Walk2.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDC7657B1695EA6100388F57 /* turtle_Walk2.plist */; };
 		BDC765821695EA6100388F57 /* turtle_Walk2.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC7657C1695EA6100388F57 /* turtle_Walk2.png */; };
+		BDC76588169609ED00388F57 /* RootViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDC76587169609ED00388F57 /* RootViewController~ipad.xib */; };
 		BDC8C888167657390059F50F /* AcceleratorButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC8C886167657380059F50F /* AcceleratorButton.png */; };
 		BDC8C889167657390059F50F /* breakButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC8C887167657380059F50F /* breakButton.png */; };
 		BDCD1FE6167FADAC000D90CF /* StartMenuViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDCD1FE5167FADAC000D90CF /* StartMenuViewController~ipad.xib */; };
@@ -908,6 +909,7 @@
 		BDC7657A1695EA6100388F57 /* turtle_Walk1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = turtle_Walk1.png; sourceTree = "<group>"; };
 		BDC7657B1695EA6100388F57 /* turtle_Walk2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = turtle_Walk2.plist; sourceTree = "<group>"; };
 		BDC7657C1695EA6100388F57 /* turtle_Walk2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = turtle_Walk2.png; sourceTree = "<group>"; };
+		BDC76587169609ED00388F57 /* RootViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "RootViewController~ipad.xib"; sourceTree = "<group>"; };
 		BDC8C886167657380059F50F /* AcceleratorButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AcceleratorButton.png; path = Resources/AcceleratorButton.png; sourceTree = "<group>"; };
 		BDC8C887167657380059F50F /* breakButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = breakButton.png; path = Resources/breakButton.png; sourceTree = "<group>"; };
 		BDCD1FE5167FADAC000D90CF /* StartMenuViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "StartMenuViewController~ipad.xib"; sourceTree = "<group>"; };
@@ -1435,6 +1437,7 @@
 				BD42286C168803280024027C /* RootViewController.h */,
 				BD42286D168803280024027C /* RootViewController.m */,
 				BD42286E168803280024027C /* RootViewController.xib */,
+				BDC76587169609ED00388F57 /* RootViewController~ipad.xib */,
 				BDE2873816881F5500A20434 /* LoadingViewController.h */,
 				BDE2873916881F5500A20434 /* LoadingViewController.mm */,
 				BDE2873A16881F5500A20434 /* LoadingViewController.xib */,
@@ -2175,6 +2178,7 @@
 				BDC765801695EA6100388F57 /* turtle_Walk1.png in Resources */,
 				BDC765811695EA6100388F57 /* turtle_Walk2.plist in Resources */,
 				BDC765821695EA6100388F57 /* turtle_Walk2.png in Resources */,
+				BDC76588169609ED00388F57 /* RootViewController~ipad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

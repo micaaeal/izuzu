@@ -86,6 +86,11 @@ WindShield* _s_object   = nil;
         [cSprite setScale:[UtilVec convertScaleIfRetina:cSprite.scale]];
         [cSprite setOpacity:0];
         _waterSprite    = cSprite;
+        // in case of iPad
+        if ( winSize.height > 767.999 & winSize.height < 768.001 )
+        {
+            [cSprite setScale:cSprite.scale*2.5f];
+        }
     }
     {
         CCSprite* cSprite   = [CCSprite spriteWithFile:@"oil_windshield.png"];
@@ -96,6 +101,11 @@ WindShield* _s_object   = nil;
         [cSprite setScale:[UtilVec convertScaleIfRetina:cSprite.scale]];
         [cSprite setOpacity:0];
         _dustSprite    = cSprite;
+        // in case of iPad
+        if ( winSize.height > 767.999 & winSize.height < 768.001 )
+        {
+            [cSprite setScale:cSprite.scale*2.5f];
+        }
     }
 }
 

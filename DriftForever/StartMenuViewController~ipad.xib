@@ -40,7 +40,7 @@
 					<object class="IBUIImageView" id="168082279">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrameSize">{1024, 748}</string>
+						<string key="NSFrameSize">{1024, 768}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="384203851"/>
@@ -72,9 +72,10 @@
 					<object class="IBUIButton" id="363466534">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">269</int>
-						<string key="NSFrame">{{380, 684}, {264, 44}}</string>
+						<string key="NSFrame">{{380, 704}, {264, 44}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -108,7 +109,7 @@
 						</object>
 					</object>
 				</array>
-				<string key="NSFrameSize">{1024, 748}</string>
+				<string key="NSFrameSize">{1024, 768}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="168082279"/>
@@ -126,6 +127,7 @@
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 			</object>
 			<object class="IBUIViewController" id="951442844">
+				<bool key="IBUIAutoresizesArchivedViewToFullSize">NO</bool>
 				<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
 					<int key="IBUIInterfaceOrientation">3</int>
 					<int key="interfaceOrientation">3</int>
@@ -151,6 +153,7 @@
 				<bool key="IBUIHorizontal">YES</bool>
 			</object>
 			<object class="IBUIViewController" id="686418840">
+				<bool key="IBUIAutoresizesArchivedViewToFullSize">NO</bool>
 				<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
 					<int key="IBUIInterfaceOrientation">3</int>
 					<int key="interfaceOrientation">3</int>
@@ -160,6 +163,7 @@
 				<bool key="IBUIHorizontal">YES</bool>
 			</object>
 			<object class="IBUIViewController" id="1035921466">
+				<bool key="IBUIAutoresizesArchivedViewToFullSize">NO</bool>
 				<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
 					<int key="IBUIInterfaceOrientation">3</int>
 					<int key="interfaceOrientation">3</int>

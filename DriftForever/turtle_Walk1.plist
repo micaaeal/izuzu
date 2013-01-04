@@ -1,0 +1,1138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>frames</key>
+	<dict>
+		
+		<key>turtle_Walk001.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 19}, {194, 302}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 30}</string>
+			<key>spriteSize</key>
+			<string>{194, 302}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{1176, 0}, {194, 302}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk002.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 20}, {194, 302}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 29}</string>
+			<key>spriteSize</key>
+			<string>{194, 302}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{196, 1216}, {194, 302}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk003.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 20}, {194, 302}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 29}</string>
+			<key>spriteSize</key>
+			<string>{194, 302}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{196, 608}, {194, 302}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk004.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 20}, {194, 302}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 29}</string>
+			<key>spriteSize</key>
+			<string>{194, 302}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{196, 0}, {194, 302}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk005.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 20}, {194, 302}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 29}</string>
+			<key>spriteSize</key>
+			<string>{194, 302}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{196, 912}, {194, 302}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk006.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 20}, {194, 302}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 29}</string>
+			<key>spriteSize</key>
+			<string>{194, 302}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{0, 912}, {194, 302}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk007.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 20}, {194, 302}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 29}</string>
+			<key>spriteSize</key>
+			<string>{194, 302}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{1764, 0}, {194, 302}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk008.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 20}, {194, 302}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 29}</string>
+			<key>spriteSize</key>
+			<string>{194, 302}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{0, 304}, {194, 302}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk009.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 20}, {194, 302}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 29}</string>
+			<key>spriteSize</key>
+			<string>{194, 302}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{0, 1216}, {194, 302}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk010.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 20}, {194, 302}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 29}</string>
+			<key>spriteSize</key>
+			<string>{194, 302}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{392, 0}, {194, 302}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk011.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 21}, {194, 300}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 29}</string>
+			<key>spriteSize</key>
+			<string>{194, 300}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{784, 1512}, {194, 300}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk012.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 21}, {194, 300}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 29}</string>
+			<key>spriteSize</key>
+			<string>{194, 300}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{588, 1210}, {194, 300}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk013.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 21}, {194, 300}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 29}</string>
+			<key>spriteSize</key>
+			<string>{194, 300}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{784, 304}, {194, 300}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk014.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 21}, {194, 300}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 29}</string>
+			<key>spriteSize</key>
+			<string>{194, 300}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{392, 1512}, {194, 300}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk015.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 21}, {194, 300}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 29}</string>
+			<key>spriteSize</key>
+			<string>{194, 300}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{1372, 606}, {194, 300}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk016.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 22}, {194, 300}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 28}</string>
+			<key>spriteSize</key>
+			<string>{194, 300}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{980, 1512}, {194, 300}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk017.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 22}, {194, 300}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 28}</string>
+			<key>spriteSize</key>
+			<string>{194, 300}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{392, 304}, {194, 300}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk018.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 22}, {194, 300}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 28}</string>
+			<key>spriteSize</key>
+			<string>{194, 300}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{980, 1210}, {194, 300}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk019.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 22}, {194, 300}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 28}</string>
+			<key>spriteSize</key>
+			<string>{194, 300}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{392, 606}, {194, 300}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk020.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 22}, {194, 300}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 28}</string>
+			<key>spriteSize</key>
+			<string>{194, 300}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{1372, 908}, {194, 300}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk021.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 22}, {194, 300}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 28}</string>
+			<key>spriteSize</key>
+			<string>{194, 300}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{980, 304}, {194, 300}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk022.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 22}, {194, 300}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 28}</string>
+			<key>spriteSize</key>
+			<string>{194, 300}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{784, 908}, {194, 300}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk023.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 22}, {194, 300}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 28}</string>
+			<key>spriteSize</key>
+			<string>{194, 300}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{1764, 304}, {194, 300}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk024.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 22}, {194, 300}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 28}</string>
+			<key>spriteSize</key>
+			<string>{194, 300}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{1568, 606}, {194, 300}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk025.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 22}, {194, 300}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 28}</string>
+			<key>spriteSize</key>
+			<string>{194, 300}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{392, 908}, {194, 300}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk026.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 22}, {194, 300}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 28}</string>
+			<key>spriteSize</key>
+			<string>{194, 300}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{980, 606}, {194, 300}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk027.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 22}, {194, 300}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 28}</string>
+			<key>spriteSize</key>
+			<string>{194, 300}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{1176, 908}, {194, 300}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk028.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 22}, {194, 300}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 28}</string>
+			<key>spriteSize</key>
+			<string>{194, 300}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{784, 1210}, {194, 300}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk029.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 22}, {194, 300}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 28}</string>
+			<key>spriteSize</key>
+			<string>{194, 300}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{392, 1210}, {194, 300}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk030.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 22}, {194, 300}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 28}</string>
+			<key>spriteSize</key>
+			<string>{194, 300}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{588, 908}, {194, 300}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk031.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 22}, {194, 300}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 28}</string>
+			<key>spriteSize</key>
+			<string>{194, 300}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{784, 606}, {194, 300}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk032.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 22}, {194, 300}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 28}</string>
+			<key>spriteSize</key>
+			<string>{194, 300}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{588, 1512}, {194, 300}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk033.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 22}, {194, 300}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 28}</string>
+			<key>spriteSize</key>
+			<string>{194, 300}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{980, 908}, {194, 300}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk034.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 22}, {194, 300}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 28}</string>
+			<key>spriteSize</key>
+			<string>{194, 300}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{588, 304}, {194, 300}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk035.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 22}, {194, 300}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 28}</string>
+			<key>spriteSize</key>
+			<string>{194, 300}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{1764, 606}, {194, 300}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk036.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 22}, {194, 300}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 28}</string>
+			<key>spriteSize</key>
+			<string>{194, 300}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{1176, 304}, {194, 300}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk037.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 21}, {194, 300}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 29}</string>
+			<key>spriteSize</key>
+			<string>{194, 300}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{1372, 304}, {194, 300}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk038.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 21}, {194, 300}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 29}</string>
+			<key>spriteSize</key>
+			<string>{194, 300}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{588, 606}, {194, 300}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk039.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 21}, {194, 300}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 29}</string>
+			<key>spriteSize</key>
+			<string>{194, 300}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{1176, 606}, {194, 300}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk040.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 21}, {194, 300}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 29}</string>
+			<key>spriteSize</key>
+			<string>{194, 300}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{1568, 304}, {194, 300}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk041.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 20}, {194, 302}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 29}</string>
+			<key>spriteSize</key>
+			<string>{194, 302}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{784, 0}, {194, 302}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk042.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 20}, {194, 302}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 29}</string>
+			<key>spriteSize</key>
+			<string>{194, 302}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{1568, 0}, {194, 302}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk043.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 20}, {194, 302}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 29}</string>
+			<key>spriteSize</key>
+			<string>{194, 302}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{196, 1520}, {194, 302}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk044.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 20}, {194, 302}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 29}</string>
+			<key>spriteSize</key>
+			<string>{194, 302}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{196, 304}, {194, 302}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk045.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 20}, {194, 302}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 29}</string>
+			<key>spriteSize</key>
+			<string>{194, 302}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{1372, 0}, {194, 302}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk046.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 20}, {194, 302}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 29}</string>
+			<key>spriteSize</key>
+			<string>{194, 302}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{0, 0}, {194, 302}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk047.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 19}, {194, 302}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 30}</string>
+			<key>spriteSize</key>
+			<string>{194, 302}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{0, 1520}, {194, 302}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk048.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 19}, {194, 302}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 30}</string>
+			<key>spriteSize</key>
+			<string>{194, 302}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{980, 0}, {194, 302}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk049.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 19}, {194, 302}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 30}</string>
+			<key>spriteSize</key>
+			<string>{194, 302}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{588, 0}, {194, 302}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>turtle_Walk050.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{104, 19}, {194, 302}}</string>
+			<key>spriteOffset</key>
+			<string>{1, 30}</string>
+			<key>spriteSize</key>
+			<string>{194, 302}</string>
+			<key>spriteSourceSize</key>
+			<string>{400, 400}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{0, 608}, {194, 302}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+	</dict>
+	<key>metadata</key>
+	<dict>
+		<key>version</key>
+		<string>1.5.5</string>
+		<key>format</key>
+		<integer>3</integer>
+		<key>size</key>
+		<string>{2048, 2048}</string>
+		<key>name</key>
+		<string>Untitled</string>
+		<key>premultipliedAlpha</key>
+		<false/>
+		<key>target</key>
+		<dict>
+			<key>name</key>
+			<string>default</string>
+			<key>textureFileName</key>
+			<string>turtle_Walk1</string>
+			<key>textureFileExtension</key>
+			<string>.png</string>
+			<key>coordinatesFileName</key>
+			<string>turtle_Walk1</string>
+			<key>coordinatesFileExtension</key>
+			<string>.plist</string>
+			<key>premultipliedAlpha</key>
+			<false/>
+		</dict>
+	</dict>
+</dict>
+</plist>

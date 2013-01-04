@@ -144,7 +144,15 @@ static Console*    _s_console = nil;
     }
     [_spriteSpeedMeter setPosition:CGPointMake(61.0f, winSize.height - 90)];
     [_spriteSpeedMeter setScale:[UtilVec convertScaleIfRetina:_spriteSpeedMeter.scale]];
+
     [_txtSpeed setPosition:CGPointMake(-20.0f, winSize.height - 118)];
+    
+    // in case of iPad
+    if ( winSize.height > 767.999 & winSize.height < 768.001 )
+    {
+        [_txtSpeed setPosition:CGPointMake(30.0f, winSize.height - 101)];
+    }
+
     [_txtSpeed setScale:[UtilVec convertScaleIfRetina:_txtSpeed.scale]];
     
     // padel
