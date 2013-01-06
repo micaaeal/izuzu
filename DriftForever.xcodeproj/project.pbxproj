@@ -7,6 +7,36 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD068E2C16995CE400145629 /* bg_c.png in Resources */ = {isa = PBXBuildFile; fileRef = BD068E0E16995CE400145629 /* bg_c.png */; };
+		BD068E2D16995CE400145629 /* bg_c@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BD068E0F16995CE400145629 /* bg_c@2x.png */; };
+		BD068E2E16995CE400145629 /* bg_c@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = BD068E1016995CE400145629 /* bg_c@2x~ipad.png */; };
+		BD068E2F16995CE400145629 /* bg_c~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = BD068E1116995CE400145629 /* bg_c~ipad.png */; };
+		BD068E3016995CE400145629 /* car01_01.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD068E1216995CE400145629 /* car01_01.plist */; };
+		BD068E3116995CE400145629 /* car01_02.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD068E1316995CE400145629 /* car01_02.plist */; };
+		BD068E3216995CE400145629 /* car01_02.png in Resources */ = {isa = PBXBuildFile; fileRef = BD068E1416995CE400145629 /* car01_02.png */; };
+		BD068E3316995CE400145629 /* car01_03.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD068E1516995CE400145629 /* car01_03.plist */; };
+		BD068E3416995CE400145629 /* car01_03.png in Resources */ = {isa = PBXBuildFile; fileRef = BD068E1616995CE400145629 /* car01_03.png */; };
+		BD068E3516995CE400145629 /* car02_01.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD068E1716995CE400145629 /* car02_01.plist */; };
+		BD068E3616995CE400145629 /* car02_01.png in Resources */ = {isa = PBXBuildFile; fileRef = BD068E1816995CE400145629 /* car02_01.png */; };
+		BD068E3716995CE400145629 /* car02_02.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD068E1916995CE400145629 /* car02_02.plist */; };
+		BD068E3816995CE400145629 /* car02_02.png in Resources */ = {isa = PBXBuildFile; fileRef = BD068E1A16995CE400145629 /* car02_02.png */; };
+		BD068E3916995CE400145629 /* car02_03.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD068E1B16995CE400145629 /* car02_03.plist */; };
+		BD068E3A16995CE400145629 /* car02_03.png in Resources */ = {isa = PBXBuildFile; fileRef = BD068E1C16995CE400145629 /* car02_03.png */; };
+		BD068E3B16995CE400145629 /* path.png in Resources */ = {isa = PBXBuildFile; fileRef = BD068E1D16995CE400145629 /* path.png */; };
+		BD068E3C16995CE400145629 /* restartButton01.png in Resources */ = {isa = PBXBuildFile; fileRef = BD068E1E16995CE400145629 /* restartButton01.png */; };
+		BD068E3D16995CE400145629 /* restartButton02.png in Resources */ = {isa = PBXBuildFile; fileRef = BD068E1F16995CE400145629 /* restartButton02.png */; };
+		BD068E3E16995CE400145629 /* restartMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = BD068E2016995CE400145629 /* restartMenu.png */; };
+		BD068E3F16995CE400145629 /* restartMenu01_01.png in Resources */ = {isa = PBXBuildFile; fileRef = BD068E2116995CE400145629 /* restartMenu01_01.png */; };
+		BD068E4016995CE400145629 /* restartMenu01_02.png in Resources */ = {isa = PBXBuildFile; fileRef = BD068E2216995CE400145629 /* restartMenu01_02.png */; };
+		BD068E4116995CE400145629 /* restartMenu02_01.png in Resources */ = {isa = PBXBuildFile; fileRef = BD068E2316995CE400145629 /* restartMenu02_01.png */; };
+		BD068E4216995CE400145629 /* turtle_Open.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD068E2416995CE400145629 /* turtle_Open.plist */; };
+		BD068E4316995CE400145629 /* turtle_Open.png in Resources */ = {isa = PBXBuildFile; fileRef = BD068E2516995CE400145629 /* turtle_Open.png */; };
+		BD068E4416995CE400145629 /* turtle_Walk1.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD068E2616995CE400145629 /* turtle_Walk1.plist */; };
+		BD068E4516995CE400145629 /* turtle_Walk1.png in Resources */ = {isa = PBXBuildFile; fileRef = BD068E2716995CE400145629 /* turtle_Walk1.png */; };
+		BD068E4616995CE400145629 /* turtle_Walk2.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD068E2816995CE400145629 /* turtle_Walk2.plist */; };
+		BD068E4716995CE400145629 /* turtle_Walk2.png in Resources */ = {isa = PBXBuildFile; fileRef = BD068E2916995CE400145629 /* turtle_Walk2.png */; };
+		BD068E4816995CE400145629 /* zoomIn.png in Resources */ = {isa = PBXBuildFile; fileRef = BD068E2A16995CE400145629 /* zoomIn.png */; };
+		BD068E4916995CE400145629 /* zoomOut.png in Resources */ = {isa = PBXBuildFile; fileRef = BD068E2B16995CE400145629 /* zoomOut.png */; };
 		BD0E18FF1665950100971528 /* CarAndCharViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD0E18FD1665950100971528 /* CarAndCharViewController.xib */; };
 		BD0E191A166597DB00971528 /* StartMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD0E1918166597DB00971528 /* StartMenuViewController.m */; };
 		BD1B83AA164B2469005950CB /* WindShield.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1B83A9164B2469005950CB /* WindShield.m */; };
@@ -68,11 +98,6 @@
 		BD58F03F167D651800415FC3 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BD58F03E167D651800415FC3 /* libsqlite3.dylib */; };
 		BD6CA9CE1636996900131027 /* event_config.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD6CA9CD1636996900131027 /* event_config.plist */; };
 		BD6CA9D11636D1F200131027 /* ComboPlayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD6CA9D01636D1F200131027 /* ComboPlayer.mm */; };
-		BD71D9171693043C00CD1102 /* path.png in Resources */ = {isa = PBXBuildFile; fileRef = BD71D9161693043C00CD1102 /* path.png */; };
-		BD8CB7CE1674AA9500210980 /* restartMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = BD8CB7C71674AA9300210980 /* restartMenu.png */; };
-		BD8CB7CF1674AA9500210980 /* restartMenu01_01.png in Resources */ = {isa = PBXBuildFile; fileRef = BD8CB7C81674AA9400210980 /* restartMenu01_01.png */; };
-		BD8CB7D01674AA9500210980 /* restartMenu01_02.png in Resources */ = {isa = PBXBuildFile; fileRef = BD8CB7C91674AA9400210980 /* restartMenu01_02.png */; };
-		BD8CB7D11674AA9500210980 /* restartMenu02_01.png in Resources */ = {isa = PBXBuildFile; fileRef = BD8CB7CA1674AA9400210980 /* restartMenu02_01.png */; };
 		BD8CB7D81674AAB900210980 /* RestartMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8CB7D61674AAB800210980 /* RestartMenuViewController.m */; };
 		BD8CB7D91674AAB900210980 /* RestartMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD8CB7D71674AAB900210980 /* RestartMenuViewController.xib */; };
 		BD9AFA0D166B9FC6009988F9 /* 3traffic.png in Resources */ = {isa = PBXBuildFile; fileRef = BD9AF9A7166B9FC6009988F9 /* 3traffic.png */; };
@@ -343,14 +368,7 @@
 		BDBD3F57161BB48B00488689 /* UtilVec.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDBD3F56161BB48B00488689 /* UtilVec.mm */; };
 		BDBD3F5A161BC4AE00488689 /* MenuSelectRoute.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDBD3F59161BC4AE00488689 /* MenuSelectRoute.mm */; };
 		BDC2C1CA1677F3D40099C632 /* event_oil.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC2C1C91677F3D40099C632 /* event_oil.png */; };
-		BDC2C1CE1677F6710099C632 /* car01_01.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDC2C1CC1677F6710099C632 /* car01_01.plist */; };
 		BDC765711695E41800388F57 /* car_02_01_Run001.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC765701695E41800388F57 /* car_02_01_Run001.png */; };
-		BDC7657D1695EA6100388F57 /* turtle_Open.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDC765771695EA6100388F57 /* turtle_Open.plist */; };
-		BDC7657E1695EA6100388F57 /* turtle_Open.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC765781695EA6100388F57 /* turtle_Open.png */; };
-		BDC7657F1695EA6100388F57 /* turtle_Walk1.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDC765791695EA6100388F57 /* turtle_Walk1.plist */; };
-		BDC765801695EA6100388F57 /* turtle_Walk1.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC7657A1695EA6100388F57 /* turtle_Walk1.png */; };
-		BDC765811695EA6100388F57 /* turtle_Walk2.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDC7657B1695EA6100388F57 /* turtle_Walk2.plist */; };
-		BDC765821695EA6100388F57 /* turtle_Walk2.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC7657C1695EA6100388F57 /* turtle_Walk2.png */; };
 		BDC76588169609ED00388F57 /* RootViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDC76587169609ED00388F57 /* RootViewController~ipad.xib */; };
 		BDC8C888167657390059F50F /* AcceleratorButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC8C886167657380059F50F /* AcceleratorButton.png */; };
 		BDC8C889167657390059F50F /* breakButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC8C887167657380059F50F /* breakButton.png */; };
@@ -358,8 +376,6 @@
 		BDCD1FE8167FBC8B000D90CF /* CarAndCharViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDCD1FE7167FBC8B000D90CF /* CarAndCharViewController~ipad.xib */; };
 		BDD492E91675011900F7B9B8 /* WinLostMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDD492E71675011900F7B9B8 /* WinLostMenuViewController.m */; };
 		BDD492EA1675011A00F7B9B8 /* WinLostMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDD492E81675011900F7B9B8 /* WinLostMenuViewController.xib */; };
-		BDD49300167504E500F7B9B8 /* restartButton01.png in Resources */ = {isa = PBXBuildFile; fileRef = BDD492F2167504E500F7B9B8 /* restartButton01.png */; };
-		BDD49301167504E500F7B9B8 /* restartButton02.png in Resources */ = {isa = PBXBuildFile; fileRef = BDD492F3167504E500F7B9B8 /* restartButton02.png */; };
 		BDD71E12167A7EC70066EA66 /* Score.m in Sources */ = {isa = PBXBuildFile; fileRef = BDD71E11167A7EC70066EA66 /* Score.m */; };
 		BDDA0DD9162F854900854B96 /* EventHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDDA0DD8162F854900854B96 /* EventHandler.mm */; };
 		BDDFCE90167FD0C800535AE5 /* WorldSelectViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDDFCE8F167FD0C800535AE5 /* WorldSelectViewController~ipad.xib */; };
@@ -370,26 +386,10 @@
 		BDE2874516886D6E00A20434 /* iconGo_114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = BDE2874416886D6E00A20434 /* iconGo_114x114.png */; };
 		BDE2874916886DB800A20434 /* iconGo_144x144.png in Resources */ = {isa = PBXBuildFile; fileRef = BDE2874816886DB800A20434 /* iconGo_144x144.png */; };
 		BDE2874B16886DC100A20434 /* iconGo_72x72.png in Resources */ = {isa = PBXBuildFile; fileRef = BDE2874A16886DC100A20434 /* iconGo_72x72.png */; };
-		BDE287561688B25300A20434 /* car01_02.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDE2874C1688B25200A20434 /* car01_02.plist */; };
-		BDE287571688B25300A20434 /* car01_02.png in Resources */ = {isa = PBXBuildFile; fileRef = BDE2874D1688B25200A20434 /* car01_02.png */; };
-		BDE287581688B25300A20434 /* car01_03.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDE2874E1688B25200A20434 /* car01_03.plist */; };
-		BDE287591688B25300A20434 /* car01_03.png in Resources */ = {isa = PBXBuildFile; fileRef = BDE2874F1688B25200A20434 /* car01_03.png */; };
-		BDE2875A1688B25300A20434 /* car02_01.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDE287501688B25200A20434 /* car02_01.plist */; };
-		BDE2875B1688B25300A20434 /* car02_01.png in Resources */ = {isa = PBXBuildFile; fileRef = BDE287511688B25200A20434 /* car02_01.png */; };
-		BDE2875C1688B25300A20434 /* car02_02.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDE287521688B25200A20434 /* car02_02.plist */; };
-		BDE2875D1688B25300A20434 /* car02_02.png in Resources */ = {isa = PBXBuildFile; fileRef = BDE287531688B25200A20434 /* car02_02.png */; };
-		BDE2875E1688B25300A20434 /* car02_03.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDE287541688B25300A20434 /* car02_03.plist */; };
-		BDE2875F1688B25300A20434 /* car02_03.png in Resources */ = {isa = PBXBuildFile; fileRef = BDE287551688B25300A20434 /* car02_03.png */; };
 		BDE318EF1666D52300DBDE3D /* MissionSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE318ED1666D52300DBDE3D /* MissionSelectViewController.m */; };
 		BDE318F01666D52300DBDE3D /* MissionSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDE318EE1666D52300DBDE3D /* MissionSelectViewController.xib */; };
 		BDE549F21616FDA0005B6BD5 /* StateSelectRoute.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDE549F11616FDA0005B6BD5 /* StateSelectRoute.mm */; };
 		BDE549F51616FDB3005B6BD5 /* StateDriveCar.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDE549F41616FDB3005B6BD5 /* StateDriveCar.mm */; };
-		BDE9493316892E0E00CFD3E3 /* zoomIn.png in Resources */ = {isa = PBXBuildFile; fileRef = BDE9493116892E0E00CFD3E3 /* zoomIn.png */; };
-		BDE9493416892E0E00CFD3E3 /* zoomOut.png in Resources */ = {isa = PBXBuildFile; fileRef = BDE9493216892E0E00CFD3E3 /* zoomOut.png */; };
-		BDE9493B16892F1800CFD3E3 /* bg_c.png in Resources */ = {isa = PBXBuildFile; fileRef = BDE9493716892F1800CFD3E3 /* bg_c.png */; };
-		BDE9493C16892F1800CFD3E3 /* bg_c@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BDE9493816892F1800CFD3E3 /* bg_c@2x.png */; };
-		BDE9493D16892F1800CFD3E3 /* bg_c@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = BDE9493916892F1800CFD3E3 /* bg_c@2x~ipad.png */; };
-		BDE9493E16892F1800CFD3E3 /* bg_c~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = BDE9493A16892F1800CFD3E3 /* bg_c~ipad.png */; };
 		BDE949401689303600CFD3E3 /* LoadingViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDE9493F1689303600CFD3E3 /* LoadingViewController~ipad.xib */; };
 		BDEA375B16892BFB00434D67 /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = BDEA375A16892BFB00434D67 /* Default-Portrait~ipad.png */; };
 		BDEA375D16892C0300434D67 /* Default-Portrait@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = BDEA375C16892C0300434D67 /* Default-Portrait@2x~ipad.png */; };
@@ -406,6 +406,36 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BD068E0E16995CE400145629 /* bg_c.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bg_c.png; path = Resources/bg_c.png; sourceTree = "<group>"; };
+		BD068E0F16995CE400145629 /* bg_c@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bg_c@2x.png"; path = "Resources/bg_c@2x.png"; sourceTree = "<group>"; };
+		BD068E1016995CE400145629 /* bg_c@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bg_c@2x~ipad.png"; path = "Resources/bg_c@2x~ipad.png"; sourceTree = "<group>"; };
+		BD068E1116995CE400145629 /* bg_c~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bg_c~ipad.png"; path = "Resources/bg_c~ipad.png"; sourceTree = "<group>"; };
+		BD068E1216995CE400145629 /* car01_01.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = car01_01.plist; path = Resources/car01_01.plist; sourceTree = "<group>"; };
+		BD068E1316995CE400145629 /* car01_02.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = car01_02.plist; path = Resources/car01_02.plist; sourceTree = "<group>"; };
+		BD068E1416995CE400145629 /* car01_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = car01_02.png; path = Resources/car01_02.png; sourceTree = "<group>"; };
+		BD068E1516995CE400145629 /* car01_03.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = car01_03.plist; path = Resources/car01_03.plist; sourceTree = "<group>"; };
+		BD068E1616995CE400145629 /* car01_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = car01_03.png; path = Resources/car01_03.png; sourceTree = "<group>"; };
+		BD068E1716995CE400145629 /* car02_01.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = car02_01.plist; path = Resources/car02_01.plist; sourceTree = "<group>"; };
+		BD068E1816995CE400145629 /* car02_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = car02_01.png; path = Resources/car02_01.png; sourceTree = "<group>"; };
+		BD068E1916995CE400145629 /* car02_02.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = car02_02.plist; path = Resources/car02_02.plist; sourceTree = "<group>"; };
+		BD068E1A16995CE400145629 /* car02_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = car02_02.png; path = Resources/car02_02.png; sourceTree = "<group>"; };
+		BD068E1B16995CE400145629 /* car02_03.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = car02_03.plist; path = Resources/car02_03.plist; sourceTree = "<group>"; };
+		BD068E1C16995CE400145629 /* car02_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = car02_03.png; path = Resources/car02_03.png; sourceTree = "<group>"; };
+		BD068E1D16995CE400145629 /* path.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = path.png; path = Resources/path.png; sourceTree = "<group>"; };
+		BD068E1E16995CE400145629 /* restartButton01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = restartButton01.png; path = Resources/restartButton01.png; sourceTree = "<group>"; };
+		BD068E1F16995CE400145629 /* restartButton02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = restartButton02.png; path = Resources/restartButton02.png; sourceTree = "<group>"; };
+		BD068E2016995CE400145629 /* restartMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = restartMenu.png; path = Resources/restartMenu.png; sourceTree = "<group>"; };
+		BD068E2116995CE400145629 /* restartMenu01_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = restartMenu01_01.png; path = Resources/restartMenu01_01.png; sourceTree = "<group>"; };
+		BD068E2216995CE400145629 /* restartMenu01_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = restartMenu01_02.png; path = Resources/restartMenu01_02.png; sourceTree = "<group>"; };
+		BD068E2316995CE400145629 /* restartMenu02_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = restartMenu02_01.png; path = Resources/restartMenu02_01.png; sourceTree = "<group>"; };
+		BD068E2416995CE400145629 /* turtle_Open.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = turtle_Open.plist; path = Resources/turtle_Open.plist; sourceTree = "<group>"; };
+		BD068E2516995CE400145629 /* turtle_Open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = turtle_Open.png; path = Resources/turtle_Open.png; sourceTree = "<group>"; };
+		BD068E2616995CE400145629 /* turtle_Walk1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = turtle_Walk1.plist; path = Resources/turtle_Walk1.plist; sourceTree = "<group>"; };
+		BD068E2716995CE400145629 /* turtle_Walk1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = turtle_Walk1.png; path = Resources/turtle_Walk1.png; sourceTree = "<group>"; };
+		BD068E2816995CE400145629 /* turtle_Walk2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = turtle_Walk2.plist; path = Resources/turtle_Walk2.plist; sourceTree = "<group>"; };
+		BD068E2916995CE400145629 /* turtle_Walk2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = turtle_Walk2.png; path = Resources/turtle_Walk2.png; sourceTree = "<group>"; };
+		BD068E2A16995CE400145629 /* zoomIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = zoomIn.png; path = Resources/zoomIn.png; sourceTree = "<group>"; };
+		BD068E2B16995CE400145629 /* zoomOut.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = zoomOut.png; path = Resources/zoomOut.png; sourceTree = "<group>"; };
 		BD0E18FB1665950100971528 /* CarAndCharViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarAndCharViewController.h; sourceTree = "<group>"; };
 		BD0E18FD1665950100971528 /* CarAndCharViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CarAndCharViewController.xib; sourceTree = "<group>"; };
 		BD0E1917166597DB00971528 /* StartMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartMenuViewController.h; sourceTree = "<group>"; };
@@ -479,11 +509,6 @@
 		BD6CA9CD1636996900131027 /* event_config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = event_config.plist; sourceTree = "<group>"; };
 		BD6CA9CF1636D1F200131027 /* ComboPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComboPlayer.h; sourceTree = "<group>"; };
 		BD6CA9D01636D1F200131027 /* ComboPlayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ComboPlayer.mm; sourceTree = "<group>"; };
-		BD71D9161693043C00CD1102 /* path.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = path.png; sourceTree = "<group>"; };
-		BD8CB7C71674AA9300210980 /* restartMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = restartMenu.png; sourceTree = "<group>"; };
-		BD8CB7C81674AA9400210980 /* restartMenu01_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = restartMenu01_01.png; sourceTree = "<group>"; };
-		BD8CB7C91674AA9400210980 /* restartMenu01_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = restartMenu01_02.png; sourceTree = "<group>"; };
-		BD8CB7CA1674AA9400210980 /* restartMenu02_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = restartMenu02_01.png; sourceTree = "<group>"; };
 		BD8CB7D51674AAB800210980 /* RestartMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestartMenuViewController.h; sourceTree = "<group>"; };
 		BD8CB7D61674AAB800210980 /* RestartMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestartMenuViewController.m; sourceTree = "<group>"; };
 		BD8CB7D71674AAB900210980 /* RestartMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestartMenuViewController.xib; sourceTree = "<group>"; };
@@ -901,14 +926,7 @@
 		BDBD3F58161BB58E00488689 /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		BDBD3F59161BC4AE00488689 /* MenuSelectRoute.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MenuSelectRoute.mm; sourceTree = "<group>"; };
 		BDC2C1C91677F3D40099C632 /* event_oil.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = event_oil.png; path = Resources/event_oil.png; sourceTree = "<group>"; };
-		BDC2C1CC1677F6710099C632 /* car01_01.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = car01_01.plist; sourceTree = "<group>"; };
 		BDC765701695E41800388F57 /* car_02_01_Run001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = car_02_01_Run001.png; path = Resources/car_02_01_Run001.png; sourceTree = "<group>"; };
-		BDC765771695EA6100388F57 /* turtle_Open.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = turtle_Open.plist; sourceTree = "<group>"; };
-		BDC765781695EA6100388F57 /* turtle_Open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = turtle_Open.png; sourceTree = "<group>"; };
-		BDC765791695EA6100388F57 /* turtle_Walk1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = turtle_Walk1.plist; sourceTree = "<group>"; };
-		BDC7657A1695EA6100388F57 /* turtle_Walk1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = turtle_Walk1.png; sourceTree = "<group>"; };
-		BDC7657B1695EA6100388F57 /* turtle_Walk2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = turtle_Walk2.plist; sourceTree = "<group>"; };
-		BDC7657C1695EA6100388F57 /* turtle_Walk2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = turtle_Walk2.png; sourceTree = "<group>"; };
 		BDC76587169609ED00388F57 /* RootViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "RootViewController~ipad.xib"; sourceTree = "<group>"; };
 		BDC8C886167657380059F50F /* AcceleratorButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AcceleratorButton.png; path = Resources/AcceleratorButton.png; sourceTree = "<group>"; };
 		BDC8C887167657380059F50F /* breakButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = breakButton.png; path = Resources/breakButton.png; sourceTree = "<group>"; };
@@ -917,8 +935,6 @@
 		BDD492E61675011900F7B9B8 /* WinLostMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WinLostMenuViewController.h; sourceTree = "<group>"; };
 		BDD492E71675011900F7B9B8 /* WinLostMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WinLostMenuViewController.m; sourceTree = "<group>"; };
 		BDD492E81675011900F7B9B8 /* WinLostMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WinLostMenuViewController.xib; sourceTree = "<group>"; };
-		BDD492F2167504E500F7B9B8 /* restartButton01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = restartButton01.png; sourceTree = "<group>"; };
-		BDD492F3167504E500F7B9B8 /* restartButton02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = restartButton02.png; sourceTree = "<group>"; };
 		BDD71E10167A7EC70066EA66 /* Score.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Score.h; sourceTree = "<group>"; };
 		BDD71E11167A7EC70066EA66 /* Score.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Score.m; sourceTree = "<group>"; };
 		BDD76AF11676AE0600A268F1 /* water_windshield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = water_windshield.png; path = Resources/water_windshield.png; sourceTree = "<group>"; };
@@ -933,16 +949,6 @@
 		BDE2874416886D6E00A20434 /* iconGo_114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconGo_114x114.png; sourceTree = "<group>"; };
 		BDE2874816886DB800A20434 /* iconGo_144x144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconGo_144x144.png; sourceTree = "<group>"; };
 		BDE2874A16886DC100A20434 /* iconGo_72x72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconGo_72x72.png; sourceTree = "<group>"; };
-		BDE2874C1688B25200A20434 /* car01_02.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = car01_02.plist; sourceTree = "<group>"; };
-		BDE2874D1688B25200A20434 /* car01_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car01_02.png; sourceTree = "<group>"; };
-		BDE2874E1688B25200A20434 /* car01_03.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = car01_03.plist; sourceTree = "<group>"; };
-		BDE2874F1688B25200A20434 /* car01_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car01_03.png; sourceTree = "<group>"; };
-		BDE287501688B25200A20434 /* car02_01.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = car02_01.plist; sourceTree = "<group>"; };
-		BDE287511688B25200A20434 /* car02_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car02_01.png; sourceTree = "<group>"; };
-		BDE287521688B25200A20434 /* car02_02.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = car02_02.plist; sourceTree = "<group>"; };
-		BDE287531688B25200A20434 /* car02_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car02_02.png; sourceTree = "<group>"; };
-		BDE287541688B25300A20434 /* car02_03.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = car02_03.plist; sourceTree = "<group>"; };
-		BDE287551688B25300A20434 /* car02_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car02_03.png; sourceTree = "<group>"; };
 		BDE318EC1666D52300DBDE3D /* MissionSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MissionSelectViewController.h; sourceTree = "<group>"; };
 		BDE318ED1666D52300DBDE3D /* MissionSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MissionSelectViewController.m; sourceTree = "<group>"; };
 		BDE318EE1666D52300DBDE3D /* MissionSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MissionSelectViewController.xib; sourceTree = "<group>"; };
@@ -951,12 +957,6 @@
 		BDE549F11616FDA0005B6BD5 /* StateSelectRoute.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = StateSelectRoute.mm; sourceTree = "<group>"; };
 		BDE549F31616FDB3005B6BD5 /* StateDriveCar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateDriveCar.h; sourceTree = "<group>"; };
 		BDE549F41616FDB3005B6BD5 /* StateDriveCar.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = StateDriveCar.mm; sourceTree = "<group>"; };
-		BDE9493116892E0E00CFD3E3 /* zoomIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zoomIn.png; sourceTree = "<group>"; };
-		BDE9493216892E0E00CFD3E3 /* zoomOut.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zoomOut.png; sourceTree = "<group>"; };
-		BDE9493716892F1800CFD3E3 /* bg_c.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_c.png; sourceTree = "<group>"; };
-		BDE9493816892F1800CFD3E3 /* bg_c@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_c@2x.png"; sourceTree = "<group>"; };
-		BDE9493916892F1800CFD3E3 /* bg_c@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_c@2x~ipad.png"; sourceTree = "<group>"; };
-		BDE9493A16892F1800CFD3E3 /* bg_c~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_c~ipad.png"; sourceTree = "<group>"; };
 		BDE9493F1689303600CFD3E3 /* LoadingViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "LoadingViewController~ipad.xib"; sourceTree = "<group>"; };
 		BDEA375A16892BFB00434D67 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~ipad.png"; sourceTree = "<group>"; };
 		BDEA375C16892C0300434D67 /* Default-Portrait@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x~ipad.png"; sourceTree = "<group>"; };
@@ -1127,31 +1127,37 @@
 		BD9AF9A6166B9FAE009988F9 /* resources */ = {
 			isa = PBXGroup;
 			children = (
-				BDC765771695EA6100388F57 /* turtle_Open.plist */,
-				BDC765781695EA6100388F57 /* turtle_Open.png */,
-				BDC765791695EA6100388F57 /* turtle_Walk1.plist */,
-				BDC7657A1695EA6100388F57 /* turtle_Walk1.png */,
-				BDC7657B1695EA6100388F57 /* turtle_Walk2.plist */,
-				BDC7657C1695EA6100388F57 /* turtle_Walk2.png */,
-				BD71D9161693043C00CD1102 /* path.png */,
-				BDE9493716892F1800CFD3E3 /* bg_c.png */,
-				BDE9493816892F1800CFD3E3 /* bg_c@2x.png */,
-				BDE9493916892F1800CFD3E3 /* bg_c@2x~ipad.png */,
-				BDE9493A16892F1800CFD3E3 /* bg_c~ipad.png */,
-				BDE9493116892E0E00CFD3E3 /* zoomIn.png */,
-				BDE9493216892E0E00CFD3E3 /* zoomOut.png */,
+				BD068E0E16995CE400145629 /* bg_c.png */,
+				BD068E0F16995CE400145629 /* bg_c@2x.png */,
+				BD068E1016995CE400145629 /* bg_c@2x~ipad.png */,
+				BD068E1116995CE400145629 /* bg_c~ipad.png */,
+				BD068E1216995CE400145629 /* car01_01.plist */,
+				BD068E1316995CE400145629 /* car01_02.plist */,
+				BD068E1416995CE400145629 /* car01_02.png */,
+				BD068E1516995CE400145629 /* car01_03.plist */,
+				BD068E1616995CE400145629 /* car01_03.png */,
+				BD068E1716995CE400145629 /* car02_01.plist */,
+				BD068E1816995CE400145629 /* car02_01.png */,
+				BD068E1916995CE400145629 /* car02_02.plist */,
+				BD068E1A16995CE400145629 /* car02_02.png */,
+				BD068E1B16995CE400145629 /* car02_03.plist */,
+				BD068E1C16995CE400145629 /* car02_03.png */,
+				BD068E1D16995CE400145629 /* path.png */,
+				BD068E1E16995CE400145629 /* restartButton01.png */,
+				BD068E1F16995CE400145629 /* restartButton02.png */,
+				BD068E2016995CE400145629 /* restartMenu.png */,
+				BD068E2116995CE400145629 /* restartMenu01_01.png */,
+				BD068E2216995CE400145629 /* restartMenu01_02.png */,
+				BD068E2316995CE400145629 /* restartMenu02_01.png */,
+				BD068E2416995CE400145629 /* turtle_Open.plist */,
+				BD068E2516995CE400145629 /* turtle_Open.png */,
+				BD068E2616995CE400145629 /* turtle_Walk1.plist */,
+				BD068E2716995CE400145629 /* turtle_Walk1.png */,
+				BD068E2816995CE400145629 /* turtle_Walk2.plist */,
+				BD068E2916995CE400145629 /* turtle_Walk2.png */,
+				BD068E2A16995CE400145629 /* zoomIn.png */,
+				BD068E2B16995CE400145629 /* zoomOut.png */,
 				BD48E89D167F9AE4009142FE /* car01_01.png */,
-				BDC2C1CC1677F6710099C632 /* car01_01.plist */,
-				BDE2874D1688B25200A20434 /* car01_02.png */,
-				BDE2874C1688B25200A20434 /* car01_02.plist */,
-				BDE2874F1688B25200A20434 /* car01_03.png */,
-				BDE2874E1688B25200A20434 /* car01_03.plist */,
-				BDE287511688B25200A20434 /* car02_01.png */,
-				BDE287501688B25200A20434 /* car02_01.plist */,
-				BDE287531688B25200A20434 /* car02_02.png */,
-				BDE287521688B25200A20434 /* car02_02.plist */,
-				BDE287551688B25300A20434 /* car02_03.png */,
-				BDE287541688B25300A20434 /* car02_03.plist */,
 				BD48E8ED167FA4DB009142FE /* speed_limit_sign.png */,
 				BD48E8E3167FA044009142FE /* cuationSign01.png */,
 				BD48E8E4167FA044009142FE /* cuationSign02.png */,
@@ -1191,12 +1197,6 @@
 				BD48E8BC167F9AE4009142FE /* speedline_048.png */,
 				BD48E8BD167F9AE4009142FE /* speedline_effect.png */,
 				BDD76AF11676AE0600A268F1 /* water_windshield.png */,
-				BDD492F2167504E500F7B9B8 /* restartButton01.png */,
-				BDD492F3167504E500F7B9B8 /* restartButton02.png */,
-				BD8CB7C71674AA9300210980 /* restartMenu.png */,
-				BD8CB7C81674AA9400210980 /* restartMenu01_01.png */,
-				BD8CB7C91674AA9400210980 /* restartMenu01_02.png */,
-				BD8CB7CA1674AA9400210980 /* restartMenu02_01.png */,
 				BDB75790166F8D2F00912496 /* back.png */,
 				BDB7576A166F8D0C00912496 /* back.png */,
 				BDB7576B166F8D0C00912496 /* build01.png */,
@@ -2079,18 +2079,11 @@
 				BDB75793166F8EB500912496 /* StartMenuViewController.xib in Resources */,
 				BD426840166FB5CC00D5789D /* GamePlayViewController.xib in Resources */,
 				BD426845166FBCBA00D5789D /* PauseMenuViewController.xib in Resources */,
-				BD8CB7CE1674AA9500210980 /* restartMenu.png in Resources */,
-				BD8CB7CF1674AA9500210980 /* restartMenu01_01.png in Resources */,
-				BD8CB7D01674AA9500210980 /* restartMenu01_02.png in Resources */,
-				BD8CB7D11674AA9500210980 /* restartMenu02_01.png in Resources */,
 				BD8CB7D91674AAB900210980 /* RestartMenuViewController.xib in Resources */,
 				BDD492EA1675011A00F7B9B8 /* WinLostMenuViewController.xib in Resources */,
-				BDD49300167504E500F7B9B8 /* restartButton01.png in Resources */,
-				BDD49301167504E500F7B9B8 /* restartButton02.png in Resources */,
 				BDC8C888167657390059F50F /* AcceleratorButton.png in Resources */,
 				BDC8C889167657390059F50F /* breakButton.png in Resources */,
 				BDC2C1CA1677F3D40099C632 /* event_oil.png in Resources */,
-				BDC2C1CE1677F6710099C632 /* car01_01.plist in Resources */,
 				BD58F033167D615A00415FC3 /* FacebookSDKResources.bundle in Resources */,
 				BD58F039167D61FD00415FC3 /* FBUserSettingsViewResources.bundle in Resources */,
 				BD48E8BE167F9AE4009142FE /* box.png in Resources */,
@@ -2146,16 +2139,6 @@
 				BDE2874516886D6E00A20434 /* iconGo_114x114.png in Resources */,
 				BDE2874916886DB800A20434 /* iconGo_144x144.png in Resources */,
 				BDE2874B16886DC100A20434 /* iconGo_72x72.png in Resources */,
-				BDE287561688B25300A20434 /* car01_02.plist in Resources */,
-				BDE287571688B25300A20434 /* car01_02.png in Resources */,
-				BDE287581688B25300A20434 /* car01_03.plist in Resources */,
-				BDE287591688B25300A20434 /* car01_03.png in Resources */,
-				BDE2875A1688B25300A20434 /* car02_01.plist in Resources */,
-				BDE2875B1688B25300A20434 /* car02_01.png in Resources */,
-				BDE2875C1688B25300A20434 /* car02_02.plist in Resources */,
-				BDE2875D1688B25300A20434 /* car02_02.png in Resources */,
-				BDE2875E1688B25300A20434 /* car02_03.plist in Resources */,
-				BDE2875F1688B25300A20434 /* car02_03.png in Resources */,
 				BDEA375B16892BFB00434D67 /* Default-Portrait~ipad.png in Resources */,
 				BDEA375D16892C0300434D67 /* Default-Portrait@2x~ipad.png in Resources */,
 				BDEA375F16892C0600434D67 /* Default-Landscape~ipad.png in Resources */,
@@ -2163,22 +2146,39 @@
 				BDEA376316892C0E00434D67 /* Default.png in Resources */,
 				BDEA376516892C1100434D67 /* Default@2x.png in Resources */,
 				BDEA376716892C1300434D67 /* Default-568h@2x.png in Resources */,
-				BDE9493316892E0E00CFD3E3 /* zoomIn.png in Resources */,
-				BDE9493416892E0E00CFD3E3 /* zoomOut.png in Resources */,
-				BDE9493B16892F1800CFD3E3 /* bg_c.png in Resources */,
-				BDE9493C16892F1800CFD3E3 /* bg_c@2x.png in Resources */,
-				BDE9493D16892F1800CFD3E3 /* bg_c@2x~ipad.png in Resources */,
-				BDE9493E16892F1800CFD3E3 /* bg_c~ipad.png in Resources */,
 				BDE949401689303600CFD3E3 /* LoadingViewController~ipad.xib in Resources */,
-				BD71D9171693043C00CD1102 /* path.png in Resources */,
 				BDC765711695E41800388F57 /* car_02_01_Run001.png in Resources */,
-				BDC7657D1695EA6100388F57 /* turtle_Open.plist in Resources */,
-				BDC7657E1695EA6100388F57 /* turtle_Open.png in Resources */,
-				BDC7657F1695EA6100388F57 /* turtle_Walk1.plist in Resources */,
-				BDC765801695EA6100388F57 /* turtle_Walk1.png in Resources */,
-				BDC765811695EA6100388F57 /* turtle_Walk2.plist in Resources */,
-				BDC765821695EA6100388F57 /* turtle_Walk2.png in Resources */,
 				BDC76588169609ED00388F57 /* RootViewController~ipad.xib in Resources */,
+				BD068E2C16995CE400145629 /* bg_c.png in Resources */,
+				BD068E2D16995CE400145629 /* bg_c@2x.png in Resources */,
+				BD068E2E16995CE400145629 /* bg_c@2x~ipad.png in Resources */,
+				BD068E2F16995CE400145629 /* bg_c~ipad.png in Resources */,
+				BD068E3016995CE400145629 /* car01_01.plist in Resources */,
+				BD068E3116995CE400145629 /* car01_02.plist in Resources */,
+				BD068E3216995CE400145629 /* car01_02.png in Resources */,
+				BD068E3316995CE400145629 /* car01_03.plist in Resources */,
+				BD068E3416995CE400145629 /* car01_03.png in Resources */,
+				BD068E3516995CE400145629 /* car02_01.plist in Resources */,
+				BD068E3616995CE400145629 /* car02_01.png in Resources */,
+				BD068E3716995CE400145629 /* car02_02.plist in Resources */,
+				BD068E3816995CE400145629 /* car02_02.png in Resources */,
+				BD068E3916995CE400145629 /* car02_03.plist in Resources */,
+				BD068E3A16995CE400145629 /* car02_03.png in Resources */,
+				BD068E3B16995CE400145629 /* path.png in Resources */,
+				BD068E3C16995CE400145629 /* restartButton01.png in Resources */,
+				BD068E3D16995CE400145629 /* restartButton02.png in Resources */,
+				BD068E3E16995CE400145629 /* restartMenu.png in Resources */,
+				BD068E3F16995CE400145629 /* restartMenu01_01.png in Resources */,
+				BD068E4016995CE400145629 /* restartMenu01_02.png in Resources */,
+				BD068E4116995CE400145629 /* restartMenu02_01.png in Resources */,
+				BD068E4216995CE400145629 /* turtle_Open.plist in Resources */,
+				BD068E4316995CE400145629 /* turtle_Open.png in Resources */,
+				BD068E4416995CE400145629 /* turtle_Walk1.plist in Resources */,
+				BD068E4516995CE400145629 /* turtle_Walk1.png in Resources */,
+				BD068E4616995CE400145629 /* turtle_Walk2.plist in Resources */,
+				BD068E4716995CE400145629 /* turtle_Walk2.png in Resources */,
+				BD068E4816995CE400145629 /* zoomIn.png in Resources */,
+				BD068E4916995CE400145629 /* zoomOut.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
