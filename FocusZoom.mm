@@ -71,58 +71,30 @@ FocusZoom*  _s_focusZoom    = nil;
 - (void) update:(float)dt;
 {
     BOOL isFocusing = NO;
-    BOOL isCarInBound   = YES;
     
     CGPoint cCarPoint   = [[Car getObject] getPosition];
-    CGPoint cCamPoint   = [[Camera getObject] getPoint];
-    CGSize winSize  = [CCDirector sharedDirector].winSize;
-    cCamPoint.x = -cCamPoint.x;
-    cCamPoint.y = -cCamPoint.y;
-    cCamPoint.x = cCamPoint.x + winSize.width*0.5f;
-    cCamPoint.y = cCamPoint.y + winSize.height*0.5f;
-    
-    float dx    = cCarPoint.x - cCamPoint.x;
-    float dy    = cCarPoint.y - cCamPoint.y;
-    
-    if ( dx < 0.0f )
-        dx  = -dx;
-    if ( dy < 0.0f )
-        dy  = -dy;
-    
-    //float expectPointDistance   = 420.0f;
-    float expectPointDistance   = 620.0f;
-    float cPointDistance        = dx + dy;
-    
-    if ( cPointDistance > expectPointDistance )
+
+    for ( int i=0; i<_focusPoint.size(); ++i )
     {
-        isCarInBound    = NO;
-    }
-    
-    if ( isCarInBound )
-    {
-        for ( int i=0; i<_focusPoint.size(); ++i )
+        CGPoint cFocusPoint = _focusPoint[i];
+        
+        float dx    = cFocusPoint.x - cCarPoint.x;
+        float dy    = cFocusPoint.y - cCarPoint.y;
+        
+        if ( dx < 0.0f )
+            dx  = -dx;
+        if ( dy < 0.0f )
+            dy  = -dy;
+        
+        float expectPointDistance = 800.0f;
+        float cPointDistance    = dx + dy;
+        
+        if ( cPointDistance <= expectPointDistance )
         {
-            CGPoint cFocusPoint = _focusPoint[i];
-            
-            float dx    = cFocusPoint.x - cCarPoint.x;
-            float dy    = cFocusPoint.y - cCarPoint.y;
-            
-            if ( dx < 0.0f )
-                dx  = -dx;
-            if ( dy < 0.0f )
-                dy  = -dy;
-            
-            float expectPointDistance = 1000.0f;
-            float cPointDistance    = dx + dy;
-            
-            if ( cPointDistance <= expectPointDistance )
-            {
-                isFocusing = YES;
-                _cFocusingIndex = i;
-            }
+            isFocusing = YES;
+            _cFocusingIndex = i;
         }
     }
-    
     _isFocusing = isFocusing;
 }
 

@@ -37,6 +37,8 @@
 		BD068E4716995CE400145629 /* turtle_Walk2.png in Resources */ = {isa = PBXBuildFile; fileRef = BD068E2916995CE400145629 /* turtle_Walk2.png */; };
 		BD068E4816995CE400145629 /* zoomIn.png in Resources */ = {isa = PBXBuildFile; fileRef = BD068E2A16995CE400145629 /* zoomIn.png */; };
 		BD068E4916995CE400145629 /* zoomOut.png in Resources */ = {isa = PBXBuildFile; fileRef = BD068E2B16995CE400145629 /* zoomOut.png */; };
+		BD068E4C1699782C00145629 /* win_flag.png in Resources */ = {isa = PBXBuildFile; fileRef = BD068E4B1699782C00145629 /* win_flag.png */; };
+		BD068E4E1699783700145629 /* start_sign.png in Resources */ = {isa = PBXBuildFile; fileRef = BD068E4D1699783700145629 /* start_sign.png */; };
 		BD0E18FF1665950100971528 /* CarAndCharViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD0E18FD1665950100971528 /* CarAndCharViewController.xib */; };
 		BD0E191A166597DB00971528 /* StartMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD0E1918166597DB00971528 /* StartMenuViewController.m */; };
 		BD1B83AA164B2469005950CB /* WindShield.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1B83A9164B2469005950CB /* WindShield.m */; };
@@ -436,6 +438,8 @@
 		BD068E2916995CE400145629 /* turtle_Walk2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = turtle_Walk2.png; path = Resources/turtle_Walk2.png; sourceTree = "<group>"; };
 		BD068E2A16995CE400145629 /* zoomIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = zoomIn.png; path = Resources/zoomIn.png; sourceTree = "<group>"; };
 		BD068E2B16995CE400145629 /* zoomOut.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = zoomOut.png; path = Resources/zoomOut.png; sourceTree = "<group>"; };
+		BD068E4B1699782C00145629 /* win_flag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = win_flag.png; path = Resources/win_flag.png; sourceTree = "<group>"; };
+		BD068E4D1699783700145629 /* start_sign.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = start_sign.png; path = Resources/start_sign.png; sourceTree = "<group>"; };
 		BD0E18FB1665950100971528 /* CarAndCharViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarAndCharViewController.h; sourceTree = "<group>"; };
 		BD0E18FD1665950100971528 /* CarAndCharViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CarAndCharViewController.xib; sourceTree = "<group>"; };
 		BD0E1917166597DB00971528 /* StartMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartMenuViewController.h; sourceTree = "<group>"; };
@@ -1127,6 +1131,8 @@
 		BD9AF9A6166B9FAE009988F9 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				BD068E4D1699783700145629 /* start_sign.png */,
+				BD068E4B1699782C00145629 /* win_flag.png */,
 				BD068E0E16995CE400145629 /* bg_c.png */,
 				BD068E0F16995CE400145629 /* bg_c@2x.png */,
 				BD068E1016995CE400145629 /* bg_c@2x~ipad.png */,
@@ -2179,6 +2185,8 @@
 				BD068E4716995CE400145629 /* turtle_Walk2.png in Resources */,
 				BD068E4816995CE400145629 /* zoomIn.png in Resources */,
 				BD068E4916995CE400145629 /* zoomOut.png in Resources */,
+				BD068E4C1699782C00145629 /* win_flag.png in Resources */,
+				BD068E4E1699783700145629 /* start_sign.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

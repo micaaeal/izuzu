@@ -63,20 +63,42 @@ CGPoint buttonPointArray[4];
             _s_object.comboListPointRef = CGPointMake(400.0f, 600.0f);
         }
         
-        _s_object.comboListSpace    = 70.0f;
-        _s_object.currentComboIndex = 0;
-        _s_object.currentEvent      = nil;
-        _s_object.comboTime         = 0.0f;
-        _s_object.comboSpriteArray  = [[NSMutableArray alloc] init];
-        _s_object.comboNumberArray  = [[NSMutableArray alloc] init];
-        _s_object.buttonSpriteArray = [[NSMutableArray alloc] init];
-        _s_object.comboButtonDict   = [[NSMutableDictionary alloc] init];
-        _s_object.delegate          = nil;
-        
         _s_object.hasAddResourcesToLayer    = NO;
     }
     
     return _s_object;
+}
+
+- (id) init
+{
+    self    = [super init];
+    if (self)
+    {
+        comboListSpace    = 70.0f;
+        currentComboIndex = 0;
+        currentEvent      = nil;
+        comboTime         = 0.0f;
+        comboSpriteArray  = [[NSMutableArray alloc] init];
+        comboNumberArray  = [[NSMutableArray alloc] init];
+        buttonSpriteArray = [[NSMutableArray alloc] init];
+        comboButtonDict   = [[NSMutableDictionary alloc] init];
+        delegate          = nil;
+    }
+    return self;
+}
+
+- (void) dealloc
+{
+    [comboSpriteArray release];
+    comboSpriteArray    = nil;
+    [comboNumberArray release];
+    comboNumberArray    = nil;
+    [buttonSpriteArray release];
+    buttonSpriteArray   = nil;
+    [comboButtonDict release];
+    comboButtonDict     = nil;
+    
+    [super dealloc];
 }
 
 - (void) LoadData

@@ -45,7 +45,12 @@ Score* _s_score   = nil;
     // order
     double gotOrder     = (double)_gotOrder;
     double totalOrder   = (double)_totalOrder;
-    double order = gotOrder / totalOrder;
+    double order    = 0;
+    if ( _totalOrder )
+    {
+        order   = gotOrder / totalOrder;
+    }
+
     
     // time
     double remainTime   = _missionTime - _driveTime;

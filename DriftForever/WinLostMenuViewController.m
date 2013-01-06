@@ -114,6 +114,11 @@
     {
         [_delegate onShare:self];
     }
+    
+    [missionScore release];
+    missionScore    = nil;
+    [missionCode release];
+    missionCode     = nil;
 }
 
 - (IBAction)onRestart:(id)sender {

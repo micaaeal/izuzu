@@ -201,6 +201,51 @@ World* _s_world = nil;
 
 - (void) dealloc
 {
+    // dealloc buffers
+    {
+        delete [] floor01_buffer;
+        floor01_buffer  = NULL;
+        delete [] floor02_buffer;
+        floor02_buffer  = NULL;
+        delete [] floor03_buffer;
+        floor03_buffer  = NULL;
+        delete [] floor04_buffer;
+        floor04_buffer  = NULL;
+        delete [] floor05_buffer;
+        floor05_buffer  = NULL;
+        delete [] floor06_buffer;
+        floor06_buffer  = NULL;
+        delete [] floor07_buffer;
+        floor07_buffer  = NULL;
+        
+        delete [] floor_up01_buffer;
+        floor_up01_buffer   = NULL;
+        delete [] floor_up02_buffer;
+        floor_up02_buffer   = NULL;
+        delete [] floor_up03_buffer;
+        floor_up03_buffer   = NULL;
+        
+        delete [] floor_grass_buffer;
+        floor_grass_buffer   = NULL;
+        
+        delete [] floor_high01_buffer;
+        floor_high01_buffer   = NULL;
+        delete [] floor_up03_buffer;
+        floor_up03_buffer   = NULL;
+        
+        delete [] floor_etc01_buffer;
+        floor_etc01_buffer   = NULL;
+        delete [] floor_etc02_buffer;
+        floor_etc02_buffer   = NULL;
+        delete [] floor_etc03_buffer;
+        floor_etc03_buffer   = NULL;
+        delete [] floor_etc04_buffer;
+        floor_etc04_buffer   = NULL;
+        delete [] floor_etc05_buffer;
+        floor_etc05_buffer   = NULL;
+        
+    }
+    
     [_pathSpriteArray release];
     _pathSpriteArray    = nil;
     screenBounds  = CGRectMake(0.0f, 0.0f, 0.0f, 0.0f);
@@ -1441,10 +1486,10 @@ World* _s_world = nil;
     [self _CreateBufferPoints:&floor_etc01_buffer fromSourcePointsSize:floor_etc01.size()];
     
     floor_etc02.clear();
-    floor_etc01.push_back(CGPointMake(	-	5740	,	1760	));
-    floor_etc01.push_back(CGPointMake(	-	6720	,	1760	));
-    floor_etc01.push_back(CGPointMake(	-	6720	,	2763	));
-    floor_etc01.push_back(CGPointMake(	-	5740	,	2763	));
+    floor_etc02.push_back(CGPointMake(	-	4230	,	4816	));
+    floor_etc02.push_back(CGPointMake(	-	5290	,	4816	));
+    floor_etc02.push_back(CGPointMake(	-	5290	,	5555	));
+    floor_etc02.push_back(CGPointMake(	-	4230	,	5555	));
     [self _CreateBufferPoints:&floor_etc02_buffer fromSourcePointsSize:floor_etc02.size()];
     
     floor_etc03.clear();

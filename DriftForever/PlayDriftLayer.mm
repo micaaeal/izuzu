@@ -29,6 +29,10 @@ using namespace std;
 static CCMenu*          _s_debugMenu    = NULL;
 static CCMenuItemFont*  _s_restartBtn   = NULL;
 
+static int _s_currentZoomLevel  = 0;
+static float _s_zoomLevel[]     = {0.19f, 0.31f, 0.6f};
+static int   _s_zoomLevelSize   = 3;
+
 @interface PlayDriftLayer()
 
 @property (retain) CCLayer*             _actionLayer;
@@ -94,6 +98,16 @@ PlayDriftLayer* _s_playDriftLayer   = nil;
 	// Apple recommends to re-assign "self" with the "super's" return value
 	if( (self=[super init]) )
     {
+        // in case of iPad
+        CGSize winSize  = [CCDirector sharedDirector].winSize;
+        if ( winSize.height > 767.999 & winSize.height < 768.001 )
+        {
+            // set zoom level
+            _s_zoomLevel[0]     = _s_zoomLevel[0] * 2.0f;
+            _s_zoomLevel[1]     = _s_zoomLevel[1] * 2.0f;
+            _s_zoomLevel[2]     = _s_zoomLevel[2] * 2.0f;
+        }
+        
         // set flags
         _isDebug            = NO;
         _isReadyToDrive     = NO;
@@ -312,10 +326,6 @@ PlayDriftLayer* _s_playDriftLayer   = nil;
         [_delegate onRestart:self];
     }
 }
-
-static int _s_currentZoomLevel  = 0;
-static float _s_zoomLevel[]     = {0.19f, 0.31f, 0.6f};
-static int   _s_zoomLevelSize   = 3;
 
 - (void) onZoomIn: (id) sender
 {

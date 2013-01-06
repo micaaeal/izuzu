@@ -111,6 +111,9 @@ float _deactivateEventDistance  = 350.0f;
         
         [_eventArray addObject:cEvent];
         ++cEventCode;
+        
+        [cEvent release];
+        cEvent  = nil;
     }
     
     // load sprite
@@ -129,6 +132,9 @@ float _deactivateEventDistance  = 350.0f;
     
     // load turtle
     [self _loadTurtle];
+    
+    [eventConfigArray release];
+    eventConfigArray    = nil;
 }
 
 - (void) onFinish

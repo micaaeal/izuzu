@@ -178,8 +178,25 @@ vector<TrEdge>      _edgeRoute;
     
     _camZoomTarget      = [[Camera getObject] getZoomX];
     _camZoomSpeed       = 0.3f;
-    _camZoomInMax       = 0.5;
-    _camZoomOutMax      = 0.2;
+    
+    // in case of iPad
+    BOOL isIPadSize = NO;
+    CGSize winSize  = [CCDirector sharedDirector].winSize;
+    if ( winSize.height > 767.999 & winSize.height < 768.001 )
+    {
+        isIPadSize  = YES;
+    }
+    
+    if ( isIPadSize )
+    {
+        _camZoomInMax       = 2.0;
+        _camZoomOutMax      = 0.8;
+    }
+    else
+    {
+        _camZoomInMax       = 0.5;
+        _camZoomOutMax      = 0.2;
+    }
 
     printf ("edge route");
     printf ("\n");
@@ -456,35 +473,60 @@ vector<TrEdge>      _edgeRoute;
             // get is focusing
             [[FocusZoom getObject] update:deltaTime];
             BOOL isFocusing = [[FocusZoom getObject] getIsFocusing];
-            
+
+            //*
+            static float s_lerpNorm   = 0.0f;
+            CGPoint carPoint    = [[Car getObject] getPosition];
             if ( ! isFocusing )
             {
+                CGPoint lerpPoint   = carPoint;
+                
                 // camera to the car
-                CGPoint camPoint    = [[Car getObject] getPosition];
                 CGSize winSize  = [[CCDirector sharedDirector] winSize];
+                CGPoint camPoint    = lerpPoint;
                 camPoint.x -= (winSize.width * 0.5f);
                 camPoint.y -= (winSize.height * 0.5f);
                 [[Camera getObject] setCameraToPoint:camPoint];
+                
+                // calc lerp value
+                s_lerpNorm  -= 0.5 * deltaTime;
+                if ( s_lerpNorm < 0.0f )
+                    s_lerpNorm  = 0.0f;
             }
             else
             {
-                CGPoint cCarPoint   = [[Car getObject] getPosition];
-
                 CGPoint cFocusPoint = [[FocusZoom getObject] getFocusingPoint];
+                CGPoint expectedPoint   = CGPointMake( ( ( cFocusPoint.x - carPoint.x ) * 0.5f ) + carPoint.x ,
+                                                       ( ( cFocusPoint.y - carPoint.y ) * 0.5f ) + carPoint.y );
                 
-                CGPoint focusToCarVec   = CGPointMake(cCarPoint.x-cFocusPoint.x,
-                                                      cCarPoint.y-cFocusPoint.y);
-                float focusToCarLength    = sqrtf(focusToCarVec.x*focusToCarVec.x+
-                                                  focusToCarVec.y*focusToCarVec.y);
-                CGPoint focusToCarNormal  = CGPointMake(focusToCarVec.x/focusToCarLength,
-                                                        focusToCarVec.y/focusToCarLength);
+                // LERP point
+                float dx    = expectedPoint.x - carPoint.x;
+                float dy    = expectedPoint.y - carPoint.y;
                 
-                CGPoint focusToCarExpectPoint   = CGPointMake(focusToCarNormal.x*focusToCarLength*0.8,
-                                                              focusToCarNormal.y*focusToCarLength*0.8);
-                focusToCarExpectPoint   = CGPointMake(focusToCarExpectPoint.x+cFocusPoint.x,
-                                                      focusToCarExpectPoint.y+cFocusPoint.y);
-            
-                [[Camera getObject] setCameraToPoint:focusToCarExpectPoint];
+                float length    = sqrtf(dx*dx + dy*dy);
+                
+                float xNorm     = dx / length;
+                float yNorm     = dy / length;
+                
+                float lerpLength    = length * s_lerpNorm;
+                
+                float xLength   = xNorm * lerpLength;
+                float yLength   = yNorm * lerpLength;
+                
+                CGPoint lerpPoint   = CGPointMake(xLength + carPoint.x,
+                                                  yLength + carPoint.y );
+                
+                // manipulate last position
+                CGSize winSize      = [[CCDirector sharedDirector] winSize];
+                CGPoint camPoint    = lerpPoint;
+                camPoint.x -= (winSize.width * 0.5f);
+                camPoint.y -= (winSize.height * 0.5f);
+                [[Camera getObject] setCameraToPoint:camPoint];
+
+                // calc lerp valie
+                s_lerpNorm  += 0.2 * deltaTime;
+                if ( s_lerpNorm > 1.0f )
+                    s_lerpNorm  = 1.0f;
             }
             
             // Draging and time
@@ -715,7 +757,8 @@ vector<TrEdge>      _edgeRoute;
         {
             isNeedCheckOvershoot    = NO;
         }
-        else
+        
+        if ( isNeedCheckOvershoot )
         {
             // ..
             int id_01 = _cSubPointId - 1;

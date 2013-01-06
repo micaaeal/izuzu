@@ -471,14 +471,12 @@ enum STATE_SELECT_ROUTE
         }
         
         // is this path already has route
-        BOOL alreadyHasRoute    = NO;
         vector<TrVertex> vertexRoute    = cRouteGraph.GetVertexRoute();
         for (int cv=0; cv<vertexRoute.size(); ++cv)
         {
             TrVertex cVertex    = vertexRoute[cv];
             if ( cVertex.vertexId == cConnectedVertexId )
             {
-                alreadyHasRoute = YES;
                 break;
             }
         }

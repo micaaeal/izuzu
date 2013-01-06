@@ -498,7 +498,7 @@ enum PICK_UP_STATE {
         {
             [_carSprite setOpacity:255];
         }
-     
+        
         _blinkTimeRemained -= deltaTime;
         if ( _blinkTimeRemained <= 0.00001 )
         {
@@ -860,6 +860,11 @@ enum PICK_UP_STATE {
                                @"car02_01",
                                nil];
     
+    if ( _carAnimNameArray )
+    {
+        [_carAnimNameArray release];
+        _carAnimNameArray   = nil;
+    }
     _carAnimNameArray   = [[NSArray alloc] initWithObjects:
                                @"EmptyAct01", @"EmptyAct02", @"EmptyAct03", @"EmptyAct04",
                                @"BoxAct01", @"BoxAct02", @"BoxAct03", @"BoxAct04",
@@ -928,7 +933,13 @@ enum PICK_UP_STATE {
         
         // add car anim dict to array
         [_carAnimArray addObject:cCarAnimDict];
+        
+        [cCarAnimDict release];
+        cCarAnimDict    = nil;
     }
+    
+    [carNameArray release];
+    carNameArray    = nil;
 }
 
 @end
