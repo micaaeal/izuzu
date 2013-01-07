@@ -71,6 +71,7 @@
     NSString* missionScore  = [[NSString alloc] initWithFormat:@"%ld", [[Score getObject] calculateScore]];
     NSString *message = [NSString stringWithFormat:@"I got %@ for mission %@", missionScore, missionCode];
     
+    
     // post wall for iOS 6
     if ( [[UIDevice currentDevice].systemVersion floatValue] >= 5.99999 )
     {

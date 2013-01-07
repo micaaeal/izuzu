@@ -70,7 +70,7 @@ Camera* _object = nil;
 {
     // move camera
     _layerRefPoint  = CGPointMake(-point.x, -point.y);
-
+    
     // set zoom
     [_object zoomTo:_object._zoomX];
 }
