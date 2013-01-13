@@ -266,39 +266,47 @@ World* _s_world = nil;
     [super dealloc];
 }
 
-- (BOOL) LoadData
+- (BOOL) LoadRoads
 {
-    // ----------------------------------------------------------------
-    // load road config file
-    NSString* roadConfigFullPath    = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:@"road_config.plist"];
-    NSArray* roadConfigArray    = [[NSArray alloc] initWithContentsOfFile:roadConfigFullPath];
-    
-    // load road to memory
-    for ( int i=roadConfigArray.count-1; i>=0; --i )
+    // texure allias loading technique
+    // load roads
     {
-        NSDictionary* cRoadDict = [roadConfigArray objectAtIndex:i];
+        // road plist, and road img
+        CCSpriteFrameCache* frameCache  = [CCSpriteFrameCache sharedSpriteFrameCache];
+        NSString* pListStr  = [[NSString alloc] initWithFormat:@"roads.plist"];
+        NSString* textureStr    = [[NSString alloc] initWithFormat:@"roads.png"];
+        [frameCache addSpriteFramesWithFile:pListStr textureFilename:textureStr];
+        [textureStr release];
+        textureStr    = nil;
+        [pListStr release]; pListStr    = nil;
         
-        NSString* file_name = [cRoadDict objectForKey:@"file_name"];
-        NSString* x         = [cRoadDict objectForKey:@"x"];
-        NSString* y         = [cRoadDict objectForKey:@"y"];
-        NSString* rotation  = [cRoadDict objectForKey:@"rotation"];
+        // road sprite
+        NSString* roadConfigFullPath    = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:@"road_config.plist"];
+        NSArray* roadConfigArray    = [[NSArray alloc] initWithContentsOfFile:roadConfigFullPath];
         
-        CCSprite* cSprite   = [CCSprite spriteWithFile:file_name];
-        if ( ! cSprite )
+        for ( int i=roadConfigArray.count-1; i>=0; --i )
         {
-            printf ("null image with name: %s", [file_name UTF8String]);
-            printf ("\n");
-        }
-        else
-        {
-            cSprite.position    = ccp( x.floatValue, y.floatValue );
-            [cSprite setRotation:rotation.floatValue];
-            [roadArray addObject:cSprite];   
+            NSDictionary* cRoadDict = [roadConfigArray objectAtIndex:i];
+            
+            NSString* file_name = [cRoadDict objectForKey:@"file_name"];
+            NSString* x         = [cRoadDict objectForKey:@"x"];
+            NSString* y         = [cRoadDict objectForKey:@"y"];
+            NSString* rotation  = [cRoadDict objectForKey:@"rotation"];
+            
+            CCSprite* cSprite   = [CCSprite spriteWithSpriteFrameName:file_name];
+            if ( ! cSprite )
+            {
+                printf ("null image with name: %s", [file_name UTF8String]);
+                printf ("\n");
+            }
+            else
+            {
+                cSprite.position    = ccp( x.floatValue, y.floatValue );
+                [cSprite setRotation:rotation.floatValue];
+                [roadArray addObject:cSprite];
+            }
         }
     }
-    
-    [roadConfigArray release];
-    roadConfigArray = nil;
     
     // adjustment
     for (CCSprite* cSprite in roadArray)
@@ -315,7 +323,34 @@ World* _s_world = nil;
         [cSprite setScale:cSpriteScale];
     }
     
+    return YES;
+}
+
+- (BOOL) LoadBuilings
+{
     // ----------------------------------------------------------------
+    // load buildings
+    {
+        // road plist, and road img
+        CCSpriteFrameCache* frameCache  = [CCSpriteFrameCache sharedSpriteFrameCache];
+        NSString* pListStr  = [[NSString alloc] initWithFormat:@"buildings_01.plist"];
+        NSString* textureStr    = [[NSString alloc] initWithFormat:@"buildings_01.png"];
+        [frameCache addSpriteFramesWithFile:pListStr textureFilename:textureStr];
+        [textureStr release];
+        textureStr    = nil;
+        [pListStr release]; pListStr    = nil;
+    }
+    {
+        // road plist, and road img
+        CCSpriteFrameCache* frameCache  = [CCSpriteFrameCache sharedSpriteFrameCache];
+        NSString* pListStr  = [[NSString alloc] initWithFormat:@"buildings_02.plist"];
+        NSString* textureStr    = [[NSString alloc] initWithFormat:@"buildings_02.png"];
+        [frameCache addSpriteFramesWithFile:pListStr textureFilename:textureStr];
+        [textureStr release];
+        textureStr    = nil;
+        [pListStr release]; pListStr    = nil;
+    }
+    
     // load trees
     CGPoint treePoints[]    = {
         CGPointMake(	3036	,	-	548	),
@@ -355,7 +390,7 @@ World* _s_world = nil;
         treePoint.x += 50.0f;
         treePoint.y -= 200.0f;
         treePoint               = [UtilVec convertVecIfRetina:treePoint];
-        CCSprite* treeSprite    = [CCSprite spriteWithFile:@"tree.png"];
+        CCSprite* treeSprite    = [CCSprite spriteWithSpriteFrameName:@"tree.png"];
         [treeArray addObject:treeSprite];
         [treeSprite setPosition:treePoint];
         CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:treeSprite.scale];
@@ -370,7 +405,7 @@ World* _s_world = nil;
         buildingPoint.x += buildingOffset.x;
         buildingPoint.y += buildingOffset.y;
         buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-        CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build01.png"];
+        CCSprite* buildingSprite    = [CCSprite spriteWithSpriteFrameName:@"build01.png"];
         [buildingArray addObject:buildingSprite];
         CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
         [buildingSprite setScale:cSpriteScale];
@@ -383,7 +418,7 @@ World* _s_world = nil;
         buildingPoint.x += buildingOffset.x;
         buildingPoint.y += buildingOffset.y;
         buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-        CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build02.png"];
+        CCSprite* buildingSprite    = [CCSprite spriteWithSpriteFrameName:@"build02.png"];
         [buildingArray addObject:buildingSprite];
         CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
         [buildingSprite setScale:cSpriteScale];
@@ -396,7 +431,7 @@ World* _s_world = nil;
         buildingPoint.x += buildingOffset.x;
         buildingPoint.y += buildingOffset.y;
         buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-        CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build03.png"];
+        CCSprite* buildingSprite    = [CCSprite spriteWithSpriteFrameName:@"build03.png"];
         [buildingArray addObject:buildingSprite];
         CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
         [buildingSprite setScale:cSpriteScale];
@@ -409,7 +444,7 @@ World* _s_world = nil;
         buildingPoint.x += buildingOffset.x;
         buildingPoint.y += buildingOffset.y;
         buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-        CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build04.png"];
+        CCSprite* buildingSprite    = [CCSprite spriteWithSpriteFrameName:@"build04.png"];
         [buildingArray addObject:buildingSprite];
         CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
         [buildingSprite setScale:cSpriteScale];
@@ -437,7 +472,7 @@ World* _s_world = nil;
             buildingPoint.x += buildingOffset.x;
             buildingPoint.y += buildingOffset.y;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build05.png"];
+            CCSprite* buildingSprite    = [CCSprite spriteWithSpriteFrameName:@"build05.png"];
             [buildingArray addObject:buildingSprite];
             CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
             [buildingSprite setScale:cSpriteScale];
@@ -457,7 +492,7 @@ World* _s_world = nil;
             buildingPoint.x += buildingOffset.x;
             buildingPoint.y += buildingOffset.y;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build06.png"];
+            CCSprite* buildingSprite    = [CCSprite spriteWithSpriteFrameName:@"build06.png"];
             [buildingArray addObject:buildingSprite];
             CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
             [buildingSprite setScale:cSpriteScale];
@@ -476,7 +511,7 @@ World* _s_world = nil;
             buildingPoint.x += buildingOffset.x;
             buildingPoint.y += buildingOffset.y;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build07.png"];
+            CCSprite* buildingSprite    = [CCSprite spriteWithSpriteFrameName:@"build07.png"];
             [buildingArray addObject:buildingSprite];
             CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
             [buildingSprite setScale:cSpriteScale];
@@ -494,7 +529,7 @@ World* _s_world = nil;
             buildingPoint.x += buildingOffset.x;
             buildingPoint.y += buildingOffset.y;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build08.png"];
+            CCSprite* buildingSprite    = [CCSprite spriteWithSpriteFrameName:@"build08.png"];
             [buildingArray addObject:buildingSprite];
             CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
             [buildingSprite setScale:cSpriteScale];
@@ -515,7 +550,7 @@ World* _s_world = nil;
             buildingPoint.x += buildingOffset.x;
             buildingPoint.y += buildingOffset.y;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build09.png"];
+            CCSprite* buildingSprite    = [CCSprite spriteWithSpriteFrameName:@"build09.png"];
             [buildingArray addObject:buildingSprite];
             CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
             [buildingSprite setScale:cSpriteScale];
@@ -533,7 +568,7 @@ World* _s_world = nil;
             buildingPoint.x += buildingOffset.x;
             buildingPoint.y += buildingOffset.y;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build10.png"];
+            CCSprite* buildingSprite    = [CCSprite spriteWithSpriteFrameName:@"build10.png"];
             [buildingArray addObject:buildingSprite];
             CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
             [buildingSprite setScale:cSpriteScale];
@@ -552,7 +587,7 @@ World* _s_world = nil;
             buildingPoint.x += buildingOffset.x;
             buildingPoint.y += buildingOffset.y;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build11.png"];
+            CCSprite* buildingSprite    = [CCSprite spriteWithSpriteFrameName:@"build11.png"];
             [buildingArray addObject:buildingSprite];
             CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
             [buildingSprite setScale:cSpriteScale];
@@ -570,7 +605,7 @@ World* _s_world = nil;
             buildingPoint.x += buildingOffset.x;
             buildingPoint.y += buildingOffset.y;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build12.png"];
+            CCSprite* buildingSprite    = [CCSprite spriteWithSpriteFrameName:@"build12.png"];
             [buildingArray addObject:buildingSprite];
             CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
             [buildingSprite setScale:cSpriteScale];
@@ -589,7 +624,7 @@ World* _s_world = nil;
             buildingPoint.x += buildingOffset.x;
             buildingPoint.y += buildingOffset.y;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build13.png"];
+            CCSprite* buildingSprite    = [CCSprite spriteWithSpriteFrameName:@"build13.png"];
             [buildingArray addObject:buildingSprite];
             CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
             [buildingSprite setScale:cSpriteScale];
@@ -607,7 +642,7 @@ World* _s_world = nil;
             buildingPoint.x += buildingOffset.x;
             buildingPoint.y += buildingOffset.y;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build14.png"];
+            CCSprite* buildingSprite    = [CCSprite spriteWithSpriteFrameName:@"build14.png"];
             [buildingArray addObject:buildingSprite];
             CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
             [buildingSprite setScale:cSpriteScale];
@@ -625,7 +660,7 @@ World* _s_world = nil;
             buildingPoint.x += buildingOffset.x;
             buildingPoint.y += buildingOffset.y;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build15.png"];
+            CCSprite* buildingSprite    = [CCSprite spriteWithSpriteFrameName:@"build15.png"];
             [buildingArray addObject:buildingSprite];
             CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
             [buildingSprite setScale:cSpriteScale];
@@ -661,7 +696,7 @@ World* _s_world = nil;
             buildingPoint.x += buildingOffset.x;
             buildingPoint.y += buildingOffset.y;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"build17.png"];
+            CCSprite* buildingSprite    = [CCSprite spriteWithSpriteFrameName:@"build17.png"];
             [buildingArray addObject:buildingSprite];
             CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
             [buildingSprite setScale:cSpriteScale];
@@ -689,7 +724,7 @@ World* _s_world = nil;
             buildingPoint.x += buildingOffset.x;
             buildingPoint.y += buildingOffset.y;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"prob01.png"];
+            CCSprite* buildingSprite    = [CCSprite spriteWithSpriteFrameName:@"prob01.png"];
             [probArray addObject:buildingSprite];
             CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
             [buildingSprite setScale:cSpriteScale];
@@ -712,7 +747,7 @@ World* _s_world = nil;
             buildingPoint.x += buildingOffset.x;
             buildingPoint.y += buildingOffset.y;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"prob02.png"];
+            CCSprite* buildingSprite    = [CCSprite spriteWithSpriteFrameName:@"prob02.png"];
             [probArray addObject:buildingSprite];
             CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
             [buildingSprite setScale:cSpriteScale];
@@ -734,7 +769,7 @@ World* _s_world = nil;
             buildingPoint.x += buildingOffset.x;
             buildingPoint.y += buildingOffset.y;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"prob04.png"];
+            CCSprite* buildingSprite    = [CCSprite spriteWithSpriteFrameName:@"prob04.png"];
             [probArray addObject:buildingSprite];
             CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
             [buildingSprite setScale:cSpriteScale];
@@ -773,7 +808,7 @@ World* _s_world = nil;
             buildingPoint.x += buildingOffset.x;
             buildingPoint.y += buildingOffset.y;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"prob05.png"];
+            CCSprite* buildingSprite    = [CCSprite spriteWithSpriteFrameName:@"prob05.png"];
             [probArray addObject:buildingSprite];
             CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
             [buildingSprite setScale:cSpriteScale];
@@ -791,7 +826,7 @@ World* _s_world = nil;
             buildingPoint.x += buildingOffset.x;
             buildingPoint.y += buildingOffset.y;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"prob06.png"];
+            CCSprite* buildingSprite    = [CCSprite spriteWithSpriteFrameName:@"prob06.png"];
             [probArray addObject:buildingSprite];
             CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
             [buildingSprite setScale:cSpriteScale];
@@ -809,7 +844,7 @@ World* _s_world = nil;
             buildingPoint.x += buildingOffset.x;
             buildingPoint.y += buildingOffset.y;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"prob07.png"];
+            CCSprite* buildingSprite    = [CCSprite spriteWithSpriteFrameName:@"prob07.png"];
             [probArray addObject:buildingSprite];
             CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
             [buildingSprite setScale:cSpriteScale];
@@ -829,7 +864,7 @@ World* _s_world = nil;
             buildingPoint.x += buildingOffset.x;
             buildingPoint.y += buildingOffset.y;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"rail.png"];
+            CCSprite* buildingSprite    = [CCSprite spriteWithSpriteFrameName:@"rail.png"];
             [probArray addObject:buildingSprite];
             CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
             [buildingSprite setScale:cSpriteScale];
@@ -847,7 +882,7 @@ World* _s_world = nil;
             buildingPoint.x += buildingOffset.x;
             buildingPoint.y += buildingOffset.y;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"targetA.png"];
+            CCSprite* buildingSprite    = [CCSprite spriteWithSpriteFrameName:@"targetA.png"];
             [probArray addObject:buildingSprite];
             CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
             [buildingSprite setScale:cSpriteScale];
@@ -865,7 +900,7 @@ World* _s_world = nil;
             buildingPoint.x += buildingOffset.x;
             buildingPoint.y += buildingOffset.y;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"targetB.png"];
+            CCSprite* buildingSprite    = [CCSprite spriteWithSpriteFrameName:@"targetB.png"];
             [probArray addObject:buildingSprite];
             CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
             [buildingSprite setScale:cSpriteScale];
@@ -883,7 +918,7 @@ World* _s_world = nil;
             buildingPoint.x += buildingOffset.x;
             buildingPoint.y += buildingOffset.y;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"targetC.png"];
+            CCSprite* buildingSprite    = [CCSprite spriteWithSpriteFrameName:@"targetC.png"];
             [probArray addObject:buildingSprite];
             CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
             [buildingSprite setScale:cSpriteScale];
@@ -901,7 +936,7 @@ World* _s_world = nil;
             buildingPoint.x += buildingOffset.x;
             buildingPoint.y += buildingOffset.y;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"targetD.png"];
+            CCSprite* buildingSprite    = [CCSprite spriteWithSpriteFrameName:@"targetD.png"];
             [probArray addObject:buildingSprite];
             CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
             [buildingSprite setScale:cSpriteScale];
@@ -919,7 +954,7 @@ World* _s_world = nil;
             buildingPoint.x += buildingOffset.x;
             buildingPoint.y += buildingOffset.y;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"targetE.png"];
+            CCSprite* buildingSprite    = [CCSprite spriteWithSpriteFrameName:@"targetE.png"];
             [probArray addObject:buildingSprite];
             CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
             [buildingSprite setScale:cSpriteScale];
@@ -948,7 +983,7 @@ World* _s_world = nil;
             buildingPoint.x += buildingOffset.x;
             buildingPoint.y += buildingOffset.y;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"tent01.png"];
+            CCSprite* buildingSprite    = [CCSprite spriteWithSpriteFrameName:@"tent01.png"];
             [probArray addObject:buildingSprite];
             CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
             [buildingSprite setScale:cSpriteScale];
@@ -971,7 +1006,7 @@ World* _s_world = nil;
             buildingPoint.x += buildingOffset.x;
             buildingPoint.y += buildingOffset.y;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"tent02.png"];
+            CCSprite* buildingSprite    = [CCSprite spriteWithSpriteFrameName:@"tent02.png"];
             [probArray addObject:buildingSprite];
             CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
             [buildingSprite setScale:cSpriteScale];
@@ -994,7 +1029,7 @@ World* _s_world = nil;
             buildingPoint.x += buildingOffset.x;
             buildingPoint.y += buildingOffset.y;
             buildingPoint               = [UtilVec convertVecIfRetina:buildingPoint];
-            CCSprite* buildingSprite    = [CCSprite spriteWithFile:@"tent03.png"];
+            CCSprite* buildingSprite    = [CCSprite spriteWithSpriteFrameName:@"tent03.png"];
             [probArray addObject:buildingSprite];
             CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:buildingSprite.scale];
             [buildingSprite setScale:cSpriteScale];
@@ -1029,7 +1064,7 @@ World* _s_world = nil;
     
     if ( hasAddResourcesToLayer )
         return NO;
-    
+    //*
     // road
     for ( CCSprite* cSprite in roadArray )
     {
@@ -1060,7 +1095,7 @@ World* _s_world = nil;
     {
         [layer addChild:cSprite];
     }
-    
+    /**/
     
     // set layer ref
     _layer   = layer;

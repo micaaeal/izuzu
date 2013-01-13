@@ -1884,10 +1884,6 @@
 	</dict>
 	<dict>
 		<key>file_name</key>
-		<string>(null).png</string>
-	</dict>
-	<dict>
-		<key>file_name</key>
 		<string>road02.png</string>
 		<key>rotation</key>
 		<string>0</string>
@@ -1955,16 +1951,6 @@
 		<string>2626.00</string>
 		<key>y</key>
 		<string>2273.50</string>
-	</dict>
-	<dict>
-		<key>file_name</key>
-		<string>NAME.png</string>
-		<key>rotation</key>
-		<string>ROTATION</string>
-		<key>x</key>
-		<string>X</string>
-		<key>y</key>
-		<string>Y</string>
 	</dict>
 </array>
 </plist>

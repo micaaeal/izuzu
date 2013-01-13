@@ -151,8 +151,8 @@ static Mission* _s_mission  = nil;
     }
     {
         MissionProfile* cMissionProfile = [[MissionProfile alloc] init];
-        cMissionProfile.startVertexCode = 30;
-        cMissionProfile.endVertexCode   = 0;
+        cMissionProfile.startVertexCode = 29;
+        cMissionProfile.endVertexCode   = 30;
         [_missionArray addObject:cMissionProfile];
         cMissionProfile.missionTime = 10.0;
         [cMissionProfile release];
@@ -251,6 +251,8 @@ static Mission* _s_mission  = nil;
         CCSprite* cSprite   = [_orderSpriteArray objectAtIndex:i];
         [_currentLayer removeChild:cSprite cleanup:YES];
     }
+    
+    [_orderSpriteArray removeAllObjects];
 }
 
 - (void) HideBoxSpriteFromMapLayerByPosition: (CGPoint) position

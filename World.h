@@ -15,7 +15,8 @@ class RouteGraph;
 
 + (World*) getObject;
 
-- (BOOL) LoadData;
+- (BOOL) LoadRoads;
+- (BOOL) LoadBuilings;
 - (BOOL) UnloadData;
 
 - (BOOL) AssignDataToLayer: (CCLayer*) layer withMission: (Mission*) mission;

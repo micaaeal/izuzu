@@ -153,12 +153,12 @@
         if ( genderCode == GENDER_MALE )
         {
             [_imgCharacter setImage:[UIImage imageNamed:@"man02.png"]];
-            [_imgBg setImage:[UIImage imageNamed:@"resultBG01.png"]];
+            [_imgBg setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"resultBG01.png"]]];
         }
         else
         {
             [_imgCharacter setImage:[UIImage imageNamed:@"woman02.png"]];
-            [_imgBg setImage:[UIImage imageNamed:@"resultBG02.png"]];
+            [_imgBg setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"resultBG02.png"]]];
         }
     }
     else
@@ -176,7 +176,7 @@
             [_imgCharacter setImage:[UIImage imageNamed:@"woman03.png"]];
         }
         
-        [_imgBg setImage:[UIImage imageNamed:@"resultBG03.png"]];
+        [_imgBg setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"resultBG03.png"]]];
     }
 
     if ( ! isWin )

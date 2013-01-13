@@ -16,9 +16,18 @@
 
 @interface LoadingViewController ()
 
-@property (assign) float loadingTimeMin;
+@property (assign) float loadingTimeGap;
 
+- (void) _onLoadTextureInDelay;
 - (void) _onFinishLoadingLayer;
+
+
+- (void) _onLoadTextureSequence_01;
+- (void) _onLoadTextureSequence_02;
+- (void) _onLoadTextureSequence_03;
+- (void) _onLoadTextureSequence_04;
+- (void) _onLoadTextureSequence_05;
+- (void) _onLoadTextureSequence_06;
 
 @end
 
@@ -38,7 +47,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    _loadingTimeMin = 1.5f;
+    _loadingTimeGap = 0.01f;
 }
 
 - (void)didReceiveMemoryWarning
@@ -55,33 +64,109 @@
 
 - (void) initDataByHandWithOption: (BOOL) isResume
 {
-    NSDate* date01   = [NSDate date];
     if ( ! isResume )
     {
-        // Load resources
-        [[World getObject] LoadData];
-        [[Car getObject] LoadData];
-        [[Mission getObject] loadData];
-        [[Console getObject] LoadData];
-        [[ComboPlayer getObject] LoadData];
+        [NSTimer scheduledTimerWithTimeInterval:0.01f
+                                         target:self
+                                       selector:@selector(_onLoadTextureInDelay)
+                                       userInfo:nil
+                                        repeats:NO];
     }
-    NSDate* date02  = [NSDate date];
-    
-    NSTimeInterval deltaTime    = date02.timeIntervalSince1970 - date01.timeIntervalSince1970;
-
-    NSTimeInterval timeDelayAdd = _loadingTimeMin - deltaTime;
-    
-    if ( timeDelayAdd < 0.0f )
-        timeDelayAdd    = 0.0f;
-    
-    [NSTimer scheduledTimerWithTimeInterval:_loadingTimeMin
-                                     target:self
-                                   selector:@selector(_onFinishLoadingLayer)
-                                   userInfo:nil
-                                    repeats:NO];
+    else
+    {
+        [NSTimer scheduledTimerWithTimeInterval:_loadingTimeGap
+                                         target:self
+                                       selector:@selector(_onFinishLoadingLayer)
+                                       userInfo:nil
+                                        repeats:NO];
+    }
 }
 
 #pragma mark - PIMPL
+
+- (void) _onLoadTextureInDelay
+{
+    /* // load all textures in 1 frame
+    [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGB5A1];
+    [[World getObject] LoadRoads];
+    [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGBA8888];
+    [[World getObject] LoadBuilings];
+    [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGB5A1];
+    [[Car getObject] LoadData];
+    [[Mission getObject] loadData];
+    [[Console getObject] LoadData];
+    [[ComboPlayer getObject] LoadData];
+    
+    // notify UI
+    [self _onFinishLoadingLayer];
+    /*/ // load textures separate frames
+    [NSTimer scheduledTimerWithTimeInterval:_loadingTimeGap
+                                     target:self
+                                   selector:@selector(_onLoadTextureSequence_01)
+                                   userInfo:nil
+                                    repeats:NO];
+    /**/
+}
+
+- (void) _onLoadTextureSequence_01
+{
+    [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGB5A1];
+    [[World getObject] LoadRoads];
+    
+    [NSTimer scheduledTimerWithTimeInterval:_loadingTimeGap
+                                     target:self
+                                   selector:@selector(_onLoadTextureSequence_02)
+                                   userInfo:nil
+                                    repeats:NO];
+}
+- (void) _onLoadTextureSequence_02
+{
+    [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGBA8888];
+    [[World getObject] LoadBuilings];
+    
+    [NSTimer scheduledTimerWithTimeInterval:_loadingTimeGap
+                                     target:self
+                                   selector:@selector(_onLoadTextureSequence_03)
+                                   userInfo:nil
+                                    repeats:NO];
+}
+- (void) _onLoadTextureSequence_03
+{
+    [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGB5A1];
+    [[Car getObject] LoadData];
+    
+    [NSTimer scheduledTimerWithTimeInterval:_loadingTimeGap
+                                     target:self
+                                   selector:@selector(_onLoadTextureSequence_04)
+                                   userInfo:nil
+                                    repeats:NO];
+}
+- (void) _onLoadTextureSequence_04
+{
+    [[Mission getObject] loadData];
+    
+    [NSTimer scheduledTimerWithTimeInterval:_loadingTimeGap
+                                     target:self
+                                   selector:@selector(_onLoadTextureSequence_05)
+                                   userInfo:nil
+                                    repeats:NO];
+}
+- (void) _onLoadTextureSequence_05
+{
+    [[Console getObject] LoadData];
+    
+    [NSTimer scheduledTimerWithTimeInterval:_loadingTimeGap
+                                     target:self
+                                   selector:@selector(_onLoadTextureSequence_06)
+                                   userInfo:nil
+                                    repeats:NO];
+}
+- (void) _onLoadTextureSequence_06
+{
+    [[ComboPlayer getObject] LoadData];
+    
+    [self _onFinishLoadingLayer];
+}
 
 - (void) _onFinishLoadingLayer
 {
