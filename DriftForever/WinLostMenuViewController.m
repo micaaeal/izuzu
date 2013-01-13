@@ -11,6 +11,7 @@
 #import "Mission.h"
 
 #import "Score.h"
+#import "SaveLoadData.h"
 
 #import <FacebookSDK/FacebookSDK.h>
 #import "social/Social.h"
@@ -70,7 +71,6 @@
     NSString* missionCode   = [[NSString alloc] initWithFormat:@"%d", [[Mission getObject] getCurrentMissionCode]];
     NSString* missionScore  = [[NSString alloc] initWithFormat:@"%ld", [[Score getObject] calculateScore]];
     NSString *message = [NSString stringWithFormat:@"I got %@ for mission %@", missionScore, missionCode];
-    
     
     // post wall for iOS 6
     if ( [[UIDevice currentDevice].systemVersion floatValue] >= 5.99999 )
@@ -160,6 +160,17 @@
             [_imgCharacter setImage:[UIImage imageNamed:@"woman02.png"]];
             [_imgBg setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"resultBG02.png"]]];
         }
+        
+        // write level data
+        NSString* missionCode   = [[NSString alloc] initWithFormat:@"%d", [[Mission getObject] getCurrentMissionCode]];
+        NSString* missionScore  = [[NSString alloc] initWithFormat:@"%ld", [[Score getObject] calculateScore]];
+        
+        NSDictionary* cLevelDict    = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                       missionScore, @"mission_score",
+                                       nil];
+        [[SaveLoadData getObject] SaveLevelData:cLevelDict andKey:missionCode];
+        [cLevelDict release];
+        cLevelDict  = nil;
     }
     else
     {
@@ -207,6 +218,7 @@
     [_txtScore release];
     [super dealloc];
 }
+
 - (void)viewDidUnload {
     [self setImgCharacter:nil];
     [self setImgWinLabel:nil];

@@ -217,7 +217,7 @@ vector<TrEdge>      _edgeRoute;
     [[WindShield getObject] clearAllVisionBarrier];
     
     // set init state
-    _currentState   = STATE_DRIVE_CAR_NONE;
+    _currentState   = STATE_DRIVE_CAR_START;
 }
 
 - (void) onFinish
@@ -266,6 +266,7 @@ vector<TrEdge>      _edgeRoute;
             [[Score getObject] setGotOrder:cGotOrder];
             
             _currentState   = STATE_DRIVE_CAR_LOAD_ROUTE;
+            [self onUpdate:0.0f];
         }
             break;
         case STATE_DRIVE_CAR_LOAD_ROUTE:
@@ -330,15 +331,14 @@ vector<TrEdge>      _edgeRoute;
             _cSubPointId    = 0;
             _cDistanceToMoveNextFrame    = 0.0f;
             
-            _currentState   = STATE_DRIVE_CAR_DRIVE_CAR_LERP;
             _carMovedDistance   = 0.0f;
             
-            // Car
-            [[Car getObject] showCar];
             
             // Init fuel
             [[Console getObject] SetFuelNorm:1.0f];
             
+            _currentState   = STATE_DRIVE_CAR_DRIVE_CAR_LERP;
+            [self onUpdate:0.0];
         }
             break;
         case STATE_DRIVE_CAR_DRIVE_CAR_SET_CHECKPOINT:
@@ -534,6 +534,7 @@ vector<TrEdge>      _edgeRoute;
             {
                 _dragTime += realTime;
             }
+            
         }
             break;
         case STATE_DRIVE_CAR_REACH_TARGET:
@@ -564,9 +565,27 @@ vector<TrEdge>      _edgeRoute;
     return YES;
 }
 
+static int __comeBackToShow = 3;
+
 - (void) onRender
 {
-    
+    if (_currentState == STATE_DRIVE_CAR_DRIVE_CAR_LERP ||
+        _currentState == STATE_DRIVE_CAR_REACH_TARGET ||
+        _currentState == STATE_DRIVE_CAR_FINISH )
+    {
+        --__comeBackToShow;
+        if ( __comeBackToShow <= 0 )
+        {
+            __comeBackToShow    = 0;
+            [[Car getObject] showCar];
+        }
+    }
+    else
+    {
+        [[Car getObject] hideCar];
+        __comeBackToShow    = 3;
+    }
+        
 }
 
 - (BOOL) onTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event

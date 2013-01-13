@@ -8,6 +8,7 @@
 
 #import "MissionSelectViewController.h"
 #import "Mission.h"
+#import "SaveLoadData.h"
 
 @interface MissionSelectViewController ()
 
@@ -40,7 +41,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
     [_btnMission01 release];
     [_btnMission02 release];
     [_btnMission03 release];
@@ -48,6 +50,35 @@
     [_btnMission05 release];
     [_btnBack release];
     [super dealloc];
+}
+
+- (void) initDataByHand
+{
+    NSDictionary* cLevelDict = [[SaveLoadData getObject] loadSavedLevel];
+    
+    for ( NSString* cKey in cLevelDict )
+    {
+        NSDictionary* cLevel    = [cLevelDict objectForKey:cKey];
+        NSString* cMissionScore = [cLevel objectForKey:@"mission_score"];
+        int missionScoreInt     = [cMissionScore integerValue];
+        
+        if ( missionScoreInt >= 6000 ) // 3 stars
+        {
+            
+        }
+        else if ( missionScoreInt >= 4000 ) // 2 stars
+        {
+            
+        }
+        else if ( missionScoreInt > 0 ) // 1 star
+        {
+            
+        }
+        else // 0 star
+        {
+            
+        }
+    }
 }
 
 - (void)viewDidUnload {

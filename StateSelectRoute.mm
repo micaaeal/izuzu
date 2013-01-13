@@ -78,7 +78,7 @@ enum STATE_SELECT_ROUTE
 - (void) onStart
 {
     // vers
-    _currentState   = STATE_SELECT_ROUTE_NONE;
+    _currentState   = STATE_SELECT_ROUTE_START;
     _hasSelectedRouteThisPoint  = NO;
     
     // create select route array

@@ -104,6 +104,7 @@
     [self.view addSubview:_missionViewController.view];
     _missionViewController.delegate = self;
     [self.view bringSubviewToFront:_missionViewController.view];
+    [_missionViewController initDataByHand];
 }
 
 #pragma mark - MissionSelectViewDelegate

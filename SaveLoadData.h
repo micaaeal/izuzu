@@ -13,6 +13,7 @@
 + (SaveLoadData*) getObject;
 
 - (NSDictionary*) loadSavedLevel;
-- (void) SaveLevel: (NSDictionary*) levelData;
+- (NSDictionary*) loadSavedLevelByKey: (NSString*) key;
+- (void) SaveLevelData: (NSDictionary*) data andKey: (NSString*) key;
 
 @end

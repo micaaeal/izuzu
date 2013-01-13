@@ -27,6 +27,8 @@
 @property (retain, nonatomic) IBOutlet UIButton *btnMission04;
 @property (retain, nonatomic) IBOutlet UIButton *btnMission05;
 
+- (void) initDataByHand;
+
 - (IBAction)onSelectMission:(id)sender;
 - (IBAction)onBack:(id)sender;
 
