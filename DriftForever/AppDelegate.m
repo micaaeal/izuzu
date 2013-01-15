@@ -10,6 +10,9 @@
 
 #import "AppDelegate.h"
 #import "LoadingViewController.h"
+#import <Accounts/Accounts.h>
+
+NSString *const FBSessionStateChangedNotification = @"com.Codegears.izuzu:FBSessionStateChangedNotification";
 
 @interface AppController()
 {
@@ -45,6 +48,108 @@
 @synthesize _playDriftScene;
 @synthesize _glView;
 
+#pragma mark - facebook template
+
+- (void)sessionStateChanged:(FBSession *)session
+                      state:(FBSessionState) state
+                      error:(NSError *)error
+{
+    switch (state) {
+        case FBSessionStateOpen:
+            if (!error) {
+                // We have a valid session
+                NSLog(@"User session found");
+            }
+            break;
+        case FBSessionStateClosed:
+        {
+            NSLog(@"User session closed");
+            [FBSession.activeSession closeAndClearTokenInformation];
+        }
+            break;
+        case FBSessionStateClosedLoginFailed:
+        {
+            NSLog(@"User session closed, login failed");
+            [FBSession.activeSession closeAndClearTokenInformation];
+        }
+            break;
+        default:
+            break;
+    }
+    
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:FBSessionStateChangedNotification
+     object:session];
+    
+    if (error) {
+        UIAlertView *alertView = [[UIAlertView alloc]
+                                  initWithTitle:@"Error"
+                                  message:error.localizedDescription
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+        [alertView show];
+    }
+    
+}
+
+- (BOOL)openSessionWithAllowLoginUI:(BOOL)allowLoginUI {
+    return [FBSession openActiveSessionWithReadPermissions:nil
+                                              allowLoginUI:allowLoginUI
+                                         completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+                                             [self sessionStateChanged:session state:state error:error];
+                                         }];
+}
+
+/*
+ * If we have a valid session at the time of openURL call, we handle
+ * Facebook transitions by passing the url argument to handleOpenURL
+ */
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    // attempt to extract a token from the url
+    return [FBSession.activeSession handleOpenURL:url];
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    return [FBSession.activeSession handleOpenURL:url];
+}
+
++ (NSString *)FBErrorCodeDescription:(FBErrorCode) code {
+    switch(code){
+        case FBErrorInvalid :{
+            return @"FBErrorInvalid";
+        }
+        case FBErrorOperationCancelled:{
+            return @"FBErrorOperationCancelled";
+        }
+        case FBErrorLoginFailedOrCancelled:{
+            return @"FBErrorLoginFailedOrCancelled";
+        }
+        case FBErrorRequestConnectionApi:{
+            return @"FBErrorRequestConnectionApi";
+        }case FBErrorProtocolMismatch:{
+            return @"FBErrorProtocolMismatch";
+        }
+        case FBErrorHTTPError:{
+            return @"FBErrorHTTPError";
+        }
+        case FBErrorNonTextMimeTypeReturned:{
+            return @"FBErrorNonTextMimeTypeReturned";
+        }
+        case FBErrorNativeDialog:{
+            return @"FBErrorNativeDialog";
+        }
+        default:
+            return @"[Unknown]";
+    }
+}
+        
+#pragma mark - application template
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // register to gameFlowSignal
@@ -69,7 +174,14 @@
     
 	// make main window visible
 	[window_ makeKeyAndVisible];
-	
+    
+    // FBSample logic
+    // See if we have a valid token for the current state.
+    if (![self openSessionWithAllowLoginUI:NO]) {
+        // No? Display the login page.
+        printf ("the system should shows login view.");
+    }
+    
     return YES;
 }
 
@@ -84,6 +196,8 @@
 {
 	if( [navController_ visibleViewController] == director_ )
 		[director_ pause];
+    
+    [FBSession.activeSession handleDidBecomeActive];
 }
 
 // call got rejected
@@ -91,6 +205,7 @@
 {
 	if( [navController_ visibleViewController] == director_ )
 		[director_ resume];
+    [FBSession.activeSession handleDidBecomeActive];
 }
 
 -(void) applicationDidEnterBackground:(UIApplication*)application
@@ -109,6 +224,7 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
 	CC_DIRECTOR_END();
+    [FBSession.activeSession close];
 }
 
 // purge memory

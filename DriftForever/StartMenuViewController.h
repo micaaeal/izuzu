@@ -26,5 +26,6 @@
 @property (retain, nonatomic) IBOutlet MissionSelectViewController *missionViewController;
 
 - (IBAction)onPressStartButton:(id)sender;
+- (IBAction)onLoginToFacebook:(id)sender;
 
 @end

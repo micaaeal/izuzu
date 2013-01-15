@@ -14,6 +14,9 @@
 #import "PlayDriftLayer.h"
 #import "RootViewController.h"
 #import "LoadingViewController.h"
+#import <FacebookSDK/FacebookSDK.h>
+
+extern NSString *const FBSessionStateChangedNotification;
 
 @interface AppController : NSObject <UIApplicationDelegate, CCDirectorDelegate, StartMenuViewDelegate, GameFlowSignalDelegate, PlayDriftLayerDelegate, GamePlayViewDelegate>
 
@@ -21,5 +24,13 @@
 
 @property (readonly) UINavigationController *navController;
 @property (readonly) CCDirectorIOS *director;
+
+// FBSample logic
+// The app delegate is responsible for maintaining the current FBSession. The application requires
+// the user to be logged in to Facebook in order to do anything interesting -- if there is no valid
+// FBSession, a login screen is displayed.
+- (BOOL)openSessionWithAllowLoginUI:(BOOL)allowLoginUI;
+
++ (NSString *)FBErrorCodeDescription:(FBErrorCode) code;
 
 @end

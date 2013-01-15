@@ -7,6 +7,7 @@
 //
 
 #import "StartMenuViewController.h"
+#import "AppDelegate.h"
 
 @interface StartMenuViewController ()
 
@@ -51,6 +52,14 @@
     [self.view addSubview:_carAndCharacterViewController.view];
     _carAndCharacterViewController.delegate = self;
     [self.view bringSubviewToFront:_carAndCharacterViewController.view];
+}
+
+- (IBAction)onLoginToFacebook:(id)sender {
+    
+    // FBSample logic
+    // The user has initiated a login, so call the openSession method.
+    AppController* appDelegate = [UIApplication sharedApplication].delegate;
+    [appDelegate openSessionWithAllowLoginUI:YES];
 }
 
 - (void)dealloc {
