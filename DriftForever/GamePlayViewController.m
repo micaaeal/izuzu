@@ -9,6 +9,7 @@
 #import "GamePlayViewController.h"
 #import "PlayDriftLayer.h"
 #import "Mission.h"
+#import "Fade.h"
 
 @interface GamePlayViewController ()
 
@@ -96,7 +97,6 @@
     _pauseMenuViewController.delegate   = self;
     
     [[CCDirector sharedDirector] pause];
-    
 }
 
 - (IBAction) onWin: (id) sender
@@ -105,6 +105,8 @@
     [_winMenuViewController initDataByHand:self isWin:YES];
     _winMenuViewController.delegate = self;
     
+    [[Fade getObject] blackIt];
+    
     [[CCDirector sharedDirector] pause];
 }
 - (IBAction) onLost: (id) sender
@@ -112,6 +114,8 @@
     [self.view addSubview:_winMenuViewController.view];
     [_winMenuViewController initDataByHand:self isWin:NO];
     _winMenuViewController.delegate = self;
+    
+    [[Fade getObject] blackIt];
     
     [[CCDirector sharedDirector] pause];
 }

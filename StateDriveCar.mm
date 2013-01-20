@@ -28,6 +28,8 @@ using namespace std;
 
 #import "MenuStates.h"
 
+#import "Fade.h"
+
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 enum STATE_DRIVE_CAR
 {
@@ -218,6 +220,9 @@ vector<TrEdge>      _edgeRoute;
     
     // set init state
     _currentState   = STATE_DRIVE_CAR_START;
+    
+    // play fadeout
+    [[Fade getObject] fadeOut];
 }
 
 - (void) onFinish
@@ -229,6 +234,9 @@ vector<TrEdge>      _edgeRoute;
 {
     // set init state
     _currentState   = STATE_DRIVE_CAR_NONE;
+    
+    // play fadeout
+    [[Fade getObject] fadeOut];
 }
 
 - (BOOL) onUpdate: (float) deltaTime // if retuen YES, means end current state

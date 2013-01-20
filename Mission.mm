@@ -121,7 +121,7 @@ static Mission* _s_mission  = nil;
         Order* cOrder   = [[Order alloc] init];
         
         [cOrder addOrderAtPosition:CGPointMake(5570.991211,-4197.246094)];
-        [cOrder addOrderAtPosition:CGPointMake(6386.780762,-3797.246094)];
+        //[cOrder addOrderAtPosition:CGPointMake(6386.780762,-3797.246094)];
         [cOrder addOrderAtPosition:CGPointMake(7086.780762,-4255.140625)];
         
         cMissionProfile.order   = cOrder;

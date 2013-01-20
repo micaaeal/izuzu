@@ -10,7 +10,9 @@
 
 #import "AppDelegate.h"
 #import "LoadingViewController.h"
+
 #import <Accounts/Accounts.h>
+#import "Fade.h"
 
 NSString *const FBSessionStateChangedNotification = @"com.Codegears.izuzu:FBSessionStateChangedNotification";
 
@@ -400,11 +402,7 @@ NSString *const FBSessionStateChangedNotification = @"com.Codegears.izuzu:FBSess
         [_gamePlayViewController bringUIViewToFront];
         
         _playDriftScene  = [PlayDriftLayer scene];
-        /*
-        [director_ pushScene:[CCTransitionFade transitionWithDuration:1.0
-                                                                scene:_playDriftScene
-                                                            withColor:ccWHITE]];
-        */
+        
         [director_ pushScene:_playDriftScene];
         PlayDriftLayer* playDriftLayer  = (PlayDriftLayer*)[_playDriftScene getChildByTag:101];
         playDriftLayer.delegate = self;
@@ -427,8 +425,8 @@ NSString *const FBSessionStateChangedNotification = @"com.Codegears.izuzu:FBSess
         [_gamePlayViewController initDataByHand:self];
         // ....
     }
-    
-    // clear playing screen
+
+    [[Fade getObject] fadeOut];
 }
 
 - (void) onFinishPlayDriftLayer:(id)sender

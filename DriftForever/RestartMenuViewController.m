@@ -7,6 +7,7 @@
 //
 
 #import "RestartMenuViewController.h"
+#import "Fade.h"
 
 @interface RestartMenuViewController ()
 
@@ -59,6 +60,7 @@
     }
 }
 
+
 - (IBAction)onRestart:(id)sender {
     if ( _delegate )
     {
@@ -67,9 +69,23 @@
 }
 
 - (IBAction)onNewPath:(id)sender {
+    
+    [[Fade getObject] blackIt];
+    [NSTimer scheduledTimerWithTimeInterval:0.1
+                                     target:self
+                                   selector:@selector(_onNewPathWithDelay)
+                                   userInfo:nil
+                                    repeats:NO];
+    
+
+}
+
+- (void)_onNewPathWithDelay
+{
     if ( _delegate )
     {
         [_delegate onNewPath:self];
     }
 }
+
 @end

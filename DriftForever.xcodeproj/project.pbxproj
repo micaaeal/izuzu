@@ -27,6 +27,8 @@
 		BD068E4716995CE400145629 /* turtle_Walk2.png in Resources */ = {isa = PBXBuildFile; fileRef = BD068E2916995CE400145629 /* turtle_Walk2.png */; };
 		BD068E4C1699782C00145629 /* win_flag.png in Resources */ = {isa = PBXBuildFile; fileRef = BD068E4B1699782C00145629 /* win_flag.png */; };
 		BD068E4E1699783700145629 /* start_sign.png in Resources */ = {isa = PBXBuildFile; fileRef = BD068E4D1699783700145629 /* start_sign.png */; };
+		BD077E7E16ABBC0A00B18442 /* black_fade.png in Resources */ = {isa = PBXBuildFile; fileRef = BD077E7D16ABBC0A00B18442 /* black_fade.png */; };
+		BD077E8216ABBD1800B18442 /* Fade.m in Sources */ = {isa = PBXBuildFile; fileRef = BD077E8116ABBD1800B18442 /* Fade.m */; };
 		BD0E18FF1665950100971528 /* CarAndCharViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD0E18FD1665950100971528 /* CarAndCharViewController.xib */; };
 		BD0E191A166597DB00971528 /* StartMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD0E1918166597DB00971528 /* StartMenuViewController.m */; };
 		BD1B83AA164B2469005950CB /* WindShield.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1B83A9164B2469005950CB /* WindShield.m */; };
@@ -391,6 +393,9 @@
 		BD068E2916995CE400145629 /* turtle_Walk2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = turtle_Walk2.png; path = Resources/turtle_Walk2.png; sourceTree = "<group>"; };
 		BD068E4B1699782C00145629 /* win_flag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = win_flag.png; path = Resources/win_flag.png; sourceTree = "<group>"; };
 		BD068E4D1699783700145629 /* start_sign.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = start_sign.png; path = Resources/start_sign.png; sourceTree = "<group>"; };
+		BD077E7D16ABBC0A00B18442 /* black_fade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = black_fade.png; sourceTree = "<group>"; };
+		BD077E8016ABBD1800B18442 /* Fade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fade.h; sourceTree = "<group>"; };
+		BD077E8116ABBD1800B18442 /* Fade.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Fade.m; sourceTree = "<group>"; };
 		BD0E18FB1665950100971528 /* CarAndCharViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarAndCharViewController.h; sourceTree = "<group>"; };
 		BD0E18FD1665950100971528 /* CarAndCharViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CarAndCharViewController.xib; sourceTree = "<group>"; };
 		BD0E1917166597DB00971528 /* StartMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartMenuViewController.h; sourceTree = "<group>"; };
@@ -933,6 +938,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BD077E7F16ABBCF500B18442 /* Effect */ = {
+			isa = PBXGroup;
+			children = (
+				BD077E8016ABBD1800B18442 /* Fade.h */,
+				BD077E8116ABBD1800B18442 /* Fade.m */,
+			);
+			name = Effect;
+			sourceTree = "<group>";
+		};
 		BD0E18FA166594CB00971528 /* MenuView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1195,6 +1209,7 @@
 				BD4ABB0E1630DA0100694676 /* Console (Fuel & Padel) */,
 				BDAF160B1614B58D00C50EC4 /* Dependencies */,
 				BDBA3379160E252D00593FFC /* DriftForever */,
+				BD077E7F16ABBCF500B18442 /* Effect */,
 				BDDA0DD6162F7FD700854B96 /* Event and Combo */,
 				BD9B0A42167E748700CF8F49 /* FocusZoom */,
 				BDBA3366160E252D00593FFC /* Frameworks */,
@@ -1270,6 +1285,7 @@
 		BDBA337A160E252D00593FFC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BD077E7D16ABBC0A00B18442 /* black_fade.png */,
 				BD71185816A4F03800C00EB9 /* AcceleratorButton.png */,
 				BD71185916A4F03800C00EB9 /* back.png */,
 				BD71185A16A4F03800C00EB9 /* backButton01.png */,
@@ -2038,6 +2054,7 @@
 				BD7118F916A4F03800C00EB9 /* world04Name.png in Resources */,
 				BD7118FA16A4F03800C00EB9 /* zoomIn.png in Resources */,
 				BD7118FB16A4F03800C00EB9 /* zoomOut.png in Resources */,
+				BD077E7E16ABBC0A00B18442 /* black_fade.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2182,6 +2199,7 @@
 				BD42286F168803280024027C /* RootViewController.m in Sources */,
 				BDE2873B16881F5500A20434 /* LoadingViewController.mm in Sources */,
 				BDAE5BA516A2BEC0005B35CC /* SaveLoadData.m in Sources */,
+				BD077E8216ABBD1800B18442 /* Fade.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

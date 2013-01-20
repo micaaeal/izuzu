@@ -20,6 +20,7 @@ using namespace std;
 #import "WindShield.h"
 #import "Score.h"
 #import "EventHandler.h"
+#import "Fade.h"
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 enum STATE_SELECT_ROUTE
@@ -89,6 +90,8 @@ enum STATE_SELECT_ROUTE
     routeGraph.ClearRoute();
     
     [[WindShield getObject] clearAllVisionBarrier];
+    
+    [[Fade getObject] fadeOut];
 }
 
 - (void) onFinish
@@ -107,7 +110,7 @@ enum STATE_SELECT_ROUTE
 
 - (void) onRestart
 {
-    
+    [[Fade getObject] fadeOut];
 }
 
 - (BOOL) onUpdate: (float) deltaTime // if retuen YES, means end current state

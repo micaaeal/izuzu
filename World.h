@@ -32,4 +32,6 @@ class RouteGraph;
 - (void) generatePathsFromRoute;
 - (void) clearGeneratedPaths;
 
+- (void) fadeWorld;
+
 @end

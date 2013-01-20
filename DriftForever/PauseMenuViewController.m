@@ -7,6 +7,7 @@
 //
 
 #import "PauseMenuViewController.h"
+#import "Fade.h"
 
 @interface PauseMenuViewController ()
 
@@ -58,6 +59,8 @@
 
 - (IBAction)onExit:(id)sender
 {
+    [[Fade getObject] blackIt];
+    
     if ( _delegate )
     {
         [_delegate onExit:self];

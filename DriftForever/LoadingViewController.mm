@@ -13,6 +13,7 @@
 #import "Console.h"
 #import "ComboPlayer.h"
 #import "GameFlowSignal.h"
+#import "Fade.h"
 
 @interface LoadingViewController ()
 
@@ -66,7 +67,7 @@
 {
     if ( ! isResume )
     {
-        [NSTimer scheduledTimerWithTimeInterval:0.01f
+        [NSTimer scheduledTimerWithTimeInterval:_loadingTimeGap
                                          target:self
                                        selector:@selector(_onLoadTextureInDelay)
                                        userInfo:nil
@@ -74,7 +75,7 @@
     }
     else
     {
-        [NSTimer scheduledTimerWithTimeInterval:_loadingTimeGap
+        [NSTimer scheduledTimerWithTimeInterval:2.0f
                                          target:self
                                        selector:@selector(_onFinishLoadingLayer)
                                        userInfo:nil
@@ -112,6 +113,8 @@
 {
     [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGB5A1];
     [[World getObject] LoadRoads];
+
+    [[Fade getObject] loadData];
     
     [NSTimer scheduledTimerWithTimeInterval:_loadingTimeGap
                                      target:self

@@ -22,6 +22,7 @@ using namespace std;
 #import "EventHandler.h"
 #import "Console.h"
 #import "ComboPlayer.h"
+#import "Fade.h"
 
 // camera
 #import "Camera.h"
@@ -36,6 +37,7 @@ static int   _s_zoomLevelSize   = 3;
 @interface PlayDriftLayer()
 
 @property (retain) CCLayer*             _actionLayer;
+@property (retain) CCLayer*             _fadeLayer;
 
 @property (retain) NSMutableArray*      _debugButtons;
 @property (retain) UIView*              _rootDebugButton;
@@ -117,7 +119,7 @@ PlayDriftLayer* _s_playDriftLayer   = nil;
         CCLayer* actionLayer = [[[CCLayer alloc] init] autorelease];
         [self addChild:actionLayer];
         _actionLayer    = actionLayer;
-        
+                
         // init states
         _stateSelectRoute   = [[StateSelectRoute alloc] init];
         _stateSelectRoute.delegate  = self;
@@ -172,6 +174,9 @@ PlayDriftLayer* _s_playDriftLayer   = nil;
         // set debug buttons
         _debugButtons   = [[NSMutableArray alloc] init];
 
+        // fade sprite
+        [[Fade getObject] AssignDataToLayer:self];
+        
 #ifdef _IS_ENABLE_DEBUG_PANEL_
         UIWindow* mWindow = [[UIApplication sharedApplication] keyWindow];
         
