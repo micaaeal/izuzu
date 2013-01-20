@@ -201,10 +201,6 @@
 		BDAE5AFA16A27BBD005B35CC /* buildings_02.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDAE5AF516A27BBD005B35CC /* buildings_02.plist */; };
 		BDAE5AFB16A27BBD005B35CC /* buildings_02.png in Resources */ = {isa = PBXBuildFile; fileRef = BDAE5AF616A27BBD005B35CC /* buildings_02.png */; };
 		BDAE5AFD16A27E99005B35CC /* build16.png in Resources */ = {isa = PBXBuildFile; fileRef = BDAE5AFC16A27E99005B35CC /* build16.png */; };
-		BDAE5B9F16A2AFB5005B35CC /* bg_c.png in Resources */ = {isa = PBXBuildFile; fileRef = BDAE5B9B16A2AFB4005B35CC /* bg_c.png */; };
-		BDAE5BA016A2AFB5005B35CC /* bg_c@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BDAE5B9C16A2AFB4005B35CC /* bg_c@2x.png */; };
-		BDAE5BA116A2AFB5005B35CC /* bg_c@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = BDAE5B9D16A2AFB4005B35CC /* bg_c@2x~ipad.png */; };
-		BDAE5BA216A2AFB5005B35CC /* bg_c~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = BDAE5B9E16A2AFB5005B35CC /* bg_c~ipad.png */; };
 		BDAE5BA516A2BEC0005B35CC /* SaveLoadData.m in Sources */ = {isa = PBXBuildFile; fileRef = BDAE5BA416A2BEC0005B35CC /* SaveLoadData.m */; };
 		BDAE9C981666C31600FCC9D2 /* WorldSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDAE9C961666C31600FCC9D2 /* WorldSelectViewController.xib */; };
 		BDAF161F1614BF9200C50EC4 /* adjacency_matrix_config.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDAF161E1614BF9200C50EC4 /* adjacency_matrix_config.plist */; };
@@ -1968,10 +1964,6 @@
 				BDAE5AFA16A27BBD005B35CC /* buildings_02.plist in Resources */,
 				BDAE5AFB16A27BBD005B35CC /* buildings_02.png in Resources */,
 				BDAE5AFD16A27E99005B35CC /* build16.png in Resources */,
-				BDAE5B9F16A2AFB5005B35CC /* bg_c.png in Resources */,
-				BDAE5BA016A2AFB5005B35CC /* bg_c@2x.png in Resources */,
-				BDAE5BA116A2AFB5005B35CC /* bg_c@2x~ipad.png in Resources */,
-				BDAE5BA216A2AFB5005B35CC /* bg_c~ipad.png in Resources */,
 				BD7118AA16A4F03800C00EB9 /* AcceleratorButton.png in Resources */,
 				BD7118AB16A4F03800C00EB9 /* back.png in Resources */,
 				BD7118AC16A4F03800C00EB9 /* backButton01.png in Resources */,
