@@ -78,7 +78,7 @@ World* _s_world = nil;
 @property (retain) NSMutableArray*  pathSpriteArray;
 @property (retain) NSMutableArray*  generatedPathSpriteArray;
 
-@property (assign) int  pathCapacity;
+@property (assign) int  pathOpacity;
 
 - (void) loadFloor;
 
@@ -195,7 +195,7 @@ World* _s_world = nil;
         hasAddResourcesToLayer  = NO;
         _pathSpriteArray = [[NSMutableArray alloc] init];
         _generatedPathSpriteArray = [[NSMutableArray alloc] init];
-        _pathCapacity   = 160;
+        _pathOpacity   = 160;
         
         [self loadFloor];
     }
@@ -1329,8 +1329,8 @@ World* _s_world = nil;
         
         CCSprite* cPathSprite    = [CCSprite spriteWithFile:@"path.png"];
         [cPathSprite setPosition:cPoint];
-        [cPathSprite setScale:2.0f];
-        [cPathSprite setOpacity:_pathCapacity];
+        [cPathSprite setScale:5.0f];
+        [cPathSprite setOpacity:_pathOpacity];
         CGFloat cScale    = [UtilVec convertScaleIfRetina:cPathSprite.scale];
         cPathSprite.scale   = cScale;
         [_generatedPathSpriteArray addObject:cPathSprite];
@@ -1347,8 +1347,8 @@ World* _s_world = nil;
             
             CCSprite* cPathSprite    = [CCSprite spriteWithFile:@"path.png"];
             [cPathSprite setPosition:cPoint];
-            [cPathSprite setScale:2.0f];
-            [cPathSprite setOpacity:_pathCapacity];
+            [cPathSprite setScale:3.0f];
+            [cPathSprite setOpacity:_pathOpacity];
             CGFloat cScale    = [UtilVec convertScaleIfRetina:cPathSprite.scale];
             cPathSprite.scale   = cScale;
             [_generatedPathSpriteArray addObject:cPathSprite];

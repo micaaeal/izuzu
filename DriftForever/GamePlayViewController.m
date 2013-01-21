@@ -306,6 +306,11 @@
     
 }
 
+- (void) onMenu:(id)sender
+{
+    [self onExit:sender];
+}
+
 #pragma mark - PIMPL
 
 - (void) _showSelectRouteUI

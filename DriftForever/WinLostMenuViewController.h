@@ -13,6 +13,7 @@
 - (void) onRestart: (id) sender;
 - (void) onNext: (id) sender;
 - (void) onShare: (id) sender;
+- (void) onMenu: (id) sender;
 
 @end
 
@@ -34,6 +35,7 @@
 - (IBAction)onShare:(id)sender;
 - (IBAction)onRestart:(id)sender;
 - (IBAction)onNext:(id)sender;
+- (IBAction)onMenu:(id)sender;
 
 - (void) initDataByHand: (id) sender isWin: (BOOL) isWin;
 

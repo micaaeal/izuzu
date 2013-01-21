@@ -165,6 +165,9 @@ NSString *const FBSessionStateChangedNotification = @"com.Codegears.izuzu:FBSess
     _rootViewController = [[[RootViewController alloc] initWithNibName:@"RootViewController" bundle:nil] autorelease];
     [window_ setRootViewController:_rootViewController];
     
+	// make main window visible
+	[window_ makeKeyAndVisible];
+    
     if ( _GAME_MODE_ == _GAME_MODE_MAINSTREAM_ )
     {
         [self _loadMenuView];
@@ -173,9 +176,6 @@ NSString *const FBSessionStateChangedNotification = @"com.Codegears.izuzu:FBSess
     {
         [self _loadCocosDirector];
     }
-    
-	// make main window visible
-	[window_ makeKeyAndVisible];
     
     // FBSample logic
     // See if we have a valid token for the current state.
@@ -277,6 +277,11 @@ NSString *const FBSessionStateChangedNotification = @"com.Codegears.izuzu:FBSess
     [_rootViewController.view bringSubviewToFront:smvc.view];
     smvc.wantsFullScreenLayout  = YES;
     smvc.delegate   = self;
+    
+    smvc.view.frame  = CGRectMake(0, 0,
+                                  [window_ bounds].size.height,
+                                  [window_ bounds].size.width);
+    
 }
 
 - (void) _unloadMenuView
@@ -353,12 +358,17 @@ NSString *const FBSessionStateChangedNotification = @"com.Codegears.izuzu:FBSess
     
     _gamePlayViewController = [[GamePlayViewController alloc]
                                initWithNibName:@"GamePlayViewController" bundle:nil];
-    [_gamePlayViewController.view addSubview:navController_.view];
-    navController_.view.frame   = _gamePlayViewController.view.bounds;
     
     [_rootViewController.view addSubview:_gamePlayViewController.view];
     [_rootViewController.view bringSubviewToFront:_gamePlayViewController.view];
     [_gamePlayViewController bringUIViewToFront];
+    //_gamePlayViewController.view.frame = [window_ bounds];
+    _gamePlayViewController.view.frame  = CGRectMake(0, 0,
+                                                     [window_ bounds].size.height,
+                                                     [window_ bounds].size.width);
+    
+    [_gamePlayViewController.view addSubview:navController_.view];
+    navController_.view.frame   = _gamePlayViewController.view.bounds;
     
     _gamePlayViewController.delegate    = self;
     [_gamePlayViewController initDataByHand:self];
@@ -385,6 +395,9 @@ NSString *const FBSessionStateChangedNotification = @"com.Codegears.izuzu:FBSess
     [_rootViewController.view addSubview:_loadingViewController.view];
     [_rootViewController.view bringSubviewToFront:_loadingViewController.view];
     [_loadingViewController initDataByHandWithOption:_isOnResume];
+    _loadingViewController.view.frame  = CGRectMake(0, 0,
+                                                    [window_ bounds].size.height,
+                                                    [window_ bounds].size.width);
 }
 
 - (void) onFinishLoadingLayer:(id)sender

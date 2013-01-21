@@ -11,39 +11,45 @@
 		<array>
 			<dict>
 				<key>x</key>
-				<string>3223.166748</string>
+				<string>3251.623291</string>
 				<key>y</key>
-				<string>-1430.000366</string>
+				<string>-1360.561768</string>
 			</dict>
 			<dict>
 				<key>x</key>
-				<string>3343.166748</string>
+				<string>3459.518066</string>
 				<key>y</key>
-				<string>-1276.666992</string>
+				<string>-1200.035522</string>
 			</dict>
 			<dict>
 				<key>x</key>
-				<string>3573.166504</string>
+				<string>3820.044189</string>
 				<key>y</key>
-				<string>-1191.666992</string>
+				<string>-1184.245972</string>
 			</dict>
 			<dict>
 				<key>x</key>
-				<string>5023.166504</string>
+				<string>4170.044434</string>
 				<key>y</key>
-				<string>-1173.333618</string>
+				<string>-1194.772339</string>
 			</dict>
 			<dict>
 				<key>x</key>
-				<string>5229.833496</string>
+				<string>4517.412598</string>
 				<key>y</key>
-				<string>-1193.333618</string>
+				<string>-1186.877563</string>
 			</dict>
 			<dict>
 				<key>x</key>
-				<string>5378.166992</string>
+				<string>4864.781250</string>
 				<key>y</key>
-				<string>-1270.000244</string>
+				<string>-1184.245972</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>5356.887695</string>
+				<key>y</key>
+				<string>-1236.877808</string>
 			</dict>
 		</array>
 	</dict>
@@ -115,45 +121,45 @@
 		<array>
 			<dict>
 				<key>x</key>
-				<string>5329.500977</string>
+				<string>5356.887695</string>
 				<key>y</key>
-				<string>-1230.333496</string>
+				<string>-1236.877808</string>
 			</dict>
 			<dict>
 				<key>x</key>
-				<string>5219.501953</string>
+				<string>4864.781250</string>
 				<key>y</key>
-				<string>-1190.333862</string>
+				<string>-1184.245972</string>
 			</dict>
 			<dict>
 				<key>x</key>
-				<string>5002.835449</string>
+				<string>4517.412598</string>
 				<key>y</key>
-				<string>-1183.667236</string>
+				<string>-1186.877563</string>
 			</dict>
 			<dict>
 				<key>x</key>
-				<string>3664.501953</string>
+				<string>4170.044434</string>
 				<key>y</key>
-				<string>-1183.667114</string>
+				<string>-1194.772339</string>
 			</dict>
 			<dict>
 				<key>x</key>
-				<string>3424.501953</string>
+				<string>3820.044189</string>
 				<key>y</key>
-				<string>-1222.000244</string>
+				<string>-1184.245972</string>
 			</dict>
 			<dict>
 				<key>x</key>
-				<string>3282.835449</string>
+				<string>3459.518066</string>
 				<key>y</key>
-				<string>-1343.666992</string>
+				<string>-1200.035522</string>
 			</dict>
 			<dict>
 				<key>x</key>
-				<string>3204.501953</string>
+				<string>3251.623291</string>
 				<key>y</key>
-				<string>-1483.666992</string>
+				<string>-1360.561768</string>
 			</dict>
 		</array>
 	</dict>
@@ -813,7 +819,7 @@
 		<key>vertex_start</key>
 		<string>11</string>
 		<key>vertex_end</key>
-		<string>8</string>
+		<string>9</string>
 		<key>sub_points</key>
 		<array/>
 	</dict>

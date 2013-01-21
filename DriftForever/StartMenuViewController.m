@@ -52,6 +52,7 @@
     [self.view addSubview:_carAndCharacterViewController.view];
     _carAndCharacterViewController.delegate = self;
     [self.view bringSubviewToFront:_carAndCharacterViewController.view];
+    [_carAndCharacterViewController initDataByHand:self];
 }
 
 - (IBAction)onLoginToFacebook:(id)sender {

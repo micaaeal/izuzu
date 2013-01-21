@@ -125,6 +125,44 @@
     [super viewDidUnload];
 }
 
+- (void) initDataByHand:(id)sender
+{
+    // set gender image from data
+    int genderCode              = [[MenuStates getObject] genderCode];
+    NSString* charImageName     = [_characterImageNameArray objectAtIndex:genderCode];
+    UIImage* charImage          = [UIImage imageNamed:charImageName];
+    [_imgCharacter setImage:charImage];
+    
+    // set gender button from data
+    // button
+    NSString* maleImageName;
+    NSString* femaleImageName;
+    
+    if ( genderCode == 0 )
+    {
+        maleImageName   = @"maleButton02.png";
+        femaleImageName   = @"femaleButton01.png";
+    }
+    else
+    {
+        maleImageName   = @"maleButton01.png";
+        femaleImageName   = @"femaleButton02.png";
+    }
+    
+    [_btnMale setImage:[UIImage imageNamed:maleImageName] forState:UIControlStateNormal];
+    [_btnFemale setImage:[UIImage imageNamed:femaleImageName] forState:UIControlStateNormal];
+    
+    // set car index
+    _currentCarIndex        = [[MenuStates getObject] carCode];
+    NSString* carImageName  = [_carImageNameArray objectAtIndex:_currentCarIndex];
+    UIImage* carImage       = [UIImage imageNamed:carImageName];
+    [_imgCar setImage:carImage];
+    
+    // set player name
+    NSString* name      = [MenuStates getObject].playerName;
+    [_txtPlayerName setText:name];
+}
+
 // Supported orientations: Landscape. Customize it for your own needs
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

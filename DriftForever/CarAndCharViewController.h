@@ -29,6 +29,8 @@
 
 @property (retain, nonatomic) IBOutlet UIButton *btnOK;
 
+- (void) initDataByHand:(id)sender;
+
 - (IBAction)onPressFemale:(id)sender;
 - (IBAction)onPressMale:(id)sender;
 - (IBAction)onPressCarPrev:(id)sender;

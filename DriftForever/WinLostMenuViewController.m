@@ -136,6 +136,13 @@
     }
 }
 
+- (IBAction)onMenu:(id)sender {
+    if ( _delegate )
+    {
+        [_delegate onMenu:self];
+    }
+}
+
 - (void) initDataByHand: (id) sender isWin: (BOOL) isWin
 {
     enum GENDER_CODE genderCode  = [MenuStates getObject].genderCode;

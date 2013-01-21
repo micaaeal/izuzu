@@ -15,9 +15,16 @@
 #import "GameFlowSignal.h"
 #import "Fade.h"
 
+enum DEVICE_TYPE {
+    DEVICE_TYPE_IPOD = 0,
+    
+    DEVICE_TYPE_OTHER_IOS,
+    };
+
 @interface LoadingViewController ()
 
-@property (assign) float loadingTimeGap;
+@property (assign) int      deviceType;
+@property (assign) float    loadingTimeGap;
 
 - (void) _onLoadTextureInDelay;
 - (void) _onFinishLoadingLayer;
@@ -81,6 +88,19 @@
                                        userInfo:nil
                                         repeats:NO];
     }
+    
+    NSString* deviceModel    = [UIDevice currentDevice].model.uppercaseString;
+    printf ("device model: %s\n", [deviceModel UTF8String]);
+    
+    if ([deviceModel rangeOfString:@"IPOD"].location == NSNotFound)
+    {
+        _deviceType     = DEVICE_TYPE_IPOD;
+    }
+    else
+    {
+        _deviceType     = DEVICE_TYPE_OTHER_IOS;
+    }
+    
 }
 
 #pragma mark - PIMPL
@@ -111,7 +131,11 @@
 
 - (void) _onLoadTextureSequence_01
 {
-    [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGB5A1];
+    if ( _deviceType != DEVICE_TYPE_IPOD )
+    {
+        [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGB5A1];
+    }
+    
     [[World getObject] LoadRoads];
 
     [[Fade getObject] loadData];
