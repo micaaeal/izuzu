@@ -138,6 +138,9 @@ static float _s_routeButtonRadius   = 100;
         CCSprite* cButtonSprite     = [_routeButtonArray objectAtIndex:i];
         CGRect cButtonSpriteRect    = cButtonSprite.boundingBox;
         
+        if ( cButtonSprite.opacity == 0 )
+            continue;
+        
         if (point.x > cButtonSpriteRect.origin.x
             &&
             point.x <= cButtonSpriteRect.origin.x + cButtonSpriteRect.size.width )

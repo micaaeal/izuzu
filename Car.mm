@@ -277,7 +277,7 @@ enum PICK_UP_STATE {
 - (void) Update: (float) deltaTime
 {
     BOOL isPlayingAnyAnim   = NO;
-
+    
     // count time to make turtle animation stop
     
     if ( _isPlayingTurtleEffect )
@@ -341,8 +341,8 @@ enum PICK_UP_STATE {
         else if ( ! _isPlayingTurtleEffect )
         {
             _animTurtleEffectPlayTime    = 0.0f;
-            [self setPosition:_animPointStamp];
-            [self setRotation:_animRotationStamp];
+            //[self setPosition:_animPointStamp];
+            //[self setRotation:_animRotationStamp];
             [self setSpeed:0.0f];
         }
     }
@@ -353,15 +353,15 @@ enum PICK_UP_STATE {
         if ( self.isPlayingRoughAnim )
         {
             _animRoughPlayTime    = 0.0f;
-            _animPointStamp        = self.position;
-            _animRotationStamp     = self.rotation;
+            //_animPointStamp        = self.position;
+            //_animRotationStamp     = self.rotation;
         }
         
         else if ( ! self.isPlayingRoughAnim )
         {
             _animRoughPlayTime    = 0.0f;
-            [self setPosition:_animPointStamp];
-            [self setRotation:_animRotationStamp];
+            //[self setPosition:_animPointStamp];
+            //[self setRotation:_animRotationStamp];
             [self setSpeed:0.0f];
             [self unsetRandomColor];
         }
@@ -380,8 +380,8 @@ enum PICK_UP_STATE {
         else if ( ! self._isPlayingSwerveAnim )
         {
             _animSwervePlayTime    = 0.0f;
-            [self setPosition:_animPointStamp];
-            [self setRotation:_animRotationStamp];
+            //[self setPosition:_animPointStamp];
+            //[self setRotation:_animRotationStamp];
             [self setSpeed:0.0f];
         }
     }
@@ -399,8 +399,8 @@ enum PICK_UP_STATE {
         else if ( ! self.isPlayingOvershootAnim )
         {
             _animOvershootPlayTime    = 0.0f;
-            [self setPosition:_animPointStamp];
-            [self setRotation:_animRotationStamp];
+            //[self setPosition:_animPointStamp];
+            //[self setRotation:_animRotationStamp];
             [self setSpeed:0.0f];
         }
     }

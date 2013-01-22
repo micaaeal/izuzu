@@ -259,6 +259,10 @@ vector<TrEdge>      _edgeRoute;
             // load car
             int cCarCode    = [MenuStates getObject].carCode;
             [[Car getObject] selectCarByIndex:cCarCode];
+            [[Car getObject] showCar];
+            
+            // set winshield
+            [[WindShield getObject] clearAllVisionBarrier];
             
             // Mission box
             int missionCode = [[Mission getObject] getCurrentMissionCode];
@@ -573,10 +577,11 @@ vector<TrEdge>      _edgeRoute;
     return YES;
 }
 
-static int __comeBackToShow = 3;
+//static int __comeBackToShow = 3;
 
 - (void) onRender
 {
+    /*
     if (_currentState == STATE_DRIVE_CAR_DRIVE_CAR_LERP ||
         _currentState == STATE_DRIVE_CAR_REACH_TARGET ||
         _currentState == STATE_DRIVE_CAR_FINISH )
@@ -593,7 +598,7 @@ static int __comeBackToShow = 3;
         [[Car getObject] hideCar];
         __comeBackToShow    = 3;
     }
-        
+    */
 }
 
 - (BOOL) onTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
@@ -681,12 +686,16 @@ static int __comeBackToShow = 3;
     {
         if ( [event.eventName isEqualToString:@"water"] )
         {
-            [[Car getObject] playSwerveAnim];
+            Car* car   = [Car getObject];
+            [car playSwerveAnim];
+            
             [[WindShield getObject] showWater];
         }
         else if ( [event.eventName isEqualToString:@"rough"] )
         {
-            [[Car getObject] playRoughAnim];
+            Car* car   = [Car getObject];
+            [car playRoughAnim];
+            
             [[WindShield getObject] showDust];
         }
         else if ( [event.eventName isEqualToString:@"turtle"] )

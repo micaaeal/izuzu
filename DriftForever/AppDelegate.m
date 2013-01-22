@@ -282,6 +282,9 @@ NSString *const FBSessionStateChangedNotification = @"com.Codegears.izuzu:FBSess
                                   [window_ bounds].size.height,
                                   [window_ bounds].size.width);
     
+    [smvc release];
+    smvc    = nil;
+    
 }
 
 - (void) _unloadMenuView

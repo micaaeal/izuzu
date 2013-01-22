@@ -63,6 +63,22 @@
     [appDelegate openSessionWithAllowLoginUI:YES];
 }
 
+- (void)onGoMissionView:(id)sender
+{
+    [self.view addSubview:_missionViewController.view];
+    _missionViewController.delegate = self;
+    [self.view bringSubviewToFront:_missionViewController.view];
+    [_missionViewController initDataByHand];
+}
+
+- (void)onGoWorldView:(id)sender
+{
+    // load WorldSelectView
+    [self.view addSubview:_worldSelectViewController.view];
+    _worldSelectViewController.delegate = self;
+    [self.view bringSubviewToFront:_worldSelectViewController.view];
+}
+
 - (void)dealloc {
     [_carAndCharacterViewController release];
     [_worldSelectViewController release];
