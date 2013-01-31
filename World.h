@@ -34,4 +34,6 @@ class RouteGraph;
 
 - (void) fadeWorld;
 
+- (void) reloadStaticPath;
+
 @end

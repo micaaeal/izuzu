@@ -184,7 +184,7 @@
 		BD9AFA7D166BA138009988F9 /* CarAndCharViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD9AFA7B166BA138009988F9 /* CarAndCharViewController.m */; };
 		BD9AFA80166BA158009988F9 /* GameFlowSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = BD9AFA7F166BA158009988F9 /* GameFlowSignal.m */; };
 		BD9AFA83166BA1C1009988F9 /* Mission.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD9AFA82166BA1C1009988F9 /* Mission.mm */; };
-		BD9AFA86166BA1E7009988F9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BD9AFA85166BA1E7009988F9 /* AppDelegate.m */; };
+		BD9AFA86166BA1E7009988F9 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD9AFA85166BA1E7009988F9 /* AppDelegate.mm */; };
 		BD9AFA88166BA1FE009988F9 /* PlayDriftLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD9AFA87166BA1FE009988F9 /* PlayDriftLayer.mm */; };
 		BD9AFA8E166BA326009988F9 /* Console.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD9AFA8D166BA326009988F9 /* Console.mm */; };
 		BD9AFA90166BA3FD009988F9 /* combo_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = BD9AFA8F166BA3FD009988F9 /* combo_arrow.png */; };
@@ -564,7 +564,7 @@
 		BD9AFA81166BA1C1009988F9 /* Mission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mission.h; sourceTree = "<group>"; };
 		BD9AFA82166BA1C1009988F9 /* Mission.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Mission.mm; sourceTree = "<group>"; };
 		BD9AFA84166BA1E7009988F9 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		BD9AFA85166BA1E7009988F9 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		BD9AFA85166BA1E7009988F9 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		BD9AFA87166BA1FE009988F9 /* PlayDriftLayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PlayDriftLayer.mm; sourceTree = "<group>"; };
 		BD9AFA8B166BA21F009988F9 /* PlayDriftLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayDriftLayer.h; sourceTree = "<group>"; };
 		BD9AFA8D166BA326009988F9 /* Console.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Console.mm; sourceTree = "<group>"; };
@@ -1269,7 +1269,7 @@
 				BD0E18FA166594CB00971528 /* MenuView */,
 				BD426835166FB4E500D5789D /* GamePlayMenu */,
 				BD9AFA84166BA1E7009988F9 /* AppDelegate.h */,
-				BD9AFA85166BA1E7009988F9 /* AppDelegate.m */,
+				BD9AFA85166BA1E7009988F9 /* AppDelegate.mm */,
 				BD9AFA8B166BA21F009988F9 /* PlayDriftLayer.h */,
 				BD9AFA87166BA1FE009988F9 /* PlayDriftLayer.mm */,
 				BDBA3394160E252D00593FFC /* libs */,
@@ -2178,7 +2178,7 @@
 				BD9AFA7D166BA138009988F9 /* CarAndCharViewController.m in Sources */,
 				BD9AFA80166BA158009988F9 /* GameFlowSignal.m in Sources */,
 				BD9AFA83166BA1C1009988F9 /* Mission.mm in Sources */,
-				BD9AFA86166BA1E7009988F9 /* AppDelegate.m in Sources */,
+				BD9AFA86166BA1E7009988F9 /* AppDelegate.mm in Sources */,
 				BD9AFA88166BA1FE009988F9 /* PlayDriftLayer.mm in Sources */,
 				BD9AFA8E166BA326009988F9 /* Console.mm in Sources */,
 				BD42683F166FB5CC00D5789D /* GamePlayViewController.m in Sources */,

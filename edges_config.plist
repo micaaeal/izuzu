@@ -47,6 +47,12 @@
 			</dict>
 			<dict>
 				<key>x</key>
+				<string>5147.307129</string>
+				<key>y</key>
+				<string>-1184.245850</string>
+			</dict>
+			<dict>
+				<key>x</key>
 				<string>5356.887695</string>
 				<key>y</key>
 				<string>-1236.877808</string>
@@ -59,7 +65,20 @@
 		<key>vertex_end</key>
 		<string>8</string>
 		<key>sub_points</key>
-		<array/>
+		<array>
+			<dict>
+				<key>x</key>
+				<string>2970.043945</string>
+				<key>y</key>
+				<string>-1931.457153</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>3198.992432</string>
+				<key>y</key>
+				<string>-2102.509766</string>
+			</dict>
+		</array>
 	</dict>
 	<dict>
 		<key>vertex_start</key>
@@ -69,46 +88,78 @@
 		<key>sub_points</key>
 		<array>
 			<dict>
+				<key>New item</key>
+				<string></string>
 				<key>x</key>
-				<string>2960.833496</string>
+				<string>2970.043945</string>
 				<key>y</key>
-				<string>-1758.333374</string>
+				<string>-1755.297607</string>
 			</dict>
 			<dict>
 				<key>x</key>
-				<string>2804.166504</string>
+				<string>2825.307129</string>
 				<key>y</key>
-				<string>-1823.333252</string>
+				<string>-1810.560791</string>
 			</dict>
 			<dict>
 				<key>x</key>
-				<string>2657.500000</string>
+				<string>2712.149414</string>
 				<key>y</key>
-				<string>-1999.999878</string>
+				<string>-1915.823975</string>
 			</dict>
 			<dict>
 				<key>x</key>
-				<string>2634.166504</string>
+				<string>2638.465088</string>
 				<key>y</key>
-				<string>-2196.666504</string>
+				<string>-2071.087158</string>
 			</dict>
 			<dict>
 				<key>x</key>
-				<string>2627.500000</string>
+				<string>2635.833496</string>
 				<key>y</key>
-				<string>-2751.666992</string>
+				<string>-2218.455566</string>
 			</dict>
 			<dict>
 				<key>x</key>
-				<string>2707.500000</string>
+				<string>2635.833496</string>
 				<key>y</key>
-				<string>-3011.666992</string>
+				<string>-2368.455566</string>
 			</dict>
 			<dict>
 				<key>x</key>
-				<string>2904.166504</string>
+				<string>2638.465088</string>
 				<key>y</key>
-				<string>-3165.000244</string>
+				<string>-2555.297852</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>2625.307129</string>
+				<key>y</key>
+				<string>-2744.771484</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>2654.254395</string>
+				<key>y</key>
+				<string>-2939.508301</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>2741.096680</string>
+				<key>y</key>
+				<string>-3060.561035</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>2867.412354</string>
+				<key>y</key>
+				<string>-3142.139893</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>3017.412354</string>
+				<key>y</key>
+				<string>-3176.350342</string>
 			</dict>
 		</array>
 	</dict>
@@ -124,6 +175,12 @@
 				<string>5356.887695</string>
 				<key>y</key>
 				<string>-1236.877808</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>5147.307129</string>
+				<key>y</key>
+				<string>-1184.245850</string>
 			</dict>
 			<dict>
 				<key>x</key>
@@ -172,21 +229,45 @@
 		<array>
 			<dict>
 				<key>x</key>
-				<string>5802.833008</string>
+				<string>5687.657715</string>
 				<key>y</key>
-				<string>-1132.000000</string>
+				<string>-1239.509033</string>
 			</dict>
 			<dict>
 				<key>x</key>
-				<string>5986.166016</string>
+				<string>5808.710449</string>
 				<key>y</key>
-				<string>-1055.333496</string>
+				<string>-1134.245850</string>
 			</dict>
 			<dict>
 				<key>x</key>
-				<string>6326.166016</string>
+				<string>6008.710449</string>
 				<key>y</key>
-				<string>-1052.000244</string>
+				<string>-1042.140625</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>6235.026367</string>
+				<key>y</key>
+				<string>-1042.140625</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>6556.078613</string>
+				<key>y</key>
+				<string>-1042.140625</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>6811.341797</string>
+				<key>y</key>
+				<string>-1047.403687</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>7050.815430</string>
+				<key>y</key>
+				<string>-1042.140625</string>
 			</dict>
 		</array>
 	</dict>
@@ -226,21 +307,45 @@
 		<array>
 			<dict>
 				<key>x</key>
-				<string>6326.166016</string>
+				<string>7050.815430</string>
 				<key>y</key>
-				<string>-1052.000244</string>
+				<string>-1042.140625</string>
 			</dict>
 			<dict>
 				<key>x</key>
-				<string>5986.166016</string>
+				<string>6811.341797</string>
 				<key>y</key>
-				<string>-1055.333496</string>
+				<string>-1047.403687</string>
 			</dict>
 			<dict>
 				<key>x</key>
-				<string>5802.833008</string>
+				<string>6556.078613</string>
 				<key>y</key>
-				<string>-1132.000000</string>
+				<string>-1042.140625</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>6235.026367</string>
+				<key>y</key>
+				<string>-1042.140625</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>6008.710449</string>
+				<key>y</key>
+				<string>-1042.140625</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>5808.710449</string>
+				<key>y</key>
+				<string>-1134.245850</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>5687.657715</string>
+				<key>y</key>
+				<string>-1239.509033</string>
 			</dict>
 		</array>
 	</dict>
@@ -304,7 +409,26 @@
 		<key>vertex_end</key>
 		<string>4</string>
 		<key>sub_points</key>
-		<array/>
+		<array>
+			<dict>
+				<key>x</key>
+				<string>8167.939453</string>
+				<key>y</key>
+				<string>-1628.982666</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>8396.886719</string>
+				<key>y</key>
+				<string>-1626.351196</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>8702.150391</string>
+				<key>y</key>
+				<string>-1631.614258</string>
+			</dict>
+		</array>
 	</dict>
 	<dict>
 		<key>vertex_start</key>
@@ -312,7 +436,56 @@
 		<key>vertex_end</key>
 		<string>16</string>
 		<key>sub_points</key>
-		<array/>
+		<array>
+			<dict>
+				<key>x</key>
+				<string>7878.465820</string>
+				<key>y</key>
+				<string>-1850.035645</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>7878.465820</string>
+				<key>y</key>
+				<string>-1973.719849</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>7878.465820</string>
+				<key>y</key>
+				<string>-2142.140869</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>7878.465820</string>
+				<key>y</key>
+				<string>-2373.719727</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>7883.729492</string>
+				<key>y</key>
+				<string>-2552.667236</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>7881.097656</string>
+				<key>y</key>
+				<string>-2726.351318</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>7886.360840</string>
+				<key>y</key>
+				<string>-2900.035645</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>7878.465820</string>
+				<key>y</key>
+				<string>-3084.246094</string>
+			</dict>
+		</array>
 	</dict>
 	<dict>
 		<key>vertex_start</key>
@@ -320,7 +493,26 @@
 		<key>vertex_end</key>
 		<string>3</string>
 		<key>sub_points</key>
-		<array/>
+		<array>
+			<dict>
+				<key>x</key>
+				<string>8702.150391</string>
+				<key>y</key>
+				<string>-1631.614258</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>8396.886719</string>
+				<key>y</key>
+				<string>-1626.351196</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>8167.939453</string>
+				<key>y</key>
+				<string>-1628.982666</string>
+			</dict>
+		</array>
 	</dict>
 	<dict>
 		<key>vertex_start</key>
@@ -328,7 +520,56 @@
 		<key>vertex_end</key>
 		<string>17</string>
 		<key>sub_points</key>
-		<array/>
+		<array>
+			<dict>
+				<key>x</key>
+				<string>9028.465820</string>
+				<key>y</key>
+				<string>-1850.035645</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>9015.308594</string>
+				<key>y</key>
+				<string>-2023.719482</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>9025.834961</string>
+				<key>y</key>
+				<string>-2255.298340</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>9020.571289</string>
+				<key>y</key>
+				<string>-2450.035400</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>9015.308594</string>
+				<key>y</key>
+				<string>-2639.509033</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>9023.203125</string>
+				<key>y</key>
+				<string>-2792.140625</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>9015.308594</string>
+				<key>y</key>
+				<string>-3000.035156</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>9020.570312</string>
+				<key>y</key>
+				<string>-3139.509033</string>
+			</dict>
+		</array>
 	</dict>
 	<dict>
 		<key>vertex_start</key>
@@ -489,21 +730,75 @@
 		<array>
 			<dict>
 				<key>x</key>
-				<string>5515.500977</string>
+				<string>5519.236816</string>
 				<key>y</key>
-				<string>-2493.000000</string>
+				<string>-2068.456299</string>
 			</dict>
 			<dict>
 				<key>x</key>
-				<string>5603.833984</string>
+				<string>5629.763184</string>
 				<key>y</key>
-				<string>-2689.666992</string>
+				<string>-1842.140625</string>
 			</dict>
 			<dict>
 				<key>x</key>
-				<string>5788.833984</string>
+				<string>5798.184082</string>
 				<key>y</key>
-				<string>-2796.333496</string>
+				<string>-1726.351196</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>6124.500000</string>
+				<key>y</key>
+				<string>-1700.035400</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>6382.394531</string>
+				<key>y</key>
+				<string>-1718.456421</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>6508.710449</string>
+				<key>y</key>
+				<string>-1802.666992</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>6640.289062</string>
+				<key>y</key>
+				<string>-2000.035400</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>6661.341797</string>
+				<key>y</key>
+				<string>-2205.298584</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>6650.815430</string>
+				<key>y</key>
+				<string>-2442.140625</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>6619.236816</string>
+				<key>y</key>
+				<string>-2602.666992</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>6495.552734</string>
+				<key>y</key>
+				<string>-2742.140625</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>6324.500000</string>
+				<key>y</key>
+				<string>-2836.877441</string>
 			</dict>
 		</array>
 	</dict>
@@ -548,7 +843,20 @@
 		<key>vertex_end</key>
 		<string>0</string>
 		<key>sub_points</key>
-		<array/>
+		<array>
+			<dict>
+				<key>x</key>
+				<string>3198.992432</string>
+				<key>y</key>
+				<string>-2102.509766</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>2970.043945</string>
+				<key>y</key>
+				<string>-1931.457153</string>
+			</dict>
+		</array>
 	</dict>
 	<dict>
 		<key>vertex_start</key>
@@ -649,45 +957,75 @@
 		<array>
 			<dict>
 				<key>x</key>
-				<string>2989.166992</string>
+				<string>3017.412354</string>
 				<key>y</key>
-				<string>-3181.666504</string>
+				<string>-3176.350342</string>
 			</dict>
 			<dict>
 				<key>x</key>
-				<string>2787.500244</string>
+				<string>2867.412354</string>
 				<key>y</key>
-				<string>-3093.333252</string>
+				<string>-3142.139893</string>
 			</dict>
 			<dict>
 				<key>x</key>
-				<string>2640.833496</string>
+				<string>2741.096680</string>
 				<key>y</key>
-				<string>-2901.666504</string>
+				<string>-3060.561035</string>
 			</dict>
 			<dict>
 				<key>x</key>
-				<string>2619.166992</string>
+				<string>2654.254395</string>
 				<key>y</key>
-				<string>-2723.332764</string>
+				<string>-2939.508301</string>
 			</dict>
 			<dict>
 				<key>x</key>
-				<string>2644.166992</string>
+				<string>2625.307129</string>
 				<key>y</key>
-				<string>-2054.999512</string>
+				<string>-2744.771484</string>
 			</dict>
 			<dict>
 				<key>x</key>
-				<string>2787.500488</string>
+				<string>2638.465088</string>
 				<key>y</key>
-				<string>-1823.332764</string>
+				<string>-2555.297852</string>
 			</dict>
 			<dict>
 				<key>x</key>
-				<string>2985.833740</string>
+				<string>2635.833496</string>
 				<key>y</key>
-				<string>-1746.666138</string>
+				<string>-2368.455566</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>2635.833496</string>
+				<key>y</key>
+				<string>-2218.455566</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>2638.465088</string>
+				<key>y</key>
+				<string>-2071.087158</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>2712.149414</string>
+				<key>y</key>
+				<string>-1915.823975</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>2825.307129</string>
+				<key>y</key>
+				<string>-1810.560791</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>2970.043945</string>
+				<key>y</key>
+				<string>-1755.297607</string>
 			</dict>
 		</array>
 	</dict>
@@ -920,21 +1258,45 @@
 		<array>
 			<dict>
 				<key>x</key>
-				<string>6511.833496</string>
+				<string>6523.202148</string>
 				<key>y</key>
-				<string>-3556.666992</string>
+				<string>-3555.298340</string>
 			</dict>
 			<dict>
 				<key>x</key>
-				<string>6613.500488</string>
+				<string>6620.570801</string>
 				<key>y</key>
-				<string>-3355.000244</string>
+				<string>-3363.193115</string>
 			</dict>
 			<dict>
 				<key>x</key>
-				<string>6851.833984</string>
+				<string>6812.675781</string>
 				<key>y</key>
-				<string>-3235.000244</string>
+				<string>-3236.877441</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>7038.991699</string>
+				<key>y</key>
+				<string>-3226.351074</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>7260.044434</string>
+				<key>y</key>
+				<string>-3228.982666</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>7473.202148</string>
+				<key>y</key>
+				<string>-3226.351074</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>7652.149414</string>
+				<key>y</key>
+				<string>-3231.614258</string>
 			</dict>
 		</array>
 	</dict>
@@ -952,7 +1314,56 @@
 		<key>vertex_end</key>
 		<string>3</string>
 		<key>sub_points</key>
-		<array/>
+		<array>
+			<dict>
+				<key>x</key>
+				<string>7878.465820</string>
+				<key>y</key>
+				<string>-3084.246094</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>7886.360840</string>
+				<key>y</key>
+				<string>-2900.035645</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>7881.097656</string>
+				<key>y</key>
+				<string>-2726.351318</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>7883.729492</string>
+				<key>y</key>
+				<string>-2552.667236</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>7878.465820</string>
+				<key>y</key>
+				<string>-2373.719727</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>7878.465820</string>
+				<key>y</key>
+				<string>-2142.140869</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>7878.465820</string>
+				<key>y</key>
+				<string>-1973.719849</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>7878.465820</string>
+				<key>y</key>
+				<string>-1850.035645</string>
+			</dict>
+		</array>
 	</dict>
 	<dict>
 		<key>vertex_start</key>
@@ -963,21 +1374,45 @@
 		<array>
 			<dict>
 				<key>x</key>
-				<string>6851.833984</string>
+				<string>7652.149414</string>
 				<key>y</key>
-				<string>-3235.000244</string>
+				<string>-3231.614258</string>
 			</dict>
 			<dict>
 				<key>x</key>
-				<string>6613.500488</string>
+				<string>7473.202148</string>
 				<key>y</key>
-				<string>-3355.000244</string>
+				<string>-3226.351074</string>
 			</dict>
 			<dict>
 				<key>x</key>
-				<string>6511.833496</string>
+				<string>7260.044434</string>
 				<key>y</key>
-				<string>-3556.666992</string>
+				<string>-3228.982666</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>7038.991699</string>
+				<key>y</key>
+				<string>-3226.351074</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>6812.675781</string>
+				<key>y</key>
+				<string>-3236.877441</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>6620.570801</string>
+				<key>y</key>
+				<string>-3363.193115</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>6523.202148</string>
+				<key>y</key>
+				<string>-3555.298340</string>
 			</dict>
 		</array>
 	</dict>
@@ -987,7 +1422,32 @@
 		<key>vertex_end</key>
 		<string>17</string>
 		<key>sub_points</key>
-		<array/>
+		<array>
+			<dict>
+				<key>x</key>
+				<string>8125.833984</string>
+				<key>y</key>
+				<string>-3239.351318</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>8302.150391</string>
+				<key>y</key>
+				<string>-3236.719727</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>8570.570312</string>
+				<key>y</key>
+				<string>-3244.614502</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>8778.465820</string>
+				<key>y</key>
+				<string>-3244.614502</string>
+			</dict>
+		</array>
 	</dict>
 	<dict>
 		<key>vertex_start</key>
@@ -995,7 +1455,56 @@
 		<key>vertex_end</key>
 		<string>4</string>
 		<key>sub_points</key>
-		<array/>
+		<array>
+			<dict>
+				<key>x</key>
+				<string>9020.570312</string>
+				<key>y</key>
+				<string>-3139.509033</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>9015.308594</string>
+				<key>y</key>
+				<string>-3000.035156</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>9023.203125</string>
+				<key>y</key>
+				<string>-2792.140625</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>9015.308594</string>
+				<key>y</key>
+				<string>-2639.509033</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>9020.571289</string>
+				<key>y</key>
+				<string>-2450.035400</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>9025.834961</string>
+				<key>y</key>
+				<string>-2255.298340</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>9015.308594</string>
+				<key>y</key>
+				<string>-2023.719482</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>9028.465820</string>
+				<key>y</key>
+				<string>-1850.035645</string>
+			</dict>
+		</array>
 	</dict>
 	<dict>
 		<key>vertex_start</key>
@@ -1003,7 +1512,32 @@
 		<key>vertex_end</key>
 		<string>16</string>
 		<key>sub_points</key>
-		<array/>
+		<array>
+			<dict>
+				<key>x</key>
+				<string>8778.465820</string>
+				<key>y</key>
+				<string>-3244.614502</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>8570.570312</string>
+				<key>y</key>
+				<string>-3244.614502</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>8302.150391</string>
+				<key>y</key>
+				<string>-3236.719727</string>
+			</dict>
+			<dict>
+				<key>x</key>
+				<string>8125.833984</string>
+				<key>y</key>
+				<string>-3239.351318</string>
+			</dict>
+		</array>
 	</dict>
 	<dict>
 		<key>vertex_start</key>

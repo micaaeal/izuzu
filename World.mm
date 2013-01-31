@@ -1681,13 +1681,26 @@ World* _s_world = nil;
                     ccc4f(r, g, b, a));
 }
 
+- (void) reloadStaticPath
+{
+    [self _loadPaths];
+}
+
 - (void) _loadPaths
 {
-    /*
     RouteGraph& cRouteGraph     = [self GetRouteGraph];
     vector<TrVertex> vertices   = cRouteGraph.GetAllVertices();
     int vertexCount             = vertices.size();
 
+    // remove old path
+    for ( CCSprite* cSprite in _pathSpriteArray )
+    {
+        [_layer removeChild:cSprite cleanup:YES];
+    }
+    
+    [_pathSpriteArray removeAllObjects];
+    
+    // create new path
     for ( int i=0; i<vertexCount; ++i )
     {
         TrVertex cVertex    = vertices[i];
@@ -1718,7 +1731,6 @@ World* _s_world = nil;
             [_pathSpriteArray addObject:cPathSprite];
         }
     }
-    */
 }
 
 @end

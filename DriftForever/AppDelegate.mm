@@ -14,6 +14,8 @@
 #import <Accounts/Accounts.h>
 #import "Fade.h"
 
+#import "World.h"
+
 NSString *const FBSessionStateChangedNotification = @"com.Codegears.izuzu:FBSessionStateChangedNotification";
 
 @interface AppController()
@@ -408,8 +410,12 @@ NSString *const FBSessionStateChangedNotification = @"com.Codegears.izuzu:FBSess
     [[GameFlowSignal getObject] startPlayDrifLayer:self];
 }
 
+
 - (void) onStartPlayDriftLayer:(id)sender
 {
+    // reload path ( debug )
+    [[World getObject] reloadStaticPath];
+    
     if ( ! _isOnResume )
     {
         // ....
