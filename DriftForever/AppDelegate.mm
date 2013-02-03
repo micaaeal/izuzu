@@ -413,9 +413,6 @@ NSString *const FBSessionStateChangedNotification = @"com.Codegears.izuzu:FBSess
 
 - (void) onStartPlayDriftLayer:(id)sender
 {
-    // reload path ( debug )
-    [[World getObject] reloadStaticPath];
-    
     if ( ! _isOnResume )
     {
         // ....

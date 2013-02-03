@@ -1039,7 +1039,7 @@ World* _s_world = nil;
         }
     }
     
-    [self _loadPaths];
+    //[self _loadPaths];
     
     return YES;
 }
@@ -1679,11 +1679,6 @@ World* _s_world = nil;
     ccDrawSolidPoly(bufferPoints,
                     size,
                     ccc4f(r, g, b, a));
-}
-
-- (void) reloadStaticPath
-{
-    [self _loadPaths];
 }
 
 - (void) _loadPaths
