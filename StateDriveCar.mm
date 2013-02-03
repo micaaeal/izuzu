@@ -232,6 +232,20 @@ vector<TrEdge>      _edgeRoute;
 
 - (void) onRestart
 {
+    // clear Mission box
+    int missionCode = [[Mission getObject] getCurrentMissionCode];
+    Order* order    = [[Mission getObject] GetORderFromMissionCode:missionCode];
+    CGPoint* pointArray = [order getOrderPositionArray];
+    int orderCount  = [order getOrderCount];
+    [[Mission getObject] ClearAllBoxSpritesFromMapLayer];
+    for ( int i=0; i<orderCount; ++i)
+    {
+        [[Mission getObject] AddBoxSpriteToMapLayerAtPosition:pointArray[i]];
+    }
+    
+    // clear Car animation
+    [[Car getObject] pickUpNothing];
+    
     // set init state
     _currentState   = STATE_DRIVE_CAR_NONE;
     

@@ -36,6 +36,9 @@ NSString *const FBSessionStateChangedNotification = @"com.Codegears.izuzu:FBSess
 - (void) _loadMenuView;
 - (void) _unloadMenuView;
 
+- (void) _loadSelectWorldView;
+- (void) _loadSelectMissionView;
+
 - (void) _resumeCocosDirector;
 
 @end
@@ -299,6 +302,54 @@ NSString *const FBSessionStateChangedNotification = @"com.Codegears.izuzu:FBSess
     
 }
 
+- (void) _loadSelectWorldView
+{
+    // create rootViewController
+    StartMenuViewController* smvc = [[[StartMenuViewController alloc] initWithNibName:@"StartMenuViewController" bundle:nil] retain];
+    [_rootViewController.view addSubview:smvc.view];
+    [_rootViewController.view bringSubviewToFront:smvc.view];
+    [smvc onGoWorldView:self];
+    
+    smvc.wantsFullScreenLayout  = YES;
+    smvc.delegate   = self;
+    
+    float cIOSVersion    = [[UIDevice currentDevice].systemVersion floatValue];
+    
+    if ( cIOSVersion >= 6.0 )
+    {
+        smvc.view.frame  = CGRectMake(0, 0,
+                                      [window_ bounds].size.height,
+                                      [window_ bounds].size.width);
+    }
+    
+    [smvc release];
+    smvc    = nil;
+}
+
+- (void) _loadSelectMissionView
+{
+    // create rootViewController
+    StartMenuViewController* smvc = [[[StartMenuViewController alloc] initWithNibName:@"StartMenuViewController" bundle:nil] retain];
+    [_rootViewController.view addSubview:smvc.view];
+    [_rootViewController.view bringSubviewToFront:smvc.view];
+    [smvc onGoMissionView:self];
+    
+    smvc.wantsFullScreenLayout  = YES;
+    smvc.delegate   = self;
+    
+    float cIOSVersion    = [[UIDevice currentDevice].systemVersion floatValue];
+    
+    if ( cIOSVersion >= 6.0 )
+    {
+        smvc.view.frame  = CGRectMake(0, 0,
+                                      [window_ bounds].size.height,
+                                      [window_ bounds].size.width);
+    }
+    
+    [smvc release];
+    smvc    = nil;
+}
+
 - (void) _loadCocosDirector
 {
     _isOnResume = NO;
@@ -455,7 +506,9 @@ NSString *const FBSessionStateChangedNotification = @"com.Codegears.izuzu:FBSess
 
 - (void) onFinishPlayDriftLayer:(id)sender
 {
-    [self _loadMenuView];
+    //[self _loadMenuView];
+    //[self _loadSelectWorldView];
+    [self _loadSelectMissionView];
 }
 
 #pragma mark - PlayDriftLayerDelegate
