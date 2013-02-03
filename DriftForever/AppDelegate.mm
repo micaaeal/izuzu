@@ -280,9 +280,14 @@ NSString *const FBSessionStateChangedNotification = @"com.Codegears.izuzu:FBSess
     smvc.wantsFullScreenLayout  = YES;
     smvc.delegate   = self;
     
-    smvc.view.frame  = CGRectMake(0, 0,
-                                  [window_ bounds].size.height,
-                                  [window_ bounds].size.width);
+    float cIOSVersion    = [[UIDevice currentDevice].systemVersion floatValue];
+    
+    if ( cIOSVersion >= 6.0 )
+    {
+        smvc.view.frame  = CGRectMake(0, 0,
+                                      [window_ bounds].size.height,
+                                      [window_ bounds].size.width);
+    }
     
     [smvc release];
     smvc    = nil;
