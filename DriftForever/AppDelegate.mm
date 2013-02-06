@@ -285,7 +285,10 @@ NSString *const FBSessionStateChangedNotification = @"com.Codegears.izuzu:FBSess
     
     float cIOSVersion    = [[UIDevice currentDevice].systemVersion floatValue];
     
-    if ( cIOSVersion >= 6.0 )
+    BOOL isIpad     = ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad );
+    BOOL isIOS6Up   = ( cIOSVersion >= 6.0 );
+    
+    if ( isIpad || isIOS6Up )
     {
         smvc.view.frame  = CGRectMake(0, 0,
                                       [window_ bounds].size.height,
@@ -315,7 +318,10 @@ NSString *const FBSessionStateChangedNotification = @"com.Codegears.izuzu:FBSess
     
     float cIOSVersion    = [[UIDevice currentDevice].systemVersion floatValue];
     
-    if ( cIOSVersion >= 6.0 )
+    BOOL isIpad     = ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad );
+    BOOL isIOS6Up   = ( cIOSVersion >= 6.0 );
+    
+    if ( isIpad || isIOS6Up )
     {
         smvc.view.frame  = CGRectMake(0, 0,
                                       [window_ bounds].size.height,
@@ -339,7 +345,10 @@ NSString *const FBSessionStateChangedNotification = @"com.Codegears.izuzu:FBSess
     
     float cIOSVersion    = [[UIDevice currentDevice].systemVersion floatValue];
     
-    if ( cIOSVersion >= 6.0 )
+    BOOL isIpad     = ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad );
+    BOOL isIOS6Up   = ( cIOSVersion >= 6.0 );
+    
+    if ( isIpad || isIOS6Up )
     {
         smvc.view.frame  = CGRectMake(0, 0,
                                       [window_ bounds].size.height,

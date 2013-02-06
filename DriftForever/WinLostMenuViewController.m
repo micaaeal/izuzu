@@ -36,6 +36,11 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    [_btnNext setImage:[UIImage imageNamed:@"nextButton02.png"] forState:UIControlStateSelected];
+    [_btnRestart setImage:[UIImage imageNamed:@"restartButton02.png"] forState:UIControlStateSelected];
+    [_btnShare setImage:[UIImage imageNamed:@"shareButton02.png"] forState:UIControlStateSelected];
+    [_btnMenu setImage:[UIImage imageNamed:@"mapSelectButton02.png"] forState:UIControlStateSelected];
 }
 
 - (void)didReceiveMemoryWarning
@@ -223,6 +228,8 @@
     [_btnNext release];
     [_imgBg release];
     [_txtScore release];
+    [_btnShare release];
+    [_btnMenu release];
     [super dealloc];
 }
 
@@ -234,6 +241,8 @@
     [self setBtnNext:nil];
     [self setImgBg:nil];
     [self setTxtScore:nil];
+    [self setBtnShare:nil];
+    [self setBtnMenu:nil];
     [super viewDidUnload];
 }
 

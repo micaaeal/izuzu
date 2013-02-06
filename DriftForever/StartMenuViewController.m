@@ -112,6 +112,7 @@
         // load CarAndCharView
         [self.view addSubview:_carAndCharacterViewController.view];
         _carAndCharacterViewController.delegate = self;
+        [_carAndCharacterViewController initDataByHand:self];
         [self.view bringSubviewToFront:_carAndCharacterViewController.view];
     }
     else if ( sender == _missionViewController )

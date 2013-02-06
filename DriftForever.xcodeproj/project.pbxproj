@@ -62,6 +62,8 @@
 		BD58F03B167D623500415FC3 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD58F03A167D623500415FC3 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		BD58F03D167D650600415FC3 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BD58F03C167D650600415FC3 /* libsqlite3.0.dylib */; };
 		BD58F03F167D651800415FC3 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BD58F03E167D651800415FC3 /* libsqlite3.dylib */; };
+		BD64F0C516C2BBA10084F29E /* mapSelectButton01.png in Resources */ = {isa = PBXBuildFile; fileRef = BD64F0C316C2BBA10084F29E /* mapSelectButton01.png */; };
+		BD64F0C616C2BBA10084F29E /* mapSelectButton02.png in Resources */ = {isa = PBXBuildFile; fileRef = BD64F0C416C2BBA10084F29E /* mapSelectButton02.png */; };
 		BD6CA9CE1636996900131027 /* event_config.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD6CA9CD1636996900131027 /* event_config.plist */; };
 		BD6CA9D11636D1F200131027 /* ComboPlayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD6CA9D01636D1F200131027 /* ComboPlayer.mm */; };
 		BD7118AA16A4F03800C00EB9 /* AcceleratorButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BD71185816A4F03800C00EB9 /* AcceleratorButton.png */; };
@@ -435,6 +437,8 @@
 		BD58F03A167D623500415FC3 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		BD58F03C167D650600415FC3 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		BD58F03E167D651800415FC3 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		BD64F0C316C2BBA10084F29E /* mapSelectButton01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mapSelectButton01.png; sourceTree = "<group>"; };
+		BD64F0C416C2BBA10084F29E /* mapSelectButton02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mapSelectButton02.png; sourceTree = "<group>"; };
 		BD6922A41617561A0045538D /* MenuSelectRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuSelectRoute.h; sourceTree = "<group>"; };
 		BD6CA9CD1636996900131027 /* event_config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = event_config.plist; sourceTree = "<group>"; };
 		BD6CA9CF1636D1F200131027 /* ComboPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComboPlayer.h; sourceTree = "<group>"; };
@@ -1364,6 +1368,8 @@
 				BD7118A716A4F03800C00EB9 /* world04Name.png */,
 				BD7118A816A4F03800C00EB9 /* zoomIn.png */,
 				BD7118A916A4F03800C00EB9 /* zoomOut.png */,
+				BD64F0C316C2BBA10084F29E /* mapSelectButton01.png */,
+				BD64F0C416C2BBA10084F29E /* mapSelectButton02.png */,
 				BD9AF9A6166B9FAE009988F9 /* resources */,
 				BD49BD5016135E0700C401BF /* Cocos2d_Boilerplate */,
 			);
@@ -2047,6 +2053,8 @@
 				BD7118FA16A4F03800C00EB9 /* zoomIn.png in Resources */,
 				BD7118FB16A4F03800C00EB9 /* zoomOut.png in Resources */,
 				BD077E7E16ABBC0A00B18442 /* black_fade.png in Resources */,
+				BD64F0C516C2BBA10084F29E /* mapSelectButton01.png in Resources */,
+				BD64F0C616C2BBA10084F29E /* mapSelectButton02.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

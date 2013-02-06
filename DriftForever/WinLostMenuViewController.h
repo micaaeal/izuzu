@@ -29,6 +29,8 @@
 @property (retain, nonatomic) IBOutlet UIButton *btnRestart;
 
 @property (retain, nonatomic) IBOutlet UIButton *btnNext;
+@property (retain, nonatomic) IBOutlet UIButton *btnShare;
+@property (retain, nonatomic) IBOutlet UIButton *btnMenu;
 
 @property (retain, nonatomic) IBOutlet UILabel *txtScore;
 
