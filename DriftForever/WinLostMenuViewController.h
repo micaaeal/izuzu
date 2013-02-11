@@ -34,6 +34,10 @@
 
 @property (retain, nonatomic) IBOutlet UILabel *txtScore;
 
+@property (retain, nonatomic) IBOutlet UIImageView *imgScoreLow;
+@property (retain, nonatomic) IBOutlet UIImageView *imgScoreEverage;
+@property (retain, nonatomic) IBOutlet UIImageView *imgScoreHigh;
+
 - (IBAction)onShare:(id)sender;
 - (IBAction)onRestart:(id)sender;
 - (IBAction)onNext:(id)sender;

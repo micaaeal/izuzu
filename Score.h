@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+enum SCORE_LEVEL {
+    SCORE_LEVEL_HIGH = 0,
+    SCORE_LEVEL_EVERAGE,
+    SCORE_LEVEL_LOW,
+    };
+
 @interface Score : NSObject
 
 + (Score*) getObject;
@@ -20,5 +26,6 @@
 
 - (void) reset;
 - (long) calculateScore;
+- (enum SCORE_LEVEL) getScoreLevelFromScore: (long) score;
 
 @end

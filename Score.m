@@ -50,13 +50,19 @@ Score* _s_score   = nil;
     {
         order   = gotOrder / totalOrder;
     }
-
+    else
+    {
+        order   = 1;
+    }
     
     // time
     double remainTime   = _missionTime - _driveTime;
     if ( remainTime < 0.0 )
         remainTime  = 0.0;
-    double time  = remainTime / _missionTime;
+    double time  = remainTime * 1.7f / _missionTime;
+    
+    if ( time > 1.0f )
+        time    = 1.0f;
     
     // fuel
     double fuel  = _fuelNormRemained;
@@ -70,6 +76,15 @@ Score* _s_score   = nil;
     long netScore   = ( elapseScore * score ) + minScore;
     
     return netScore;
+}
+
+- (enum SCORE_LEVEL) getScoreLevelFromScore: (long) score
+{
+    if ( score > 7000 )
+        return SCORE_LEVEL_HIGH;
+    if ( score > 4000 )
+        return SCORE_LEVEL_EVERAGE;
+    return SCORE_LEVEL_LOW;
 }
 
 @end

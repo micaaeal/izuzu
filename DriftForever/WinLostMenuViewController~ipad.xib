@@ -193,7 +193,6 @@
 						<string key="NSFrame">{{905, 644}, {99, 104}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -226,7 +225,7 @@
 						<string key="NSFrame">{{422, 470}, {333, 21}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="1067507582"/>
+						<reference key="NSNextKeyView" ref="777912985"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -257,7 +256,7 @@
 						<string key="NSFrame">{{350, 316}, {64, 94}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="182965948"/>
+						<reference key="NSNextKeyView" ref="1067507582"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -284,7 +283,7 @@
 						<string key="NSFrame">{{610, 313}, {64, 94}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="777912985"/>
+						<reference key="NSNextKeyView" ref="182965948"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -390,6 +389,30 @@
 						<reference key="destination" ref="340732483"/>
 					</object>
 					<int key="connectionID">707</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">imgScoreLow</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="1022300961"/>
+					</object>
+					<int key="connectionID">708</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">imgScoreEverage</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="1067507582"/>
+					</object>
+					<int key="connectionID">709</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">imgScoreHigh</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="738739217"/>
+					</object>
+					<int key="connectionID">711</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -557,7 +580,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">707</int>
+			<int key="maxID">711</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -589,16 +612,24 @@
 						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="btnMenu">UIButton</string>
 						<string key="btnNext">UIButton</string>
 						<string key="btnRestart">UIButton</string>
 						<string key="btnShare">UIButton</string>
 						<string key="imgBg">UIImageView</string>
 						<string key="imgCharacter">UIImageView</string>
 						<string key="imgScoreBg">UIImageView</string>
+						<string key="imgScoreEverage">UIImageView</string>
+						<string key="imgScoreHigh">UIImageView</string>
+						<string key="imgScoreLow">UIImageView</string>
 						<string key="imgWinLabel">UIImageView</string>
 						<string key="txtScore">UILabel</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="btnMenu">
+							<string key="name">btnMenu</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="btnNext">
 							<string key="name">btnNext</string>
 							<string key="candidateClassName">UIButton</string>
@@ -621,6 +652,18 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="imgScoreBg">
 							<string key="name">imgScoreBg</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="imgScoreEverage">
+							<string key="name">imgScoreEverage</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="imgScoreHigh">
+							<string key="name">imgScoreHigh</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="imgScoreLow">
+							<string key="name">imgScoreLow</string>
 							<string key="candidateClassName">UIImageView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="imgWinLabel">

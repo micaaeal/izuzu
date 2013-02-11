@@ -326,6 +326,7 @@ vector<TrEdge>      _edgeRoute;
             [[Car getObject] setTarget:carTarget];
             [[Car getObject] setSpeed:0.0f];
             [[Car getObject] Update:deltaTime];
+            [[Car getObject] resetCarToTarget];
             
             CGRect carBoundingBox   = [[Car getObject] getBoundingBox];
             printf ("car bounding box: %f, %f, %f, %f",
@@ -495,12 +496,31 @@ vector<TrEdge>      _edgeRoute;
             
             // update mission
             [[Mission getObject] Update:deltaTime];
+
+            // normal move cam to car
+            static float s_lerpNorm   = 0.0f;
+            CGPoint carPoint    = [[Car getObject] getPosition];
+            CGPoint lerpPoint   = carPoint;
             
+            // camera to the car
+            CGSize winSize  = [[CCDirector sharedDirector] winSize];
+            CGPoint camPoint    = lerpPoint;
+            camPoint.x -= (winSize.width * 0.5f);
+            camPoint.y -= (winSize.height * 0.5f);
+            [[Camera getObject] setCameraToPoint:camPoint];
+            
+            // calc lerp value
+            s_lerpNorm  -= 0.5 * deltaTime;
+            if ( s_lerpNorm < 0.0f )
+                s_lerpNorm  = 0.0f;
+            
+#pragma mark - modify zooming @ point feature here
+            
+            /*
             // get is focusing
             [[FocusZoom getObject] update:deltaTime];
             BOOL isFocusing = [[FocusZoom getObject] getIsFocusing];
 
-            //*
             static float s_lerpNorm   = 0.0f;
             CGPoint carPoint    = [[Car getObject] getPosition];
             if ( ! isFocusing )
@@ -553,8 +573,10 @@ vector<TrEdge>      _edgeRoute;
                 s_lerpNorm  += 0.2 * deltaTime;
                 if ( s_lerpNorm > 1.0f )
                     s_lerpNorm  = 1.0f;
+                
             }
-            
+            */
+                
             // Draging and time
             if ( _isDragging )
             {

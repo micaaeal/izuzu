@@ -175,14 +175,55 @@
         
         // write level data
         NSString* missionCode   = [[NSString alloc] initWithFormat:@"%d", [[Mission getObject] getCurrentMissionCode]];
-        NSString* missionScore  = [[NSString alloc] initWithFormat:@"%ld", [[Score getObject] calculateScore]];
+        
+        long currentScore       = [[Score getObject] calculateScore];
+        NSString* missionScore  = [[NSString alloc] initWithFormat:@"%ld", currentScore];
         
         NSDictionary* cLevelDict    = [[NSDictionary alloc] initWithObjectsAndKeys:
                                        missionScore, @"mission_score",
                                        nil];
-        [[SaveLoadData getObject] SaveLevelData:cLevelDict andKey:missionCode];
+        
+        // save data
+        NSDictionary* allLevelData  = [[SaveLoadData getObject] loadSavedLevel];
+        NSDictionary* cLevelData    = [allLevelData objectForKey:missionCode];
+        NSString* cMissionScoreStr  = [cLevelData objectForKey:@"mission_score"];
+        long oldMissionScore        = cMissionScoreStr.longLongValue;
+        
+        if ( currentScore > oldMissionScore )
+        {
+            [[SaveLoadData getObject] SaveLevelData:cLevelDict andKey:missionCode];
+        }
+        
         [cLevelDict release];
         cLevelDict  = nil;
+        
+        // show score ranking
+        enum SCORE_LEVEL cScoreLevel    = [[Score getObject] getScoreLevelFromScore:currentScore];
+        switch (cScoreLevel) {
+            case SCORE_LEVEL_HIGH:
+            {
+                [_imgScoreLow setImage:[UIImage imageNamed:@"medal02.png"]];
+                [_imgScoreEverage setImage:[UIImage imageNamed:@"medal02.png"]];
+                [_imgScoreHigh setImage:[UIImage imageNamed:@"medal02.png"]];
+            }
+                break;
+            case SCORE_LEVEL_EVERAGE:
+            {
+                [_imgScoreLow setImage:[UIImage imageNamed:@"medal02.png"]];
+                [_imgScoreEverage setImage:[UIImage imageNamed:@"medal02.png"]];
+                [_imgScoreHigh setImage:[UIImage imageNamed:@"medal01.png"]];
+            }
+                break;
+            case SCORE_LEVEL_LOW:
+            {
+                [_imgScoreLow setImage:[UIImage imageNamed:@"medal02.png"]];
+                [_imgScoreEverage setImage:[UIImage imageNamed:@"medal01.png"]];
+                [_imgScoreHigh setImage:[UIImage imageNamed:@"medal01.png"]];
+            }
+                break;
+            default:
+                break;
+        }
     }
     else
     {
@@ -230,6 +271,9 @@
     [_txtScore release];
     [_btnShare release];
     [_btnMenu release];
+    [_imgScoreLow release];
+    [_imgScoreEverage release];
+    [_imgScoreHigh release];
     [super dealloc];
 }
 
@@ -243,6 +287,9 @@
     [self setTxtScore:nil];
     [self setBtnShare:nil];
     [self setBtnMenu:nil];
+    [self setImgScoreLow:nil];
+    [self setImgScoreEverage:nil];
+    [self setImgScoreHigh:nil];
     [super viewDidUnload];
 }
 

@@ -408,6 +408,30 @@
 					<int key="connectionID">97</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">imgScoreLow</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="749783586"/>
+					</object>
+					<int key="connectionID">98</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">imgScoreEverage</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="627786725"/>
+					</object>
+					<int key="connectionID">99</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">imgScoreHigh</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="855645317"/>
+					</object>
+					<int key="connectionID">100</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">onNext:</string>
 						<reference key="source" ref="843728109"/>
@@ -567,7 +591,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">97</int>
+			<int key="maxID">100</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -606,6 +630,8 @@
 						<string key="imgBg">UIImageView</string>
 						<string key="imgCharacter">UIImageView</string>
 						<string key="imgScoreBg">UIImageView</string>
+						<string key="imgScoreEverage">UIImageView</string>
+						<string key="imgScoreLow">UIImageView</string>
 						<string key="imgWinLabel">UIImageView</string>
 						<string key="txtScore">UILabel</string>
 					</dictionary>
@@ -636,6 +662,14 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="imgScoreBg">
 							<string key="name">imgScoreBg</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="imgScoreEverage">
+							<string key="name">imgScoreEverage</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="imgScoreLow">
+							<string key="name">imgScoreLow</string>
 							<string key="candidateClassName">UIImageView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="imgWinLabel">

@@ -23,6 +23,9 @@ enum PICK_UP_STATE {
     };
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+
+static CGPoint _s_carAnchorValue   = CGPointMake(0.5, 0.95);
+
 @interface Car()
 
 @property (retain) CCSprite*    carSprite;
@@ -479,7 +482,39 @@ enum PICK_UP_STATE {
     {
         // set car sprite
         [_carSprite setPosition:self.position];
-        [_carSprite setRotation:self.rotation];
+        
+        // make car position be smooth
+        float spriteRadian  = _carSprite.rotation / 180.0f * M_PI;
+        CGPoint spriteVec   = CGPointMake(cosf( spriteRadian ),
+                                          sinf( spriteRadian ));
+        CGPoint spriteVecNorm   = spriteVec;
+
+        float targetRadian      = _rotation / 180.0f * M_PI;
+        CGPoint targetVecNorm   = CGPointMake(cosf( targetRadian ),
+                                              sinf( targetRadian ));
+        
+        CGPoint difVec      = CGPointMake(targetVecNorm.x - spriteVecNorm.x,
+                                          targetVecNorm.y - spriteVecNorm.y);
+        
+        float ratio_max     = 0.12f;
+        float ratio_min     = 0.09f;
+        float difVec_max    = 1.0f;
+        float difVec_min    = 0.0f;
+        float difVec_current    = ABS(difVec.x+difVec.y) * 0.5f;
+        
+        float ratio_dif     = ratio_max - ratio_min;
+        float difVec_dif    = difVec_max - difVec_min;
+        float ratio     = ( difVec_current * ratio_dif / difVec_dif ) + ratio_min;
+        
+        CGPoint difRatioVec = CGPointMake(difVec.x * ratio,
+                                          difVec.y * ratio);
+        
+        CGPoint resultVec   = CGPointMake(spriteVecNorm.x + difRatioVec.x,
+                                          spriteVecNorm.y + difRatioVec.y);
+
+        float resultRadian      = atan2f(resultVec.y, resultVec.x);
+        float resultAngle       = resultRadian * 180.0f / M_PI;
+        _carSprite.rotation     = resultAngle;
     }
     
     // car blink
@@ -647,6 +682,11 @@ enum PICK_UP_STATE {
 - (const CGPoint) getDirectionUnitVec
 {
     return _directionUnitVec;
+}
+
+- (void) resetCarToTarget
+{
+    _carSprite.rotation = _rotation;
 }
 
 - (CGRect) getBoundingBox
@@ -898,6 +938,8 @@ enum PICK_UP_STATE {
         NSString* spriteStr         = [[NSString alloc] initWithFormat:@"%@_%@_000.png", cCarName, firstCarAnimStr];
         
         CCSprite* cCarSprite = [CCSprite spriteWithSpriteFrameName:spriteStr];
+        cCarSprite.anchorPoint  = _s_carAnchorValue;
+        
         [_carSpriteArray addObject:cCarSprite];
         
         [spriteStr release]; spriteStr  = nil;

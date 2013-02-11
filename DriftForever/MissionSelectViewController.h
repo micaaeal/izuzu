@@ -27,6 +27,28 @@
 @property (retain, nonatomic) IBOutlet UIButton *btnMission04;
 @property (retain, nonatomic) IBOutlet UIButton *btnMission05;
 
+@property (retain, nonatomic) IBOutlet UIImageView *btn_m01_l;
+@property (retain, nonatomic) IBOutlet UIImageView *btn_m01_e;
+@property (retain, nonatomic) IBOutlet UIImageView *btn_m01_h;
+@property (retain, nonatomic) IBOutlet UIImageView *btn_m02_l;
+@property (retain, nonatomic) IBOutlet UIImageView *btn_m02_e;
+@property (retain, nonatomic) IBOutlet UIImageView *btn_m02_h;
+@property (retain, nonatomic) IBOutlet UIImageView *btn_m03_l;
+@property (retain, nonatomic) IBOutlet UIImageView *btn_m03_e;
+@property (retain, nonatomic) IBOutlet UIImageView *btn_m03_h;
+@property (retain, nonatomic) IBOutlet UIImageView *btn_m04_l;
+@property (retain, nonatomic) IBOutlet UIImageView *btn_m04_e;
+@property (retain, nonatomic) IBOutlet UIImageView *btn_m04_h;
+@property (retain, nonatomic) IBOutlet UIImageView *btn_m05_l;
+@property (retain, nonatomic) IBOutlet UIImageView *btn_m05_e;
+@property (retain, nonatomic) IBOutlet UIImageView *btn_m05_h;
+
+@property (retain, nonatomic) IBOutlet UIImageView *imgMissionLock01;
+@property (retain, nonatomic) IBOutlet UIImageView *imgMissionLock02;
+@property (retain, nonatomic) IBOutlet UIImageView *imgMissionLock03;
+@property (retain, nonatomic) IBOutlet UIImageView *imgMissionLock04;
+@property (retain, nonatomic) IBOutlet UIImageView *imgMissionLock05;
+
 - (void) initDataByHand;
 
 - (IBAction)onSelectMission:(id)sender;

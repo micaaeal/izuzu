@@ -136,7 +136,7 @@ static Mission* _s_mission  = nil;
         cMissionProfile.startVertexCode = 1;
         cMissionProfile.endVertexCode   = 3;
         [_missionArray addObject:cMissionProfile];
-        cMissionProfile.missionTime = 10.0;
+        cMissionProfile.missionTime = 25.0;
         [cMissionProfile release];
         cMissionProfile = nil;
     }
@@ -145,7 +145,7 @@ static Mission* _s_mission  = nil;
         cMissionProfile.startVertexCode = 10;
         cMissionProfile.endVertexCode   = 11;
         [_missionArray addObject:cMissionProfile];
-        cMissionProfile.missionTime = 10.0;
+        cMissionProfile.missionTime = 25.0;
         [cMissionProfile release];
         cMissionProfile = nil;
     }
@@ -154,7 +154,7 @@ static Mission* _s_mission  = nil;
         cMissionProfile.startVertexCode = 29;
         cMissionProfile.endVertexCode   = 30;
         [_missionArray addObject:cMissionProfile];
-        cMissionProfile.missionTime = 10.0;
+        cMissionProfile.missionTime = 25.0;
         [cMissionProfile release];
         cMissionProfile = nil;
     }
@@ -163,7 +163,7 @@ static Mission* _s_mission  = nil;
         cMissionProfile.startVertexCode = 13;
         cMissionProfile.endVertexCode   = 15;
         [_missionArray addObject:cMissionProfile];
-        cMissionProfile.missionTime = 10.0;
+        cMissionProfile.missionTime = 25.0;
         [cMissionProfile release];
         cMissionProfile = nil;
     }

@@ -345,6 +345,7 @@
 		BDDA0DD9162F854900854B96 /* EventHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDDA0DD8162F854900854B96 /* EventHandler.mm */; };
 		BDDFCE90167FD0C800535AE5 /* WorldSelectViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDDFCE8F167FD0C800535AE5 /* WorldSelectViewController~ipad.xib */; };
 		BDDFCE93167FD0DF00535AE5 /* MissionSelectViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDDFCE92167FD0DF00535AE5 /* MissionSelectViewController~ipad.xib */; };
+		BDE0EF9916C82922008C83FA /* mission_lock.png in Resources */ = {isa = PBXBuildFile; fileRef = BDE0EF9816C82922008C83FA /* mission_lock.png */; };
 		BDE2873B16881F5500A20434 /* LoadingViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDE2873916881F5500A20434 /* LoadingViewController.mm */; };
 		BDE2873C16881F5500A20434 /* LoadingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDE2873A16881F5500A20434 /* LoadingViewController.xib */; };
 		BDE2874316886D6100A20434 /* iconGo_57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = BDE2874216886D6000A20434 /* iconGo_57x57.png */; };
@@ -877,6 +878,7 @@
 		BDDA0DD8162F854900854B96 /* EventHandler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EventHandler.mm; sourceTree = "<group>"; };
 		BDDFCE8F167FD0C800535AE5 /* WorldSelectViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "WorldSelectViewController~ipad.xib"; sourceTree = "<group>"; };
 		BDDFCE92167FD0DF00535AE5 /* MissionSelectViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MissionSelectViewController~ipad.xib"; sourceTree = "<group>"; };
+		BDE0EF9816C82922008C83FA /* mission_lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mission_lock.png; sourceTree = "<group>"; };
 		BDE2873816881F5500A20434 /* LoadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingViewController.h; sourceTree = "<group>"; };
 		BDE2873916881F5500A20434 /* LoadingViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LoadingViewController.mm; sourceTree = "<group>"; };
 		BDE2873A16881F5500A20434 /* LoadingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingViewController.xib; sourceTree = "<group>"; };
@@ -1285,6 +1287,7 @@
 		BDBA337A160E252D00593FFC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BDE0EF9816C82922008C83FA /* mission_lock.png */,
 				BD077E7D16ABBC0A00B18442 /* black_fade.png */,
 				BD71185816A4F03800C00EB9 /* AcceleratorButton.png */,
 				BD71185916A4F03800C00EB9 /* back.png */,
@@ -2055,6 +2058,7 @@
 				BD077E7E16ABBC0A00B18442 /* black_fade.png in Resources */,
 				BD64F0C516C2BBA10084F29E /* mapSelectButton01.png in Resources */,
 				BD64F0C616C2BBA10084F29E /* mapSelectButton02.png in Resources */,
+				BDE0EF9916C82922008C83FA /* mission_lock.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -36,6 +36,7 @@
 - (const CGFloat) getRotation;
 - (const CGPoint) getTarget;
 - (const CGPoint) getDirectionUnitVec;
+- (void) resetCarToTarget;
 
 - (CGRect) getBoundingBox;
 
