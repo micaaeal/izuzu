@@ -505,6 +505,7 @@ static CGPoint _s_carAnchorValue   = CGPointMake(0.5, 0.95);
         float ratio_dif     = ratio_max - ratio_min;
         float difVec_dif    = difVec_max - difVec_min;
         float ratio     = ( difVec_current * ratio_dif / difVec_dif ) + ratio_min;
+        ratio   = ratio * deltaTime * 32.0f;
         
         CGPoint difRatioVec = CGPointMake(difVec.x * ratio,
                                           difVec.y * ratio);

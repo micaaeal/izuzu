@@ -80,6 +80,7 @@ static float _s_routeButtonRadius   = 100;
                 [_routeButtonArray addObject:button];
             }
         }
+        
         _hasLoaded  = YES;
     }
 }

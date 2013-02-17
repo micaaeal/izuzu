@@ -208,6 +208,11 @@
 		BDAF161F1614BF9200C50EC4 /* adjacency_matrix_config.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDAF161E1614BF9200C50EC4 /* adjacency_matrix_config.plist */; };
 		BDAF16221614BFD600C50EC4 /* vertices_config.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDAF16211614BFD600C50EC4 /* vertices_config.plist */; };
 		BDAF16241614BFE200C50EC4 /* edges_config.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDAF16231614BFE200C50EC4 /* edges_config.plist */; };
+		BDB558E016D1145A0039FF1F /* good_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = BDB558DC16D1145A0039FF1F /* good_arrow.png */; };
+		BDB558E116D1145A0039FF1F /* light.png in Resources */ = {isa = PBXBuildFile; fileRef = BDB558DD16D1145A0039FF1F /* light.png */; };
+		BDB558E316D1145A0039FF1F /* target_red.png in Resources */ = {isa = PBXBuildFile; fileRef = BDB558DF16D1145A0039FF1F /* target_red.png */; };
+		BDB558E616D11C6C0039FF1F /* MenuRouteGuide.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDB558E516D11C6C0039FF1F /* MenuRouteGuide.mm */; };
+		BDB558E816D123EF0039FF1F /* target_green.png in Resources */ = {isa = PBXBuildFile; fileRef = BDB558E716D123EF0039FF1F /* target_green.png */; };
 		BDB7578F166F8D0C00912496 /* debug.png in Resources */ = {isa = PBXBuildFile; fileRef = BDB7577C166F8D0C00912496 /* debug.png */; };
 		BDB75793166F8EB500912496 /* StartMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDB75792166F8EB500912496 /* StartMenuViewController.xib */; };
 		BDBA3368160E252D00593FFC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDBA3367160E252D00593FFC /* QuartzCore.framework */; };
@@ -600,6 +605,12 @@
 		BDAF161E1614BF9200C50EC4 /* adjacency_matrix_config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = adjacency_matrix_config.plist; sourceTree = "<group>"; };
 		BDAF16211614BFD600C50EC4 /* vertices_config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = vertices_config.plist; sourceTree = "<group>"; };
 		BDAF16231614BFE200C50EC4 /* edges_config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = edges_config.plist; sourceTree = "<group>"; };
+		BDB558DC16D1145A0039FF1F /* good_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = good_arrow.png; sourceTree = "<group>"; };
+		BDB558DD16D1145A0039FF1F /* light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = light.png; sourceTree = "<group>"; };
+		BDB558DF16D1145A0039FF1F /* target_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = target_red.png; sourceTree = "<group>"; };
+		BDB558E416D11C6C0039FF1F /* MenuRouteGuide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuRouteGuide.h; sourceTree = "<group>"; };
+		BDB558E516D11C6C0039FF1F /* MenuRouteGuide.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MenuRouteGuide.mm; sourceTree = "<group>"; };
+		BDB558E716D123EF0039FF1F /* target_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = target_green.png; sourceTree = "<group>"; };
 		BDB7577C166F8D0C00912496 /* debug.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = debug.png; path = Resources/debug.png; sourceTree = "<group>"; };
 		BDB75792166F8EB500912496 /* StartMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StartMenuViewController.xib; sourceTree = "<group>"; };
 		BDBA3363160E252D00593FFC /* DriftForever.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DriftForever.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1057,6 +1068,8 @@
 			children = (
 				BD6922A41617561A0045538D /* MenuSelectRoute.h */,
 				BDBD3F59161BC4AE00488689 /* MenuSelectRoute.mm */,
+				BDB558E416D11C6C0039FF1F /* MenuRouteGuide.h */,
+				BDB558E516D11C6C0039FF1F /* MenuRouteGuide.mm */,
 			);
 			name = "In-game Menu";
 			sourceTree = "<group>";
@@ -1287,6 +1300,10 @@
 		BDBA337A160E252D00593FFC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BDB558DC16D1145A0039FF1F /* good_arrow.png */,
+				BDB558DD16D1145A0039FF1F /* light.png */,
+				BDB558E716D123EF0039FF1F /* target_green.png */,
+				BDB558DF16D1145A0039FF1F /* target_red.png */,
 				BDE0EF9816C82922008C83FA /* mission_lock.png */,
 				BD077E7D16ABBC0A00B18442 /* black_fade.png */,
 				BD71185816A4F03800C00EB9 /* AcceleratorButton.png */,
@@ -2059,6 +2076,10 @@
 				BD64F0C516C2BBA10084F29E /* mapSelectButton01.png in Resources */,
 				BD64F0C616C2BBA10084F29E /* mapSelectButton02.png in Resources */,
 				BDE0EF9916C82922008C83FA /* mission_lock.png in Resources */,
+				BDB558E016D1145A0039FF1F /* good_arrow.png in Resources */,
+				BDB558E116D1145A0039FF1F /* light.png in Resources */,
+				BDB558E316D1145A0039FF1F /* target_red.png in Resources */,
+				BDB558E816D123EF0039FF1F /* target_green.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2204,6 +2225,7 @@
 				BDE2873B16881F5500A20434 /* LoadingViewController.mm in Sources */,
 				BDAE5BA516A2BEC0005B35CC /* SaveLoadData.m in Sources */,
 				BD077E8216ABBD1800B18442 /* Fade.m in Sources */,
+				BDB558E616D11C6C0039FF1F /* MenuRouteGuide.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

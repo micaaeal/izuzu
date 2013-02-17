@@ -21,6 +21,7 @@ using namespace std;
 #import "Score.h"
 #import "EventHandler.h"
 #import "Fade.h"
+#import "MenuRouteGuide.h"
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 enum STATE_SELECT_ROUTE
@@ -31,6 +32,10 @@ enum STATE_SELECT_ROUTE
     STATE_SELECT_ROUTE_LOAD_ROUTE,
     STATE_SELECT_ROUTE_START_MOVE_CAMERA,
     STATE_SELECT_ROUTE_SELECT_ROUTE,
+    
+    STATE_SELECT_ROUTE_ON_SELECTNG_ROUTE,
+    STATE_SELECT_ROUTE_ON_CALCEL_SELECTING,
+    
     STATE_SELECT_ROUTE_MOVE_CAMERA,
     STATE_SELECT_ROUTE_CAMERA_STOP,
     STATE_SELECT_ROUTE_REACH_TARGET,
@@ -42,20 +47,25 @@ enum STATE_SELECT_ROUTE
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
 @interface StateSelectRoute()
 
-@property (assign) vector<TrVertex>    _vertexRoute;
-@property (assign) vector<TrEdge>      _edgeRoute;
-@property (retain) MenuSelectRoute*    _menuSelectRoute;
-@property (assign) TrVertex            _startVertex;
-@property (assign) TrVertex            _finishVertex;
-@property (assign) vector<TrVertex>    _currentConnectedVertices;
+@property (assign) vector<TrVertex>     _vertexRoute;
+@property (assign) vector<TrEdge>       _edgeRoute;
+@property (retain) MenuSelectRoute*     _menuSelectRoute;
+@property (assign) TrVertex             _startVertex;
+@property (assign) TrVertex             _finishVertex;
+@property (assign) vector<TrVertex>     _currentConnectedVertices;
 
-@property (assign) BOOL                _hasSelectedRouteThisPoint;
-@property (assign) STATE_SELECT_ROUTE  _currentState;
+@property (assign) BOOL                 _hasSelectedRouteThisPoint;
+@property (assign) STATE_SELECT_ROUTE   _currentState;
 
-@property (assign) CGPoint             _currentCamPoint;
+@property (assign) CGPoint              _currentCamPoint;
 
 @property (assign) CGPoint              _touchAtBegin;
 @property (assign) CGPoint              _touchDeltaLastFrame;
+
+@property (assign) CGPoint              _nextVetexPoint;
+@property (assign) CGPoint              _currentTouchPoint;
+
+@property (retain) MenuRouteGuide*      _menuRouteGuide;
 
 - (void) _setMenuButtonAtLastVertex;
 
@@ -75,6 +85,9 @@ enum STATE_SELECT_ROUTE
 @synthesize _currentCamPoint;
 @synthesize _touchAtBegin;
 @synthesize _touchDeltaLastFrame;
+@synthesize _nextVetexPoint;
+@synthesize _currentTouchPoint;
+@synthesize _menuRouteGuide;
 
 - (void) onStart
 {
@@ -84,6 +97,10 @@ enum STATE_SELECT_ROUTE
     
     // create select route array
     _menuSelectRoute   = [[MenuSelectRoute alloc] init];
+    
+    // create route guide
+    _menuRouteGuide = [[MenuRouteGuide alloc] init];
+    [_menuRouteGuide loadDataToLayer:layer];
     
     // clear routeGraph
     RouteGraph& routeGraph  = [[World getObject] GetRouteGraph];
@@ -103,6 +120,9 @@ enum STATE_SELECT_ROUTE
     {
         [cMenu hideButtonAtIndex:j];
     }
+    
+    [_menuRouteGuide release];
+    _menuRouteGuide = nil;
     
     [_menuSelectRoute release];
     _menuSelectRoute   = nil;
@@ -255,6 +275,9 @@ enum STATE_SELECT_ROUTE
             
             // set state
             _currentState   = STATE_SELECT_ROUTE_SELECT_ROUTE;
+            
+            // generate paths
+            [[World getObject] generatePathsFromRoute];
         }
             break;
         case STATE_SELECT_ROUTE_SELECT_ROUTE:
@@ -266,10 +289,122 @@ enum STATE_SELECT_ROUTE
                 _currentState   = STATE_SELECT_ROUTE_LOAD_ROUTE;
             }
             
+            // old style state
+            /*
             if ( _hasSelectedRouteThisPoint )
             {
                 _currentState   = STATE_SELECT_ROUTE_MOVE_CAMERA;
             }
+            /*/
+            if ( _hasSelectedRouteThisPoint )
+            {
+                _currentState   = STATE_SELECT_ROUTE_ON_SELECTNG_ROUTE;
+                
+                RouteGraph& routeGraph  = [[World getObject] GetRouteGraph];
+                routeGraph.GetConnectedVertices(_currentConnectedVertices);
+                int vtSize  = routeGraph.GetVertexRoute().size();
+                TrVertex formerVt       = routeGraph.GetVertexRoute()[vtSize-2];
+                
+                [_menuRouteGuide showLight];
+                [_menuRouteGuide showRouteTarget];
+                [_menuRouteGuide setLightPoserFrom:formerVt.point to:_currentTouchPoint];
+                [_menuRouteGuide setRouteTargetPosition:_nextVetexPoint];
+                [_menuRouteGuide setRouteTargetState:NO];
+            }
+            /**/
+        }
+            break;
+        case STATE_SELECT_ROUTE_ON_SELECTNG_ROUTE:
+        {
+            //_nextVetexPoint
+            CGPoint diffPoint   = CGPointMake(_nextVetexPoint.x - _currentTouchPoint.x,
+                                              _nextVetexPoint.y - _currentTouchPoint.y);
+            
+            float cLength           = ABS(diffPoint.x) + ABS(diffPoint.y);
+            float lengthInbound     = 120.0f;
+            
+            if ( cLength <= lengthInbound )
+            {
+                // show green status
+                [_menuRouteGuide setRouteTargetState:YES];
+            }
+            else
+            {
+                [_menuRouteGuide setRouteTargetState:NO];
+            }
+            
+            // set light
+            RouteGraph& routeGraph  = [[World getObject] GetRouteGraph];
+            routeGraph.GetConnectedVertices(_currentConnectedVertices);
+            int vtSize  = routeGraph.GetVertexRoute().size();
+            TrVertex formerVt       = routeGraph.GetVertexRoute()[vtSize-2];
+            
+            [_menuRouteGuide setLightPoserFrom:formerVt.point to:_currentTouchPoint];
+            
+            // move camera, if go near the border
+            Camera* camera      = [Camera getObject];
+            CGPoint camPoint    = [camera getPoint];
+            CGFloat camZoomX    = [camera getZoomX];
+            
+            CGSize camSize  = [[CCDirector sharedDirector] winSize];
+            
+            CGPoint camCenter       = CGPointMake(camPoint.x - camSize.width*0.5f,
+                                                  camPoint.y - camSize.height*0.5f);
+            
+            CGPoint camToTouchDiff  = CGPointMake(_currentTouchPoint.x + camCenter.x,
+                                                  _currentTouchPoint.y + camCenter.y );
+            
+            printf ("cam to touch diff (%f,%f)", camToTouchDiff.x, camToTouchDiff.y);
+            printf ("\n");
+            
+            float camDifLength      = sqrtf(camToTouchDiff.x * camToTouchDiff.x +
+                                                camToTouchDiff.y * camToTouchDiff.y);
+            
+            float cCamZoomX             = [[Camera getObject] getZoomX];
+            float camDifLengthNoMove    = 180.0f / cCamZoomX;
+            
+            if ( camDifLength > camDifLengthNoMove )
+            {
+                float cOverBound        = camDifLength - camDifLengthNoMove;
+                CGPoint camToTouchUnit  = CGPointMake(camToTouchDiff.x/camDifLength,
+                                                      camToTouchDiff.y/camDifLength);
+                
+                float moveRatio = 1.9f * deltaTime;
+                CGPoint moveVec = CGPointMake( (-1) * camToTouchUnit.x * cOverBound * moveRatio,
+                                               (-1) * camToTouchUnit.y * cOverBound * moveRatio);
+                
+                [camera moveCameraByPoint:moveVec];
+            }
+            
+        }
+            break;
+        case STATE_SELECT_ROUTE_ON_CALCEL_SELECTING:
+        {
+            CGPoint diffPoint   = CGPointMake(_nextVetexPoint.x - _currentTouchPoint.x,
+                                              _nextVetexPoint.y - _currentTouchPoint.y);
+            
+            float cLength           = ABS(diffPoint.x) + ABS(diffPoint.y);
+            float lengthInbound     = 120.0f;
+            
+            if ( cLength <= lengthInbound )
+            {
+                // selection success
+                _currentState   = STATE_SELECT_ROUTE_MOVE_CAMERA;
+                
+                // hide menu route guide
+                [_menuRouteGuide hideRouteTarget];
+                [_menuRouteGuide hideLight];
+                
+                break;
+            }
+            
+            // selection failed.
+            [self _removeLastRoute];
+            _currentState   = STATE_SELECT_ROUTE_LOAD_ROUTE;
+            
+            // hide menu route guide
+            [_menuRouteGuide hideRouteTarget];
+            [_menuRouteGuide hideLight];
         }
             break;
         case STATE_SELECT_ROUTE_MOVE_CAMERA:
@@ -286,7 +421,7 @@ enum STATE_SELECT_ROUTE
             
             if ( _finishVertex.vertexId == lastVertex.vertexId )
             {
-                _currentState  = STATE_SELECT_ROUTE_REACH_TARGET;
+                _currentState   = STATE_SELECT_ROUTE_REACH_TARGET;
             }
             else
             {
@@ -296,6 +431,9 @@ enum STATE_SELECT_ROUTE
             break;
         case STATE_SELECT_ROUTE_REACH_TARGET:
         {
+            // generate paths
+            [[World getObject] generatePathsFromRoute];
+            
             RouteGraph& cRouteGraph     = [[World getObject] GetRouteGraph];
             vector<TrEdge> edgeRoute    = cRouteGraph.GetEdgeRoute();
 
@@ -356,6 +494,8 @@ enum STATE_SELECT_ROUTE
     printf ("touch point: (%f,%f)", absPoint.x, absPoint.y);
     printf ("\n");
     
+    _currentTouchPoint  = absPoint;
+    
     MenuSelectRoute* cMenuSelectRoute   = _menuSelectRoute;
     [cMenuSelectRoute checkActionByPoint:absPoint];
     
@@ -368,36 +508,80 @@ enum STATE_SELECT_ROUTE
 
 - (void) onTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event
 {
-    if ( !
+    // set touching point AT move
+    if ( _currentState == STATE_SELECT_ROUTE_ON_SELECTNG_ROUTE )
+    {
+        CGPoint location    = [touch locationInView:[touch view]];
+        CGPoint touchPoint  = [[CCDirector sharedDirector] convertToGL:location];
+        
+        Camera* camera      = [Camera getObject];
+        CGPoint camPoint    = [camera getPoint];
+        CGFloat camZoomX    = [camera getZoomX];
+        
+        CGSize camSize  = [[CCDirector sharedDirector] winSize];
+        
+        CGPoint camCenter       = CGPointMake(camPoint.x - camSize.width*0.5f,
+                                              camPoint.y - camSize.height*0.5f);
+        
+        CGPoint viewPortPoint   = CGPointMake(camCenter.x + camSize.width*0.5f/camZoomX,
+                                              camCenter.y + camSize.height*0.5f/camZoomX );
+        
+        CGPoint absPoint        = CGPointMake( touchPoint.x / camZoomX - viewPortPoint.x,
+                                              touchPoint.y / camZoomX - viewPortPoint.y );
+        
+        _currentTouchPoint  = absPoint;
+    }
+    
+    if (
         (_currentState == STATE_SELECT_ROUTE_SELECT_ROUTE ||
          _currentState == STATE_SELECT_ROUTE_FINISH
          )
         )
-        return;
+    {
+        CGFloat zoomX   = [[Camera getObject] getZoomX];
+        
+        // cal..
+        CGPoint touchPoint  = [touch locationInView: [touch view]];
+        CGPoint touchDelta  = CGPointMake((touchPoint.x - _touchAtBegin.x) / zoomX ,
+                                          (touchPoint.y - _touchAtBegin.y) / zoomX );
+        CGPoint vecMoveCam  = CGPointMake(touchDelta.x - _touchDeltaLastFrame.x,
+                                          touchDelta.y - _touchDeltaLastFrame.y);
+        _touchDeltaLastFrame    = touchDelta;
+        
+        // move cam
+        CGPoint vecMoveCamMod  = CGPointMake(vecMoveCam.x, -vecMoveCam.y);
+        [[Camera getObject] moveCameraByPoint:vecMoveCamMod];
+    }
     
-    CGFloat zoomX   = [[Camera getObject] getZoomX];
-    
-    // cal..
-    CGPoint touchPoint  = [touch locationInView: [touch view]];
-    CGPoint touchDelta  = CGPointMake((touchPoint.x - _touchAtBegin.x) / zoomX ,
-                                      (touchPoint.y - _touchAtBegin.y) / zoomX );
-    CGPoint vecMoveCam  = CGPointMake(touchDelta.x - _touchDeltaLastFrame.x,
-                                      touchDelta.y - _touchDeltaLastFrame.y);
-    _touchDeltaLastFrame    = touchDelta;
-    
-    // move cam
-    CGPoint vecMoveCamMod  = CGPointMake(vecMoveCam.x, -vecMoveCam.y);
-    [[Camera getObject] moveCameraByPoint:vecMoveCamMod];
 }
 
 - (void) onTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
 {
-    if ( !
-        (_currentState == STATE_SELECT_ROUTE_SELECT_ROUTE ||
-         _currentState == STATE_SELECT_ROUTE_FINISH
-         )
-        )
-        return;
+    if ( _currentState == STATE_SELECT_ROUTE_ON_SELECTNG_ROUTE )
+    {
+        CGPoint location    = [touch locationInView:[touch view]];
+        CGPoint touchPoint  = [[CCDirector sharedDirector] convertToGL:location];
+        
+        Camera* camera      = [Camera getObject];
+        CGPoint camPoint    = [camera getPoint];
+        CGFloat camZoomX    = [camera getZoomX];
+        
+        CGSize camSize  = [[CCDirector sharedDirector] winSize];
+        
+        CGPoint camCenter       = CGPointMake(camPoint.x - camSize.width*0.5f,
+                                              camPoint.y - camSize.height*0.5f);
+        
+        CGPoint viewPortPoint   = CGPointMake(camCenter.x + camSize.width*0.5f/camZoomX,
+                                              camCenter.y + camSize.height*0.5f/camZoomX );
+        
+        CGPoint absPoint        = CGPointMake( touchPoint.x / camZoomX - viewPortPoint.x,
+                                              touchPoint.y / camZoomX - viewPortPoint.y );
+        
+        _currentTouchPoint  = absPoint;
+        
+        _currentState   = STATE_SELECT_ROUTE_ON_CALCEL_SELECTING;
+    }
+    
 }
 
 - (void) onGetStringMessage: (NSString*) message
@@ -405,17 +589,12 @@ enum STATE_SELECT_ROUTE
     // cancel route message
     if ( [message isEqualToString:@"remove_back"] )
     {
-        // remove last route
-        RouteGraph& routeGraph  = [[World getObject] GetRouteGraph];
-        if ( routeGraph.GetVertexRoute().size() <= 1 )
-            return;
-    
-        routeGraph.RemoveBackRoute();
-        routeGraph.GetConnectedVertices(_currentConnectedVertices);
-    
-        [[World getObject] generatePathsFromRoute];
-        
+        [self _removeLastRoute];
         _currentState   = STATE_SELECT_ROUTE_LOAD_ROUTE;
+        
+        // hide menu route guide
+        [_menuRouteGuide hideRouteTarget];
+        [_menuRouteGuide hideLight];
     }
 }
 
@@ -431,10 +610,26 @@ enum STATE_SELECT_ROUTE
     
     _hasSelectedRouteThisPoint  = YES;
     
-    [[World getObject] generatePathsFromRoute];
+    // set next selecting point
+    _nextVetexPoint         = nextVertex.point;
 }
 
 #pragma mark - PIMPL
+
+- (void) _removeLastRoute
+{
+    // remove last route
+    RouteGraph& routeGraph  = [[World getObject] GetRouteGraph];
+    if ( routeGraph.GetVertexRoute().size() <= 1 )
+        return;
+    
+    routeGraph.RemoveBackRoute();
+    routeGraph.GetConnectedVertices(_currentConnectedVertices);
+    
+    [[World getObject] generatePathsFromRoute];
+    
+    _currentState   = STATE_SELECT_ROUTE_LOAD_ROUTE;
+}
 
 - (void) _setMenuButtonAtLastVertex
 {
