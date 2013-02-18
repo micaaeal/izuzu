@@ -179,7 +179,8 @@ vector<TrEdge>      _edgeRoute;
     _edgeRoute      = routeGraph.GetEdgeRoute();
     
     _camZoomTarget      = [[Camera getObject] getZoomX];
-    _camZoomSpeed       = 0.3f;
+    //_camZoomSpeed       = 0.3f;
+    _camZoomSpeed       = 0.8f;
     
     // in case of iPad
     BOOL isIPadSize = NO;
@@ -191,8 +192,13 @@ vector<TrEdge>      _edgeRoute;
     
     if ( isIPadSize )
     {
+        /*
         _camZoomInMax       = 2.0;
         _camZoomOutMax      = 0.8;
+        /*/
+        _camZoomInMax       = 2.8;
+        _camZoomOutMax      = 1.0;
+        /**/
     }
     else
     {

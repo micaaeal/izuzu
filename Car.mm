@@ -248,7 +248,7 @@ static CGPoint _s_carAnchorValue   = CGPointMake(0.5, 0.95);
     {
         [layer addChild:cCarSprite];
         cCarSprite.zOrder   = 10;
-        CGFloat carScale    = [UtilVec convertScaleIfRetina:1.0f];
+        CGFloat carScale    = [UtilVec convertScaleIfRetina:0.8f];
         [cCarSprite setScale:carScale];
     }
     

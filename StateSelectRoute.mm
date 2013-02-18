@@ -224,7 +224,8 @@ enum STATE_SELECT_ROUTE
             float deltaPointLength  = sqrtf( toMoveVec.x*toMoveVec.x + toMoveVec.y*toMoveVec.y);
             CGPoint toMoveVecUnit   = CGPointMake(toMoveVec.x/deltaPointLength, toMoveVec.y/deltaPointLength);
             
-            float toMoveSpeed       = 300.0f;
+            //float toMoveSpeed       = 300.0f;
+            float toMoveSpeed       = 600.0f;
             float toMoveDistance    = deltaTime * toMoveSpeed;
             CGPoint toMoveVecAbsolute   = CGPointMake(toMoveVecUnit.x*toMoveDistance,
                                                       toMoveVecUnit.y*toMoveDistance);
@@ -344,7 +345,7 @@ enum STATE_SELECT_ROUTE
             // move camera, if go near the border
             Camera* camera      = [Camera getObject];
             CGPoint camPoint    = [camera getPoint];
-            CGFloat camZoomX    = [camera getZoomX];
+            //CGFloat camZoomX    = [camera getZoomX];
             
             CGSize camSize  = [[CCDirector sharedDirector] winSize];
             

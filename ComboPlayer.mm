@@ -11,7 +11,7 @@
 #import "UtilVec.h"
 
 static ComboPlayer* _s_object   = nil;
-CGPoint buttonPointArray[4];
+CGPoint buttonPointArray[3];
 
 @interface ComboPlayer()
 
@@ -119,11 +119,13 @@ CGPoint buttonPointArray[4];
         CCSprite* cSprite   = [CCSprite spriteWithFile:fullStr];
         [comboButtonDict setObject:cSprite forKey:@"button_c"];
     }
+    /*
     {
         NSString* fullStr   = [NSString stringWithFormat:@"%@.png", @"button_d"];
         CCSprite* cSprite   = [CCSprite spriteWithFile:fullStr];
         [comboButtonDict setObject:cSprite forKey:@"button_d"];
     }
+    */
     
     // combos
     NSArray* comboSpriteNameArray    = [[NSArray alloc] initWithObjects:
@@ -131,22 +133,22 @@ CGPoint buttonPointArray[4];
                                    @"combo_a",
                                    @"combo_b",
                                    @"combo_c",
-                                   @"combo_d",
+                                   //@"combo_d",
                                    
                                    @"combo_a",
                                    @"combo_b",
                                    @"combo_c",
-                                   @"combo_d",
+                                   //@"combo_d",
                                    
                                    @"combo_a",
                                    @"combo_b",
                                    @"combo_c",
-                                   @"combo_d",
+                                   //@"combo_d",
                                    
                                    @"combo_a",
                                    @"combo_b",
                                    @"combo_c",
-                                   @"combo_d",
+                                   //@"combo_d",
                                    
                                    nil];
     
@@ -183,43 +185,43 @@ CGPoint buttonPointArray[4];
         if ( ! hasAddResourcesToLayer )
             [layer addChild:cSprite];
         
-        CGPoint buttonCenter    = CGPointMake(90.0f, 90.0f);
-        CGFloat space01 = 55.0f;
-        CGFloat space02 = 16.0f;
-        CGFloat space03 = 14.0f;
+        CGPoint buttonCenter    = CGPointMake(110.0f, 60.0f);
+        CGFloat spacewidth  = 130.0f;
+        CGFloat spaceHeight = 16.0f;
+        //CGFloat space03 = 14.0f;
         
         if ( [cKey isEqualToString:@"button_a"] )
         {
-            buttonPointArray[0] = CGPointMake(buttonCenter.x - space01, 
-                                              buttonCenter.y + space03); 
+            buttonPointArray[0] = CGPointMake(buttonCenter.x - spacewidth * 0.5f,
+                                              buttonCenter.y);
             [cSprite setPosition:buttonPointArray[0]];
             [buttonSpriteArray addObject:cSprite];
             [cSprite setScale:[UtilVec convertScaleIfRetina:cSprite.scale]];
         }
         else if ( [cKey isEqualToString:@"button_b"] )
         {
-            buttonPointArray[1] = CGPointMake(buttonCenter.x - space02, 
-                                              buttonCenter.y - space01); 
+            buttonPointArray[1] = CGPointMake(buttonCenter.x,
+                                              buttonCenter.y + spaceHeight);
             [cSprite setPosition: buttonPointArray[1]];            
             [buttonSpriteArray addObject:cSprite];
             [cSprite setScale:[UtilVec convertScaleIfRetina:cSprite.scale]];
         }
         else if ( [cKey isEqualToString:@"button_c"] )
         {
-            buttonPointArray[2] = CGPointMake(buttonCenter.x + space02, 
-                                              buttonCenter.y + space01);
+            buttonPointArray[2] = CGPointMake(buttonCenter.x + spacewidth * 0.5f,
+                                              buttonCenter.y);
             [cSprite setPosition: buttonPointArray[2]];
             [buttonSpriteArray addObject:cSprite];
             [cSprite setScale:[UtilVec convertScaleIfRetina:cSprite.scale]];
         }
-        else if ( [cKey isEqualToString:@"button_d"] )
-        {
-            buttonPointArray[3] = CGPointMake(buttonCenter.x + space01, 
-                                              buttonCenter.y - space03);
-            [cSprite setPosition: buttonPointArray[3]];
-            [buttonSpriteArray addObject:cSprite];
-            [cSprite setScale:[UtilVec convertScaleIfRetina:cSprite.scale]];
-        }
+//        else if ( [cKey isEqualToString:@"button_d"] )
+//        {
+//            buttonPointArray[3] = CGPointMake(buttonCenter.x + space01, 
+//                                              buttonCenter.y - space03);
+//            [cSprite setPosition: buttonPointArray[3]];
+//            [buttonSpriteArray addObject:cSprite];
+//            [cSprite setScale:[UtilVec convertScaleIfRetina:cSprite.scale]];
+//        }
         else
         {
             [cSprite setPosition:CGPointMake(buttonCenter.x,
@@ -284,9 +286,11 @@ CGPoint buttonPointArray[4];
     }
     /*/
     // random the combo in list
-    for ( int i=0; i<4; ++i )
+    int comboCount  = 4;
+    int randCount   = 3;
+    for ( int i=0; i<comboCount; ++i )
     {
-        u_int32_t randValue         = arc4random()  % 4;
+        u_int32_t randValue         = arc4random()  % randCount;
         [comboNumberArray addObject:[NSNumber numberWithInt:randValue]];
     }
     /**/
@@ -339,7 +343,7 @@ CGPoint buttonPointArray[4];
         for ( int i=currentComboIndex; i<comboNumberArray.count; ++i)
         {
             int cSpriteIndex    = ((NSNumber*)[comboNumberArray objectAtIndex:i]).intValue;
-            int cIndex          = cSpriteIndex + (i*4);
+            int cIndex          = cSpriteIndex + (i*3);
             
             CCSprite* cSprite   = [comboSpriteArray objectAtIndex:cIndex];
             [cSprite setOpacity:255];
