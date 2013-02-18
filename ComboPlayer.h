@@ -25,6 +25,7 @@
 - (void) LoadData;
 - (void) UnloadData;
 
+- (void) startOverShootEvent;
 - (void) startEvent: (Event*) event;
 - (void) finishEvent: (BOOL) isSuccess;
 - (BOOL) isPlayingEvent;

@@ -39,6 +39,7 @@ enum STATE_DRIVE_CAR
     STATE_DRIVE_CAR_LOAD_ROUTE,
     STATE_DRIVE_CAR_DRIVE_CAR_SET_CHECKPOINT,
     STATE_DRIVE_CAR_DRIVE_CAR_LERP,
+    STATE_DRIVE_CAR_SPEED_CHALLENGE,
     STATE_DRIVE_CAR_REACH_TARGET,
     STATE_DRIVE_CAR_FINISH,
     
@@ -591,6 +592,14 @@ vector<TrEdge>      _edgeRoute;
             
         }
             break;
+        case STATE_DRIVE_CAR_SPEED_CHALLENGE:
+        {
+            //[[Car getObject] playOvershootAnim];
+            //_currentState   = STATE_DRIVE_CAR_DRIVE_CAR_LERP;
+            
+            
+        }
+            break;
         case STATE_DRIVE_CAR_REACH_TARGET:
         {
             printf ( "car is reaching the target!!!\n" );
@@ -623,24 +632,7 @@ vector<TrEdge>      _edgeRoute;
 
 - (void) onRender
 {
-    /*
-    if (_currentState == STATE_DRIVE_CAR_DRIVE_CAR_LERP ||
-        _currentState == STATE_DRIVE_CAR_REACH_TARGET ||
-        _currentState == STATE_DRIVE_CAR_FINISH )
-    {
-        --__comeBackToShow;
-        if ( __comeBackToShow <= 0 )
-        {
-            __comeBackToShow    = 0;
-            [[Car getObject] showCar];
-        }
-    }
-    else
-    {
-        [[Car getObject] hideCar];
-        __comeBackToShow    = 3;
-    }
-    */
+
 }
 
 - (BOOL) onTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
@@ -743,6 +735,10 @@ vector<TrEdge>      _edgeRoute;
         else if ( [event.eventName isEqualToString:@"turtle"] )
         {
             [[Car getObject] playTutleEffect];
+        }
+        else if ( [event.eventName isEqualToString:@"over_shoot"] )
+        {
+            [[Car getObject] playOvershootAnim];
         }
     }
     
@@ -858,7 +854,9 @@ vector<TrEdge>      _edgeRoute;
                 // check0
                 if ( speed > _carSpeedLimit )
                 {
-                    [[Car getObject] playOvershootAnim];
+                    //_currentState   = STATE_DRIVE_CAR_SPEED_CHALLENGE;
+                    [self _startSuperSlowMotion];
+                    [[ComboPlayer getObject] startOverShootEvent];
                 }
             }
         }
@@ -877,6 +875,11 @@ vector<TrEdge>      _edgeRoute;
 - (void) _stopSlowMotion
 {
     _timeSpeed  = 1.0f;
+}
+
+- (void) _startSuperSlowMotion
+{
+    _timeSpeed  = _timeSlowMotion / 3.1f;
 }
 
 - (BOOL) _isDangerousBendWithPoint01:(CGPoint) point_01

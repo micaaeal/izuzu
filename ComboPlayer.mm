@@ -21,6 +21,7 @@ CGPoint buttonPointArray[3];
 @property (assign) int      currentComboIndex;
 @property (retain) Event*   currentEvent;
 @property (assign) float    comboTime;
+@property (retain) Event*   overShootEvent;
 
 @property (retain) NSMutableDictionary* comboButtonDict;
 @property (retain) NSMutableArray*  buttonSpriteArray;
@@ -45,6 +46,7 @@ CGPoint buttonPointArray[3];
 @synthesize comboArrowSprite;
 @synthesize delegate;
 @synthesize hasAddResourcesToLayer;
+@synthesize overShootEvent;
 
 + (ComboPlayer*) getObject
 {
@@ -83,12 +85,17 @@ CGPoint buttonPointArray[3];
         buttonSpriteArray = [[NSMutableArray alloc] init];
         comboButtonDict   = [[NSMutableDictionary alloc] init];
         delegate          = nil;
+        overShootEvent    = [[Event alloc] init];
+        overShootEvent.comboTime    = @"3";
+        overShootEvent.eventName    = @"over_shoot";
     }
     return self;
 }
 
 - (void) dealloc
 {
+    [overShootEvent release];
+    overShootEvent  = nil;
     [comboSpriteArray release];
     comboSpriteArray    = nil;
     [comboNumberArray release];
@@ -247,6 +254,35 @@ CGPoint buttonPointArray[3];
     hasAddResourcesToLayer  = YES;
 }
 
+- (void) startOverShootEvent
+{
+    Event* event    = overShootEvent;
+    
+    // set combo time
+    comboTime   = event.comboTime.floatValue;
+    
+    // init event
+    currentComboIndex   = 0;
+    
+    for (CCSprite* cButton in buttonSpriteArray)
+    {
+        [cButton setOpacity:255];
+    }
+    
+    [comboNumberArray removeAllObjects];
+    
+    // random the combo in list
+    int comboCount  = 4;
+    int randCount   = 3;
+    for ( int i=0; i<comboCount; ++i )
+    {
+        u_int32_t randValue         = arc4random()  % randCount;
+        [comboNumberArray addObject:[NSNumber numberWithInt:randValue]];
+    }
+    
+    currentEvent  = event;
+}
+
 - (void) startEvent:(Event *)event
 {
     // set combo time
@@ -261,30 +297,7 @@ CGPoint buttonPointArray[3];
     }
     
     [comboNumberArray removeAllObjects];
-    /*
-    for (NSString* cComboStr in event.comboList)
-    {
-        if ( [cComboStr.uppercaseString isEqualToString:@"A"] )
-        {
-            [comboNumberArray addObject:[NSNumber numberWithInt:0]];
-        }
-        else if ( [cComboStr.uppercaseString isEqualToString:@"B"] )
-        {
-            [comboNumberArray addObject:[NSNumber numberWithInt:1]];
-        }
-        else if ( [cComboStr.uppercaseString isEqualToString:@"C"] )
-        {
-            [comboNumberArray addObject:[NSNumber numberWithInt:2]];
-        }
-        else if ( [cComboStr.uppercaseString isEqualToString:@"D"] )
-        {
-            [comboNumberArray addObject:[NSNumber numberWithInt:3]];
-        }
-        else {
-            // do nothing
-        }
-    }
-    /*/
+
     // random the combo in list
     int comboCount  = 4;
     int randCount   = 3;
@@ -293,7 +306,6 @@ CGPoint buttonPointArray[3];
         u_int32_t randValue         = arc4random()  % randCount;
         [comboNumberArray addObject:[NSNumber numberWithInt:randValue]];
     }
-    /**/
     
     currentEvent  = event;
 }
