@@ -56,9 +56,13 @@ CGPoint buttonPointArray[3];
         
         CGSize winSize          = [CCDirector sharedDirector].winSize;
         
-        if ( winSize.width < 481.0f ) // iPhone win size
+        if ( winSize.height < 321.0f && winSize.width < 481.0f ) // iPhone win size
         {
             _s_object.comboListPointRef = CGPointMake(120.0f, 250.0f);
+        }
+        else if ( winSize.width >= 481.0f ) // iPhone 5
+        {
+            _s_object.comboListPointRef = CGPointMake(170.0f, 250.0f);
         }
         else
         {

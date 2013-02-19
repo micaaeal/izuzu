@@ -17,7 +17,7 @@
 
 enum DEVICE_TYPE {
     DEVICE_TYPE_IPOD = 0,
-    
+    DEVICE_TYPE_IPHONE5,
     DEVICE_TYPE_OTHER_IOS,
     };
 
@@ -94,11 +94,11 @@ enum DEVICE_TYPE {
     
     if ([deviceModel rangeOfString:@"IPOD"].location == NSNotFound)
     {
-        _deviceType     = DEVICE_TYPE_IPOD;
+        _deviceType     = DEVICE_TYPE_OTHER_IOS;
     }
     else
     {
-        _deviceType     = DEVICE_TYPE_OTHER_IOS;
+        _deviceType     = DEVICE_TYPE_IPOD;
     }
     
 }
@@ -131,9 +131,13 @@ enum DEVICE_TYPE {
 
 - (void) _onLoadTextureSequence_01
 {
-    if ( _deviceType != DEVICE_TYPE_IPOD )
+    if ( _deviceType == DEVICE_TYPE_IPOD )
     {
         [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGB5A1];
+    }
+    else
+    {
+        [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGBA8888];
     }
     
     [[World getObject] LoadRoads];
@@ -160,6 +164,7 @@ enum DEVICE_TYPE {
 - (void) _onLoadTextureSequence_03
 {
     [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGB5A1];
+    
     [[Car getObject] LoadData];
     
     [NSTimer scheduledTimerWithTimeInterval:_loadingTimeGap
@@ -180,6 +185,15 @@ enum DEVICE_TYPE {
 }
 - (void) _onLoadTextureSequence_05
 {
+    if ( _deviceType == DEVICE_TYPE_IPOD )
+    {
+        [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGB5A1];
+    }
+    else
+    {
+        [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGBA8888];
+    }
+    
     [[Console getObject] LoadData];
     
     [NSTimer scheduledTimerWithTimeInterval:_loadingTimeGap

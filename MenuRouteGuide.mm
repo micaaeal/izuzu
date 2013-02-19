@@ -130,9 +130,8 @@
     
     // scale
     float length        = sqrtf( difX*difX + difY*difY );
-    float deviceScale   = [[UIScreen mainScreen] scale];
     
-    float lightScaleY   = ( length / _light.textureRect.size.height ) * deviceScale;
+    float lightScaleY   = ( length / _light.textureRect.size.height );
     
     [_light setScaleY:lightScaleY];
 }

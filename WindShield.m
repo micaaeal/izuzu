@@ -86,8 +86,16 @@ WindShield* _s_object   = nil;
         [cSprite setScale:[UtilVec convertScaleIfRetina:cSprite.scale]];
         [cSprite setOpacity:0];
         _waterSprite    = cSprite;
-        // in case of iPad
-        if ( winSize.height > 767.999 & winSize.height < 768.001 )
+
+        if ( winSize.height < 321.0f && winSize.width < 481.0f ) // iPhone win size
+        {
+            // do nothing
+        }
+        else if ( winSize.width >= 481.0f ) // iPhone 5
+        {
+            [cSprite setScale:cSprite.scale*2.5f];
+        }
+        else
         {
             [cSprite setScale:cSprite.scale*2.5f];
         }
@@ -101,8 +109,16 @@ WindShield* _s_object   = nil;
         [cSprite setScale:[UtilVec convertScaleIfRetina:cSprite.scale]];
         [cSprite setOpacity:0];
         _dustSprite    = cSprite;
-        // in case of iPad
-        if ( winSize.height > 767.999 & winSize.height < 768.001 )
+        
+        if ( winSize.height < 321.0f && winSize.width < 481.0f ) // iPhone win size
+        {
+            // do nothing
+        }
+        else if ( winSize.width >= 481.0f ) // iPhone 5
+        {
+            [cSprite setScale:cSprite.scale*1.5f];
+        }
+        else
         {
             [cSprite setScale:cSprite.scale*2.5f];
         }
