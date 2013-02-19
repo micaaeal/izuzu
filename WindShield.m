@@ -91,7 +91,7 @@ WindShield* _s_object   = nil;
         {
             // do nothing
         }
-        else if ( winSize.width >= 481.0f ) // iPhone 5
+        else if ( winSize.height < 321.0f && winSize.width >= 481.0f ) // iPhone 5
         {
             [cSprite setScale:cSprite.scale*2.5f];
         }
@@ -114,7 +114,7 @@ WindShield* _s_object   = nil;
         {
             // do nothing
         }
-        else if ( winSize.width >= 481.0f ) // iPhone 5
+        else if (  winSize.height < 321.0f && winSize.width >= 481.0f ) // iPhone 5
         {
             [cSprite setScale:cSprite.scale*1.5f];
         }
