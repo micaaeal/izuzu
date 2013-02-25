@@ -33,6 +33,7 @@
 		BD0E191A166597DB00971528 /* StartMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD0E1918166597DB00971528 /* StartMenuViewController.m */; };
 		BD1B83AA164B2469005950CB /* WindShield.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1B83A9164B2469005950CB /* WindShield.m */; };
 		BD2BEA6B167A54C5003371D4 /* Order.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD2BEA6A167A54C5003371D4 /* Order.mm */; };
+		BD3B7C9C16DBA12100F879A1 /* LinePlotter.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD3B7C9B16DBA12100F879A1 /* LinePlotter.mm */; };
 		BD42286F168803280024027C /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD42286D168803280024027C /* RootViewController.m */; };
 		BD422870168803280024027C /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD42286E168803280024027C /* RootViewController.xib */; };
 		BD42683F166FB5CC00D5789D /* GamePlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD42683D166FB5CC00D5789D /* GamePlayViewController.m */; };
@@ -408,6 +409,8 @@
 		BD1B83A9164B2469005950CB /* WindShield.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WindShield.m; sourceTree = "<group>"; };
 		BD2BEA69167A54C5003371D4 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
 		BD2BEA6A167A54C5003371D4 /* Order.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Order.mm; sourceTree = "<group>"; };
+		BD3B7C9A16DBA12100F879A1 /* LinePlotter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinePlotter.h; sourceTree = "<group>"; };
+		BD3B7C9B16DBA12100F879A1 /* LinePlotter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LinePlotter.mm; sourceTree = "<group>"; };
 		BD42286C168803280024027C /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		BD42286D168803280024027C /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		BD42286E168803280024027C /* RootViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RootViewController.xib; sourceTree = "<group>"; };
@@ -1018,6 +1021,8 @@
 		BD49BD3D161356E600C401BF /* World */ = {
 			isa = PBXGroup;
 			children = (
+				BD3B7C9A16DBA12100F879A1 /* LinePlotter.h */,
+				BD3B7C9B16DBA12100F879A1 /* LinePlotter.mm */,
 				BD49BD421613576E00C401BF /* World.h */,
 				BD49BD431613576E00C401BF /* World.mm */,
 			);
@@ -2226,6 +2231,7 @@
 				BDAE5BA516A2BEC0005B35CC /* SaveLoadData.m in Sources */,
 				BD077E8216ABBD1800B18442 /* Fade.m in Sources */,
 				BDB558E616D11C6C0039FF1F /* MenuRouteGuide.mm in Sources */,
+				BD3B7C9C16DBA12100F879A1 /* LinePlotter.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

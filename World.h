@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "Mission.h"
+#import "LinePlotter.h"
 
 class RouteGraph;
 @interface World : NSObject
@@ -32,6 +33,6 @@ class RouteGraph;
 - (void) generatePathsFromRoute;
 - (void) clearGeneratedPaths;
 
-- (void) fadeWorld;
+- (LinePlotter*) getLinePlotter;
 
 @end

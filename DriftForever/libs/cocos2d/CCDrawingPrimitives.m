@@ -201,7 +201,7 @@ void ccDrawSolidPoly( const CGPoint *poli, NSUInteger numberOfPoints, ccColor4F 
 
 	// XXX: Mac OpenGL error. arrays can't go out of scope before draw is executed
 	ccVertex2F newPoli[numberOfPoints];
-
+    
 	// iPhone and 32-bit machines optimization
 	if( sizeof(CGPoint) == sizeof(ccVertex2F) )
 		glVertexAttribPointer(kCCVertexAttrib_Position, 2, GL_FLOAT, GL_FALSE, 0, poli);

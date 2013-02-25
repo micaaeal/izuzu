@@ -23,6 +23,7 @@ using namespace std;
 #import "Console.h"
 #import "ComboPlayer.h"
 #import "Fade.h"
+#import "LinePlotter.h"
 
 // camera
 #import "Camera.h"
@@ -115,6 +116,11 @@ PlayDriftLayer* _s_playDriftLayer   = nil;
         _isReadyToDrive     = NO;
         _isNotFinishedYet   = YES;
      
+        // set line plotter
+        CCRenderTexture* linePlotterLayer  = [[[World getObject] getLinePlotter] getRenderTexture];
+        [linePlotterLayer setZOrder:23];
+        [self addChild:linePlotterLayer];
+        
         // init all sub layers
         CCLayer* actionLayer = [[[CCLayer alloc] init] autorelease];
         [self addChild:actionLayer];

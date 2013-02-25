@@ -79,6 +79,7 @@ World* _s_world = nil;
 @property (retain) NSMutableArray*  generatedPathSpriteArray;
 
 @property (assign) int  pathOpacity;
+@property (retain) LinePlotter*     linePlotter;
 
 - (void) loadFloor;
 
@@ -196,6 +197,8 @@ World* _s_world = nil;
         _pathSpriteArray = [[NSMutableArray alloc] init];
         _generatedPathSpriteArray = [[NSMutableArray alloc] init];
         _pathOpacity   = 160;
+        _linePlotter    = [[LinePlotter alloc] init];
+        [_linePlotter start];
         
         [self loadFloor];
     }
@@ -249,6 +252,8 @@ World* _s_world = nil;
         
     }
     
+    [_linePlotter release];
+    _linePlotter    = nil;
     [_pathSpriteArray release];
     _pathSpriteArray    = nil;
     screenBounds  = CGRectMake(0.0f, 0.0f, 0.0f, 0.0f);
@@ -294,6 +299,7 @@ World* _s_world = nil;
             NSString* rotation  = [cRoadDict objectForKey:@"rotation"];
             
             CCSprite* cSprite   = [CCSprite spriteWithSpriteFrameName:file_name];
+            
             if ( ! cSprite )
             {
                 printf ("null image with name: %s", [file_name UTF8String]);
@@ -1097,6 +1103,10 @@ World* _s_world = nil;
     }
     /**/
     
+    // set linePlotter layer
+    //CCRenderTexture* linePlotterLayer  = [_linePlotter getRenderTexture];
+    //[layer addChild:linePlotterLayer];
+    
     // set layer ref
     _layer   = layer;
     
@@ -1292,6 +1302,9 @@ World* _s_world = nil;
             bufferPoints:floor_etc05_buffer
                     size:[self getFloor_etc05].size()
            viewPortPoint:viewPortPoint camZoom:camZoomX];
+    
+    // line plotter
+    [_linePlotter onDrawWithViewport:viewPortPoint andCamZoom:camZoomX];
 }
 
 - (void) showAllPaths
@@ -1726,6 +1739,11 @@ World* _s_world = nil;
             [_pathSpriteArray addObject:cPathSprite];
         }
     }
+}
+
+- (LinePlotter*) getLinePlotter
+{
+    return _linePlotter;
 }
 
 @end
