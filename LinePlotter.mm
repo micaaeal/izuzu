@@ -10,13 +10,16 @@
 #import <vector>
 using namespace std;
 #import "cocos2d.h"
+#import "UtilVec.h"
 
 @interface LinePlotter()
 
 @property (assign) vector<CGPoint>  points;
-@property (retain) CCRenderTexture *renderTexture;
+@property (assign) float            lineWidth;
+@property (assign) CCLayer*         _rootLayer;
 
-@property (assign) float    lineWidth;
+@property (retain) NSMutableArray*  pointTextures;
+@property (retain) NSMutableArray*  pathTextures;
 
 - (void) _drawCircleAtPoint: (CGPoint) point;
 - (void) _drawLineBetweenPointA: (CGPoint) pa andPointB: (CGPoint) pb;
@@ -24,23 +27,24 @@ using namespace std;
 @end
 
 @implementation LinePlotter
+@synthesize _rootLayer;
 
 - (id) init
 {
     self    = [super init];
     if ( self )
     {
-        _renderTexture  = nil;
-        
+        _rootLayer  = nil;
+        _pointTextures  = [[NSMutableArray alloc] init];
+        _pathTextures   = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
 - (void) dealloc
 {
-    [_renderTexture release];
-    _renderTexture  = nil;
-    
+    [_pathTextures release];
+    [_pointTextures release];
     [super dealloc];
 }
 
@@ -49,15 +53,6 @@ using namespace std;
     _points.clear();
     _lineWidth  = 10.0f;
     
-    // init render texture
-    CGSize s = [[CCDirector sharedDirector] winSize];
-    
-    _renderTexture = [[CCRenderTexture alloc] initWithWidth:(int)(s.width*0.5)
-                                                     height:(int)(s.height*0.5)
-                                                pixelFormat:kCCTexture2DPixelFormat_RGBA8888];
-    _renderTexture.anchorPoint = ccp(0, 0);
-    _renderTexture.position = ccp(1024 * 0.5f, 768 * 0.5f);
-    [_renderTexture clear:0.0f g:0.0f b:0.0f a:0];
 }
 
 - (void) shutdown
@@ -69,17 +64,48 @@ using namespace std;
 - (void) clear
 {
     _points.clear();
+    
+    for ( int i=0; i<_pointTextures.count; ++i )
+    {
+        CCSprite* cSprite   = [_pointTextures objectAtIndex:i];
+        [cSprite removeFromParentAndCleanup:YES];
+    }
+    
+    [_pointTextures removeAllObjects];
+    
+    for ( int i=0; i<_pathTextures.count; ++i )
+    {
+        CCSprite* cSprite   = [_pathTextures objectAtIndex:i];
+        [cSprite removeFromParentAndCleanup:YES];
+    }
+    
+    [_pathTextures removeAllObjects];
 }
 
 - (void) begineWithPoint: (CGPoint) point
 {
     [self clear];
     _points.push_back(point);
+    //[self _drawCircleAtPoint:point];
 }
 
 - (void) addPoint: (CGPoint) point
 {
+    BOOL hasLastPoint   = NO;
+    CGPoint lastPoint   = CGPointMake(0, 0);
+    if ( _points.size() > 0 )
+    {
+        lastPoint       = _points.back();
+        hasLastPoint    = YES;
+    }
+    
     _points.push_back(point);
+    [self _drawCircleAtPoint:point];
+    
+    if ( ! hasLastPoint )
+        return;
+    
+    [self _drawLineBetweenPointA:lastPoint andPointB:point];
 }
 
 - (void) end
@@ -89,6 +115,7 @@ using namespace std;
 
 - (void) onDraw
 {
+    /*
     BOOL hasPrevPoint   = NO;
     CGPoint prevPoint;
     
@@ -107,12 +134,12 @@ using namespace std;
         prevPoint   = cPoint;
         hasPrevPoint    = YES;
     }
+    */
 }
 
 - (void) onDrawWithViewport:(CGPoint)vp andCamZoom:(float)zoom
 {
-    //[_renderTexture begin];
-    
+    /*
     BOOL hasPrevPoint   = NO;
     CGPoint prevPoint;
     
@@ -135,8 +162,7 @@ using namespace std;
         prevPoint   = center;
         hasPrevPoint    = YES;
     }
-    
-    //[_renderTexture end];
+    */
 }
 
 - (CGPoint) getLastPoint
@@ -148,7 +174,7 @@ using namespace std;
 
 - (void) _drawCircleAtPoint: (CGPoint) point
 {
-    //ccDrawCircle( point, _lineWidth, 0.0f, 8, YES );
+    /*
     CGPoint center      = point;
     int verticesCount   = 10;
     float radius        = _lineWidth * 0.5f;
@@ -175,10 +201,19 @@ using namespace std;
     ccDrawSolidPoly(&points[0],
                     points.size(),
                     ccc4f(1.0f, 1.0f, 1.0f, 1.0f));
+    /*/
+    CCSprite* circleSprite  = [CCSprite spriteWithFile:@"selector_ball.png"];
+    CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:circleSprite.scale];
+    [circleSprite setScale:cSpriteScale];
+    [circleSprite setPosition:point];
+    [_rootLayer addChild:circleSprite];
+    [_pointTextures addObject:circleSprite];
+    /**/
 }
 
 - (void) _drawLineBetweenPointA: (CGPoint) pa andPointB: (CGPoint) pb
 {
+    /*
     CGPoint dir = ccpSub(pb, pa);
     CGPoint perpendicular = ccpNormalize(ccpPerp(dir));
     
@@ -191,11 +226,39 @@ using namespace std;
     ccDrawSolidPoly(cRect,
                     4,
                     ccc4f(1.0f, 1.0f, 1.0f, 1.0f));
+    /*/
+    CCSprite* lightSprite  = [CCSprite spriteWithFile:@"light.png"];
+    CGFloat cSpriteScale    = [UtilVec convertScaleIfRetina:lightSprite.scale];
+    [lightSprite setScale:cSpriteScale];
+    [lightSprite setAnchorPoint:CGPointMake(0.5f, 0.0f)];
+    [lightSprite setPosition:pa];
+    [_rootLayer addChild:lightSprite];
+    [_pathTextures addObject:lightSprite];
+    
+    // set position
+    CGPoint from    = pa;
+    CGPoint to      = pb;
+    lightSprite.position = from;
+    
+    // rotation
+    float difX      = to.x - from.x;
+    float difY      = to.y - from.y;
+    float radian    = atan2f(difX, difY);
+    
+    lightSprite.rotation = radian * 180.0f / M_PI;
+    
+    // scale
+    float length        = sqrtf( difX*difX + difY*difY );
+    
+    float lightScaleY   = ( length / lightSprite.textureRect.size.height );
+    
+    [lightSprite setScaleY:lightScaleY];
+    /**/
 }
 
-- (CCRenderTexture*) getRenderTexture
+- (void) setRootLayer: (CCLayer*) rootLayer
 {
-    return _renderTexture;
+    _rootLayer  = rootLayer;
 }
 
 @end

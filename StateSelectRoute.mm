@@ -506,7 +506,8 @@ enum STATE_SELECT_ROUTE
     
     // line plotter
     LinePlotter* linePlotter    = [[World getObject] getLinePlotter];
-    [linePlotter begineWithPoint:CGPointMake(-absPoint.x - 80.0f, -absPoint.y)];
+    //[linePlotter begineWithPoint:CGPointMake(-absPoint.x - 80.0f, -absPoint.y)];
+    [linePlotter addPoint:CGPointMake(absPoint.x, absPoint.y)];
     //[linePlotter begineWithPoint:location];
     
     return YES;
@@ -539,7 +540,8 @@ enum STATE_SELECT_ROUTE
         
         // line plotter
         LinePlotter* linePlotter    = [[World getObject] getLinePlotter];
-        [linePlotter addPoint:CGPointMake(-absPoint.x - 80.0f, -absPoint.y)];
+        //[linePlotter addPoint:CGPointMake(-absPoint.x - 80.0f, -absPoint.y)];
+        [linePlotter addPoint:CGPointMake(absPoint.x, absPoint.y)];
         //[linePlotter begineWithPoint:location];
     }
     

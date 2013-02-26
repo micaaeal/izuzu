@@ -117,9 +117,9 @@ PlayDriftLayer* _s_playDriftLayer   = nil;
         _isNotFinishedYet   = YES;
      
         // set line plotter
-        CCRenderTexture* linePlotterLayer  = [[[World getObject] getLinePlotter] getRenderTexture];
-        [linePlotterLayer setZOrder:23];
-        [self addChild:linePlotterLayer];
+        //CCRenderTexture* linePlotterLayer  = [[[World getObject] getLinePlotter] getRenderTexture];
+        //[linePlotterLayer setZOrder:23];
+        //[self addChild:linePlotterLayer];
         
         // init all sub layers
         CCLayer* actionLayer = [[[CCLayer alloc] init] autorelease];

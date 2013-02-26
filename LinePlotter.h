@@ -23,6 +23,6 @@
 - (void) onDrawWithViewport:(CGPoint) vp andCamZoom:(float)zoom;
 
 - (CGPoint) getLastPoint;
-- (CCRenderTexture*) getRenderTexture;
+- (void) setRootLayer: (CCLayer*) rootLayer;
 
 @end

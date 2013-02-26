@@ -198,7 +198,6 @@ World* _s_world = nil;
         _generatedPathSpriteArray = [[NSMutableArray alloc] init];
         _pathOpacity   = 160;
         _linePlotter    = [[LinePlotter alloc] init];
-        [_linePlotter start];
         
         [self loadFloor];
     }
@@ -1104,8 +1103,8 @@ World* _s_world = nil;
     /**/
     
     // set linePlotter layer
-    //CCRenderTexture* linePlotterLayer  = [_linePlotter getRenderTexture];
-    //[layer addChild:linePlotterLayer];
+    [_linePlotter setRootLayer:layer];
+    [_linePlotter start];
     
     // set layer ref
     _layer   = layer;

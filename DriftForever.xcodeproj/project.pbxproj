@@ -337,6 +337,7 @@
 		BDBA34E9160E253100593FFC /* vec3.c in Sources */ = {isa = PBXBuildFile; fileRef = BDBA34E8160E253100593FFC /* vec3.c */; };
 		BDBA34EB160E253100593FFC /* vec4.c in Sources */ = {isa = PBXBuildFile; fileRef = BDBA34EA160E253100593FFC /* vec4.c */; };
 		BDBA34F0160E253100593FFC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BDBA34EF160E253100593FFC /* main.m */; };
+		BDBCAA2316DD17DF003C10B4 /* selector_ball.png in Resources */ = {isa = PBXBuildFile; fileRef = BDBCAA2216DD17DF003C10B4 /* selector_ball.png */; };
 		BDBD3F57161BB48B00488689 /* UtilVec.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDBD3F56161BB48B00488689 /* UtilVec.mm */; };
 		BDBD3F5A161BC4AE00488689 /* MenuSelectRoute.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDBD3F59161BC4AE00488689 /* MenuSelectRoute.mm */; };
 		BDC2C1CA1677F3D40099C632 /* event_oil.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC2C1C91677F3D40099C632 /* event_oil.png */; };
@@ -872,6 +873,7 @@
 		BDBA34EC160E253100593FFC /* LICENSE_Kazmath.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = LICENSE_Kazmath.txt; path = libs/LICENSE_Kazmath.txt; sourceTree = "<group>"; };
 		BDBA34EE160E253100593FFC /* Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 		BDBA34EF160E253100593FFC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		BDBCAA2216DD17DF003C10B4 /* selector_ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selector_ball.png; sourceTree = "<group>"; };
 		BDBD3F55161BB48B00488689 /* UtilVec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilVec.h; sourceTree = "<group>"; };
 		BDBD3F56161BB48B00488689 /* UtilVec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = UtilVec.mm; sourceTree = "<group>"; };
 		BDBD3F58161BB58E00488689 /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
@@ -1305,6 +1307,7 @@
 		BDBA337A160E252D00593FFC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BDBCAA2216DD17DF003C10B4 /* selector_ball.png */,
 				BDB558DC16D1145A0039FF1F /* good_arrow.png */,
 				BDB558DD16D1145A0039FF1F /* light.png */,
 				BDB558E716D123EF0039FF1F /* target_green.png */,
@@ -2085,6 +2088,7 @@
 				BDB558E116D1145A0039FF1F /* light.png in Resources */,
 				BDB558E316D1145A0039FF1F /* target_red.png in Resources */,
 				BDB558E816D123EF0039FF1F /* target_green.png in Resources */,
+				BDBCAA2316DD17DF003C10B4 /* selector_ball.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

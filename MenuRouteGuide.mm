@@ -118,6 +118,7 @@
 
 - (void) setLightPoserFrom:(CGPoint) from to:(CGPoint) to
 {
+    /*
     // set position
     _light.position = from;
     
@@ -134,6 +135,7 @@
     float lightScaleY   = ( length / _light.textureRect.size.height );
     
     [_light setScaleY:lightScaleY];
+    */
 }
 
 - (void) showRouteTarget
