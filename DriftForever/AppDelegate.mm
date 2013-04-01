@@ -32,6 +32,7 @@ NSString *const FBSessionStateChangedNotification = @"com.Codegears.izuzu:FBSess
 @property (assign) BOOL _isOnResume;
 @property (retain) CCScene* _playDriftScene;
 @property (retain) CCGLView* _glView;
+@property (retain) AuthenApp* authenApp;
 
 - (void) _loadMenuView;
 - (void) _unloadMenuView;
@@ -173,6 +174,7 @@ NSString *const FBSessionStateChangedNotification = @"com.Codegears.izuzu:FBSess
 	// make main window visible
 	[window_ makeKeyAndVisible];
     
+    /* // normal flow
     if ( _GAME_MODE_ == _GAME_MODE_MAINSTREAM_ )
     {
         [self _loadMenuView];
@@ -181,7 +183,12 @@ NSString *const FBSessionStateChangedNotification = @"com.Codegears.izuzu:FBSess
     {
         [self _loadCocosDirector];
     }
-    
+    /*/ // authentication flow
+    _authenApp  = [[[AuthenApp alloc] init] retain];
+    _authenApp.delegate  = self;
+    [_authenApp startAppAuthen];
+    /**/
+     
     // FBSample logic
     // See if we have a valid token for the current state.
     if (![self openSessionWithAllowLoginUI:NO]) {
@@ -577,6 +584,23 @@ NSString *const FBSessionStateChangedNotification = @"com.Codegears.izuzu:FBSess
 - (void) onZoomOut:(id)sender
 {
     [_gamePlayViewController.playDriftLayer onZoomOut:self];
+}
+
+#pragma mark - AuthenViewDelegate
+
+- (void) onAuthenSuccess:(id)sender
+{
+    [self _loadMenuView];
+    
+    [_authenApp release];
+    _authenApp  = nil;
+}
+
+- (void) onAuthenFailed:(id)sender
+{
+    
+    [_authenApp release];
+    _authenApp  = nil;
 }
 
 @end

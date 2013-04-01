@@ -15,10 +15,11 @@
 #import "RootViewController.h"
 #import "LoadingViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
+#import "AuthenApp.h"
 
 extern NSString *const FBSessionStateChangedNotification;
 
-@interface AppController : NSObject <UIApplicationDelegate, CCDirectorDelegate, StartMenuViewDelegate, GameFlowSignalDelegate, PlayDriftLayerDelegate, GamePlayViewDelegate>
+@interface AppController : NSObject <UIApplicationDelegate, CCDirectorDelegate, StartMenuViewDelegate, GameFlowSignalDelegate, PlayDriftLayerDelegate, GamePlayViewDelegate, AuthenAppDelegate>
 
 @property (nonatomic, retain) UIWindow *window;
 

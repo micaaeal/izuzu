@@ -67,6 +67,12 @@
 		BD64F0C616C2BBA10084F29E /* mapSelectButton02.png in Resources */ = {isa = PBXBuildFile; fileRef = BD64F0C416C2BBA10084F29E /* mapSelectButton02.png */; };
 		BD6CA9CE1636996900131027 /* event_config.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD6CA9CD1636996900131027 /* event_config.plist */; };
 		BD6CA9D11636D1F200131027 /* ComboPlayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD6CA9D01636D1F200131027 /* ComboPlayer.mm */; };
+		BD6D0E1E1709DF33001C32B5 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = BD6D0E131709DF33001C32B5 /* NSObject+SBJSON.m */; };
+		BD6D0E1F1709DF33001C32B5 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = BD6D0E151709DF33001C32B5 /* NSString+SBJSON.m */; };
+		BD6D0E201709DF33001C32B5 /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = BD6D0E171709DF33001C32B5 /* SBJSON.m */; };
+		BD6D0E211709DF33001C32B5 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = BD6D0E191709DF33001C32B5 /* SBJsonBase.m */; };
+		BD6D0E221709DF33001C32B5 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BD6D0E1B1709DF33001C32B5 /* SBJsonParser.m */; };
+		BD6D0E231709DF33001C32B5 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = BD6D0E1D1709DF33001C32B5 /* SBJsonWriter.m */; };
 		BD7118AA16A4F03800C00EB9 /* AcceleratorButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BD71185816A4F03800C00EB9 /* AcceleratorButton.png */; };
 		BD7118AB16A4F03800C00EB9 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = BD71185916A4F03800C00EB9 /* back.png */; };
 		BD7118AC16A4F03800C00EB9 /* backButton01.png in Resources */ = {isa = PBXBuildFile; fileRef = BD71185A16A4F03800C00EB9 /* backButton01.png */; };
@@ -341,6 +347,7 @@
 		BDBD3F57161BB48B00488689 /* UtilVec.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDBD3F56161BB48B00488689 /* UtilVec.mm */; };
 		BDBD3F5A161BC4AE00488689 /* MenuSelectRoute.mm in Sources */ = {isa = PBXBuildFile; fileRef = BDBD3F59161BC4AE00488689 /* MenuSelectRoute.mm */; };
 		BDC2C1CA1677F3D40099C632 /* event_oil.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC2C1C91677F3D40099C632 /* event_oil.png */; };
+		BDC759621709138100BF67A6 /* AuthenApp.m in Sources */ = {isa = PBXBuildFile; fileRef = BDC759601709138100BF67A6 /* AuthenApp.m */; };
 		BDC765711695E41800388F57 /* car_02_01_Run001.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC765701695E41800388F57 /* car_02_01_Run001.png */; };
 		BDC76588169609ED00388F57 /* RootViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDC76587169609ED00388F57 /* RootViewController~ipad.xib */; };
 		BDC8C889167657390059F50F /* breakButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC8C887167657380059F50F /* breakButton.png */; };
@@ -453,6 +460,19 @@
 		BD6CA9CD1636996900131027 /* event_config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = event_config.plist; sourceTree = "<group>"; };
 		BD6CA9CF1636D1F200131027 /* ComboPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComboPlayer.h; sourceTree = "<group>"; };
 		BD6CA9D01636D1F200131027 /* ComboPlayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ComboPlayer.mm; sourceTree = "<group>"; };
+		BD6D0E111709DF33001C32B5 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
+		BD6D0E121709DF33001C32B5 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
+		BD6D0E131709DF33001C32B5 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
+		BD6D0E141709DF33001C32B5 /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SBJSON.h"; sourceTree = "<group>"; };
+		BD6D0E151709DF33001C32B5 /* NSString+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SBJSON.m"; sourceTree = "<group>"; };
+		BD6D0E161709DF33001C32B5 /* SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJSON.h; sourceTree = "<group>"; };
+		BD6D0E171709DF33001C32B5 /* SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJSON.m; sourceTree = "<group>"; };
+		BD6D0E181709DF33001C32B5 /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
+		BD6D0E191709DF33001C32B5 /* SBJsonBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonBase.m; sourceTree = "<group>"; };
+		BD6D0E1A1709DF33001C32B5 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
+		BD6D0E1B1709DF33001C32B5 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
+		BD6D0E1C1709DF33001C32B5 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
+		BD6D0E1D1709DF33001C32B5 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 		BD71185816A4F03800C00EB9 /* AcceleratorButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AcceleratorButton.png; sourceTree = "<group>"; };
 		BD71185916A4F03800C00EB9 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		BD71185A16A4F03800C00EB9 /* backButton01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backButton01.png; sourceTree = "<group>"; };
@@ -879,6 +899,8 @@
 		BDBD3F58161BB58E00488689 /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		BDBD3F59161BC4AE00488689 /* MenuSelectRoute.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MenuSelectRoute.mm; sourceTree = "<group>"; };
 		BDC2C1C91677F3D40099C632 /* event_oil.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = event_oil.png; path = Resources/event_oil.png; sourceTree = "<group>"; };
+		BDC7595F1709138100BF67A6 /* AuthenApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenApp.h; sourceTree = "<group>"; };
+		BDC759601709138100BF67A6 /* AuthenApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenApp.m; sourceTree = "<group>"; };
 		BDC765701695E41800388F57 /* car_02_01_Run001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = car_02_01_Run001.png; path = Resources/car_02_01_Run001.png; sourceTree = "<group>"; };
 		BDC76587169609ED00388F57 /* RootViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "RootViewController~ipad.xib"; sourceTree = "<group>"; };
 		BDC8C887167657380059F50F /* breakButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = breakButton.png; path = Resources/breakButton.png; sourceTree = "<group>"; };
@@ -1081,6 +1103,34 @@
 			name = "In-game Menu";
 			sourceTree = "<group>";
 		};
+		BD6D0E0F1709DE0F001C32B5 /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				BD6D0E101709DF33001C32B5 /* JSON */,
+			);
+			name = Dependencies;
+			sourceTree = "<group>";
+		};
+		BD6D0E101709DF33001C32B5 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				BD6D0E111709DF33001C32B5 /* JSON.h */,
+				BD6D0E121709DF33001C32B5 /* NSObject+SBJSON.h */,
+				BD6D0E131709DF33001C32B5 /* NSObject+SBJSON.m */,
+				BD6D0E141709DF33001C32B5 /* NSString+SBJSON.h */,
+				BD6D0E151709DF33001C32B5 /* NSString+SBJSON.m */,
+				BD6D0E161709DF33001C32B5 /* SBJSON.h */,
+				BD6D0E171709DF33001C32B5 /* SBJSON.m */,
+				BD6D0E181709DF33001C32B5 /* SBJsonBase.h */,
+				BD6D0E191709DF33001C32B5 /* SBJsonBase.m */,
+				BD6D0E1A1709DF33001C32B5 /* SBJsonParser.h */,
+				BD6D0E1B1709DF33001C32B5 /* SBJsonParser.m */,
+				BD6D0E1C1709DF33001C32B5 /* SBJsonWriter.h */,
+				BD6D0E1D1709DF33001C32B5 /* SBJsonWriter.m */,
+			);
+			path = JSON;
+			sourceTree = "<group>";
+		};
 		BD9673151667FC8500B0C9CD /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -1243,6 +1293,7 @@
 				BDE549ED1616FD72005B6BD5 /* State */,
 				BDBD3F53161BB47400488689 /* Utils */,
 				BD49BD3D161356E600C401BF /* World */,
+				BD6D0E0F1709DE0F001C32B5 /* Dependencies */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1300,6 +1351,8 @@
 				BD9AFA87166BA1FE009988F9 /* PlayDriftLayer.mm */,
 				BDBA3394160E252D00593FFC /* libs */,
 				BDBA34ED160E253100593FFC /* Supporting Files */,
+				BDC7595F1709138100BF67A6 /* AuthenApp.h */,
+				BDC759601709138100BF67A6 /* AuthenApp.m */,
 			);
 			path = DriftForever;
 			sourceTree = "<group>";
@@ -2236,6 +2289,13 @@
 				BD077E8216ABBD1800B18442 /* Fade.m in Sources */,
 				BDB558E616D11C6C0039FF1F /* MenuRouteGuide.mm in Sources */,
 				BD3B7C9C16DBA12100F879A1 /* LinePlotter.mm in Sources */,
+				BDC759621709138100BF67A6 /* AuthenApp.m in Sources */,
+				BD6D0E1E1709DF33001C32B5 /* NSObject+SBJSON.m in Sources */,
+				BD6D0E1F1709DF33001C32B5 /* NSString+SBJSON.m in Sources */,
+				BD6D0E201709DF33001C32B5 /* SBJSON.m in Sources */,
+				BD6D0E211709DF33001C32B5 /* SBJsonBase.m in Sources */,
+				BD6D0E221709DF33001C32B5 /* SBJsonParser.m in Sources */,
+				BD6D0E231709DF33001C32B5 /* SBJsonWriter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
